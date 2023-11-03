@@ -51,7 +51,7 @@ export default function Layout({ children }: PropsWithChildren) {
     >
       <main style={{
         flex: '1 1 auto',
-        alignSelf: 'center',
+        alignSelf: 'stretch'
       }}>
         { isMounted && !isSignedIn && <>
           <div className='text-white fs-5 text-center'>Please Sign In</div>

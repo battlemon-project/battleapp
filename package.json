@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babylonjs/core": "^6.28.0",
+    "@babylonjs/gui": "^6.28.0",
     "@discordjs/core": "^1.0.1",
     "@rainbow-me/rainbowkit": "1.1.4",
     "@supabase/supabase-js": "^2.38.4",
@@ -17,6 +19,7 @@
     "iron-session": "^6.3.1",
     "next": "^13.5.4",
     "react": "^18.2.0",
+    "react-babylonjs": "^3.1.25",
     "react-dom": "^18.2.0",
     "ronin-connector": "^0.0.13",
     "siwe": "^2.1.4",

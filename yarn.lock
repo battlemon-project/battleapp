@@ -19,6 +19,16 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babylonjs/core@^6.28.0":
+  version "6.28.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-6.28.0.tgz#1e2d6aef07d5b2924d2345930ba867c14cfa7120"
+  integrity sha512-43iBqAozZ56scPXrwkSOjZNOBqKw2ZE1kC9bYKG3vtuRM0H6uIruD1ew1xYM3rHO6nbvZJz428Tk3ZgYe9ULLA==
+
+"@babylonjs/gui@^6.28.0":
+  version "6.28.0"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-6.28.0.tgz#adc6395d921ebdef964a5cf0b37bf4618401779a"
+  integrity sha512-8ohXPLlgO3sbUsLy6FOWqevn8VGAKT+a43kqeXuPuVxUOuurvA0+Pg0eIJuKqwgEJJOSKKB5akUzDd33hsRazQ==
+
 "@coinbase/wallet-sdk@^3.6.6":
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/@coinbase/wallet-sdk/-/wallet-sdk-3.7.2.tgz#7a89bd9e3a06a1f26d4480d8642af33fb0c7e3aa"
@@ -4130,6 +4140,13 @@ randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
+react-babylonjs@^3.1.25:
+  version "3.1.25"
+  resolved "https://registry.yarnpkg.com/react-babylonjs/-/react-babylonjs-3.1.25.tgz#dc8ab0c0839fcf7f5a8f928a79ecdea9b3c36c73"
+  integrity sha512-hfk4IWNM0YhEojrJfeVgLk4zwz1WNvVVeKetzh+tQ81gMCXYR3hHb/0q+BupL7fC1fQKM25FIXfih9dzswCFnA==
+  dependencies:
+    react-reconciler "^0.27.0"
+
 react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
@@ -4142,6 +4159,14 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-reconciler@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.27.0.tgz#360124fdf2d76447c7491ee5f0e04503ed9acf5b"
+  integrity sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==
+  dependencies:
+    loose-envify "^1.1.0"
+    scheduler "^0.21.0"
 
 react-remove-scroll-bar@^2.3.3:
   version "2.3.4"
@@ -4333,6 +4358,13 @@ safe-stable-stringify@^2.1.0:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/safe-stable-stringify/-/safe-stable-stringify-2.4.3.tgz#138c84b6f6edb3db5f8ef3ef7115b8f55ccbf886"
   integrity sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g==
+
+scheduler@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.21.0.tgz#6fd2532ff5a6d877b6edb12f00d8ab7e8f308820"
+  integrity sha512-1r87x5fz9MXqswA2ERLo0EbOAU74DpIUO090gIasYTqlVoJeMcl+Z1Rg7WHz+qtPujhS/hGIt9kxZOYBV3faRQ==
+  dependencies:
+    loose-envify "^1.1.0"
 
 scheduler@^0.23.0:
   version "0.23.0"
