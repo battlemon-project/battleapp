@@ -66,8 +66,9 @@ export default function Layout({ children, paddingTop }: PropsWithChildren<{ pad
         </>}
 
         { isMounted && isSignedIn && isSupportedChain && <>
-        <div style={{paddingTop: paddingTop ? paddingTop + 'px' : 0}}></div>
-          {children}
+          <div style={{paddingTop: paddingTop ? paddingTop + 'px' : 0}}>
+            {children}
+          </div>
         </>}
       </main>
     </div>

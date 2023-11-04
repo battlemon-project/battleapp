@@ -2,9 +2,12 @@ import { SceneLoader, Vector3 } from '@babylonjs/core'
 import { Engine, Model, Scene } from 'react-babylonjs'
 import IndexLogic from './IndexLogic';
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
+import BattlemonLoader from 'components/BattlemonLoader';
 
 const BabylonScene = () => {
+  const [isLoading, setIsLoading] = useState(true)
+
   SceneLoader.OnPluginActivatedObservable.add(function (loader) {
     (loader as GLTFFileLoader).animationStartMode = GLTFLoaderAnimationStartMode.ALL;
   });
@@ -13,6 +16,7 @@ const BabylonScene = () => {
 
   return (
     <div className="w-100 h-100 position-absolute">
+      {isLoading && <BattlemonLoader />}
       <Engine antialias canvasId="babylon-canvas">
         <Scene>
           <freeCamera
@@ -35,6 +39,7 @@ const BabylonScene = () => {
               rootUrl={baseUrl}
               sceneFilename={`MainMenu_Stripes_Export.glb`}
               scaleToDimension={undefined}
+              onModelLoaded={() => setIsLoading(false)}
             />
           </Suspense>
           <IndexLogic />
