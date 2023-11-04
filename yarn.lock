@@ -19,15 +19,20 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@babylonjs/core@^6.28.0":
-  version "6.28.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-6.28.0.tgz#1e2d6aef07d5b2924d2345930ba867c14cfa7120"
-  integrity sha512-43iBqAozZ56scPXrwkSOjZNOBqKw2ZE1kC9bYKG3vtuRM0H6uIruD1ew1xYM3rHO6nbvZJz428Tk3ZgYe9ULLA==
+"@babylonjs/core@^6.28.1":
+  version "6.28.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/core/-/core-6.28.1.tgz#db03cc1d35865fe090ca4725f995f46496585806"
+  integrity sha512-7D0L//yQDq0WU5Mj6os3fGNoy8dtCONgRJ2ji2PMNwZlQ6jH3e5OnoaMYss1QuNCoGeTrXbNuNa7z8RezuFrCQ==
 
-"@babylonjs/gui@^6.28.0":
-  version "6.28.0"
-  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-6.28.0.tgz#adc6395d921ebdef964a5cf0b37bf4618401779a"
-  integrity sha512-8ohXPLlgO3sbUsLy6FOWqevn8VGAKT+a43kqeXuPuVxUOuurvA0+Pg0eIJuKqwgEJJOSKKB5akUzDd33hsRazQ==
+"@babylonjs/gui@^6.28.1":
+  version "6.28.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/gui/-/gui-6.28.1.tgz#2fbe93bf497c67e96ef809a0af8ffb78c544c6dc"
+  integrity sha512-si8REM177m2Pk0DUn1d3xXyfKmOKosK4uY8Dw+eOL8FuCGvGQe5Yuw2qgkw2BbVMkFdg2qSib5vqxaLa97c1kg==
+
+"@babylonjs/loaders@^6.28.1":
+  version "6.28.1"
+  resolved "https://registry.yarnpkg.com/@babylonjs/loaders/-/loaders-6.28.1.tgz#c70ab307672544169ec062fadcb8a2e520aa814a"
+  integrity sha512-MrvkQxNaWotVE1xnKHCW/mij80efBH4sCM1xybEw2abAxr0jGfdSpPAKnddsqRE3JsAqyp40QaeHd5ngSKIaQg==
 
 "@coinbase/wallet-sdk@^3.6.6":
   version "3.7.2"

@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@babylonjs/core": "^6.28.0",
-    "@babylonjs/gui": "^6.28.0",
+    "@babylonjs/core": "^6.28.1",
+    "@babylonjs/gui": "^6.28.1",
+    "@babylonjs/loaders": "^6.28.1",
     "@discordjs/core": "^1.0.1",
     "@rainbow-me/rainbowkit": "1.1.4",
     "@supabase/supabase-js": "^2.38.4",

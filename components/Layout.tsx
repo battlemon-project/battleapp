@@ -5,7 +5,7 @@ import { useIsMounted } from "hooks/useIsMounted";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-export default function Layout({ children }: PropsWithChildren) {
+export default function Layout({ children, paddingTop }: PropsWithChildren<{ paddingTop?: number }>) {
   const isMounted = useIsMounted()
   const { isSignedIn, isSupportedChain } = useAuth();
   const router = useRouter();
@@ -54,14 +54,21 @@ export default function Layout({ children }: PropsWithChildren) {
         alignSelf: 'stretch'
       }}>
         { isMounted && !isSignedIn && <>
-          <div className='text-white fs-5 text-center'>Please Sign In</div>
+          <div className='text-white fs-5 text-center position-absolute top-50 w-100'>
+            Please Sign In
+          </div>
         </>}
       
         { isMounted && isSignedIn && !isSupportedChain && <>
-          <div className='text-white fs-5 text-center'>Please Change Network</div>
+          <div className='text-white fs-5 text-center position-absolute top-50 w-100'>
+            Please Change Network
+          </div>
         </>}
 
-        { isMounted && isSignedIn && isSupportedChain && children}
+        { isMounted && isSignedIn && isSupportedChain && <>
+        <div style={{paddingTop: paddingTop ? paddingTop + 'px' : 0}}></div>
+          {children}
+        </>}
       </main>
     </div>
   </>)
