@@ -5,7 +5,7 @@ import { useIsMounted } from "hooks/useIsMounted";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-export default function Layout({ children, paddingTop }: PropsWithChildren<{ paddingTop?: number }>) {
+export default function Layout({ children, paddingTop, hideDesktopMenu }: PropsWithChildren<{ paddingTop?: number, hideDesktopMenu?: boolean }>) {
   const isMounted = useIsMounted()
   const { isSignedIn, isSupportedChain } = useAuth();
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function Layout({ children, paddingTop }: PropsWithChildren<{ pad
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
-          <ul className="navbar-nav navbar-dark fs-5">
+          <ul className={`navbar-nav navbar-dark fs-5 ${hideDesktopMenu ? 'd-lg-none' : ''}`}>
             <li className="nav-item px-1">
               <Link href="/" className={`nav-link ${router.pathname == "/" ? "active" : ""}`}>Home</Link>
             </li>
