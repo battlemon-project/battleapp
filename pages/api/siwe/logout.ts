@@ -1,18 +1,23 @@
-import { withIronSessionApiRoute } from 'iron-session/next';
-import { NextApiRequest, NextApiResponse } from 'next';
+export const runtime = 'edge'
+import { getIronSession } from 'iron-session/edge';
+import { NextRequest, NextResponse } from 'next/server';
 import { ironOptions } from 'utils/iron';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextRequest) => {
   const { method } = req;
-  switch (method) {
-    case 'POST':
-      req.session.destroy();
-      res.send({ ok: true });
-      break;
-    default:
-      res.setHeader('Allow', ['POST']);
-      res.status(405).end(`Method ${method} Not Allowed`);
+
+  if (method == 'POST') {
+    const res = NextResponse.json({ ok: true });
+    const session = await getIronSession(req, res, ironOptions);
+    session.destroy();
+    return res;
   }
+  
+  return NextResponse.json({
+    message: `Method ${method} Not Allowed`,
+  }, {
+    status: 405
+  });
 };
 
-export default withIronSessionApiRoute(handler, ironOptions);
+export default handler;
