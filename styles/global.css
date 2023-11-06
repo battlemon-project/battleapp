@@ -10,7 +10,11 @@ body {
 }
 
 .navbar-brand {
+  color: #fff;
   width: 130px;
+}
+.navbar-brand:hover, .navbar-brand:focus, .navbar-brand:active {
+  color: #fff;
 }
 
 @media (max-width: 991.98px) {
