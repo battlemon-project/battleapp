@@ -1,14 +1,15 @@
 export const runtime = 'edge'
-import { getIronSession } from 'iron-session/edge';
+import { unsealData } from 'iron-session/edge';
 import { NextRequest, NextResponse } from 'next/server';
 import { ironOptions } from 'utils/iron';
 
-const handler = async (req: NextRequest, res: NextResponse) => {
+const handler = async (req: NextRequest) => {
   const { method } = req;
 
   if (method == 'GET') {
-    const session = await getIronSession(req, res, ironOptions);
-    return NextResponse.json({ address: session.siwe?.address })
+    const siwe = req.cookies.get('siwe')?.value
+    const { address }  = await unsealData(siwe || '', ironOptions)
+    return NextResponse.json({ address })
   }
   
   return NextResponse.json({

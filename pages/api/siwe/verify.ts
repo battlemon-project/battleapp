@@ -1,5 +1,5 @@
 export const runtime = 'edge'
-import { getIronSession, unsealData } from 'iron-session/edge';
+import { unsealData, sealData } from 'iron-session/edge';
 import { NextResponse, NextRequest } from "next/server";
 import { SiweMessage } from 'siwe';
 import { ironOptions } from 'utils/iron';
@@ -9,14 +9,13 @@ const handler = async (req: NextRequest) => {
 
   if (method == 'POST') {
     try {
-      const res = NextResponse.json({ ok: true });
-      const seal = req.cookies.get('siwe')?.value
+      const siwe = req.cookies.get('siwe')?.value
 
-      if (!seal) return NextResponse.json({
+      if (!siwe) return NextResponse.json({
         message: `Invalid session`,
       }, { status: 422 });
 
-      const { nonce }  = await unsealData(seal, ironOptions)
+      const { nonce }  = await unsealData(siwe, ironOptions)
       const { message, signature } = await req.json();
       const siweMessage = new SiweMessage(message);
       const { success, error, data } = await siweMessage.verify({
@@ -29,6 +28,9 @@ const handler = async (req: NextRequest) => {
         message: `Invalid nonce`,
       }, { status: 422 });
 
+      const res = NextResponse.json({ ok: true });
+      res.cookies.set('siwe', await sealData(data, ironOptions))
+      
       return res;
     } catch (_error) {
       return NextResponse.json({ ok: false })
