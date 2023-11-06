@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(180deg,#035161,#010024);
   min-height: 100vh;
+  color: #fff;
 }
 
 .navbar-brand {

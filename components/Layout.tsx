@@ -4,6 +4,7 @@ import useAuth from 'components/context/AuthContext';
 import { useIsMounted } from "hooks/useIsMounted";
 import Link from "next/link";
 import { useRouter } from 'next/router';
+import Footer from "./Footer";
 
 interface LayoutProps {
   paddingTop?: number, 
@@ -40,10 +41,7 @@ export default function Layout({ children, paddingTop, hideDesktopMenu, alwaysVi
               <Link href="/" className={`nav-link ${router.pathname == "/" ? "active" : ""}`}>Home</Link>
             </li>
             <li className="nav-item px-1">
-              <Link href="/discord" className={`nav-link ${router.pathname == "/discord" ? "active" : ""}`}>Discord</Link>
-            </li>
-            <li className="nav-item px-1">
-              <Link href="/twitter" className={`nav-link ${router.pathname == "/twitter" ? "active" : ""}`}>Twitter</Link>
+              <Link href="/hub" className={`nav-link ${router.pathname == "/hub" ? "active" : ""}`}>Hub</Link>
             </li>
           </ul>
         </div>
@@ -88,5 +86,6 @@ export default function Layout({ children, paddingTop, hideDesktopMenu, alwaysVi
 
       </main>
     </div>
+    <Footer />
   </>)
 }
