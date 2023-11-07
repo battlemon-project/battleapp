@@ -1,4 +1,4 @@
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Web3Layout';
 import Head from 'next/head';
 
 export default function Labs() {
@@ -6,7 +6,7 @@ export default function Labs() {
     <Head>
       <title>Battlemon Labs</title>
     </Head>
-    <Layout paddingTop={100}>
+    <Layout paddingTop={80}>
       <div className="container">
         <h1 className="text-center">LABS</h1>
       </div>

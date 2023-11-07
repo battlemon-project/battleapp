@@ -1,6 +1,6 @@
 import IndexScene from "./IndexScene";
 
-export const IndexPage = () => {
+export default function IndexPage() {
   return (
     <>
       <IndexScene />
@@ -16,5 +16,3 @@ export const IndexPage = () => {
     </>
   );
 };
-
-export default IndexPage;

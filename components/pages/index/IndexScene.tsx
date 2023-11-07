@@ -3,9 +3,9 @@ import { Engine, Model, Scene } from 'react-babylonjs'
 import IndexLogic from './IndexLogic';
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
 import { Suspense, useState } from 'react';
-import BattlemonLoader from 'components/BattlemonLoader';
+import BattlemonLoader from 'components/layout/BattlemonLoader';
 
-const BabylonScene = () => {
+export default function BabylonScene() {
   const [isLoading, setIsLoading] = useState(true)
 
   SceneLoader.OnPluginActivatedObservable.add(function (loader) {
@@ -48,5 +48,3 @@ const BabylonScene = () => {
     </div>
   )
 }
-
-export default BabylonScene;

@@ -1,5 +1,5 @@
-import Layout from 'components/Layout';
-import useTwitter, { TwitterProvider } from 'components/context/TwitterContext';
+import Layout from 'components/layout/Web3Layout';
+import useTwitter, { TwitterProvider } from 'context/TwitterContext';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
@@ -10,7 +10,7 @@ const Twitter = () => {
     <Head>
       <title>Auth with Twitter</title>
     </Head>
-    <Layout paddingTop={100}>
+    <Layout paddingTop={80}>
       <ol className="list-group list-group-numbered w-100 mx-auto" style={{maxWidth: '500px'}}>
         <li className={`list-group-item d-flex justify-content-between align-items-start ${twitterUser ? 'disabled' : '' }`}>
           <div className="ms-2 me-auto">

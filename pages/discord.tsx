@@ -1,5 +1,5 @@
-import Layout from 'components/Layout';
-import useDiscord, { DiscordProvider } from 'components/context/DiscordContext';
+import Layout from 'components/layout/Web3Layout';
+import useDiscord, { DiscordProvider } from 'context/DiscordContext';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
@@ -10,7 +10,7 @@ const Discord = () => {
     <Head>
       <title>Auth with Discord</title>
     </Head>
-    <Layout paddingTop={100}>
+    <Layout paddingTop={80}>
       <ol className="list-group list-group-numbered w-100 mx-auto" style={{maxWidth: '500px'}}>
         <li className={`list-group-item d-flex justify-content-between align-items-start ${discordUser ? 'disabled' : '' }`}>
           <div className="ms-2 me-auto">

@@ -1,7 +1,7 @@
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Web3Layout';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import IndexPage from 'scenes/Index/IndexPage';
+import IndexPage from 'components/pages/index/IndexPage';
 
 const Home: NextPage = () => {
 

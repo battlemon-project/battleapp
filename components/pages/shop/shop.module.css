@@ -1,0 +1,30 @@
+.marketplaceBg {
+  background: rgb(2, 15, 49);
+}
+
+.marketplaceBtnsRow {
+  box-shadow: inset 0px 0px 0px 1px #6F7E8E;
+  border-radius: 12px;
+}
+
+.marketplaceBtn {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 15px 10px;
+  width: 100%;
+  color: #fff;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 130%;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  &.active {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #6F7E8E;
+  }
+}

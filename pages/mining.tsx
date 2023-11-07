@@ -1,4 +1,4 @@
-import Layout from 'components/Layout';
+import Layout from 'components/layout/Web3Layout';
 import Head from 'next/head';
 
 export default function Mining() {
@@ -6,7 +6,7 @@ export default function Mining() {
     <Head>
       <title>Battlemon Mining</title>
     </Head>
-    <Layout paddingTop={100}>
+    <Layout paddingTop={80}>
       <div className="container">
         <h1 className="text-center">MINING</h1>
       </div>
