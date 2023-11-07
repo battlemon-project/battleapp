@@ -44,7 +44,7 @@ export default function BabylonScene() {
     > = {
       factory: {
         stroke: ['factory_stroke'],
-        page: '/city/defi',
+        page: '/mining',
       },
       craft: {
         stroke: [
@@ -53,14 +53,14 @@ export default function BabylonScene() {
           'craft_manipulator7_stroke',
           'craft_manipulator8_stroke',
         ],
-        page: '/city/labs',
+        page: '/labs',
       },
       stake: {
         stroke: ['stake_stroke', 'stake_coin_stroke'],
       },
       shop: {
         stroke: ['shop_stroke', 'windmill_stroke_01', 'windmill_stroke_02'],
-        page: '/city/launchpad',
+        page: '/shop',
       },
       arena: {
         stroke: ['arena_stroke', 'arena_rotator_a_stroke'],
@@ -70,9 +70,7 @@ export default function BabylonScene() {
         stroke: ['download_client_car_stroke', 'download_client_car_adv_stroke'],
       },
       lemterprise: {
-        stroke: ['lemterprise_stroke'],
-        page: 'https://battlemon.gitbook.io',
-        newTab: true,
+        stroke: ['lemterprise_stroke']
       },
       engines: {
         stroke: ['engines_stroke'],

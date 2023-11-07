@@ -10,6 +10,23 @@ body {
   color: #fff;
 }
 
+@media (min-width: 992px) {
+  nav .navbar-nav {
+    border-bottom: 2px solid rgba(255,255,255, 0.3)
+  }
+  nav .nav-link {
+    padding: 5px 20px !important;
+    min-width: 100px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 28px;
+  }
+  nav .nav-link.active {
+    background: url('/images/top-menu-active-item.png') center bottom no-repeat;
+    background-size: 100% 36px;
+  }
+}
+
 .navbar-brand {
   color: #fff;
   width: 130px;
@@ -98,3 +115,22 @@ canvas {
   font-size: 0px;
   display: block;
 }
+
+
+.marketplace-bg {
+  background: rgb(2, 15, 49);
+}
+.btn-marketplace-top {
+  background-color: rgb(2, 15, 49);
+  color: #fff;
+}
+.btn-marketplace-top:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-marketplace-top.active {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #6F7E8E;
+}
+
+
