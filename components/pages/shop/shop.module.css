@@ -34,21 +34,27 @@
   border-radius: 24px;
   border: 2px solid rgba(255,255,255,0.4);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.15);
-  min-height: 180px;
+  min-height: 140px;
+  padding: 6px 10px;
 }
 
 .marketPlateLemons {
   background: url(/images/shop/shop-lemons.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  background-size: contain;
 }
 .marketPlateItems {
   background: url(/images/shop/shop-items.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  background-size: contain;
 }
 .marketPlateChests {
   background: url(/images/shop/shop-chests.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  background-size: contain;
 }
 .marketPlateKeys {
   background: url(/images/shop/shop-keys.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  background-size: contain;
 }
 .marketPlatePickaxes {
   background: url(/images/shop/shop-pickaxes.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  background-size: contain;
 }
