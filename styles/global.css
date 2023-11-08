@@ -107,6 +107,24 @@ body {
   }
 }
 
+.mb-05 {
+  margin-bottom: 0.125rem !important;
+}
+.mt-05 {
+  margin-top: 0.125rem !important;
+}
+.pb-05 {
+  padding-bottom: 0.125rem !important;
+}
+.pt-05 {
+  padding-top: 0.125rem !important;
+}
+
+
+a {
+  text-decoration: none;
+}
+
 canvas {
   margin: 0;
   padding: 0;

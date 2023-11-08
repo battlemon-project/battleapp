@@ -43,16 +43,16 @@ export default function Layout({ children, paddingTop, hideDesktopMenu, alwaysVi
         <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
           <ul className={`navbar-nav navbar-dark fs-5 ${hideDesktopMenu ? 'd-lg-none' : ''}`}>
             <li className="nav-item px-1">
-              <Link href="/hub" className={`nav-link ${router.pathname == "/hub" ? "active" : ""}`}>NFT Hub</Link>
+              <Link href="/hub" className={`nav-link ${router.pathname.startsWith("/hub") ? "active" : ""}`}>NFT Hub</Link>
             </li>
             <li className="nav-item px-1">
-              <Link href="/shop" className={`nav-link ${router.pathname == "/shop" ? "active" : ""}`}>Shop</Link>
+              <Link href="/shop" className={`nav-link ${router.pathname.startsWith("/shop") ? "active" : ""}`}>Shop</Link>
             </li>
             <li className="nav-item px-1">
-              <Link href="/labs" className={`nav-link ${router.pathname == "/labs" ? "active" : ""}`}>Labs</Link>
+              <Link href="/labs" className={`nav-link ${router.pathname.startsWith("/labs") ? "active" : ""}`}>Labs</Link>
             </li>
             <li className="nav-item px-1">
-              <Link href="/mining" className={`nav-link ${router.pathname == "/mining" ? "active" : ""}`}>Mining</Link>
+              <Link href="/mining" className={`nav-link ${router.pathname.startsWith("/mining") ? "active" : ""}`}>Mining</Link>
             </li>
           </ul>
         </div>

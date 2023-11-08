@@ -11,13 +11,14 @@
   border-radius: 12px;
   border: 1px solid transparent;
   background: transparent;
-  padding: 15px 10px;
+  padding: 15px 5px;
   width: 100%;
   color: #fff;
   font-size: 17px;
   font-style: italic;
   font-weight: 500;
   line-height: 130%;
+  text-shadow: 1px 1px 2px #000;
 
   &:hover {
     background: rgba(255, 255, 255, 0.03);
@@ -31,27 +32,33 @@
 
 
 .marketPlate {
+  color: #fff;
   border-radius: 24px;
   border: 2px solid rgba(255,255,255,0.4);
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.15);
   min-height: 140px;
   padding: 6px 10px;
+  text-shadow: 1px 1px 2px #000;
 }
 
 .marketPlateLemons {
-  background: url(/images/shop/shop-lemons.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  border-color: rgba(111, 126, 142, 0.40);
+  background: url(/images/shop/shop-lemons.png) right center no-repeat, linear-gradient(180deg, rgba(160, 76, 244, 0.25) 0%, rgba(100, 22, 177, 0.15) 100%);
   background-size: contain;
 }
 .marketPlateItems {
-  background: url(/images/shop/shop-items.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  border-color: rgba(111, 126, 142, 0.40);
+  background: url(/images/shop/shop-items.png) right center no-repeat, linear-gradient(180deg, rgba(25, 188, 90, 0.25) 0%, rgba(8, 80, 37, 0.25) 100%);
   background-size: contain;
 }
 .marketPlateChests {
-  background: url(/images/shop/shop-chests.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  border-color: rgba(111, 126, 142, 0.40);
+  background: url(/images/shop/shop-chests.png) right center no-repeat, linear-gradient(180deg, rgba(47, 171, 255, 0.25) 0%, rgba(13, 45, 66, 0.25) 100%);
   background-size: contain;
 }
 .marketPlateKeys {
-  background: url(/images/shop/shop-keys.png) right center no-repeat, linear-gradient(91deg, rgba(255, 255, 255, 0.30) 0.57%, rgba(255, 255, 255, 0.10) 99.48%);
+  border-color: rgba(111, 126, 142, 0.40);
+  background: url(/images/shop/shop-keys.png) right center no-repeat, linear-gradient(180deg, rgba(220, 28, 109, 0.40) 0%, rgba(124, 16, 62, 0.25) 100%);
   background-size: contain;
 }
 .marketPlatePickaxes {
