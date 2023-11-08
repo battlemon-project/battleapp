@@ -82,7 +82,7 @@ export default function Layout({ children, paddingTop, hideDesktopMenu, alwaysVi
             if (isSupportedChain) {
               return mainContainer
             } else {
-              <div className='text-white fs-5 text-center position-absolute top-50 w-100'>
+              return <div className='text-white fs-5 text-center position-absolute top-50 w-100'>
                 Please Change Network
               </div>
             }
