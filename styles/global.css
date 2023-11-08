@@ -8,6 +8,7 @@ body {
   background: linear-gradient(180deg,#035161,#010024);
   min-height: 100vh;
   color: #fff;
+  --bs-border-radius-xl: 0.75rem;
 }
 
 @media (min-width: 992px) {
@@ -113,10 +114,18 @@ body {
 .mt-05 {
   margin-top: 0.125rem !important;
 }
+.my-05 {
+  margin-bottom: 0.125rem !important;
+  margin-top: 0.125rem !important;
+}
 .pb-05 {
   padding-bottom: 0.125rem !important;
 }
 .pt-05 {
+  padding-top: 0.125rem !important;
+}
+.py-05 {
+  padding-bottom: 0.125rem !important;
   padding-top: 0.125rem !important;
 }
 
