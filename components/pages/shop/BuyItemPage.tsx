@@ -48,7 +48,7 @@ export default function BuyItemPage() {
             }
           </button>
           
-          {itemBalance && <Link href="/hub">
+          {itemBalance && <Link href="/hub/items">
             <button className='btn rounded-4 btn-outline-light w-100 py-3'>
               <span className='ps-2'>Look at your {itemBalance} item{itemBalance !== 1 ? 's' : ''} in NFT Hub</span>
             </button>

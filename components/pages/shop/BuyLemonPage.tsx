@@ -51,7 +51,7 @@ export default function BuyLemonPage() {
             }
           </button>
           
-          {lemonBalance && <Link href="/hub">
+          {lemonBalance && <Link href="/hub/lemons">
             <button className='btn rounded-4 btn-outline-light w-100 py-3'>
               <span className='ps-2'>Look at your {lemonBalance} lemon{lemonBalance !== 1 ? 's' : ''} in NFT Hub</span>
             </button>

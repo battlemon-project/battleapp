@@ -23,7 +23,7 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
         <div className="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
           <ul className={`navbar-nav navbar-dark fs-5 ${hideDesktopMenu ? 'd-lg-none' : ''}`}>
             <li className="nav-item px-1">
-              <Link href="/hub" className={`nav-link ${router.pathname.startsWith("/hub") ? "active" : ""}`}>NFT Hub</Link>
+              <Link href="/hub/lemons" className={`nav-link ${router.pathname.startsWith("/hub") ? "active" : ""}`}>NFT Hub</Link>
             </li>
             <li className="nav-item px-1">
               <Link href="/shop" className={`nav-link ${router.pathname.startsWith("/shop") ? "active" : ""}`}>Shop</Link>

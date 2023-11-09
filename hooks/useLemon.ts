@@ -1,3 +1,4 @@
+import { LemonType, RequestLemonsType } from 'lemon';
 import { useLemonSafeMint, useLemonBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
@@ -28,15 +29,30 @@ export function useLemon() {
   }, [lemonSafeMint?.status])
 
   useEffect(() => {
-    console.log(lemonMintResult)
     if (!lemonMintResult.isSuccess) return;
     setStatus('success')
     lemonBalance?.refetch()
   }, [lemonMintResult])
 
+
+  const lemonTokens = async (): Promise<LemonType[] | undefined> => {
+    if (!address) return;
+    const fetched = await fetch(`/api/graph/lemons?address=${address}`)
+
+    const { error, tokens }: RequestLemonsType = await fetched.json();
+
+    if (error) {
+      alert(error)
+      return []
+    }
+
+    return tokens;
+  };
+
   return {
     lemonMint: lemonSafeMint?.write || (() => {}),
     lemonBalance: parseInt(lemonBalance?.data?.toString() || '0') || undefined,
-    lemonStatus: status
+    lemonStatus: status,
+    lemonTokens
   };
 }

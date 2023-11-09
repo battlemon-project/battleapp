@@ -28,7 +28,6 @@ export function useItem() {
   }, [itemMintRandom?.status])
 
   useEffect(() => {
-    console.log(itemMintResult)
     if (!itemMintResult.isSuccess) return;
     setStatus('success')
     itemBalance?.refetch()

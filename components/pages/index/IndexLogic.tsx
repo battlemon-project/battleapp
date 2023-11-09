@@ -64,7 +64,7 @@ export default function BabylonScene() {
       },
       arena: {
         stroke: ['arena_stroke', 'arena_rotator_a_stroke'],
-        page: '/hub',
+        page: '/hub/lemons',
       },
       download: {
         stroke: ['download_client_car_stroke', 'download_client_car_adv_stroke'],
