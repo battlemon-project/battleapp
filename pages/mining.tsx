@@ -6,7 +6,7 @@ export default function Mining() {
     <Head>
       <title>Battlemon Mining</title>
     </Head>
-    <Layout paddingTop={80}>
+    <Layout>
       <div className="container">
         <h1 className="text-center">MINING</h1>
       </div>

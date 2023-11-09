@@ -7,7 +7,7 @@ export default function Shop() {
     <Head>
       <title>Battlemon Shop</title>
     </Head>
-    <Layout paddingTop={80}>
+    <Layout>
       <ShopPage />
     </Layout>
   </>);

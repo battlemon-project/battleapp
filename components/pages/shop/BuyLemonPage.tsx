@@ -1,14 +1,15 @@
 import cn from 'classnames';
-import styles from './buy.module.css'
+import styles from './shop.module.css'
 import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
 import { useLemon } from 'hooks/useLemon';
+import { truncate } from 'utils/misc';
 
 export default function BuyLemonPage() {
   const { lemonMint, lemonBalance, lemonStatus } = useLemon();
 
   return (
-    <div className="container py-3">
+    <div className="container py-3 mb-auto">
       <div className="d-flex justify-content-between">
         <Link href="/shop">
           <button className='btn rounded-4 btn-outline-light'>
@@ -21,17 +22,17 @@ export default function BuyLemonPage() {
       </div>
       <div className="row mt-3">
         <div className='col-12 col-md-5 mb-4'>
-          <div className={cn('p-3 py-4 rounded-4 text-center', styles.background)}>
+          <div className={cn('p-3 py-4 rounded-4 text-center', styles.lightBg)}>
             <img src="/images/shop/shadow-lemon.png" className='img-fluid' />
           </div>
         </div>
         <div className="col-12 col-md-7">
-          <div className={cn('p-3 py-4 rounded-4 mb-4', styles.background)}>
+          <div className={cn('p-3 py-4 rounded-4 mb-4', styles.lightBg)}>
             <p className="mb-3">Unique Key-card that gives access to the incredible game world of Lemoland, full of adventures and NFT treasures. </p>
             <p className="mb-3">Unique NFT key-pass will be available in Testnet and also transferred to Mainnet.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{process.env.NEXT_PUBLIC_LEMONS_CONTRACT}</div>
+              <div>{truncate(process.env.NEXT_PUBLIC_LEMONS_CONTRACT!, 8)}</div>
             </div>
             <div className="d-flex justify-content-between">
               <b>Token Standard</b>

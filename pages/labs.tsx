@@ -6,7 +6,7 @@ export default function Labs() {
     <Head>
       <title>Battlemon Labs</title>
     </Head>
-    <Layout paddingTop={80}>
+    <Layout>
       <div className="container">
         <h1 className="text-center">LABS</h1>
       </div>

@@ -10,7 +10,7 @@ const Twitter = () => {
     <Head>
       <title>Auth with Twitter</title>
     </Head>
-    <Layout paddingTop={80}>
+    <Layout>
       <ol className="list-group list-group-numbered w-100 mx-auto" style={{maxWidth: '500px'}}>
         <li className={`list-group-item d-flex justify-content-between align-items-start ${twitterUser ? 'disabled' : '' }`}>
           <div className="ms-2 me-auto">

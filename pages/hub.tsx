@@ -6,7 +6,7 @@ export default function Hub() {
     <Head>
       <title>Battlemon Hub</title>
     </Head>
-    <Layout paddingTop={80}>
+    <Layout>
       <div className="container">
         <h1 className="text-center">HUB</h1>
       </div>

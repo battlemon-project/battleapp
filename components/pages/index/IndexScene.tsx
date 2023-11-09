@@ -15,7 +15,7 @@ export default function BabylonScene() {
   const baseUrl = '/models/index/'
 
   return (
-    <div className="w-100 h-100 position-absolute">
+    <div className='vh-100'>
       {isLoading && <BattlemonLoader />}
       <Engine antialias canvasId="babylon-canvas">
         <Scene>
