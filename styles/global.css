@@ -108,6 +108,16 @@ body {
   }
 }
 
+#inspector-host, #scene-explorer-host {
+  z-index: 1000 !important;
+  position: absolute !important;
+}
+
+#inspector-host select, #inspector-host input, #inspector-host textarea, #scene-explorer-host select, #scene-explorer-host input, #scene-explorer-host textarea {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
 .mb-05 {
   margin-bottom: 0.125rem !important;
 }
