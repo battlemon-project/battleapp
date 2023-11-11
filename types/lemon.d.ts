@@ -1,7 +1,14 @@
 declare module 'lemon' {
-  interface TraitType {
-    flavour: string
-    type: string
+  interface PropertiesType {
+    teeth: string,
+    eyes: string,
+    exo_top: string,
+    exo_bot: string,
+    feet?: string,
+    hands: string,
+    head: string,
+    hair?: string,
+    scar?: string
   }
 
   interface LemonType {
@@ -13,7 +20,7 @@ declare module 'lemon' {
       description: string
       image: string
       name: string
-      properties: TraitType[]
+      properties: PropertiesType
     }
   }
 

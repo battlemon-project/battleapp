@@ -19,7 +19,7 @@ export default function HubLemonsPage() {
     <h3 className="text-center py-3">{lemonBalance} Lemons: </h3>
     <div className="row">
       {lemons.map(lemon => {
-        return <div className="col-2"><img src={lemon.metaData.image} className="img-fluid" /></div>
+        return <div className="col-2" key={lemon.id}><img src={lemon.metaData.image} className="img-fluid" /></div>
       })}
     </div>
   </div>);
