@@ -1,14 +1,10 @@
 declare module 'lemon' {
+  interface PropertiesList {
+    [key: string]: string[]
+  }
+
   interface PropertiesType {
-    teeth: string,
-    eyes: string,
-    exo_top: string,
-    exo_bot: string,
-    feet?: string,
-    hands: string,
-    head: string,
-    hair?: string,
-    scar?: string
+    [key: string]: string
   }
 
   interface LemonType {
