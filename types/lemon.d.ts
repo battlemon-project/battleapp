@@ -3,6 +3,12 @@ declare module 'lemon' {
     [key: string]: string[]
   }
 
+  interface ItemType {
+    flavour: string,
+    type: string,
+    level: number
+  }
+
   interface PropertiesType {
     [key: string]: string
   }

@@ -1,3 +1,4 @@
+import LemonsTab from "components/inventory/LemonsTab";
 import { useLemon } from "hooks/useLemon";
 import { useOnMount } from "hooks/useOnMount";
 import { LemonType } from "lemon";
@@ -16,11 +17,7 @@ export default function HubLemonsPage() {
   })
 
   return (<div className="container mb-auto">
-    <h3 className="text-center py-3">{lemonBalance} Lemons: </h3>
-    <div className="row">
-      {lemons.map(lemon => {
-        return <div className="col-2" key={lemon.id}><img src={lemon.metaData.image} className="img-fluid" /></div>
-      })}
-    </div>
+    <h3 className="text-center py-3">{lemonBalance} Lemons: {lemons.length}</h3>
+    <LemonsTab />
   </div>);
 };
