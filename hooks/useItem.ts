@@ -1,4 +1,4 @@
-import { useItemMintRandom, useItemBalanceOf } from './generated';
+import { useItemProxyMint, useItemBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
 
@@ -6,16 +6,16 @@ export function useItem() {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
   
-  const itemMintRandom = address && useItemMintRandom({
+  const itemMintRandom = address && useItemProxyMint({
     address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
-    args: [address, BigInt(1)]
+    args: [address, 1]
   })
 
   const itemMintResult = useWaitForTransaction({ hash: itemMintRandom?.data?.hash });
 
   const itemBalance = address && useItemBalanceOf({
     address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
-    args: [address, BigInt(7004)]
+    args: [address]
   })
   
   useEffect(() => {

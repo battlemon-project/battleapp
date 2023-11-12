@@ -1,35 +1,37 @@
 import LemonScene from 'components/babylon/LemonScene';
 import {  PropertiesType } from 'lemon';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { allProperties } from 'utils/properties';
 
-export default function SanboxPage() {
-  const [properties, setProperties] = useState<PropertiesType>({
-    teeth: 'Teeth_Ghost',
-    eyes: 'Eyes_Ghost',
-    exo_top: 'ExoTop_Ghost',
-    exo_bot: 'ExoBot_Ghost',
-    feet: 'Feet_Ghost',
-    hands: 'Hands_Ghost',
-    head: 'Head_Ghost',
-  })
+const defaultProps: PropertiesType = {
+  eyes: 'Eyes_Ghost',
+  exo_top: 'ExoTop_Ghost',
+  exo_bot: 'ExoBot_Ghost',
+  feet: 'Feet_Ghost',
+  hands: 'Hands_Ghost',
+  head: 'Head_Ghost',
+}
 
-  const changeProperties = (e: FormEvent<HTMLSelectElement>) => {
-    console.log(e.target)
+export default function SanboxPage() {
+  const [properties, setProperties] = useState<PropertiesType>(defaultProps)
+
+
+  const changeProperties = (propkey: string) => (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
     setProperties({
       ...properties,
-      exo_top: 'ExoTop_Snowwhite'
+      [propkey]: value
     })
-  }
+  };
 
   return (<div className="d-flex">
     <div>
       {Object.keys(allProperties).map((propkey) => {
         const options: string[] = allProperties[propkey]
         return <div key={propkey}>
-          {propkey}: {properties[propkey]}
-          <select className="form-select" onChange={changeProperties} value={properties[propkey]}>
-            <option value={undefined}>none</option>
+          {propkey}
+          <select className="form-select" onChange={changeProperties(propkey)} value={properties[propkey]}>
+            <option value={defaultProps[propkey]}>none</option>
             {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
           </select>
           </div>

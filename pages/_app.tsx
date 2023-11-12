@@ -23,8 +23,8 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
-  linea,
-  lineaTestnet
+  polygon,
+  polygonMumbai
 } from 'wagmi/chains';
 import { RoninConnector, ronin, saigon } from 'ronin-connector'
 import { publicProvider } from 'wagmi/providers/public';
@@ -32,7 +32,7 @@ import { SiweMessage } from 'siwe';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AuthProvider } from 'context/AuthContext';
 
-const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [lineaTestnet] : [linea]
+const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [polygonMumbai] : [polygon]
 const roninChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [saigon] : [ronin]
 const chainList = [...evmChains, ...roninChains];
 

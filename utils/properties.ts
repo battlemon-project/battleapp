@@ -1,7 +1,7 @@
 import type { PropertiesList } from "lemon";
 
 export const allProperties: PropertiesList = {
-  teth: [
+  teeth: [
     'Teeth_Grga',
     'Teeth_Hollywood',
     'Teeth_Oldstyle',
@@ -15,25 +15,59 @@ export const allProperties: PropertiesList = {
     'Eyes_Zombie',
   ],
   exo_top: [
-
+    'ExoTop_Snowwhite',
+    'ExoTop_Steel',
+    'ExoTop_Hacky',
+    'ExoTop_Golden',
   ],
   exo_bot: [
-
+    'ExoBot_Snowwhite',
+    'ExoBot_Steel',
+    'ExoBot_Hacky',
+    'ExoBot_Golden',
   ],
   feet: [
-
+    'Feet_Snowwhite',
+    'Feet_Steel',
+    'Feet_Military',
+    'Feet_Golden',
   ],
   hands: [
-
+    'Hands_Snowwhite',
+    'Hands_Steel',
+    'Hands_Yellow_Plastic',
+    'Hands_Golden',
   ],
   head: [
-
+    'Head_Fresh_Lemon',
+    'Head_Zombie',
+    'Head_Clementine',
+    'Head_Lime',
   ],
   hair: [
-
+    'Hair_Dragon_Short_Orange',
+    'Hair_Dragon_Red',
+    'Hair_Hedgehog_Neon_Red',
+    'Hair_Dreadlocks_Brown',
+    'Hair_Ponytail_Gray',
+    'Hair_Curly_Gray',
+    'Hair_Mohawk_Purple',
+    'Hair_Fitness_Blue',
+    'Hair_Box_Gray',
+    'Hair_Topknot_Blue',
+    'Hair_Mizura_Marine',
+    'Hair_Sakayaki_Gray',
+    'Hair_Leftover_Blue',
+    'Hair_Disco_Iroquois_Lime',
+    'Hair_Fauxhawk_Green_Orange',
+    'Hair_Spikes_Gray',
   ],
   scar: [
-    
+    'Scar_Spartan_R',
+    'Scar_Gaul_R',
+    'Scar_Barbarian_R',
+    'Scar_Samurai_R',
+    'Scar_Macedonian_R',    
   ]
 } 
 
@@ -46,26 +80,26 @@ export const allProperties: PropertiesList = {
 //   { name: , type: 'eyes', attachedTo: null },
 //   { name: , type: 'eyes', attachedTo: null },
 //   { name: , type: 'eyes', attachedTo: null },
-//   { name: 'ExoTop_Snowwhite', type: 'exo_top', attachedTo: null },
-//   { name: 'ExoTop_Steel', type: 'exo_top', attachedTo: null },
-//   { name: 'ExoTop_Hacky', type: 'exo_top', attachedTo: null },
-//   { name: 'ExoTop_Golden', type: 'exo_top', attachedTo: null },
+//   { name: , type: 'exo_top', attachedTo: null },
+//   { name: , type: 'exo_top', attachedTo: null },
+//   { name: , type: 'exo_top', attachedTo: null },
+//   { name: , type: 'exo_top', attachedTo: null },
 //   { name: 'ExoBot_Snowwhite', type: 'exo_bot', attachedTo: null },
 //   { name: 'ExoBot_Steel', type: 'exo_bot', attachedTo: null },
 //   { name: 'ExoBot_Hacky', type: 'exo_bot', attachedTo: null },
 //   { name: 'ExoBot_Golden', type: 'exo_bot', attachedTo: null },
-//   { name: 'Feet_Snowwhite', type: 'feet', attachedTo: null },
-//   { name: 'Feet_Steel', type: 'feet', attachedTo: null },
-//   { name: 'Feet_Military', type: 'feet', attachedTo: null },
-//   { name: 'Feet_Golden', type: 'feet', attachedTo: null },
-//   { name: 'Hands_Snowwhite', type: 'hands', attachedTo: null },
-//   { name: 'Hands_Steel', type: 'hands', attachedTo: null },
-//   { name: 'Hands_Yellow_Plastic', type: 'hands', attachedTo: null },
-//   { name: 'Hands_Golden', type: 'hands', attachedTo: null },
-//   { name: 'Head_Fresh_Lemon', type: 'head', attachedTo: null },
-//   { name: 'Head_Zombie', type: 'head', attachedTo: null },
-//   { name: 'Head_Clementine', type: 'head', attachedTo: null },
-//   { name: 'Head_Lime', type: 'head', attachedTo: null },
+//   { name:  type: 'feet', attachedTo: null },
+//   { name:  type: 'feet', attachedTo: null },
+//   { name:  type: 'feet', attachedTo: null },
+//   { name:  type: 'feet', attachedTo: null },
+//   { name:  type: 'hands', attachedTo: null },
+//   { name:  type: 'hands', attachedTo: null },
+//   { name:  type: 'hands', attachedTo: null },
+//   { name:  type: 'hands', attachedTo: null },
+//   { name:  type: 'head', attachedTo: null },
+//   { name:  type: 'head', attachedTo: null },
+//   { name:  type: 'head', attachedTo: null },
+//   { name:  type: 'head', attachedTo: null },
 //   { name: 'Hair_Dragon_Short_Orange', type: 'hair', attachedTo: null },
 //   { name: 'Hair_Dragon_Red', type: 'hair', attachedTo: null },
 //   { name: 'Hair_Hedgehog_Neon_Red', type: 'hair', attachedTo: null },

@@ -2,6 +2,7 @@ import { LemonType, RequestLemonsType } from 'lemon';
 import { useLemonSafeMint, useLemonBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
+import { parseEther } from 'viem';
 
 export function useLemon() {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
@@ -9,7 +10,8 @@ export function useLemon() {
   
   const lemonSafeMint = address && useLemonSafeMint({
     address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
-    args: [address]
+    args: [1],
+    value: parseEther('0.05')
   })
 
   const lemonMintResult = useWaitForTransaction({ hash: lemonSafeMint?.data?.hash });
