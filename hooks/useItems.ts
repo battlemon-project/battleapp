@@ -1,4 +1,4 @@
-import { TokenType, RequestTokensType } from 'lemon';
+import { TokenType } from 'lemon';
 import { useItemProxyMint, useItemBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
@@ -39,14 +39,14 @@ export function useItems() {
     if (!address) return;
     const fetched = await fetch(`/api/graph/items?address=${address}`)
 
-    const { error, tokens }: RequestTokensType = await fetched.json();
+    const { error, tokens } = await fetched.json();
 
     if (error) {
       alert(error)
       return []
     }
 
-    return tokens;
+    return tokens as TokenType[];
   };
 
 

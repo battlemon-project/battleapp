@@ -17,9 +17,4 @@ declare module 'lemon' {
     id: string
     tokenId: string
   }
-  
-  interface RequestTokensType {
-    tokens: TokensType[] | undefined,
-    error?: string
-  }
 }
