@@ -16,8 +16,8 @@ export default function HubLemonsPage() {
     });
   })
 
-  return (<div className="container mb-auto">
-    <h3 className="text-center py-3">{lemonBalance} Lemons: {lemons.length}</h3>
+  return (<div className="container">
+    <h3 className="text-center py-3">{lemonBalance} Lemons:</h3>
     <LemonsTab />
   </div>);
 };

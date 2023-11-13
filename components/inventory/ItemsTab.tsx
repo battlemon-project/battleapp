@@ -2,6 +2,7 @@ import { ItemType } from 'lemon';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import TabsLayout from './TabsLayout';
+import styles from './inventory.module.css'
 
 export default function ItemsTab() {
 
@@ -42,7 +43,7 @@ export default function ItemsTab() {
     alert('mint')
   }
 
-  return (<>
+  return (<div className={styles.lemonTab}>
     <TabsLayout>
       <div className="inventory-left-buttons d-flex flex-column">
         
@@ -101,7 +102,7 @@ export default function ItemsTab() {
         }
       </div>
 
-      <div className="position-absolute" style={{bottom: '-70px'}}>
+      <div>
         { currentItemsFilter != 'dressed' && <div className="d-flex mt-2 bottom-buttons">
           <a className={`col col-auto position-relative ${ currentItemsFilter == undefined && 'active' }`} href={'#'} onClick={filterOutifts('all')}>
             <b className="position-absolute" style={{color: '#4a5480', padding: '19px 15px 0 16px', fontSize: '17px'}}>ALL</b>
@@ -140,5 +141,16 @@ export default function ItemsTab() {
         </div>}
       </div>
     </TabsLayout>
-  </>)
+    <div className="row gx-2">
+      <div className="col-12 col-sm-6 col-lg-4 mt-2">
+        <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Level up</button>
+      </div>
+      <div className="col-12 col-sm-6 col-lg-4 mt-2">
+        <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Sell</button>
+      </div>
+      <div className="col-12 col-sm-6 col-lg-4 mt-2">
+        <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Send</button>
+      </div>
+    </div>
+  </div>)
 }

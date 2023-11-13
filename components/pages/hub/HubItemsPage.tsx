@@ -16,8 +16,8 @@ export default function HubItemsPage() {
     });
   })
 
-  return (<div className="container mb-auto">
-  <h3 className="text-center py-3">{itemBalance} Items: {items.length}</h3>
+  return (<div className="container">
+  <h3 className="text-center py-3">{itemBalance} Items:</h3>
   <ItemsTab />
 </div>);
 };
