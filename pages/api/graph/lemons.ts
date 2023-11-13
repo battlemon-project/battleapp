@@ -29,8 +29,9 @@ export default async function handler (req: NextRequest) {
           }`,
       }),
     });
-
+    console.log('response', response)
     const result = await response.json();
+    console.log('result', result)
 
     if (!result?.data?.user?.tokens) {
       return NextResponse.json({
