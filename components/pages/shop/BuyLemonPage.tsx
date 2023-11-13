@@ -2,11 +2,11 @@ import cn from 'classnames';
 import styles from './shop.module.css'
 import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
-import { useLemon } from 'hooks/useLemon';
+import { useLemons } from 'hooks/useLemons';
 import { truncate } from 'utils/misc';
 
 export default function BuyLemonPage() {
-  const { lemonMint, lemonBalance, lemonStatus } = useLemon();
+  const { lemonMint, lemonBalance, lemonStatus } = useLemons();
 
   return (
     <div className="container py-3 mb-auto">

@@ -15,7 +15,7 @@ export default async function handler (req: NextRequest) {
       })
     }
 
-    const response = await fetch(process.env.THEGRAPH + '/lemon', {
+    const response = await fetch(process.env.THEGRAPH + '/item', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

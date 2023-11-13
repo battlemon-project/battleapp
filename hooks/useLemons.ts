@@ -1,10 +1,10 @@
-import { LemonType, RequestLemonsType } from 'lemon';
+import { TokenType, RequestTokensType } from 'lemon';
 import { useLemonSafeMint, useLemonBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
 import { parseEther } from 'viem';
 
-export function useLemon() {
+export function useLemons() {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
   
@@ -37,11 +37,11 @@ export function useLemon() {
   }, [lemonMintResult])
 
 
-  const lemonTokens = async (): Promise<LemonType[] | undefined> => {
+  const lemonTokens = async (): Promise<TokenType[] | undefined> => {
     if (!address) return;
     const fetched = await fetch(`/api/graph/lemons?address=${address}`)
 
-    const { error, tokens }: RequestLemonsType = await fetched.json();
+    const { error, tokens }: RequestTokensType = await fetched.json();
 
     if (error) {
       alert(error)

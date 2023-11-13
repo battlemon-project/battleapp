@@ -1,12 +1,12 @@
 import LemonsTab from "components/inventory/LemonsTab";
-import { useLemon } from "hooks/useLemon";
+import { useLemons } from "hooks/useLemons";
 import { useOnMount } from "hooks/useOnMount";
-import { LemonType } from "lemon";
+import { TokenType } from "lemon";
 import { useState } from "react";
 
 export default function HubLemonsPage() {
-  const [ lemons, setLemons ] = useState<LemonType[]>([])
-  const { lemonTokens, lemonBalance } = useLemon()
+  const [ lemons, setLemons ] = useState<TokenType[]>([])
+  const { lemonTokens, lemonBalance } = useLemons()
 
   useOnMount(() => {
     lemonTokens().then(data => {

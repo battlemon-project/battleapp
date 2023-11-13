@@ -3,10 +3,10 @@ import styles from './shop.module.css'
 import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
 import { truncate } from 'utils/misc';
-import { useItem } from 'hooks/useItem';
+import { useItems } from 'hooks/useItems';
 
 export default function BuyItemPage() {
-  const { itemMint, itemBalance, itemStatus } = useItem();
+  const { itemMint, itemBalance, itemStatus } = useItems();
 
   return (
     <div className="container py-3 mb-auto">

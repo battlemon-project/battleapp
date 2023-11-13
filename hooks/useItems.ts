@@ -1,8 +1,9 @@
+import { TokenType, RequestTokensType } from 'lemon';
 import { useItemProxyMint, useItemBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
 
-export function useItem() {
+export function useItems() {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
   
@@ -33,9 +34,26 @@ export function useItem() {
     itemBalance?.refetch()
   }, [itemMintResult])
 
+
+  const itemTokens = async (): Promise<TokenType[] | undefined> => {
+    if (!address) return;
+    const fetched = await fetch(`/api/graph/items?address=${address}`)
+
+    const { error, tokens }: RequestTokensType = await fetched.json();
+
+    if (error) {
+      alert(error)
+      return []
+    }
+
+    return tokens;
+  };
+
+
   return {
     itemMint: itemMintRandom?.write || (() => {}),
     itemBalance: parseInt(itemBalance?.data?.toString() || '0') || undefined,
-    itemStatus: status
+    itemStatus: status,
+    itemTokens
   };
 }

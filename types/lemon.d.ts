@@ -13,22 +13,13 @@ declare module 'lemon' {
     [key: string]: string
   }
 
-  interface LemonType {
+  interface TokenType {
     id: string
     tokenId: string
-    tokenUri: string
-    metaData: {
-      id: string
-      description: string
-      image: string
-      name: string
-      properties: PropertiesType
-    }
   }
-
   
-  interface RequestLemonsType {
-    tokens: LemonType[] | undefined,
+  interface RequestTokensType {
+    tokens: TokensType[] | undefined,
     error?: string
   }
 }
