@@ -29,23 +29,23 @@ export default async function handler (req: NextRequest) {
           }`,
       }),
     });
-    console.log('response', response)
-    const result = await response.json();
+    console.log('response', JSON.stringify(response))
+    const result = await response.text();
     console.log('result', result)
 
-    if (!result?.data?.user?.tokens) {
-      return NextResponse.json({
-        error: `Return undefined data`,
-      }, {
-        status: 500
-      })
-    }
+    // if (!result?.data?.user?.tokens) {
+    //   return NextResponse.json({
+    //     error: `Return undefined data`,
+    //   }, {
+    //     status: 500
+    //   })
+    // }
 
-    const tokens = result?.data?.user?.tokens.map((token: any) => {
-      return token;
-    })
+    // const tokens = result?.data?.user?.tokens.map((token: any) => {
+    //   return token;
+    // })
 
-    return NextResponse.json({ tokens: tokens as TokenType[] })
+    return NextResponse.json({ tokens: result })
   }
   
   return NextResponse.json({
