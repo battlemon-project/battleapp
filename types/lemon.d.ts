@@ -10,7 +10,7 @@ declare module 'lemon' {
   }
 
   interface PropertiesType {
-    [key: string]: string
+    [key: string]: string | undefined
   }
 
   interface TokenType {

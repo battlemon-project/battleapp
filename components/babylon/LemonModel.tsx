@@ -69,7 +69,8 @@ export default function LemonModel({ children, properties }: PropsWithChildren<{
       sceneFilename={`BTLMN_Lemon.gltf`}
       scaleToDimension={undefined}
       onModelLoaded={onLemonLoaded}
-      position={new Vector3(0,-1.2,0)}
+      position={new Vector3(0,-1.1,0)}
+      scaling={new Vector3(1.2,1.2,1.2)}
     />
     {lemonNodes && children}
   </>)

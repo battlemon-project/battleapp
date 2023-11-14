@@ -2,14 +2,26 @@
 import { Scene as BabylonScene, Color4, SceneLoader, Vector3, CubeTexture } from '@babylonjs/core'
 import { Engine, Scene } from 'react-babylonjs'
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
-import { Suspense } from 'react';
+import { Fragment, Suspense, useEffect, useState } from 'react';
 import LemonModel from 'components/babylon/LemonModel';
 import ItemModel from 'components/babylon/ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
 import { PropertiesType } from 'lemon';
 
-export default function SanboxPage({ properties }: { properties: PropertiesType }) {
+export default function SanboxPage({ properties, items }: { properties: PropertiesType, items: PropertiesType }) {
+  const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
   const mounted = useIsMounted()
+  
+  useEffect(() => {
+    const props = {...properties};
+    if (items.cap) {
+      delete props.hair;
+    }
+    if (items.shoes) {
+      delete props.feet;
+    }
+    setVisibleProperties(props);
+  }, [properties, items])
   
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
     if (!scene) return;
@@ -26,8 +38,8 @@ export default function SanboxPage({ properties }: { properties: PropertiesType 
     scene.environmentTexture.level = 1;
   }
 
-  return (<>
-    <div style={{width: '512px', height: '512px'}}>
+  return (
+    <>
       {mounted && <Engine antialias canvasId="lemon-canvas">
         <Scene onSceneMount={onSceneMount}>
           <arcRotateCamera
@@ -50,23 +62,34 @@ export default function SanboxPage({ properties }: { properties: PropertiesType 
           />
           
           <Suspense>
-            <LemonModel properties={properties}>
-              <ItemModel 
-                key="FireArms_Assault_Rifle_A" 
-                name="FireArms_Assault_Rifle_A" 
-                placeholderName="fire_arms"
-              />
-              <ItemModel 
-                key="ColdArms_Katana" 
-                name="ColdArms_Katana" 
-                placeholderName="cold_arms"
-              />
+            <LemonModel properties={visibleProperties}>
+              {Object.entries(items).map(([placeholderName, itemName]) => {
+                if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
+                if (placeholderName == 'shoes') {
+                  return <Fragment key={placeholderName + itemName}>
+                    <ItemModel 
+                      name={itemName+'_L'}
+                      placeholderName={placeholderName+'_r'}
+                    />
+                    <ItemModel 
+                      name={itemName+'_R'}
+                      placeholderName={placeholderName+'_l'}
+                    />
+                  </Fragment>
+                }
+                return <Fragment key={placeholderName + itemName}>
+                  <ItemModel
+                    name={itemName}
+                    placeholderName={placeholderName}
+                  />
+                </Fragment>
+              })}
             </LemonModel>
           </Suspense>
 
           {/* <DebugLayer /> */}
         </Scene>
       </Engine>}
-    </div>
-  </>)
+    </>
+  )
 }
