@@ -17,4 +17,8 @@ declare module 'lemon' {
     id: string
     tokenId: string
   }
+  
+  interface TokenIpfsType {
+    image: sring
+  }
 }
