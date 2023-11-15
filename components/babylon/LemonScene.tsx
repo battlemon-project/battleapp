@@ -1,14 +1,27 @@
 
-import { Scene as BabylonScene, Color4, SceneLoader, Vector3, CubeTexture } from '@babylonjs/core'
+import { Engine as BabylonEngine, Scene as BabylonScene, Color4, SceneLoader, Vector3, CubeTexture } from '@babylonjs/core'
 import { Engine, Scene } from 'react-babylonjs'
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
-import { Fragment, Suspense, useEffect, useState } from 'react';
+import { Dispatch, Fragment, SetStateAction, Suspense, useEffect, useState } from 'react';
 import LemonModel from 'components/babylon/LemonModel';
 import ItemModel from 'components/babylon/ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
 import { PropertiesType } from 'lemon';
 
-export default function SanboxPage({ properties, items }: { properties: PropertiesType, items: PropertiesType }) {
+interface SanboxPageType {
+  properties: PropertiesType
+  items: PropertiesType
+  isPaused?: boolean
+  onModelReady?: (
+    engine: BabylonEngine, 
+    scene: BabylonScene,
+    properties: PropertiesType,
+    setProperties?: Dispatch<SetStateAction<PropertiesType>>
+  ) => void
+  setProperties?: Dispatch<SetStateAction<PropertiesType>>
+}
+
+export default function SanboxPage({ properties, items, isPaused, setProperties, onModelReady }: SanboxPageType) {
   const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
   const mounted = useIsMounted()
   
@@ -40,17 +53,19 @@ export default function SanboxPage({ properties, items }: { properties: Properti
 
   return (
     <>
-      {mounted && <Engine antialias canvasId="lemon-canvas">
+      {mounted && <Engine antialias canvasId="lemon-canvas" isPaused={isPaused}>
         <Scene onSceneMount={onSceneMount}>
           <arcRotateCamera
             name='camera1' 
-            alpha={Math.PI / 2.3} 
-            beta={Math.PI / 1.9} 
+            alpha={1.35} 
+            lowerAlphaLimit={isPaused ? 1.35 : undefined}
+            upperAlphaLimit={isPaused ? 1.35 : undefined}
+            beta={1.6} 
+            lowerBetaLimit={1.6}
+            upperBetaLimit={1.6}
             radius={4} 
             lowerRadiusLimit={4}
             upperRadiusLimit={4}
-            lowerBetaLimit={1.6}
-            upperBetaLimit={1.6}
             target={new Vector3(0,0,0)}
             minZ={1}
           />
@@ -62,7 +77,7 @@ export default function SanboxPage({ properties, items }: { properties: Properti
           />
           
           <Suspense>
-            <LemonModel properties={visibleProperties}>
+            <LemonModel properties={visibleProperties} onModelReady={onModelReady} setProperties={setProperties}>
               {Object.entries(items).map(([placeholderName, itemName]) => {
                 if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
                 if (placeholderName == 'shoes') {

@@ -31,6 +31,8 @@ import { publicProvider } from 'wagmi/providers/public';
 import { SiweMessage } from 'siwe';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AuthProvider } from 'context/AuthContext';
+import Script from 'next/script';
+import { useRouter } from 'next/router';
 
 const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [polygonMumbai] : [polygon]
 const roninChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [saigon] : [ronin]
@@ -83,12 +85,14 @@ const wagmiConfig = createConfig({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter()
   const fetchingStatusRef = useRef(false);
   const verifyingRef = useRef(false);
   const [authStatus, setAuthStatus] = useState<AuthenticationStatus>('loading');
 
   // Fetch user when:
   useEffect(() => {
+    if (router.pathname.startsWith("/generator")) return;
     typeof document !== undefined ? require("bootstrap/dist/js/bootstrap.bundle") : null;
 
     const fetchStatus = async () => {
@@ -176,7 +180,11 @@ export default function App({ Component, pageProps }: AppProps) {
     });
   }, []);
 
-  return (
+  if (router.pathname.startsWith("/generator")) {
+    return <Component {...pageProps} />
+  }
+
+  return (<>
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitAuthenticationProvider
         adapter={authAdapter}
@@ -189,5 +197,19 @@ export default function App({ Component, pageProps }: AppProps) {
         </RainbowKitProvider>
       </RainbowKitAuthenticationProvider>
     </WagmiConfig>
-  );
+    <Script id='googletagmanager'
+      strategy={'beforeInteractive'}
+      src={`https://www.googletagmanager.com/gtag/js?id=G-FXNCZP5QS7`}
+    />
+    <Script id='googledataLayer' strategy={'beforeInteractive'}>
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-FXNCZP5QS7');
+      `}
+    </Script>
+  </>);
 }

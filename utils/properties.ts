@@ -1,4 +1,4 @@
-import type { PropertiesList } from "lemon";
+import type { PropertiesList, PropertiesType } from "lemon";
 
 export const allProperties: PropertiesList = {
   head: [
@@ -69,4 +69,8 @@ export const allProperties: PropertiesList = {
     'Scar_Samurai_R',
     'Scar_Macedonian_R',    
   ]
+}
+
+export const getRandomProps = (): PropertiesType => {
+  return Object.assign({}, ...Object.entries(allProperties).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
 }
