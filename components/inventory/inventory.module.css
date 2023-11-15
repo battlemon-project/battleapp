@@ -30,12 +30,17 @@
 }
 
 .inventoryContent {
-  padding: 10px 5px;
+  padding: 8px 8px;
 }
 
 .lightBg {
   background: rgba(255, 255, 255, 0.20);
   border: 2px solid rgba(255,255,255,0.3);
+}
+
+.itemBg {
+  background: rgba(255, 255, 255, 0.20);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .filterIcon {

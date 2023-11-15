@@ -3,17 +3,20 @@ import TabsLayout from "./TabsLayout";
 import styles from './inventory.module.css'
 import { Fragment } from "react";
 import { allItems } from "utils/items";
+import cn from 'classnames';
 
 export default function LemonTab() {
   const { lemonTokens, refreshLemonTokens } = useLemons()
 
   return (<div className={styles.lemonTab}>
     <TabsLayout>
-      <div className="row gx-1">
+      <div className="row gx-2">
         {lemonTokens?.map((token, idx)=> {
           return <Fragment key={idx}>
-            <div className="col-4">
-              <img src={token.image} className="img-fluid" />
+            <div className='col-3'>
+              <div className={cn('rounded-4', styles.itemBg)}>
+                <img src={token.image} className="img-fluid" />
+              </div>
             </div>
           </Fragment>
         })}
