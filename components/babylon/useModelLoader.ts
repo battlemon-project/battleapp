@@ -22,6 +22,7 @@ export function useModelLoader() {
   const endpoint = searchParams.get('endpoint')
   const accessKeyId = searchParams.get('accessKeyId')
   const secretAccessKey = searchParams.get('secretAccessKey')
+  const folderLemons = searchParams.get('folderLemons')
 
   const onModelReady = async (engine: Engine, scene: Scene, properties: PropertiesType, setProperties?: Dispatch<SetStateAction<PropertiesType>>) => {
     if (!sceneRef.current) {
@@ -61,7 +62,7 @@ export function useModelLoader() {
         const type = data.split(';')[0].split('/')[1];
         const params = {
           Bucket: bucket || '',
-          Key: `v1/lemons/${id}.png`,
+          Key: `${folderLemons}/${id}.png`,
           Body: base64Data,
           ContentEncoding: 'base64',
           ContentType: `image/${type}`,
@@ -79,11 +80,10 @@ export function useModelLoader() {
   }
 
   const putFile = async (id: number, properties: PropertiesType) => {
-    const folder = 'v1/lemons'
     const obj = {
       name: `Lemon #${id}`,
       description: "Brutal.. savage.. yellow. Don't even try to squeeze him!",
-      image: `https://${storageLink}/${folder}/${id}.jpg`,
+      image: `https://${storageLink}/${folderLemons}/${id}.png`,
       properties
     };
 
@@ -91,7 +91,7 @@ export function useModelLoader() {
     
     const params = {
         Bucket: bucket || '',
-        Key: `${folder}/${id}`,
+        Key: `${folderLemons}/${id}`,
         Body: buf,
         ContentEncoding: 'base64',
         ContentType: 'application/json',
