@@ -520,16 +520,6 @@ export const itemABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
-      { name: 'itemType', internalType: 'uint8', type: 'uint8' },
-      { name: 'names', internalType: 'string[]', type: 'string[]' },
-    ],
-    name: 'addNewNames',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
       { name: 'to', internalType: 'address', type: 'address' },
       { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
     ],
@@ -584,28 +574,35 @@ export const itemABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getItemData',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct Items.Metadata',
+        type: 'tuple',
+        components: [
+          { name: 'isEquipped', internalType: 'bool', type: 'bool' },
+          { name: 'itemType', internalType: 'uint8', type: 'uint8' },
+          { name: 'level', internalType: 'uint8', type: 'uint8' },
+          { name: 'agility', internalType: 'uint256', type: 'uint256' },
+          { name: 'speed', internalType: 'uint256', type: 'uint256' },
+          { name: 'luck', internalType: 'uint256', type: 'uint256' },
+          { name: 'actualOwner', internalType: 'address', type: 'address' },
+          { name: 'dna', internalType: 'bytes1', type: 'bytes1' },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [
       { name: 'owner', internalType: 'address', type: 'address' },
       { name: 'operator', internalType: 'address', type: 'address' },
     ],
     name: 'isApprovedForAll',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    name: 'itemData',
-    outputs: [
-      { name: 'isEquipped', internalType: 'bool', type: 'bool' },
-      { name: 'itemType', internalType: 'uint8', type: 'uint8' },
-      { name: 'itemName', internalType: 'string', type: 'string' },
-      { name: 'level', internalType: 'uint8', type: 'uint8' },
-      { name: 'agility', internalType: 'uint256', type: 'uint256' },
-      { name: 'speed', internalType: 'uint256', type: 'uint256' },
-      { name: 'luck', internalType: 'uint256', type: 'uint256' },
-      { name: 'actualOwner', internalType: 'address', type: 'address' },
-    ],
   },
   {
     stateMutability: 'view',
@@ -627,6 +624,7 @@ export const itemABI = [
     inputs: [
       { name: 'itemId', internalType: 'uint256', type: 'uint256' },
       { name: 'gemId', internalType: 'uint256', type: 'uint256' },
+      { name: 'stat', internalType: 'uint8', type: 'uint8' },
     ],
     name: 'levelUp',
     outputs: [],
@@ -782,16 +780,26 @@ export const itemABI = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    name: 'tokenIds',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'tokenURI',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'id', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferEquippedItem',
+    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -810,23 +818,6 @@ export const itemABI = [
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'typeName', internalType: 'uint8', type: 'uint8' }],
-    name: 'typeToId',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [
-      { name: '', internalType: 'uint256', type: 'uint256' },
-      { name: '', internalType: 'uint256', type: 'uint256' },
-    ],
-    name: 'typeToNames',
-    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -1058,7 +1049,7 @@ export const lemonABI = [
     type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'getAllEquipment',
-    outputs: [{ name: '', internalType: 'int256[9]', type: 'int256[9]' }],
+    outputs: [{ name: '', internalType: 'int256[10]', type: 'int256[10]' }],
   },
   {
     stateMutability: 'view',
@@ -1096,8 +1087,9 @@ export const lemonABI = [
       { name: 'level', internalType: 'uint8', type: 'uint8' },
       { name: 'lemonType', internalType: 'uint8', type: 'uint8' },
       { name: 'agility', internalType: 'uint256', type: 'uint256' },
-      { name: 'speed', internalType: 'uint256', type: 'uint256' },
       { name: 'luck', internalType: 'uint256', type: 'uint256' },
+      { name: 'speed', internalType: 'uint256', type: 'uint256' },
+      { name: 'dna', internalType: 'bytes12', type: 'bytes12' },
     ],
   },
   {
@@ -1120,6 +1112,7 @@ export const lemonABI = [
     inputs: [
       { name: 'lemonId', internalType: 'uint256', type: 'uint256' },
       { name: 'gemId', internalType: 'uint256', type: 'uint256' },
+      { name: 'stat', internalType: 'uint8', type: 'uint8' },
     ],
     name: 'levelUp',
     outputs: [],
@@ -1144,6 +1137,13 @@ export const lemonABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint16', type: 'uint16' }],
+    name: 'proxyMint',
+    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -2441,6 +2441,25 @@ export function useItemGetApproved<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"getItemData"`.
+ */
+export function useItemGetItemData<
+  TFunctionName extends 'getItemData',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'getItemData',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"isApprovedForAll"`.
  */
 export function useItemIsApprovedForAll<
@@ -2455,25 +2474,6 @@ export function useItemIsApprovedForAll<
   return useContractRead({
     abi: itemABI,
     functionName: 'isApprovedForAll',
-    ...config,
-  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"itemData"`.
- */
-export function useItemItemData<
-  TFunctionName extends 'itemData',
-  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: itemABI,
-    functionName: 'itemData',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -2631,25 +2631,6 @@ export function useItemSymbol<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"tokenIds"`.
- */
-export function useItemTokenIds<
-  TFunctionName extends 'tokenIds',
-  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: itemABI,
-    functionName: 'tokenIds',
-    ...config,
-  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"tokenURI"`.
  */
 export function useItemTokenUri<
@@ -2669,10 +2650,10 @@ export function useItemTokenUri<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"typeToId"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"totalSupply"`.
  */
-export function useItemTypeToId<
-  TFunctionName extends 'typeToId',
+export function useItemTotalSupply<
+  TFunctionName extends 'totalSupply',
   TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
 >(
   config: Omit<
@@ -2682,26 +2663,7 @@ export function useItemTypeToId<
 ) {
   return useContractRead({
     abi: itemABI,
-    functionName: 'typeToId',
-    ...config,
-  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"typeToNames"`.
- */
-export function useItemTypeToNames<
-  TFunctionName extends 'typeToNames',
-  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: itemABI,
-    functionName: 'typeToNames',
+    functionName: 'totalSupply',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -2725,31 +2687,6 @@ export function useItemWrite<
 ) {
   return useContractWrite<typeof itemABI, TFunctionName, TMode>({
     abi: itemABI,
-    ...config,
-  } as any)
-}
-
-/**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"addNewNames"`.
- */
-export function useItemAddNewNames<TMode extends WriteContractMode = undefined>(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof itemABI,
-          'addNewNames'
-        >['request']['abi'],
-        'addNewNames',
-        TMode
-      > & { functionName?: 'addNewNames' }
-    : UseContractWriteConfig<typeof itemABI, 'addNewNames', TMode> & {
-        abi?: never
-        functionName?: 'addNewNames'
-      } = {} as any,
-) {
-  return useContractWrite<typeof itemABI, 'addNewNames', TMode>({
-    abi: itemABI,
-    functionName: 'addNewNames',
     ...config,
   } as any)
 }
@@ -3110,6 +3047,33 @@ export function useItemSetStickersAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"transferEquippedItem"`.
+ */
+export function useItemTransferEquippedItem<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'transferEquippedItem'
+        >['request']['abi'],
+        'transferEquippedItem',
+        TMode
+      > & { functionName?: 'transferEquippedItem' }
+    : UseContractWriteConfig<typeof itemABI, 'transferEquippedItem', TMode> & {
+        abi?: never
+        functionName?: 'transferEquippedItem'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'transferEquippedItem', TMode>({
+    abi: itemABI,
+    functionName: 'transferEquippedItem',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"transferFrom"`.
  */
 export function useItemTransferFrom<
@@ -3226,22 +3190,6 @@ export function usePrepareItemWrite<TFunctionName extends string>(
     abi: itemABI,
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, TFunctionName>)
-}
-
-/**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"addNewNames"`.
- */
-export function usePrepareItemAddNewNames(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof itemABI, 'addNewNames'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: itemABI,
-    functionName: 'addNewNames',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof itemABI, 'addNewNames'>)
 }
 
 /**
@@ -3466,6 +3414,22 @@ export function usePrepareItemSetStickersAddress(
     functionName: 'setStickersAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'setStickersAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"transferEquippedItem"`.
+ */
+export function usePrepareItemTransferEquippedItem(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'transferEquippedItem'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'transferEquippedItem',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'transferEquippedItem'>)
 }
 
 /**
@@ -4263,6 +4227,31 @@ export function useLemonLevelUp<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"proxyMint"`.
+ */
+export function useLemonProxyMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'proxyMint'
+        >['request']['abi'],
+        'proxyMint',
+        TMode
+      > & { functionName?: 'proxyMint' }
+    : UseContractWriteConfig<typeof lemonABI, 'proxyMint', TMode> & {
+        abi?: never
+        functionName?: 'proxyMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'proxyMint', TMode>({
+    abi: lemonABI,
+    functionName: 'proxyMint',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"renounceOwnership"`.
  */
 export function useLemonRenounceOwnership<
@@ -4583,6 +4572,22 @@ export function usePrepareLemonLevelUp(
     functionName: 'levelUp',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'levelUp'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"proxyMint"`.
+ */
+export function usePrepareLemonProxyMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'proxyMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'proxyMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'proxyMint'>)
 }
 
 /**
