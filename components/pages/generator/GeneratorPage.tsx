@@ -1,19 +1,19 @@
 import LemonScene from 'components/babylon/LemonScene';
-import { getRandomProps } from 'utils/properties';
+import { getRandomTraits } from 'utils/properties';
 import { useModelLoader } from 'components/babylon/useModelLoader';
 import { useState } from 'react';
 import { PropertiesType } from 'lemon';
 
-const defaultProps = getRandomProps();
+const defaultTraits: PropertiesType = getRandomTraits();
 
 export default function GeneratorPage() {
   const { onModelReady } = useModelLoader()
 
-  const [properties, setProperties] = useState<PropertiesType>(defaultProps)
+  const [traits, setTraits] = useState<PropertiesType>(defaultTraits)
 
   return (
     <div className='mx-auto' style={{width: '512px', height: '512px'}}>
-      <LemonScene properties={properties} items={{}} onModelReady={onModelReady} setProperties={setProperties} isPaused={true} />
+      <LemonScene traits={traits} items={{}} onModelReady={onModelReady} setTraits={setTraits} isPaused={true} />
     </div>
   )
 }

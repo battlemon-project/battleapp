@@ -9,32 +9,32 @@ import { useIsMounted } from 'hooks/useIsMounted';
 import { PropertiesType } from 'lemon';
 
 interface SanboxPageType {
-  properties: PropertiesType
+  traits: PropertiesType
   items: PropertiesType
   isPaused?: boolean
   onModelReady?: (
     engine: BabylonEngine, 
     scene: BabylonScene,
-    properties: PropertiesType,
-    setProperties?: Dispatch<SetStateAction<PropertiesType>>
+    traits: PropertiesType,
+    setTraits?: Dispatch<SetStateAction<PropertiesType>>
   ) => void
-  setProperties?: Dispatch<SetStateAction<PropertiesType>>
+  setTraits?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function SanboxPage({ properties, items, isPaused, setProperties, onModelReady }: SanboxPageType) {
-  const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
+export default function SanboxPage({ traits, items, isPaused, setTraits, onModelReady }: SanboxPageType) {
+  const [ visibleTraits, setVisibleTraits ] = useState<PropertiesType>(traits)
   const mounted = useIsMounted()
   
   useEffect(() => {
-    const props = {...properties};
+    const _traits = {...traits};
     if (items.cap) {
-      delete props.hair;
+      delete _traits.hair;
     }
     if (items.shoes) {
-      delete props.feet;
+      delete _traits.feet;
     }
-    setVisibleProperties(props);
-  }, [properties, items])
+    setVisibleTraits(_traits);
+  }, [traits, items])
   
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
     if (!scene) return;
@@ -77,7 +77,7 @@ export default function SanboxPage({ properties, items, isPaused, setProperties,
           />
           
           <Suspense>
-            <LemonModel properties={visibleProperties} onModelReady={onModelReady} setProperties={setProperties}>
+            <LemonModel traits={visibleTraits} onModelReady={onModelReady} setTraits={setTraits}>
               {Object.entries(items).map(([placeholderName, itemName]) => {
                 if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
                 if (placeholderName == 'shoes') {

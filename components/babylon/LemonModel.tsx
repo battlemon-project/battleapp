@@ -8,14 +8,14 @@ interface LemonModelType {
   onModelReady?: (
     engine: Engine, 
     scene: Scene,
-    properties: PropertiesType,
-    setProperties?: Dispatch<SetStateAction<PropertiesType>>
+    traits: PropertiesType,
+    setTraits?: Dispatch<SetStateAction<PropertiesType>>
   ) => void
-  properties: PropertiesType,
-  setProperties?: Dispatch<SetStateAction<PropertiesType>>
+  traits: PropertiesType,
+  setTraits?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function LemonModel({ children, properties, setProperties, onModelReady }: PropsWithChildren<LemonModelType>) {
+export default function LemonModel({ children, traits, setTraits, onModelReady }: PropsWithChildren<LemonModelType>) {
   const lemonRef = useRef<AbstractMesh | null>(null)
   const [ lemonNodes, setLemonNodes ] = useState<(AbstractMesh | TransformNode)[]>()
   const baseUrl = '/models/lemon/'
@@ -34,12 +34,12 @@ export default function LemonModel({ children, properties, setProperties, onMode
     lemonRef.current = lemon;
     let nodes = [...lemon.getChildMeshes(), ...lemon.getChildTransformNodes()]
     setLemonNodes(nodes);
-    const propNames = Object.values(properties);
+    const traitNames = Object.values(traits);
     scene?.render();
     nodes.forEach((node) => {
-      if (!propNames.includes(node.name) && node.parent?.name == 'Armature') {
+      if (!traitNames.includes(node.name) && node.parent?.name == 'Armature') {
         node.setEnabled(false);
-      } else if (!propNames.includes(node.name) && node instanceof AbstractMesh && !node.name.startsWith(node.parent?.name || 'Just check parent')) {
+      } else if (!traitNames.includes(node.name) && node instanceof AbstractMesh && !node.name.startsWith(node.parent?.name || 'Just check parent')) {
         node.visibility = 0;
       }
     });
@@ -49,13 +49,13 @@ export default function LemonModel({ children, properties, setProperties, onMode
     );
     idleAnimation?.start(false, 1, 10, 10);
     if (onModelReady) {
-      setTimeout(() => onModelReady(engine!, scene!, properties, setProperties))
+      setTimeout(() => onModelReady(engine!, scene!, traits, setTraits))
     }
   }
 
   useEffect(() => {
     if (!lemonNodes || !engine || !scene) return;
-    const propNames = Object.values(properties);
+    const propNames = Object.values(traits);
     lemonNodes.forEach((node) => {
       if (propNames.includes(node.name)) {
         node.setEnabled(true)
@@ -64,14 +64,14 @@ export default function LemonModel({ children, properties, setProperties, onMode
     scene?.render();
     return () => {
       if (!lemonNodes) return;
-      const propNames = Object.values(properties);
+      const propNames = Object.values(traits);
       lemonNodes.forEach((node) => {
         if (propNames.includes(node.name)) {
           node.setEnabled(false)
         }
       });
     }
-  }, [lemonNodes, properties])
+  }, [lemonNodes, traits])
 
 
   useEffect(() => {

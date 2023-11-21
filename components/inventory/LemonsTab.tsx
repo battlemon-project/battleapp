@@ -2,7 +2,7 @@ import { useLemons } from "hooks/useLemons";
 import TabsLayout from "./TabsLayout";
 import styles from './inventory.module.css'
 import { Fragment } from "react";
-import { allItems } from "utils/items";
+import { allItems } from "utils/properties";
 import cn from 'classnames';
 
 export default function LemonTab() {
