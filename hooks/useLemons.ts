@@ -1,5 +1,5 @@
 import { TokenIpfsType, TokenType } from 'lemon';
-import { useLemonSafeMint, useLemonBalanceOf } from './generated';
+import { useLemonProxyMint, useLemonBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
 import { parseEther } from 'viem';
@@ -20,10 +20,9 @@ export function useLemons() {
   const { address }  = useAccount();
   const { data: lemonTokens, mutate: refreshLemonTokens  } = useSWR<TokenIpfsType[]>(`/api/graph/lemons?address=${address}`, fetcher, { revalidateOnFocus: false, revalidateOnReconnect: false })
   
-  const lemonSafeMint = address && useLemonSafeMint({
+  const lemonSafeMint = address && useLemonProxyMint({
     address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
-    args: [1],
-    value: parseEther('0.05')
+    args: [1]
   })
 
   const lemonMintResult = useWaitForTransaction({ hash: lemonSafeMint?.data?.hash });

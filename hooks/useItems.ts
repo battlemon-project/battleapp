@@ -9,7 +9,7 @@ export function useItems() {
   
   const itemMintRandom = address && useItemProxyMint({
     address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
-    args: [address, 1]
+    args: [address, 0]
   })
 
   const itemMintResult = useWaitForTransaction({ hash: itemMintRandom?.data?.hash });
