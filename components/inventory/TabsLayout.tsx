@@ -19,8 +19,6 @@ export default function TabsLayout({ children }: PropsWithChildren) {
         <img src="/images/hub/tab_gems.png" />
       </Link>
     </div>
-    <div className={styles.inventoryScollable}>
-      <div className={styles.inventoryContent}>{children}</div>
-    </div>
+    {children}
   </div>
 }

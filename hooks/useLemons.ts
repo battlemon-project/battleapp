@@ -2,16 +2,19 @@ import { TokenIpfsType, TokenType } from 'lemon';
 import { useLemonProxyMint, useLemonBalanceOf } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
-import { parseEther } from 'viem';
 import useSWR from "swr";
 
 //const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const fetcher = async (url: string) => {
-  const graphResponse = await fetch(url)
-  const tokensList: TokenType[] = await graphResponse.json()
-  const ipfs = 'https://bafybeiapaqnvg2b4rueljohn36werk3ykac7bhhgzbq7y2a3yypxnqtibi.ipfs.nftstorage.link/';
-  const f = (url: string) => fetch(url).then(r => r.json())
+  const graphResponse = await fetch(url);
+  const tokensList: TokenType[] = await graphResponse.json();
+  const ipfs = 'https://storage-testnet.battlemon.com/v1/lemons/';
+  const f = async (url: string) => {
+    const res = await fetch(url)
+    const json = await res.json()
+    return json;
+  }
   return Promise.all(tokensList.map(({ id }) => f(ipfs + id)))
 }
 

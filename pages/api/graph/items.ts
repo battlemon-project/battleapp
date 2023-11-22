@@ -44,7 +44,7 @@ export default async function handler (req: NextRequest) {
       return token;
     })
 
-    return NextResponse.json({ tokens: tokens as TokenType[] })
+    return NextResponse.json(tokens as TokenType[])
   }
   
   return NextResponse.json({
