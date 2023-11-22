@@ -14,7 +14,6 @@ declare module 'lemon' {
   }
 
   interface TokenType {
-    id: string
     tokenId: string
   }
   
