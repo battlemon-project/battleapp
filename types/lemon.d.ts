@@ -13,11 +13,14 @@ declare module 'lemon' {
     [key: string]: string | undefined
   }
 
-  interface TokenType {
-    tokenId: string
-  }
-  
-  interface TokenIpfsType {
+  interface NftMetaData {
     image: sring
   }
+
+  interface ProviderData {
+    ownedNfts: { tokenId: number }[]
+    pageKey: string | undefined
+    totalCount: number
+  }
+  
 }

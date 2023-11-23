@@ -1,10 +1,10 @@
 import styles from './inventory.module.css'
 import { Fragment } from "react";
 import cn from 'classnames';
-import { TokenIpfsType } from "lemon";
+import { NftMetaData } from "lemon";
 
 interface TokensListProps {
-  tokens: TokenIpfsType[] | undefined
+  tokens: NftMetaData[] | undefined
   width?: number
   filter?: boolean
 }

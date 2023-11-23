@@ -1,5 +1,5 @@
 export const runtime = 'edge'
-import { TokenType } from 'lemon';
+import { ProviderData } from 'lemon';
 import { unsealData } from 'iron-session/edge';
 import { NextRequest, NextResponse } from 'next/server';
 import { ironOptions } from 'utils/iron';
@@ -36,7 +36,7 @@ export default async function handler (req: NextRequest) {
         return NextResponse.json({ error: await response.text() })
       }
       
-      const result = await response.json();
+      const result: ProviderData = await response.json();
   
       if (!result?.ownedNfts) {
         return NextResponse.json({
@@ -46,11 +46,11 @@ export default async function handler (req: NextRequest) {
         })
       }
   
-      const tokens = result?.ownedNfts.map(({ tokenId }: { tokenId: number }) => {
-        return { tokenId };
+      result.ownedNfts = result.ownedNfts.map(({ tokenId }) => {
+        return { tokenId: Number(tokenId) };
       })
-  
-      return NextResponse.json(tokens as TokenType[])
+      
+      return NextResponse.json(result)
     } catch(e) {
       const message = e instanceof Error ? e.message + e.stack : String(e);
       return NextResponse.json({
