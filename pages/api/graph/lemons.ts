@@ -1,5 +1,5 @@
 export const runtime = 'edge'
-import { TokenType } from 'lemon';
+import { NftMetaData } from 'lemon';
 import { NextRequest, NextResponse } from 'next/server';
 
 export default async function handler (req: NextRequest) {
@@ -44,7 +44,7 @@ export default async function handler (req: NextRequest) {
       return token;
     })
 
-    return NextResponse.json(tokens as TokenType[])
+    return NextResponse.json(tokens as NftMetaData[])
   }
   
   return NextResponse.json({
