@@ -5,18 +5,25 @@ import { NftMetaData } from "lemon";
 
 interface TokensListProps {
   tokens: NftMetaData[] | undefined
-  width?: number
-  filter?: boolean
+  height: number,
+  colWidth?: number
 }
 
-export default function TokensList({ tokens, width = 20, filter }: TokensListProps) {
+export default function TokensList({ tokens, colWidth = 20, height }: TokensListProps) {
+
+  if (!tokens?.length) {
+    return <div className='d-flex flex-column justify-content-center' style={{height}}>
+      <p className='fs-14 text-center'>YOU HAVE NO TOKENS YET</p>
+    </div>
+  }
+
   return (<>
-    <div className={styles.inventoryScollable} style={{height: filter ? '350px' : '410px'}}>
+    <div className={styles.inventoryScollable} style={{height: height + 'px'}}>
       <div className={styles.inventoryContent}>
         <div className="row gx-2">
-          {tokens?.map((token, idx)=> {
+          {tokens.map((token, idx)=> {
             return <Fragment key={idx}>
-              <div className='col-auto mb-2' style={{width: width + '%'}}>
+              <div className='col-auto mb-2' style={{width: colWidth + '%'}}>
                 <div className={cn('rounded-4', styles.itemBg)}>
                   <img src={token.image} className="img-fluid" height="512" width="512" />
                 </div>

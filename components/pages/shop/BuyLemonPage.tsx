@@ -22,9 +22,7 @@ export default function BuyLemonPage() {
       </div>
       <div className="row mt-3">
         <div className='col-12 col-md-5 mb-4'>
-          <div className={cn('p-3 py-4 rounded-4 text-center', styles.lightBg)}>
-            <img src="/images/shop/shadow-lemon.png" className='img-fluid' />
-          </div>
+          <img className={cn('rounded-4 img-fluid', styles.lightBg)} src="/images/shop/lemons-gallery.gif" />
         </div>
         <div className="col-12 col-md-7">
           <div className={cn('p-3 py-4 rounded-4 mb-4', styles.lightBg)}>
@@ -51,7 +49,7 @@ export default function BuyLemonPage() {
             }
           </button>
           
-          {lemonBalance && <Link href="/hub/lemons">
+          {!!lemonBalance && <Link href="/hub/lemons">
             <button className='btn btn-lg btn-outline-light w-100'>
               <span className='ps-2'>Look at your {lemonBalance} lemon{lemonBalance !== 1 ? 's' : ''} in NFT Hub</span>
             </button>

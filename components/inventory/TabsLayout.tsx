@@ -7,7 +7,7 @@ import styles from './inventory.module.css'
 export default function TabsLayout({ children }: PropsWithChildren) {
   const router = useRouter();
 
-  return <div className={cn('rounded-4', styles.inventoryContainer)}>
+  return <div className={cn('rounded-4', styles.inventoryBg)}>
     <div className={cn('d-flex', styles.inventoryTabs)}>
       <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/lemons")})} href="/hub/lemons">
         <img src="/images/hub/tab_lemons.png" />

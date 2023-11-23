@@ -20,9 +20,7 @@ export default function BuyItemPage() {
       </Link>
       <div className="row mt-3">
         <div className='col-12 col-md-5 mb-4'>
-          <div className={cn('p-3 py-4 rounded-4 text-center', styles.lightBg)}>
-            <img src="/images/shop/shadow-item.png" className='img-fluid' />
-          </div>
+          <img className={cn('rounded-4 img-fluid', styles.lightBg)} src="/images/shop/items-gallery.gif" />
         </div>
         <div className="col-12 col-md-7">
           <div className={cn('p-3 py-4 rounded-4 mb-4', styles.lightBg)}>
@@ -48,7 +46,7 @@ export default function BuyItemPage() {
             }
           </button>
           
-          {itemBalance && <Link href="/hub/items">
+          {!!itemBalance && <Link href="/hub/items">
             <button className='btn btn-lg btn-outline-light w-100'>
               <span className='ps-2'>Look at your {itemBalance} item{itemBalance !== 1 ? 's' : ''} in NFT Hub</span>
             </button>
