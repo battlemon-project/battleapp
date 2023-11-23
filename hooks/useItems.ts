@@ -10,9 +10,10 @@ export function useItems() {
     address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
     args: [address]
   })
-  const { data: itemTokens, mutate: refreshItemTokens } = useFetcher({ 
+  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens } = useFetcher({ 
     contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x', 
-    balance: Number(itemBalance?.data)
+    balance: Number(itemBalance?.data),
+    pageSize: 100
   })
   
   const itemMintRandom = address && useItemProxyMint({
@@ -41,7 +42,11 @@ export function useItems() {
     itemMint: itemMintRandom?.write || (() => {}),
     itemBalance: Number(itemBalance?.data),
     itemStatus: status,
-    itemTokens,
-    refreshItemTokens
+    tokens,
+    refreshTokens,
+    nextTokens,
+    isNextTokens,
+    prevTokens,
+    isPrevTokens
   };
 }

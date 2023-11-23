@@ -2,14 +2,17 @@ import { useLemons } from "hooks/useLemons";
 import TabsLayout from "./TabsLayout";
 import styles from './inventory.module.css'
 import TokensList from "./TokensList";
-import TokensFilter from "./TokensFilter";
 
 export default function LemonTab() {
-  const { lemonTokens, refreshLemonTokens } = useLemons()
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens } = useLemons()
 
   return (<div className={styles.lemonTab}>
     <TabsLayout>
-      <TokensList tokens={lemonTokens} width={25}/>
+      <TokensList tokens={tokens} width={25}/>
+      <div className="d-flex justify-content-between">
+        {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
+        {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}
+      </div>
     </TabsLayout>
     <div className="row gx-2 ">
       <div className="col-12 col-sm-6 col-lg-4 mt-2">

@@ -5,11 +5,15 @@ import styles from './inventory.module.css'
 import TokensFilter from './TokensFilter';
 
 export default function ItemsTab() {
-  const { itemTokens, refreshItemTokens } = useItems()
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens } = useItems()
 
   return (<div className={styles.lemonTab}>
     <TabsLayout>
-      <TokensList tokens={itemTokens} filter={true} />
+      <TokensList tokens={tokens} filter={true} />
+      <div className="d-flex justify-content-between">
+        {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
+        {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}
+      </div>
       <TokensFilter />
     </TabsLayout>
     <div className="row gx-2">

@@ -1,4 +1,5 @@
 import { ProviderData, NftMetaData } from 'lemon';
+import { useState } from 'react';
 import useSWR from "swr";
 
 //const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -18,33 +19,86 @@ const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dum
 
 interface UseFetcherProps {
   contract: string
-  balance: number
+  balance: number,
+  pageSize: number
 }
 
-const fetcher = async ({contract, balance}: UseFetcherProps) => {
-  const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
-  if (!balance) return [];
-  const providerResponse = await fetch(providerUrl);
-  const providerData: ProviderData = await providerResponse.json();
-  const f = async (url: string) => {
-    try {
-      const res = await fetch(url)
-      const json = await res.json()
-      return json;
-    } catch(e) {
-      return {
-        image: dummyImage
-      };
-    }
+
+export function useFetcher({ contract, balance, pageSize }: UseFetcherProps) {
+  const [currPageKey, setCurrPageKey] = useState<string>('');
+  const [nextPageKey, setNextPageKey] = useState<string>('');
+  const [prevPageKey, setPrevPageKey] = useState<string>('');
+  const [isNextTokens, setIsNextTokens] = useState<boolean>(false);
+  const [isPrevTokens, setIsPrevTokens] = useState<boolean>(false);
+
+  const nextTokens = async () => {
+    setNextPageKey(getNext(nextPageKey, pageSize))
+    setCurrPageKey(nextPageKey)
+    setPrevPageKey(currPageKey)
+    setIsPrevTokens(true)
   }
-  return Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(storageUrl + tokenId)))
-}
+  
+  const prevTokens = async () => {
+    setPrevPageKey(getNext(prevPageKey, -1*pageSize))
+    setCurrPageKey(prevPageKey)
+    setNextPageKey(currPageKey)
+    setIsNextTokens(true)
+  }
 
-export function useFetcher({ contract, balance }: UseFetcherProps) {
-  const { data, mutate } = useSWR<NftMetaData[]>({contract, balance}, fetcher, { revalidateOnFocus: false, revalidateOnReconnect: false })
+  function to0x(num: string) {
+    while (num.length < 64) num = "0" + num;
+    return '0x' + num;
+  }
+
+  const getNext = (pageKey: string, pageSize: number) => {
+    const decoded = atob(pageKey);
+    const parts = decoded.split(':')
+    const currentDecimal = Number(parts[1]) || 0
+    if (currentDecimal < 1) {
+      console.log(currentDecimal)
+      setIsPrevTokens(false);
+      return '';
+    }
+    const hex = (currentDecimal + pageSize).toString(16);
+    
+    parts[1] = to0x(hex);
+    const encoded = btoa(parts.join(':'))
+    return encoded;
+  }
+
+  const fetcher = async ({contract, balance}: UseFetcherProps) => {
+    const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
+    if (!balance) return [];
+    const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${currPageKey || ''}`);
+    const providerData: ProviderData = await providerResponse.json();
+    if (providerData.pageKey) {
+      setNextPageKey(providerData.pageKey);
+      setIsNextTokens(true);
+    } else {
+      setIsNextTokens(false);
+    }
+    const f = async (url: string) => {
+      try {
+        const res = await fetch(url)
+        const json = await res.json()
+        return json;
+      } catch(e) {
+        return {
+          image: dummyImage
+        };
+      }
+    }
+    return Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(storageUrl + tokenId)))
+  }
+
+  const { data, mutate } = useSWR<NftMetaData[]>({ contract, balance, currPageKey }, fetcher, { revalidateOnFocus: false, revalidateOnReconnect: false })
 
   return {
     data,
-    mutate
+    mutate,
+    isNextTokens,
+    isPrevTokens,
+    nextTokens,
+    prevTokens,
   };
 }

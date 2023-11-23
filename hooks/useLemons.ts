@@ -11,9 +11,10 @@ export function useLemons() {
     address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
     args: [address]
   })
-  const { data: lemonTokens, mutate: refreshLemonTokens } = useFetcher({ 
+  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens } = useFetcher({ 
     contract: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x', 
-    balance: Number(lemonBalance?.data)
+    balance: Number(lemonBalance?.data),
+    pageSize: 100
   })
   
   const lemonSafeMint = address && useLemonProxyMint({
@@ -42,7 +43,11 @@ export function useLemons() {
     lemonMint: lemonSafeMint?.write || (() => {}),
     lemonBalance: Number(lemonBalance?.data),
     lemonStatus: status,
-    lemonTokens,
-    refreshLemonTokens
+    tokens,
+    refreshTokens,
+    nextTokens,
+    isNextTokens,
+    prevTokens,
+    isPrevTokens
   };
 }
