@@ -11,6 +11,12 @@ function timeout(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+interface ModelReadyProps {
+  engine: Engine | undefined, 
+  scene: Scene | undefined, 
+  traits: PropertiesType | undefined, 
+  setTraits: Dispatch<SetStateAction<PropertiesType>> | undefined
+}
 
 export function useModelLoader() {
   const engineRef = useRef<Engine>()
@@ -24,11 +30,11 @@ export function useModelLoader() {
   const secretAccessKey = searchParams.get('secretAccessKey')
   const folderLemons = searchParams.get('folderLemons')
 
-  const onModelReady = async (engine: Engine, scene: Scene, traits: PropertiesType, setTraits?: Dispatch<SetStateAction<PropertiesType>>) => {
-    if (!sceneRef.current) {
+  const onModelReady = async ({engine, scene, setTraits}: ModelReadyProps) => {
+    if (!sceneRef.current && scene) {
       sceneRef.current = scene;
     }
-    if (!engineRef.current) {
+    if (!engineRef.current && engine) {
       engineRef.current = engine;
     }
 

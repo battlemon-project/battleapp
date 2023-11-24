@@ -5,12 +5,7 @@ import { Dispatch, PropsWithChildren, SetStateAction, useEffect, useRef, useStat
 import { ILoadedModel, Model, useEngine, useScene } from 'react-babylonjs'
 
 interface LemonModelType {
-  onModelReady?: (
-    engine: Engine, 
-    scene: Scene,
-    traits: PropertiesType,
-    setTraits?: Dispatch<SetStateAction<PropertiesType>>
-  ) => void
+  onModelReady?: (...args: any) => void
   traits: PropertiesType,
   setTraits?: Dispatch<SetStateAction<PropertiesType>>
 }
@@ -49,7 +44,7 @@ export default function LemonModel({ children, traits, setTraits, onModelReady }
     );
     idleAnimation?.start(false, 1, 10, 10);
     if (onModelReady) {
-      setTimeout(() => onModelReady(engine!, scene!, traits, setTraits))
+      setTimeout(() => onModelReady({ engine, scene, traits, setTraits }))
     }
   }
 

@@ -4,14 +4,20 @@ import cn from 'classnames';
 import { NftMetaData } from "lemon";
 
 interface TokensListProps {
-  tokens: NftMetaData[] | undefined
+  tokens: NftMetaData[] | undefined,
+  isLoading: boolean
   height: number,
   colWidth?: number,
   onClick: (...args: any) => React.MouseEventHandler
 }
 
-export default function TokensList({ tokens, colWidth = 20, height, onClick }: TokensListProps) {
-
+export default function TokensList({ tokens, isLoading, colWidth = 20, height, onClick }: TokensListProps) {
+  
+  if (isLoading) {
+    return <div className='d-flex flex-column justify-content-center' style={{height}}>
+      <div className="spinner-border text-light mx-auto" />
+    </div>
+  }
   if (!tokens?.length) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <p className='fs-14 text-center'>YOU HAVE NO TOKENS YET</p>

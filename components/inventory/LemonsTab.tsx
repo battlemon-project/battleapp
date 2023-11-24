@@ -21,7 +21,7 @@ const defaultTraits: PropertiesType = {
 export default function LemonTab() {
   const [traits, setTraits] = useState<PropertiesType>(defaultTraits)
   const [items, setItems] = useState<PropertiesType>({})
-  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance } = useLemons()
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading } = useLemons()
 
   const clickToLemon = (token: NftMetaData) => ()  => {
     setTraits(getRandomTraits())
@@ -32,7 +32,7 @@ export default function LemonTab() {
     <div className="col-5">
       {!lemonBalance && <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/lemons-gallery.gif" />}
       {!!lemonBalance && <div className="position-relative">
-        <img src="/images/pixel.png" width='1000' className="img-fluid" />
+        <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
           <LemonScene traits={traits} items={items} />
         </div>
@@ -40,7 +40,7 @@ export default function LemonTab() {
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
       <TabsLayout>
-        <TokensList tokens={tokens} colWidth={25} height={410} onClick={clickToLemon} />
+        <TokensList tokens={tokens} colWidth={25} height={410} onClick={clickToLemon} isLoading={isLoading} />
         <div className="d-flex justify-content-between">
           {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
           {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}

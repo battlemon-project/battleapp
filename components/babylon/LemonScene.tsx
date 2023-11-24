@@ -12,12 +12,7 @@ interface SanboxPageType {
   traits: PropertiesType
   items: PropertiesType
   isPaused?: boolean
-  onModelReady?: (
-    engine: BabylonEngine, 
-    scene: BabylonScene,
-    traits: PropertiesType,
-    setTraits?: Dispatch<SetStateAction<PropertiesType>>
-  ) => void
+  onModelReady?: (...args: any) => void
   setTraits?: Dispatch<SetStateAction<PropertiesType>>
 }
 

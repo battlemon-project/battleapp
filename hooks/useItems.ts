@@ -10,7 +10,7 @@ export function useItems() {
     address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
     args: [address]
   })
-  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens } = useFetcher({ 
+  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
     contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x', 
     balance: Number(itemBalance?.data),
     pageSize: 100
@@ -43,6 +43,7 @@ export function useItems() {
     itemBalance: Number(itemBalance?.data),
     itemStatus: status,
     tokens,
+    isLoading,
     refreshTokens,
     nextTokens,
     isNextTokens,
