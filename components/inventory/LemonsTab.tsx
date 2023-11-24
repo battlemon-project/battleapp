@@ -35,7 +35,7 @@ export default function LemonTab() {
       {!!lemonBalance && <div className="position-relative">
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
-          { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%'}} />}
+          { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%', width: '3rem', height: '3rem'}} />}
           <LemonScene traits={traits} items={items} onModelReady={() => setIsModelLoading(false)} />
         </div>
       </div>}

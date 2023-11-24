@@ -13,7 +13,7 @@ const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dum
   [process.env.NEXT_PUBLIC_LEMONS_CONTRACT!]: {
     storageUrl: 'https://storage-testnet.battlemon.com/v1/lemons/',
     providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_LEMONS_CONTRACT}`,
-    dummyImage: '/images/shop/shadow-lemon.png'
+    dummyImage: '/images/hub/empty-lemon.png'
   }
 }
 

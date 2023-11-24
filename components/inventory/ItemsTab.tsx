@@ -10,7 +10,7 @@ import { NftMetaData } from 'lemon';
 
 export default function ItemsTab() {
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance, isLoading } = useItems()
-  const [selectedItem, setSelectedItem] = useState('/images/hub/empty-item.png')
+  const [selectedItem, setSelectedItem] = useState('/images/hub/choose-item.png')
 
   const clickToItem = (token: NftMetaData) => ()  => {
     setSelectedItem(token.image)
