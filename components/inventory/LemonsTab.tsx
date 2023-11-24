@@ -21,6 +21,7 @@ const defaultTraits: PropertiesType = {
 export default function LemonTab() {
   const [traits, setTraits] = useState<PropertiesType>(defaultTraits)
   const [items, setItems] = useState<PropertiesType>({})
+  const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading } = useLemons()
 
   const clickToLemon = (token: NftMetaData) => ()  => {
@@ -34,7 +35,8 @@ export default function LemonTab() {
       {!!lemonBalance && <div className="position-relative">
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
-          <LemonScene traits={traits} items={items} />
+          { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%'}} />}
+          <LemonScene traits={traits} items={items} onModelReady={() => setIsModelLoading(false)} />
         </div>
       </div>}
     </div>
