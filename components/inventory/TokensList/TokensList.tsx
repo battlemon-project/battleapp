@@ -1,4 +1,4 @@
-import styles from './inventory.module.css'
+import styles from '../inventory.module.css'
 import { Fragment } from "react";
 import cn from 'classnames';
 import { NftMetaData } from "lemon";
