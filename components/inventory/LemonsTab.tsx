@@ -21,10 +21,12 @@ const defaultTraits: PropertiesType = {
 export default function LemonTab() {
   const [traits, setTraits] = useState<PropertiesType>(defaultTraits)
   const [items, setItems] = useState<PropertiesType>({})
+  const [selectedLemon, setSelectedLemon] = useState<NftMetaData>()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading } = useLemons()
 
   const clickToLemon = (token: NftMetaData) => ()  => {
+    setSelectedLemon(token)
     setTraits(getRandomTraits())
   }
 
@@ -42,7 +44,7 @@ export default function LemonTab() {
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
       <TabsLayout>
-        <TokensList tokens={tokens} colWidth={25} height={410} onClick={clickToLemon} isLoading={isLoading} />
+        <TokensList tokens={tokens} colWidth={25} height={410} onClick={clickToLemon} isLoading={isLoading} selectedToken={selectedLemon} />
         <div className="d-flex justify-content-between">
           {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
           {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}

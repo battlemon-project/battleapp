@@ -77,18 +77,21 @@ export function useFetcher({ contract, balance, pageSize }: UseFetcherProps) {
     } else {
       setIsNextTokens(false);
     }
-    const f = async (url: string) => {
+    const f = async (tokenId: number) => {
       try {
-        const res = await fetch(url)
-        const json = await res.json()
+        const res = await fetch(storageUrl + tokenId)
+        const json: NftMetaData = await res.json()
+        json.tokenId = tokenId;
         return json;
       } catch(e) {
-        return {
+        const empty: NftMetaData = {
+          tokenId: NaN,
           image: dummyImage
-        };
+        }
+        return empty;
       }
     }
-    return Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(storageUrl + tokenId)))
+    return Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(tokenId)))
   }
 
   const { data, mutate, isLoading } = useSWR<NftMetaData[]>({ contract, balance, currPageKey }, fetcher, { revalidateOnFocus: false, revalidateOnReconnect: false })
