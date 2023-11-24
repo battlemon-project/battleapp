@@ -6,11 +6,11 @@ import { ILoadedModel, Model, useEngine, useScene } from 'react-babylonjs'
 
 interface LemonModelType {
   onModelReady?: (...args: any) => void
-  traits: PropertiesType,
-  setTraits?: Dispatch<SetStateAction<PropertiesType>>
+  properties: PropertiesType,
+  setProperties?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function LemonModel({ children, traits, setTraits, onModelReady }: PropsWithChildren<LemonModelType>) {
+export default function LemonModel({ children, properties, setProperties, onModelReady }: PropsWithChildren<LemonModelType>) {
   const lemonRef = useRef<AbstractMesh | null>(null)
   const [ lemonNodes, setLemonNodes ] = useState<(AbstractMesh | TransformNode)[]>()
   const baseUrl = '/models/lemon/'
@@ -29,7 +29,7 @@ export default function LemonModel({ children, traits, setTraits, onModelReady }
     lemonRef.current = lemon;
     let nodes = [...lemon.getChildMeshes(), ...lemon.getChildTransformNodes()]
     setLemonNodes(nodes);
-    const traitNames = Object.values(traits);
+    const traitNames = Object.values(properties.traits);
     scene?.render();
     nodes.forEach((node) => {
       if (!traitNames.includes(node.name) && node.parent?.name == 'Armature') {
@@ -44,13 +44,13 @@ export default function LemonModel({ children, traits, setTraits, onModelReady }
     );
     idleAnimation?.start(false, 1, 10, 10);
     if (onModelReady) {
-      setTimeout(() => onModelReady({ engine, scene, traits, setTraits }))
+      setTimeout(() => onModelReady({ engine, scene, properties, setProperties }))
     }
   }
 
   useEffect(() => {
     if (!lemonNodes || !engine || !scene) return;
-    const propNames = Object.values(traits);
+    const propNames = Object.values(properties.traits);
     lemonNodes.forEach((node) => {
       if (propNames.includes(node.name)) {
         node.setEnabled(true)
@@ -59,14 +59,14 @@ export default function LemonModel({ children, traits, setTraits, onModelReady }
     scene?.render();
     return () => {
       if (!lemonNodes) return;
-      const propNames = Object.values(traits);
+      const propNames = Object.values(properties.traits);
       lemonNodes.forEach((node) => {
         if (propNames.includes(node.name)) {
           node.setEnabled(false)
         }
       });
     }
-  }, [lemonNodes, traits])
+  }, [lemonNodes, properties.traits])
 
 
   useEffect(() => {

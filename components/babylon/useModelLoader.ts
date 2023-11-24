@@ -6,7 +6,7 @@ import {
 } from "@aws-sdk/client-s3";
 import { PropertiesType } from "lemon";
 import { Buffer } from "buffer";
-import { getRandomTraits } from "utils/properties";
+import { getRandomProperties } from "utils/properties";
 function timeout(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -14,8 +14,8 @@ function timeout(ms: number) {
 interface ModelReadyProps {
   engine: Engine | undefined, 
   scene: Scene | undefined, 
-  traits: PropertiesType | undefined, 
-  setTraits: Dispatch<SetStateAction<PropertiesType>> | undefined
+  properties: PropertiesType | undefined, 
+  setProperties: Dispatch<SetStateAction<PropertiesType>> | undefined
 }
 
 export function useModelLoader() {
@@ -30,7 +30,7 @@ export function useModelLoader() {
   const secretAccessKey = searchParams.get('secretAccessKey')
   const folderLemons = searchParams.get('folderLemons')
 
-  const onModelReady = async ({engine, scene, setTraits}: ModelReadyProps) => {
+  const onModelReady = async ({engine, scene, setProperties}: ModelReadyProps) => {
     if (!sceneRef.current && scene) {
       sceneRef.current = scene;
     }
@@ -50,15 +50,15 @@ export function useModelLoader() {
     }
 
     (window as any).generateLemon = async function (lemonId: number) {
-      const traits: PropertiesType = getRandomTraits();
-      await setTraits?.(traits);
+      const properties: PropertiesType = getRandomProperties();
+      await setProperties?.(properties);
       await timeout(50);
-      await putPic(lemonId, traits);
-      //await Promise.all([putPic(lemonId, traits), putFile(lemonId, traits)])
+      await putPic(lemonId, properties);
+      //await Promise.all([putPic(lemonId, properties), putFile(lemonId, properties)])
     }
   }
 
-  const putPic = async (id: number, traits: PropertiesType) => {
+  const putPic = async (id: number, properties: PropertiesType) => {
     if (!engineRef.current || !sceneRef.current?.activeCamera) return
     sceneRef.current.render();
     await new Promise((resolve) => {
@@ -73,7 +73,7 @@ export function useModelLoader() {
           ContentEncoding: 'base64',
           ContentType: `image/${type}`,
           CacheControl: 'public, max-age=1',
-          Metadata: traits as {[key: string]: string}
+          Metadata: {...properties.traits, ...properties.items} as {[key: string]: string}
         };
   
         const result = await s3Client.current?.send(
@@ -85,12 +85,12 @@ export function useModelLoader() {
     });
   }
 
-  const putFile = async (id: number, traits: PropertiesType) => {
+  const putFile = async (id: number, properties: PropertiesType) => {
     const obj = {
       name: `Lemon #${id}`,
       description: "Brutal.. savage.. yellow. Don't even try to squeeze him!",
       image: `https://${storageLink}/${folderLemons}/${id}.png`,
-      traits
+      properties
     };
 
     const buf = Buffer.from(JSON.stringify(obj));

@@ -1,20 +1,20 @@
 import ReactDOM from "react-dom/client";
 import LemonScene from './LemonScene';
-import { getRandomTraits } from 'utils/properties';
+import { getRandomProperties } from 'utils/properties';
 import { useModelLoader } from './useModelLoader';
 import { useState } from 'react';
 import { PropertiesType } from 'lemon';
 
-const defaultTraits: PropertiesType = getRandomTraits();
+const defaultProperties: PropertiesType = getRandomProperties();
 
 function GeneratorWrapper() {
   const { onModelReady } = useModelLoader()
 
-  const [traits, setTraits] = useState<PropertiesType>(defaultTraits)
+  const [properties, setProperties] = useState<PropertiesType>(defaultProperties)
 
   return (
     <div className='mx-auto' style={{width: '512px', height: '512px'}}>
-      <LemonScene traits={traits} items={{}} onModelReady={onModelReady} setTraits={setTraits} isPaused={true} />
+      <LemonScene properties={properties} onModelReady={onModelReady} setProperties={setProperties} isPaused={true} />
     </div>
   )
 }

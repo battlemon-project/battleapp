@@ -10,7 +10,12 @@ declare module 'lemon' {
   }
 
   interface PropertiesType {
-    [key: string]: string | undefined
+    traits: {
+      [key: string]: string | undefined
+    }
+    items: {
+      [key: string]: string | undefined
+    }
   }
 
   interface NftMetaData {

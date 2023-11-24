@@ -9,27 +9,29 @@ import { useIsMounted } from 'hooks/useIsMounted';
 import { PropertiesType } from 'lemon';
 
 interface SanboxPageType {
-  traits: PropertiesType
-  items: PropertiesType
+  properties: PropertiesType
   isPaused?: boolean
   onModelReady?: (...args: any) => void
-  setTraits?: Dispatch<SetStateAction<PropertiesType>>
+  setProperties?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function SanboxPage({ traits, items, isPaused, setTraits, onModelReady }: SanboxPageType) {
-  const [ visibleTraits, setVisibleTraits ] = useState<PropertiesType>(traits)
+export default function SanboxPage({ properties, isPaused, setProperties, onModelReady }: SanboxPageType) {
+  const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
   const mounted = useIsMounted()
   
   useEffect(() => {
-    const _traits = {...traits};
-    if (items.cap) {
-      delete _traits.hair;
+    const props: PropertiesType = {
+      traits: { ...properties.traits },
+      items: { ...properties.items }
+    };
+    if (properties.items.cap) {
+      delete props.traits.hair;
     }
-    if (items.shoes) {
-      delete _traits.feet;
+    if (properties.items.shoes) {
+      delete props.traits.feet;
     }
-    setVisibleTraits(_traits);
-  }, [traits, items])
+    setVisibleProperties(props);
+  }, [properties])
   
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
     if (!scene) return;
@@ -72,8 +74,8 @@ export default function SanboxPage({ traits, items, isPaused, setTraits, onModel
           />
           
           <Suspense>
-            <LemonModel traits={visibleTraits} onModelReady={onModelReady} setTraits={setTraits}>
-              {Object.entries(items).map(([placeholderName, itemName]) => {
+            <LemonModel properties={visibleProperties} onModelReady={onModelReady} setProperties={setProperties}>
+              {Object.entries(properties.items).map(([placeholderName, itemName]) => {
                 if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
                 if (placeholderName == 'shoes') {
                   return <Fragment key={placeholderName + itemName}>

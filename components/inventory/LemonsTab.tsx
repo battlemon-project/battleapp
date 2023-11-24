@@ -7,27 +7,17 @@ import Link from "next/link";
 import { NftMetaData, PropertiesType } from "lemon";
 import { useState } from "react";
 import LemonScene from "components/babylon/LemonScene";
-import { getRandomTraits } from "utils/properties";
-
-const defaultTraits: PropertiesType = {
-  eyes: 'Eyes_Ghost',
-  exo_top: 'ExoTop_Ghost',
-  exo_bot: 'ExoBot_Ghost',
-  feet: 'Feet_Ghost',
-  hands: 'Hands_Ghost',
-  head: 'Head_Ghost',
-}
+import { getRandomProperties, ghostProperties } from "utils/properties";
 
 export default function LemonTab() {
-  const [traits, setTraits] = useState<PropertiesType>(defaultTraits)
-  const [items, setItems] = useState<PropertiesType>({})
+  const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
   const [selectedLemon, setSelectedLemon] = useState<NftMetaData>()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading } = useLemons()
 
   const clickToLemon = (token: NftMetaData) => ()  => {
     setSelectedLemon(token)
-    setTraits(getRandomTraits())
+    setProperties(getRandomProperties())
   }
 
 
@@ -38,7 +28,7 @@ export default function LemonTab() {
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
           { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%', width: '3rem', height: '3rem'}} />}
-          <LemonScene traits={traits} items={items} onModelReady={() => setIsModelLoading(false)} />
+          <LemonScene properties={properties} onModelReady={() => setIsModelLoading(false)} />
         </div>
       </div>}
     </div>

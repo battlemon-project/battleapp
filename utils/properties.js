@@ -101,9 +101,6 @@ const allItems = {
     'Belt_Skull_Belt',
     'Belt_Chain_Gold',    
   ],
-  // cloth: [
-  //   'Cloth_Poncho'
-  // ],
   glasses: [
     'Glasses_Sunglasses',
     'Glasses_Visor_VR',
@@ -137,15 +134,35 @@ const allItems = {
   shoes: [
     'Shoes_Kicks_Red',
     'Shoes_Kicks_Green',    
-  ]
+  ],
+  // cloth: [
+  //   'Cloth_Poncho'
+  // ],
 }
 
-const getRandomTraits = () => {
-  return Object.assign({}, ...Object.entries(allTraits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+const getRandomProperties = () => {
+  return {
+    traits: Object.assign({}, ...Object.entries(allTraits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    items: {}
+    //items: Object.assign({}, ...Object.entries(allItems).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+  }
+}
+
+const ghostProperties = {
+  traits: {
+    eyes: 'Eyes_Ghost',
+    exo_top: 'ExoTop_Ghost',
+    exo_bot: 'ExoBot_Ghost',
+    feet: 'Feet_Ghost',
+    hands: 'Hands_Ghost',
+    head: 'Head_Ghost'
+  },
+  items: {}
 }
 
 module.exports = {
   allTraits,
   allItems,
-  getRandomTraits
+  ghostProperties,
+  getRandomProperties
 }
