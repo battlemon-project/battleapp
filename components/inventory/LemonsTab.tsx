@@ -4,9 +4,10 @@ import styles from './inventory.module.css'
 import TokensList from "./TokensList";
 import cn from "classnames";
 import Link from "next/link";
-import { PropertiesType } from "lemon";
+import { NftMetaData, PropertiesType } from "lemon";
 import { useState } from "react";
 import LemonScene from "components/babylon/LemonScene";
+import { getRandomTraits } from "utils/properties";
 
 const defaultTraits: PropertiesType = {
   eyes: 'Eyes_Ghost',
@@ -22,6 +23,11 @@ export default function LemonTab() {
   const [items, setItems] = useState<PropertiesType>({})
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance } = useLemons()
 
+  const clickToLemon = (token: NftMetaData) => ()  => {
+    setTraits(getRandomTraits())
+  }
+
+
   return (<div className="row">
     <div className="col-5">
       {!lemonBalance && <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/lemons-gallery.gif" />}
@@ -34,7 +40,7 @@ export default function LemonTab() {
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
       <TabsLayout>
-        <TokensList tokens={tokens} colWidth={25} height={410} />
+        <TokensList tokens={tokens} colWidth={25} height={410} onClick={clickToLemon} />
         <div className="d-flex justify-content-between">
           {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
           {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}

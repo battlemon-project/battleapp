@@ -5,20 +5,27 @@ import styles from './inventory.module.css'
 import TokensFilter from './TokensFilter';
 import cn from "classnames";
 import Link from 'next/link';
+import { useState } from 'react';
+import { NftMetaData } from 'lemon';
 
 export default function ItemsTab() {
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance } = useItems()
+  const [selectedItem, setSelectedItem] = useState('/images/hub/empty-item.png')
+
+  const clickToItem = (token: NftMetaData) => ()  => {
+    setSelectedItem(token.image)
+  }
 
   return (<div className="row">
     <div className="col-5">
       {!itemBalance && <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/items-gallery.gif" />}
       {!!itemBalance && <div className="position-relative">
-        <img src="/images/hub/empty-item.png" className="img-fluid" />
+        <img src={selectedItem} className="img-fluid" />
       </div>}
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
       <TabsLayout>
-        <TokensList tokens={tokens} colWidth={25} height={410} />
+        <TokensList tokens={tokens} colWidth={25} height={410} onClick={clickToItem} />
         <div className="d-flex justify-content-between">
           {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
           {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}

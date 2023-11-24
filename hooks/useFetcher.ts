@@ -8,7 +8,7 @@ const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dum
   [process.env.NEXT_PUBLIC_ITEMS_CONTRACT!]: {
     storageUrl: 'https://storage-testnet.battlemon.com/v1/items/',
     providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_ITEMS_CONTRACT}`,
-    dummyImage: '/images/shop/shadow-item.png'
+    dummyImage: '/images/hub/empty-item.png'
   },
   [process.env.NEXT_PUBLIC_LEMONS_CONTRACT!]: {
     storageUrl: 'https://storage-testnet.battlemon.com/v1/lemons/',
