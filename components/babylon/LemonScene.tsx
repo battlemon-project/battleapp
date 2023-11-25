@@ -1,22 +1,25 @@
 
-import { Engine as BabylonEngine, Scene as BabylonScene, Color4, SceneLoader, Vector3, CubeTexture } from '@babylonjs/core'
+import { Scene as BabylonScene, Color4, SceneLoader, Vector3, CubeTexture } from '@babylonjs/core'
 import { Engine, Scene } from 'react-babylonjs'
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
 import { Dispatch, Fragment, SetStateAction, Suspense, useEffect, useState } from 'react';
 import LemonModel from 'components/babylon/LemonModel';
 import ItemModel from 'components/babylon/ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
-import { PropertiesType } from 'lemon';
+import { PropertiesList, PropertiesType } from 'lemon';
+import { allItems } from 'utils/properties';
 
-interface SanboxPageType {
+interface SanboxPageProps {
   properties: PropertiesType
-  isPaused?: boolean
+  isPaused?: boolean,
+  preloadItems?: boolean,
   onModelReady?: (...args: any) => void
   setProperties?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function SanboxPage({ properties, isPaused, setProperties, onModelReady }: SanboxPageType) {
+export default function SanboxPage({ properties, isPaused, preloadItems, setProperties, onModelReady }: SanboxPageProps) {
   const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
+  const [ loadedItems, setLoadedItems ] = useState<PropertiesList>({})
   const mounted = useIsMounted()
   
   useEffect(() => {
@@ -31,6 +34,15 @@ export default function SanboxPage({ properties, isPaused, setProperties, onMode
       delete props.traits.feet;
     }
     setVisibleProperties(props);
+
+    const newLoadedItems = {...loadedItems}
+    Object.entries(properties.items).forEach(([key, val]) => {
+      newLoadedItems[key] = newLoadedItems[key] || [];
+      if (val && !newLoadedItems[key].includes(val)) {
+        newLoadedItems[key].push(val);
+      }
+    })
+    setLoadedItems(newLoadedItems)
   }, [properties])
   
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
@@ -75,26 +87,31 @@ export default function SanboxPage({ properties, isPaused, setProperties, onMode
           
           <Suspense>
             <LemonModel properties={visibleProperties} onModelReady={onModelReady} setProperties={setProperties}>
-              {Object.entries(properties.items).map(([placeholderName, itemName]) => {
-                if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
-                if (placeholderName == 'shoes') {
+              {Object.entries(preloadItems ? allItems : loadedItems).map(([placeholderName, itemNames]) => {
+                return itemNames.map(itemName => {
+                  //if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
+                  if (placeholderName == 'shoes') {
+                    return <Fragment key={placeholderName + itemName}>
+                      <ItemModel 
+                        name={itemName+'_L'}
+                        placeholderName={placeholderName+'_r'}
+                        enabled={properties.items[placeholderName] === itemName}
+                      />
+                      <ItemModel 
+                        name={itemName+'_R'}
+                        placeholderName={placeholderName+'_l'}
+                        enabled={properties.items[placeholderName] === itemName}
+                      />
+                    </Fragment>
+                  }
                   return <Fragment key={placeholderName + itemName}>
-                    <ItemModel 
-                      name={itemName+'_L'}
-                      placeholderName={placeholderName+'_r'}
-                    />
-                    <ItemModel 
-                      name={itemName+'_R'}
-                      placeholderName={placeholderName+'_l'}
+                    <ItemModel
+                      name={itemName}
+                      placeholderName={placeholderName}
+                      enabled={properties.items[placeholderName] === itemName}
                     />
                   </Fragment>
-                }
-                return <Fragment key={placeholderName + itemName}>
-                  <ItemModel
-                    name={itemName}
-                    placeholderName={placeholderName}
-                  />
-                </Fragment>
+                })
               })}
             </LemonModel>
           </Suspense>

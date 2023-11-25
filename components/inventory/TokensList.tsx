@@ -13,7 +13,6 @@ interface TokensListProps {
 }
 
 export default function TokensList({ tokens, isLoading, colWidth = 20, height, selectedToken, onClick }: TokensListProps) {
-  
   if (isLoading) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <div className="spinner-border text-light mx-auto" style={{ width: '3rem', height: '3rem' }} />

@@ -2,7 +2,13 @@ import { AbstractMesh } from '@babylonjs/core';
 import { useEffect, useRef } from 'react';
 import { ILoadedModel, Model, useScene } from 'react-babylonjs'
 
-export default function ItemModel({ name, placeholderName }: { name: string, placeholderName?: string }) {
+interface ItemModelProps { 
+  name: string,
+  placeholderName: string
+  enabled: boolean
+}
+
+export default function ItemModel({ name, placeholderName, enabled }: ItemModelProps) {
   const itemRef = useRef<AbstractMesh | null>(null)
   const baseUrl = '/models/items/'
   const scene = useScene();
@@ -11,18 +17,21 @@ export default function ItemModel({ name, placeholderName }: { name: string, pla
     if (!model.rootMesh) {
       throw new Error('Model not loaded');
     }
+    scene?.render()
+    model.rootMesh.setEnabled(enabled);
+    scene?.render()
     itemRef.current = model.rootMesh
     if (placeholderName) {
       const placeholder = scene?.getNodeById('placeholder_' + placeholderName)!
-      itemRef.current.parent = placeholder;
+      model.rootMesh.parent = placeholder;
     }
   }
 
   useEffect(() => {
-    return () => {
-      itemRef.current?.dispose();
-    }
-  }, [])
+    if (!itemRef.current) return
+    itemRef.current.setEnabled(enabled);
+    scene?.render();
+  }, [enabled])
 
   return (
     <Model

@@ -11,7 +11,7 @@ interface LemonModelType {
 }
 
 export default function LemonModel({ children, properties, setProperties, onModelReady }: PropsWithChildren<LemonModelType>) {
-  const lemonRef = useRef<AbstractMesh | null>(null)
+  const lemonRef = useRef<ILoadedModel | null>(null)
   const [ lemonNodes, setLemonNodes ] = useState<(AbstractMesh | TransformNode)[]>()
   const baseUrl = '/models/lemon/'
   const engine = useEngine();
@@ -25,9 +25,8 @@ export default function LemonModel({ children, properties, setProperties, onMode
     if (!model.rootMesh || !model.animationGroups) {
       throw new Error('Model not loaded');
     }
-    let lemon = model.rootMesh;
-    lemonRef.current = lemon;
-    let nodes = [...lemon.getChildMeshes(), ...lemon.getChildTransformNodes()]
+    lemonRef.current = model;
+    let nodes = [...model.rootMesh.getChildMeshes(), ...model.rootMesh.getChildTransformNodes()]
     setLemonNodes(nodes);
     const traitNames = Object.values(properties.traits);
     scene?.render();
