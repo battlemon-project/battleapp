@@ -49,13 +49,19 @@ export function useModelLoader() {
       });
     }
 
-    (window as any).generateLemon = async function (lemonId: number) {
-      const properties: PropertiesType = getRandomProperties();
-      await setProperties?.(properties);
-      await timeout(50);
+    (window as any).getRandomProperties = getRandomProperties;
+    (window as any).generateLemon = function (properties: PropertiesType | undefined) {
+      if (!properties) {
+        console.log("Not passed properties to generateLemon()")
+        return;
+      }
+      setProperties?.(properties);
+    };
+    (window as any).save = async function (properties: PropertiesType | undefined, lemonId: number) {
+      if (!properties) return;
       await putPic(lemonId, properties);
       //await Promise.all([putPic(lemonId, properties), putFile(lemonId, properties)])
-    }
+    };
   }
 
   const putPic = async (id: number, properties: PropertiesType) => {

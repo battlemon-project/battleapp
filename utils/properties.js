@@ -140,16 +140,18 @@ const allItems = {
   // ],
 }
 
-const itemsSet = [
-  Object.assign({}, ...Object.entries(allItems).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
-  Object.assign({}, ...Object.entries(allItems).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
-]
+const itemsSet = () => {
+  return [
+    Object.assign({}, ...Object.entries(allItems).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    Object.assign({}, ...Object.entries(allItems).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+  ]
+}
 
 const getRandomProperties = () => {
   const rand = Math.floor(Math.random() * 2)
   return {
     traits: Object.assign({}, ...Object.entries(allTraits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
-    items: itemsSet[rand]
+    items: itemsSet()[rand]
   }
 }
 
