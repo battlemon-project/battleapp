@@ -1,16 +1,14 @@
 import ReactDOM from "react-dom/client";
 import LemonScene from './LemonScene';
-import { getRandomProperties } from 'utils/properties';
+import { ghostProperties } from 'utils/properties';
 import { useModelLoader } from './useModelLoader';
 import { useState } from 'react';
 import { PropertiesType } from 'lemon';
 
-const defaultProperties: PropertiesType = getRandomProperties();
-
 function GeneratorWrapper() {
   const { onModelReady } = useModelLoader()
 
-  const [properties, setProperties] = useState<PropertiesType>(defaultProperties)
+  const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
 
   return (
     <div className='mx-auto' style={{width: '512px', height: '512px'}}>
