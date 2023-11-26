@@ -7,7 +7,7 @@ import Link from "next/link";
 import { NftMetaData, PropertiesType } from "lemon";
 import { useState } from "react";
 import LemonScene from "components/babylon/LemonScene";
-import { getRandomProperties, ghostProperties } from "utils/properties";
+import { ghostProperties } from "utils/properties";
 
 export default function LemonTab() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
@@ -16,8 +16,8 @@ export default function LemonTab() {
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading } = useLemons()
 
   const clickToLemon = (token: NftMetaData) => ()  => {
-    setSelectedLemon(token)
-    setProperties(getRandomProperties())
+    setSelectedLemon(token);
+    setProperties(token.properties || ghostProperties);
   }
 
 

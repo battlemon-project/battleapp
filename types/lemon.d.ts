@@ -21,6 +21,7 @@ declare module 'lemon' {
   interface NftMetaData {
     tokenId: number
     image: sring
+    properties?: PropertiesType
   }
 
   interface ProviderData {
