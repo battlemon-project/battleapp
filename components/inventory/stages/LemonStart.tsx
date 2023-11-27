@@ -2,18 +2,14 @@ import { useLemons } from "hooks/useLemons";
 import TabsLayout from "../TabsLayout";
 import styles from '../inventory.module.css'
 import TokensList from "../TokensList";
+import cn from 'classnames';
 import Link from "next/link";
-import { PropsWithChildren } from "react";
-import { useLemonStore } from "../store/lemon";
+import { useLemonStore } from "../store/lemonStore";
 import { useOnMount } from "hooks/useOnMount";
 
-interface LemonStartProps {
-  lemonHook: ReturnType<typeof useLemons>,
-}
-
-export default function LemonStart({ lemonHook }: PropsWithChildren<LemonStartProps>) {
+export default function LemonStart() {
   const { selectedLemon, selectLemon, changeStage } = useLemonStore()
-  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading, refreshTokens } = lemonHook
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading, refreshTokens } = useLemons()
 
   useOnMount(() => {
     refreshTokens();
@@ -39,7 +35,7 @@ export default function LemonStart({ lemonHook }: PropsWithChildren<LemonStartPr
         <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Level up</button>
       </div>
       <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
-        <button className="btn btn-lg btn-default fs-13 text-uppercase w-100" onClick={() => changeStage('Items')}>Dress</button>
+        <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemon })} onClick={() => changeStage('Items')}>Dress</button>
       </div>
       <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
         <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Undress</button>

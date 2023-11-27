@@ -5,16 +5,13 @@ import { useState } from "react";
 import LemonScene from "components/babylon/LemonScene";
 import { ghostProperties } from "utils/properties";
 import LemonStart from "./stages/LemonStart";
-import { useLemonStore } from "./store/lemon";
-import { useItems } from "hooks/useItems";
+import { useLemonStore } from "./store/lemonStore";
 import LemonItems from "./stages/LemonItems";
 
 export default function LemonTab() {
   const { selectedLemon, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
-  const lemonHook = useLemons()
-  const itemHook = useItems()
-  const { lemonBalance } = lemonHook
+  const { lemonBalance } = useLemons()
 
   return (<div className="row">
     <div className="col-5">
@@ -28,8 +25,8 @@ export default function LemonTab() {
       </div>}
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
-      {stage == 'Start' && <LemonStart lemonHook={lemonHook} />}
-      {stage == 'Items' && <LemonItems itemHook={itemHook} />}
+      {stage == 'Start' && <LemonStart />}
+      {stage == 'Items' && <LemonItems />}
     </div>
   </div>)
 }
