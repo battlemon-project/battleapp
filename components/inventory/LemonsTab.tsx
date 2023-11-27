@@ -8,18 +8,22 @@ import { NftMetaData, PropertiesType } from "lemon";
 import { useState } from "react";
 import LemonScene from "components/babylon/LemonScene";
 import { ghostProperties } from "utils/properties";
+import { useOnMount } from "hooks/useOnMount";
 
 export default function LemonTab() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
   const [selectedLemon, setSelectedLemon] = useState<NftMetaData>()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
-  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading } = useLemons()
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading, refreshTokens } = useLemons()
 
   const clickToLemon = (token: NftMetaData) => ()  => {
     setSelectedLemon(token);
     setProperties(token.properties || ghostProperties);
   }
 
+  useOnMount(() => {
+    refreshTokens();
+  })
 
   return (<div className="row">
     <div className="col-5">

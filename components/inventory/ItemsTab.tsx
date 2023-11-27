@@ -7,14 +7,19 @@ import cn from "classnames";
 import Link from 'next/link';
 import { useState } from 'react';
 import { NftMetaData } from 'lemon';
+import { useOnMount } from 'hooks/useOnMount';
 
 export default function ItemsTab() {
-  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance, isLoading } = useItems()
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance, isLoading, refreshTokens } = useItems()
   const [selectedItem, setSelectedItem] = useState<NftMetaData>()
 
   const clickToItem = (token: NftMetaData) => ()  => {
     setSelectedItem(token)
   }
+
+  useOnMount(() => {
+    refreshTokens();
+  })
 
   return (<div className="row">
     <div className="col-5">

@@ -94,7 +94,15 @@ export function useFetcher({ contract, balance, pageSize }: UseFetcherProps) {
     return Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(tokenId)))
   }
 
-  const { data, mutate, isLoading } = useSWR<NftMetaData[]>({ contract, balance, currPageKey }, fetcher, { revalidateOnFocus: false, revalidateOnReconnect: false })
+  const { data, mutate, isLoading } = useSWR<NftMetaData[]>(
+    { contract, balance, currPageKey }, 
+    fetcher, 
+    { 
+      revalidateOnFocus: false,
+      revalidateOnMount:false,
+      revalidateOnReconnect: false,
+    }
+  )
 
   return {
     data,

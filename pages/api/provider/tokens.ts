@@ -47,7 +47,7 @@ export default async function handler (req: NextRequest) {
         })
       }
   
-      result.ownedNfts = result.ownedNfts.map(({ tokenId }) => {
+      result.ownedNfts = result.ownedNfts.reverse().map(({ tokenId }) => {
         return { tokenId: Number(tokenId) };
       })
       
