@@ -19,7 +19,7 @@ export default function ItemStart() {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokens} colWidth={25} height={410} selectedTokens={selectedItems} onClick={selectItem} isLoading={isLoading} />
+      <TokensList tokens={tokens} colWidth={25} height={350} selectedTokens={selectedItems} onClick={selectItem} isLoading={isLoading} />
       <div className="position-relative">
         {isPrevTokens && <PrevTokens onClick={prevTokens} />}
         {isNextTokens && <NextTokens onClick={nextTokens} />}
