@@ -36,7 +36,7 @@ export default function ShopPage() {
               </div>
             </div>
           </Link>
-          <Link href='/shop/chests' className="col-12 col-sm-6 col-xl-3 col-lg-4 d-flex mb-4">
+          <Link href='/shop/box' className="col-12 col-sm-6 col-xl-3 col-lg-4 d-flex mb-4">
             <div className={cn('flex-fill d-flex flex-column justify-content-end', styles.marketPlate, styles.marketPlateChests)}>
               <div>
                 <div className='fs-20 fw-semi fst-italic'>PRIZE POOL</div>

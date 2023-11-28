@@ -19,29 +19,7 @@ import {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const gemABI = [
-  {
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-    inputs: [
-      { name: 'pricePerMerge_', internalType: 'uint256', type: 'uint256' },
-      {
-        name: 'referralContractAddress_',
-        internalType: 'address',
-        type: 'address',
-      },
-      {
-        name: 'referralPricePerMerge_',
-        internalType: 'uint256',
-        type: 'uint256',
-      },
-      { name: 'referralReward_', internalType: 'uint256', type: 'uint256' },
-      { name: 'prizePoolReward_', internalType: 'uint256', type: 'uint256' },
-      { name: 'withdrawalDelay_', internalType: 'uint256', type: 'uint256' },
-      { name: 'treasuryAddress_', internalType: 'address', type: 'address' },
-      { name: 'itemsAddress_', internalType: 'address', type: 'address' },
-      { name: 'lemonsAddress_', internalType: 'address', type: 'address' },
-    ],
-  },
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
     type: 'event',
     anonymous: false,
@@ -86,6 +64,14 @@ export const gemABI = [
       { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
     ],
     name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
   },
   {
     type: 'event',
@@ -188,6 +174,31 @@ export const gemABI = [
     inputs: [{ name: 'from', internalType: 'address', type: 'address' }],
     name: 'getNonce',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'pricePerMerge_', internalType: 'uint256', type: 'uint256' },
+      {
+        name: 'referralContractAddress_',
+        internalType: 'address',
+        type: 'address',
+      },
+      {
+        name: 'referralPricePerMerge_',
+        internalType: 'uint256',
+        type: 'uint256',
+      },
+      { name: 'referralReward_', internalType: 'uint256', type: 'uint256' },
+      { name: 'prizePoolReward_', internalType: 'uint256', type: 'uint256' },
+      { name: 'withdrawalDelay_', internalType: 'uint256', type: 'uint256' },
+      { name: 'treasuryAddress_', internalType: 'address', type: 'address' },
+      { name: 'itemsAddress_', internalType: 'address', type: 'address' },
+      { name: 'lemonsAddress_', internalType: 'address', type: 'address' },
+    ],
+    name: 'initialize',
+    outputs: [],
   },
   {
     stateMutability: 'view',
@@ -404,14 +415,7 @@ export const gemABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const itemABI = [
-  {
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-    inputs: [
-      { name: 'name', internalType: 'string', type: 'string' },
-      { name: 'symbol', internalType: 'string', type: 'string' },
-    ],
-  },
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
     type: 'event',
     anonymous: false,
@@ -456,6 +460,90 @@ export const itemABI = [
       { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
     ],
     name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address', indexed: false },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'itemType',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
+      {
+        name: 'agility',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'speed',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'luck',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
+    ],
+    name: 'Create',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'itemId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newLvl',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'agility',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'speed',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'luck',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Lvlup',
   },
   {
     type: 'event',
@@ -550,6 +638,13 @@ export const itemABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newPrefix', internalType: 'uint8', type: 'uint8' }],
+    name: 'changeBasePrefix',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [
       { name: 'id', internalType: 'uint256', type: 'uint256' },
       { name: 'sender', internalType: 'address', type: 'address' },
@@ -579,7 +674,7 @@ export const itemABI = [
     outputs: [
       {
         name: '',
-        internalType: 'struct Items.Metadata',
+        internalType: 'struct IItems.Metadata',
         type: 'tuple',
         components: [
           { name: 'isEquipped', internalType: 'bool', type: 'bool' },
@@ -589,10 +684,20 @@ export const itemABI = [
           { name: 'speed', internalType: 'uint256', type: 'uint256' },
           { name: 'luck', internalType: 'uint256', type: 'uint256' },
           { name: 'actualOwner', internalType: 'address', type: 'address' },
-          { name: 'dna', internalType: 'bytes1', type: 'bytes1' },
+          { name: 'dna', internalType: 'bytes', type: 'bytes' },
         ],
       },
     ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'name', internalType: 'string', type: 'string' },
+      { name: 'symbol', internalType: 'string', type: 'string' },
+    ],
+    name: 'initialize',
+    outputs: [],
   },
   {
     stateMutability: 'view',
@@ -778,6 +883,13 @@ export const itemABI = [
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [{ name: 'x', internalType: 'uint8', type: 'uint8' }],
+    name: 'toBytes',
+    outputs: [{ name: '', internalType: 'bytes', type: 'bytes' }],
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
@@ -843,14 +955,7 @@ export const itemABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export const lemonABI = [
-  {
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-    inputs: [
-      { name: 'itemsContract_', internalType: 'address', type: 'address' },
-      { name: 'box_', internalType: 'address', type: 'address' },
-    ],
-  },
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
     type: 'event',
     anonymous: false,
@@ -900,6 +1005,22 @@ export const lemonABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      { name: 'itemType', internalType: 'uint8', type: 'uint8', indexed: true },
+      { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
+    ],
+    name: 'Create',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       {
         name: 'owner',
         internalType: 'address',
@@ -913,13 +1034,46 @@ export const lemonABI = [
         indexed: true,
       },
       {
-        name: 'items',
+        name: 'itemsIds',
         internalType: 'int256[]',
         type: 'int256[]',
-        indexed: true,
+        indexed: false,
+      },
+      {
+        name: 'itemsDNA',
+        internalType: 'bytes[10]',
+        type: 'bytes[10]',
+        indexed: false,
       },
     ],
     name: 'EquipmentChanged',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'lemonId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'newLvl',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Lvlup',
   },
   {
     type: 'event',
@@ -1010,6 +1164,13 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newPrefix', internalType: 'uint8', type: 'uint8' }],
+    name: 'changeBasePrefix',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [
       { name: '_lemonId', internalType: 'uint256', type: 'uint256' },
       { name: 'items', internalType: 'int256[]', type: 'int256[]' },
@@ -1069,6 +1230,16 @@ export const lemonABI = [
     outputs: [{ name: '', internalType: 'int256', type: 'int256' }],
   },
   {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'itemsContract_', internalType: 'address', type: 'address' },
+      { name: 'box_', internalType: 'address', type: 'address' },
+    ],
+    name: 'initialize',
+    outputs: [],
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [
@@ -1086,10 +1257,7 @@ export const lemonABI = [
     outputs: [
       { name: 'level', internalType: 'uint8', type: 'uint8' },
       { name: 'lemonType', internalType: 'uint8', type: 'uint8' },
-      { name: 'agility', internalType: 'uint256', type: 'uint256' },
-      { name: 'luck', internalType: 'uint256', type: 'uint256' },
-      { name: 'speed', internalType: 'uint256', type: 'uint256' },
-      { name: 'dna', internalType: 'bytes12', type: 'bytes12' },
+      { name: 'dna', internalType: 'bytes', type: 'bytes' },
     ],
   },
   {
@@ -1112,7 +1280,6 @@ export const lemonABI = [
     inputs: [
       { name: 'lemonId', internalType: 'uint256', type: 'uint256' },
       { name: 'gemId', internalType: 'uint256', type: 'uint256' },
-      { name: 'stat', internalType: 'uint8', type: 'uint8' },
     ],
     name: 'levelUp',
     outputs: [],
@@ -1222,6 +1389,13 @@ export const lemonABI = [
     inputs: [],
     name: 'symbol',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [{ name: 'x', internalType: 'uint8', type: 'uint8' }],
+    name: 'toBytes',
+    outputs: [{ name: '', internalType: 'bytes', type: 'bytes' }],
   },
   {
     stateMutability: 'view',
@@ -1716,6 +1890,31 @@ export function useGemCompleteEvent<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useGemInitialize<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof gemABI,
+          'initialize'
+        >['request']['abi'],
+        'initialize',
+        TMode
+      > & { functionName?: 'initialize' }
+    : UseContractWriteConfig<typeof gemABI, 'initialize', TMode> & {
+        abi?: never
+        functionName?: 'initialize'
+      } = {} as any,
+) {
+  return useContractWrite<typeof gemABI, 'initialize', TMode>({
+    abi: gemABI,
+    functionName: 'initialize',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"merge"`.
  */
 export function useGemMerge<TMode extends WriteContractMode = undefined>(
@@ -2069,6 +2268,22 @@ export function usePrepareGemCompleteEvent(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareGemInitialize(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof gemABI, 'initialize'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: gemABI,
+    functionName: 'initialize',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof gemABI, 'initialize'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"merge"`.
  */
 export function usePrepareGemMerge(
@@ -2276,6 +2491,22 @@ export function useGemApprovalForAllEvent(
     eventName: 'ApprovalForAll',
     ...config,
   } as UseContractEventConfig<typeof gemABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link gemABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useGemInitializedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof gemABI, 'Initialized'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: gemABI,
+    eventName: 'Initialized',
+    ...config,
+  } as UseContractEventConfig<typeof gemABI, 'Initialized'>)
 }
 
 /**
@@ -2631,6 +2862,25 @@ export function useItemSymbol<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"toBytes"`.
+ */
+export function useItemToBytes<
+  TFunctionName extends 'toBytes',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'toBytes',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"tokenURI"`.
  */
 export function useItemTokenUri<
@@ -2714,6 +2964,33 @@ export function useItemApprove<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"changeBasePrefix"`.
+ */
+export function useItemChangeBasePrefix<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'changeBasePrefix'
+        >['request']['abi'],
+        'changeBasePrefix',
+        TMode
+      > & { functionName?: 'changeBasePrefix' }
+    : UseContractWriteConfig<typeof itemABI, 'changeBasePrefix', TMode> & {
+        abi?: never
+        functionName?: 'changeBasePrefix'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'changeBasePrefix', TMode>({
+    abi: itemABI,
+    functionName: 'changeBasePrefix',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"equipItem"`.
  */
 export function useItemEquipItem<TMode extends WriteContractMode = undefined>(
@@ -2734,6 +3011,31 @@ export function useItemEquipItem<TMode extends WriteContractMode = undefined>(
   return useContractWrite<typeof itemABI, 'equipItem', TMode>({
     abi: itemABI,
     functionName: 'equipItem',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useItemInitialize<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'initialize'
+        >['request']['abi'],
+        'initialize',
+        TMode
+      > & { functionName?: 'initialize' }
+    : UseContractWriteConfig<typeof itemABI, 'initialize', TMode> & {
+        abi?: never
+        functionName?: 'initialize'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'initialize', TMode>({
+    abi: itemABI,
+    functionName: 'initialize',
     ...config,
   } as any)
 }
@@ -3209,6 +3511,22 @@ export function usePrepareItemApprove(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"changeBasePrefix"`.
+ */
+export function usePrepareItemChangeBasePrefix(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'changeBasePrefix'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'changeBasePrefix',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'changeBasePrefix'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"equipItem"`.
  */
 export function usePrepareItemEquipItem(
@@ -3222,6 +3540,22 @@ export function usePrepareItemEquipItem(
     functionName: 'equipItem',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'equipItem'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareItemInitialize(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'initialize'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'initialize',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'initialize'>)
 }
 
 /**
@@ -3541,6 +3875,54 @@ export function useItemApprovalForAllEvent(
     eventName: 'ApprovalForAll',
     ...config,
   } as UseContractEventConfig<typeof itemABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link itemABI}__ and `eventName` set to `"Create"`.
+ */
+export function useItemCreateEvent(
+  config: Omit<
+    UseContractEventConfig<typeof itemABI, 'Create'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: itemABI,
+    eventName: 'Create',
+    ...config,
+  } as UseContractEventConfig<typeof itemABI, 'Create'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link itemABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useItemInitializedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof itemABI, 'Initialized'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: itemABI,
+    eventName: 'Initialized',
+    ...config,
+  } as UseContractEventConfig<typeof itemABI, 'Initialized'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link itemABI}__ and `eventName` set to `"Lvlup"`.
+ */
+export function useItemLvlupEvent(
+  config: Omit<
+    UseContractEventConfig<typeof itemABI, 'Lvlup'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: itemABI,
+    eventName: 'Lvlup',
+    ...config,
+  } as UseContractEventConfig<typeof itemABI, 'Lvlup'>)
 }
 
 /**
@@ -3972,6 +4354,25 @@ export function useLemonSymbol<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"toBytes"`.
+ */
+export function useLemonToBytes<
+  TFunctionName extends 'toBytes',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'toBytes',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"tokenURI"`.
  */
 export function useLemonTokenUri<
@@ -4121,6 +4522,33 @@ export function useLemonBoxMint<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"changeBasePrefix"`.
+ */
+export function useLemonChangeBasePrefix<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'changeBasePrefix'
+        >['request']['abi'],
+        'changeBasePrefix',
+        TMode
+      > & { functionName?: 'changeBasePrefix' }
+    : UseContractWriteConfig<typeof lemonABI, 'changeBasePrefix', TMode> & {
+        abi?: never
+        functionName?: 'changeBasePrefix'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'changeBasePrefix', TMode>({
+    abi: lemonABI,
+    functionName: 'changeBasePrefix',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"changeEquipmentBatch"`.
  */
 export function useLemonChangeEquipmentBatch<
@@ -4197,6 +4625,31 @@ export function useLemonExchangeGem5<
   return useContractWrite<typeof lemonABI, 'exchangeGem5', TMode>({
     abi: lemonABI,
     functionName: 'exchangeGem5',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useLemonInitialize<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'initialize'
+        >['request']['abi'],
+        'initialize',
+        TMode
+      > & { functionName?: 'initialize' }
+    : UseContractWriteConfig<typeof lemonABI, 'initialize', TMode> & {
+        abi?: never
+        functionName?: 'initialize'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'initialize', TMode>({
+    abi: lemonABI,
+    functionName: 'initialize',
     ...config,
   } as any)
 }
@@ -4511,6 +4964,22 @@ export function usePrepareLemonBoxMint(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"changeBasePrefix"`.
+ */
+export function usePrepareLemonChangeBasePrefix(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'changeBasePrefix'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'changeBasePrefix',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'changeBasePrefix'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"changeEquipmentBatch"`.
  */
 export function usePrepareLemonChangeEquipmentBatch(
@@ -4556,6 +5025,22 @@ export function usePrepareLemonExchangeGem5(
     functionName: 'exchangeGem5',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'exchangeGem5'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareLemonInitialize(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'initialize'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'initialize',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'initialize'>)
 }
 
 /**
@@ -4766,6 +5251,22 @@ export function useLemonApprovalForAllEvent(
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"Create"`.
+ */
+export function useLemonCreateEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lemonABI, 'Create'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lemonABI,
+    eventName: 'Create',
+    ...config,
+  } as UseContractEventConfig<typeof lemonABI, 'Create'>)
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"EquipmentChanged"`.
  */
 export function useLemonEquipmentChangedEvent(
@@ -4779,6 +5280,38 @@ export function useLemonEquipmentChangedEvent(
     eventName: 'EquipmentChanged',
     ...config,
   } as UseContractEventConfig<typeof lemonABI, 'EquipmentChanged'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useLemonInitializedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lemonABI, 'Initialized'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lemonABI,
+    eventName: 'Initialized',
+    ...config,
+  } as UseContractEventConfig<typeof lemonABI, 'Initialized'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"Lvlup"`.
+ */
+export function useLemonLvlupEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lemonABI, 'Lvlup'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lemonABI,
+    eventName: 'Lvlup',
+    ...config,
+  } as UseContractEventConfig<typeof lemonABI, 'Lvlup'>)
 }
 
 /**

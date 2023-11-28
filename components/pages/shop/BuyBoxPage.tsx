@@ -3,10 +3,10 @@ import styles from './shop.module.css'
 import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
 import { truncate } from 'utils/misc';
-import { useItems } from 'hooks/useItems';
+import { useBox } from 'hooks/useBox';
 
-export default function BuyItemPage() {
-  const { itemMint, itemBalance, itemStatus } = useItems();
+export default function BuyBoxPage() {
+  const { buyCheapBox, boxStatus } = useBox();
 
   return (
     <div className="container py-3 mb-auto">
@@ -19,38 +19,25 @@ export default function BuyItemPage() {
         </button>
       </Link>
       <div className="row mt-3">
-        <div className='col-12 col-md-5 mb-4'>
-          <img className={cn('rounded-4 img-fluid', styles.lightBg)} src="/images/shop/items-gallery.gif" />
-        </div>
-        <div className="col-12 col-md-7">
+        <div className="col-12 col-md-7 mx-auto">
           <div className={cn('p-3 py-4 rounded-4 mb-4', styles.lightBg)}>
             <p className="mb-3">Unique Key-card that gives access to the incredible game world of Lemoland, full of adventures and NFT treasures. </p>
             <p className="mb-3">Unique NFT key-pass will be available in Testnet and also transferred to Mainnet.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_ITEMS_CONTRACT!, 8)}</div>
-            </div>
-            <div className="d-flex justify-content-between">
-              <b>Token Standard</b>
-              <div>ERC721</div>
+              <div>{truncate(process.env.NEXT_PUBLIC_BOXES_CONTRACT!, 8)}</div>
             </div>
           </div>
 
-          <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => itemMint()}>
-            { itemStatus == 'loading' ? 
+          <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => buyCheapBox()}>
+            { boxStatus == 'loading' ? 
               <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
               <>
-                <span className='fs-17 fst-italic pe-2'>Buy Item for </span>
-                <EthSymbol>0.01</EthSymbol>
+                <span className='fs-17 fst-italic pe-2'>Buy Box for </span>
+                <EthSymbol>0.0033</EthSymbol>
               </>
             }
           </button>
-          
-          {!!itemBalance && <Link href="/hub/items">
-            <button className='btn btn-lg btn-outline-light w-100'>
-              <span className='ps-2'>Look at your {itemBalance} item{itemBalance !== 1 ? 's' : ''} in NFT Hub</span>
-            </button>
-          </Link>}
         </div>
       </div>
     </div>
