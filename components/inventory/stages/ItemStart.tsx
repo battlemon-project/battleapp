@@ -10,8 +10,8 @@ import NextTokens from "../layout/NextTokens";
 import PrevTokens from "../layout/PrevTokens";
 
 export default function ItemStart() {
-  const { selectedItems, selectItem, changeStage } = useItemStore()
-  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance, isLoading, refreshTokens } = useItems()
+  const { selectedItems, selectItem, changeStage } = useItemStore();
+  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance, isLoading, refreshTokens } = useItems();
 
   useOnMount(() => {
     refreshTokens();
