@@ -6,8 +6,8 @@ type StageType = 'Start' | 'Gems'
 
 interface DefaultStoreInterface {
   stage: StageType
-  selectedItem: NftMetaData | undefined
-  selectedGem: NftMetaData | undefined
+  selectedItems: NftMetaData[]
+  selectedGems: NftMetaData[]
 }
 
 interface StoreInterface extends DefaultStoreInterface {
@@ -33,8 +33,8 @@ export function useStore<T>(selector: (state: StoreInterface) => T) {
 function getDefaultInitialState(): DefaultStoreInterface {
   return {
     stage: 'Start',
-    selectedItem: undefined,
-    selectedGem: undefined,
+    selectedItems: [],
+    selectedGems: [],
   }
 }
 
@@ -45,8 +45,18 @@ export function initializeStore(
     ...getDefaultInitialState(),
     ...preloadedState,
     changeStage: (stage) => set((state) => ({ ...state, stage })),
-    selectItem: (token) => () => set((state) => ({ ...state, selectedItem: token })),
-    selectGem: (token) => () => set((state) => ({ ...state, selectedItem: token })),
+    selectItem: (token) => () => set((state) => {
+      return {
+        ...state, 
+        selectedItems: [token]
+      }
+    }),
+    selectGem: (token) => () => set((state) => {
+      return {
+        ...state, 
+        selectedGems: [token]
+      }
+    }),
   }))
 }
 

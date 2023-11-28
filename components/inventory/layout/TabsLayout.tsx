@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PropsWithChildren } from "react";
 import cn from 'classnames'
 import { useRouter } from "next/router";
-import styles from './inventory.module.css'
+import styles from '../inventory.module.css'
 
 export default function TabsLayout({ children }: PropsWithChildren) {
   const router = useRouter();

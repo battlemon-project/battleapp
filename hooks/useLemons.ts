@@ -19,7 +19,7 @@ export function useLemons() {
   
   const lemonSafeMint = address && useLemonProxyMint({
     address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
-    args: [20]
+    args: [1]
   })
 
   const lemonMintResult = useWaitForTransaction({ hash: lemonSafeMint?.data?.hash });

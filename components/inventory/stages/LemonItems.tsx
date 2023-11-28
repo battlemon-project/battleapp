@@ -1,14 +1,16 @@
 import { useItems } from "hooks/useItems";
-import TabsLayout from "../TabsLayout";
+import TabsLayout from "../layout/TabsLayout";
 import styles from '../inventory.module.css'
-import TokensList from "../TokensList";
+import TokensList from "../layout/TokensList";
 import Link from "next/link";
 import { useLemonStore } from "../store/lemonStore";
 import { useOnMount } from "hooks/useOnMount";
-import TokensFilter from "../TokensFilter";
+import TokensFilter from "../layout/TokensFilter";
+import NextTokens from "../layout/NextTokens";
+import PrevTokens from "../layout/PrevTokens";
 
 export default function LemonItems() {
-  const { selectItem, selectedItem, changeStage } = useLemonStore()
+  const { selectItem, selectedItems, changeStage } = useLemonStore()
   const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, itemBalance, isLoading, refreshTokens } = useItems()
 
   useOnMount(() => {
@@ -17,10 +19,10 @@ export default function LemonItems() {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokens} colWidth={25} height={350} selectedToken={selectedItem} onClick={selectItem} isLoading={isLoading} />
-      <div className="d-flex justify-content-between">
-        {isPrevTokens && <button onClick={prevTokens} className="btn btn-sm btn-default m-2">prev</button>}
-        {isNextTokens && <button onClick={nextTokens} className={`btn btn-sm btn-default m-2 ${styles.nextBtn}`}>next</button>}
+      <TokensList tokens={tokens} colWidth={25} height={350} selectedTokens={selectedItems} onClick={selectItem} isLoading={isLoading} />
+      <div className="position-relative">
+        {isPrevTokens && <PrevTokens onClick={prevTokens} />}
+        {isNextTokens && <NextTokens onClick={nextTokens} />}
       </div>
       <TokensFilter />
     </TabsLayout>

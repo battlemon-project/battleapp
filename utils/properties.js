@@ -141,17 +141,17 @@ const allItems = {
 }
 
 const itemsSet = () => {
+  const rand = Math.floor(Math.random() * 2)
   return [
     Object.assign({}, ...Object.entries(allItems).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
     Object.assign({}, ...Object.entries(allItems).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
-  ]
+  ][rand]
 }
 
 const getRandomProperties = () => {
-  const rand = Math.floor(Math.random() * 2)
   return {
     traits: Object.assign({}, ...Object.entries(allTraits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
-    items: itemsSet()[rand]
+    items: {}
   }
 }
 
@@ -167,9 +167,40 @@ const ghostProperties = {
   items: {}
 }
 
+const places = {
+  back: 0,
+  cap: 1,
+  belt: 2,
+  glasses: 3,
+  mask: 4,
+  fire_arms: 5,
+  cold_arms: 6,
+  shoes: 7
+}
+
+const addItemsToArray = (selectedItems, token, type) => {
+  const items = [
+    selectedItems?.[0] || undefined,
+    selectedItems?.[1] || undefined,
+    selectedItems?.[2] || undefined,
+    selectedItems?.[3] || undefined,
+    selectedItems?.[4] || undefined,
+    selectedItems?.[5] || undefined,
+    selectedItems?.[6] || undefined,
+    selectedItems?.[7] || undefined,
+    selectedItems?.[8] || undefined,
+    selectedItems?.[9] || undefined
+  ]
+  if (type && token) {
+    items[places[type]] = token;
+  }
+  return items
+}
+
 module.exports = {
   allTraits,
   allItems,
   ghostProperties,
-  getRandomProperties
+  getRandomProperties,
+  addItemsToArray
 }

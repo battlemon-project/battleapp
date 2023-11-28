@@ -9,7 +9,7 @@ import { useLemonStore } from "./store/lemonStore";
 import LemonItems from "./stages/LemonItems";
 
 export default function LemonTab() {
-  const { selectedLemon, stage } = useLemonStore()
+  const { selectedLemons, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { lemonBalance } = useLemons()
 
@@ -20,12 +20,14 @@ export default function LemonTab() {
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
           { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%', width: '3rem', height: '3rem'}} />}
-          <LemonScene properties={selectedLemon?.properties || ghostProperties} onModelReady={() => setIsModelLoading(false)} />
+          <LemonScene properties={selectedLemons[0]?.properties || ghostProperties} onModelReady={() => setIsModelLoading(false)} />
         </div>
       </div>}
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
-      {stage == 'Start' && <LemonStart />}
+      <div className={cn({'d-none': stage !== 'Start'})}>
+        <LemonStart />
+      </div>
       {stage == 'Items' && <LemonItems />}
     </div>
   </div>)

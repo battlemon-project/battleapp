@@ -29,5 +29,6 @@ declare module 'lemon' {
     pageKey: string | undefined
     totalCount: number
   }
-  
+
+  type ItemsArray = (NftMetaData | undefined)[]
 }
