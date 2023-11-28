@@ -8,7 +8,7 @@ export function useBox() {
   const { address }  = useAccount();
 
   const buyCheapBox = address && useBoxBuyCheapBox({
-    address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
+    address: process.env.NEXT_PUBLIC_BOXES_CONTRACT as '0x',
     value: parseEther('0.0033')
   })
 

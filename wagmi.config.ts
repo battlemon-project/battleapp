@@ -22,20 +22,19 @@ export default defineConfig({
       name: 'Item',
       abi: Item.abi as Abi,
     },
-    // {
-    //   name: 'PickAxe',
-    //   abi: PickAxe.abi as Abi,
-    // },
-    // {
-    //   name: 'Box',
-    //   abi: Box.abi as Abi,
-    // }
+    {
+      name: 'PickAxe',
+      abi: PickAxe.abi as Abi,
+    },
+    {
+      name: 'Box',
+      abi: Box.abi as Abi,
+    }
   ],
   plugins: [
-    react(
-      // {
-      //   usePrepareContractFunctionWrite: true,
-      // }
-    )
+    react({
+      // usePrepareContractWrite: false,
+      // usePrepareContractFunctionWrite: false
+    })
   ],
 })
