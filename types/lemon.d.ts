@@ -10,6 +10,8 @@ declare module 'lemon' {
   }
 
   interface PropertiesType {
+    dna: string
+    type: string
     traits: {
       [key: string]: string | undefined
     }

@@ -8,13 +8,14 @@ import NextTokens from "../layout/NextTokens";
 import PrevTokens from "../layout/PrevTokens";
 import { useFetcher } from "hooks/useFetcher";
 import { useEffect } from "react";
+import ConfirmEquipment from "../layout/ConfirmEquipment";
 
 interface LemonItemsProps {
   balance: number
 }
 
 export default function LemonItems({ balance }: LemonItemsProps) {
-  const { selectItem, selectedItems, changeStage } = useLemonStore()
+  const { selectItem, selectedItems, changeStage, selectedLemons } = useLemonStore()
   const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
     contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
     pageSize: 100
@@ -48,9 +49,7 @@ export default function LemonItems({ balance }: LemonItemsProps) {
       <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
         <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dress</button>
       </div>
-      <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
-        <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Confirm</button>
-      </div>
+      <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} />
     </div>}
   </>)
 }

@@ -23,10 +23,7 @@ export default function SanboxPage({ properties, isPaused, preloadItems, setProp
   const mounted = useIsMounted()
   
   useEffect(() => {
-    const props: PropertiesType = {
-      traits: { ...properties.traits },
-      items: { ...properties.items }
-    };
+    const props: PropertiesType = structuredClone(properties);
     if (properties.items.cap) {
       delete props.traits.hair;
     }

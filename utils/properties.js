@@ -69,6 +69,33 @@ const a1Traits = {
   ]
 }
 
+const b1Traits = {
+  head: [
+    'Head_Fresh_Lemon',
+    'Head_Zombie',
+    'Head_Clementine',
+    'Head_Lime',
+  ],
+  eyes: [
+    'Eyes_Blue',
+    'Eyes_Green',
+    'Eyes_Alien',
+    'Eyes_Zombie',
+  ],
+  exo_top: [
+    'ExoTop_Steel'
+  ],
+  hands: [
+    'Hands_Steel'
+  ],
+  exo_bot: [
+    'ExoBot_Steel'
+  ],
+  feet: [
+    'Feet_Steel'
+  ],
+}
+
 const c1Items = {
   back: [
     'Back_Insecticide_Bottle',
@@ -150,12 +177,16 @@ const itemsSet = () => {
 
 const getRandomProperties = () => {
   return {
+    dna: '',
+    type: 'omega',
     traits: Object.assign({}, ...Object.entries(a1Traits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
     items: {}
   }
 }
 
 const ghostProperties = {
+  dna: '',
+  type: 'omega',
   traits: {
     eyes: 'Eyes_Ghost',
     exo_top: 'ExoTop_Ghost',
@@ -166,6 +197,27 @@ const ghostProperties = {
   },
   items: {}
 }
+
+const a1Places = [
+  'head',
+  'eyes',
+  'exo_top',
+  'hands',
+  'exo_bot',
+  'feet',
+  'hair',
+  'teeth',
+  'scar'
+]
+
+const b1Places = [
+  'head',
+  'eyes',
+  'exo_top',
+  'hands',
+  'exo_bot',
+  'feet'
+]
 
 const c1Places = [
   'back',
@@ -215,31 +267,90 @@ const versionItems = {
   '0xc1': c1Items
 }
 
-const versionPlaces = {
+const versionItemsPlaces = {
+  '0xa1': c1Places,
+  '0xb1': c1Places,
   '0xc1': c1Places
 }
 
-const serialToItem = (serial) => {
-  const version = serial.substr(0, 4);
-  const typeId = (parseInt(serial.substr(4, 2)) || 0) % 8;
+const versionTraits = {
+  '0xa1': a1Traits,
+  '0xb1': b1Traits
+}
+
+const versionTraitsPlaces = {
+  '0xa1': a1Places,
+  '0xb1': b1Places
+}
+
+const versionLemonTypes = {
+  '0xa1': 'alfa',
+  '0xb1': 'omega'
+}
+
+const getVersion = (dna) => {
+  return dna.substr(0, 4);
+}
+
+const betterName = (type) => {
+  let name = ''
+  const parts = type.split('_').map(part => {
+    const capitalized = part.charAt(0).toUpperCase() + part.slice(1)
+    return capitalized
+  })
+  return parts.join(' ');
+}
+
+const dnaToItem = (dna) => {
+  const version = getVersion(dna);
   const itemsObj = versionItems[version];
-  const itemPlaces = versionPlaces[version];
+  const itemPlaces = versionItemsPlaces[version];
+  const typeId = (parseInt(dna.substr(4, 2)) || 0) % itemPlaces.length;
   const type = itemPlaces[typeId];
   const items = itemsObj[type];
-  const serialString = serial.substr(-4, 4)
-  const serialNumber = parseInt(serialString, 16)
-  const itemName = items[serialNumber % items.length]
+  const dnaString = dna.substr(-4, 4)
+  const dnaNumber = parseInt(dnaString, 16)
+  const itemName = items[dnaNumber % items.length]
   return {
-    type,
+    type: type,
     itemName
   }
 }
 
+const dnaToLemonProperties = (dna) => {
+  const version = getVersion(dna);
+  const traits = versionTraits[version];
+  const traitsPlaces = versionTraitsPlaces[version];
+  const dnaArray = dna.substr(4, 24).match(/.{1,2}/g) || []
+  const properties = {
+    traits: {},
+    items: {}
+  }
+  dnaArray.forEach((hex, idx) => {
+    const type = traitsPlaces[idx]
+    const num = parseInt(hex, 16)
+    if (traits[type]?.length) {
+      const traitIdx = num % traits[type]?.length;
+      properties.traits[type] = traits[type][traitIdx];
+    }
+  })
+  return {
+    type: versionLemonTypes[version],
+    properties
+  };
+}
+
+// console.log(dnaToLemonProperties('0xa17361582ceb65e0ebce9c244d'))
+
 module.exports = {
+  betterName,
   a1Traits,
   c1Items,
   ghostProperties,
+  getVersion,
+  versionItemsPlaces,
   getRandomProperties,
   addItemsToArray,
-  serialToItem
+  dnaToItem,
+  dnaToLemonProperties
 }
