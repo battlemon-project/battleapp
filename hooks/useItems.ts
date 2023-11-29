@@ -6,13 +6,9 @@ import { useFetcher } from './useFetcher';
 export function useItems() {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
-  const itemBalance = address && useItemBalanceOf({
-    address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
-    args: [address]
-  })
+
   const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x', 
-    balance: Number(itemBalance?.data),
+    contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
     pageSize: 100
   })
   
@@ -35,12 +31,10 @@ export function useItems() {
   useEffect(() => {
     if (!itemMintResult.isSuccess) return;
     setStatus('success')
-    itemBalance?.refetch()
   }, [itemMintResult])
 
   return {
     itemMint: itemMintRandom?.write || (() => {}),
-    itemBalance: Number(itemBalance?.data),
     itemStatus: status,
     tokens,
     isLoading,

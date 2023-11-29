@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { allItems } from "utils/properties";
+import { c1Items } from "utils/properties";
 import styles from '../inventory.module.css'
 
 export default function TokensFilter() {
@@ -9,7 +9,7 @@ export default function TokensFilter() {
         <b className="position-absolute w-100 fs-12 text-center pt-3">ALL</b>
         <img className={styles.filterIcon} src={`/images/hub/icon_empty_64.png`} />
       </a>
-      {Object.keys(allItems).map(name => {
+      {Object.keys(c1Items).map(name => {
         return <a className={`col col-auto`} href={'#'} key={name}>
           <img className={styles.filterIcon} src={`/images/hub/icon_${name}_64.png`} />
         </a>

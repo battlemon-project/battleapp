@@ -1,4 +1,4 @@
-const allTraits = {
+const a1Traits = {
   head: [
     'Head_Fresh_Lemon',
     'Head_Zombie',
@@ -69,7 +69,7 @@ const allTraits = {
   ]
 }
 
-const allItems = {
+const c1Items = {
   back: [
     'Back_Insecticide_Bottle',
     'Back_Bomb_Barrel',
@@ -143,14 +143,14 @@ const allItems = {
 const itemsSet = () => {
   const rand = Math.floor(Math.random() * 2)
   return [
-    Object.assign({}, ...Object.entries(allItems).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
-    Object.assign({}, ...Object.entries(allItems).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+    Object.assign({}, ...Object.entries(c1Items).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    Object.assign({}, ...Object.entries(c1Items).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
   ][rand]
 }
 
 const getRandomProperties = () => {
   return {
-    traits: Object.assign({}, ...Object.entries(allTraits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    traits: Object.assign({}, ...Object.entries(a1Traits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
     items: {}
   }
 }
@@ -167,16 +167,29 @@ const ghostProperties = {
   items: {}
 }
 
-const places = {
-  back: 0,
-  cap: 1,
-  belt: 2,
-  glasses: 3,
-  mask: 4,
-  fire_arms: 5,
-  cold_arms: 6,
-  shoes: 7
-}
+const c1Places = [
+  'back',
+  'cap',
+  'belt',
+  'glasses',
+  'mask',
+  'fire_arms',
+  'cold_arms',
+  'shoes'
+]
+
+const c2Places = [
+  'back',
+  'cap',
+  'belt',
+  'glasses',
+  'mask',
+  'fire_arms',
+  'cold_arms',
+  'shoes',
+  'wrist',
+  'platform'
+]
 
 const addItemsToArray = (selectedItems, token, type) => {
   const items = [
@@ -192,15 +205,41 @@ const addItemsToArray = (selectedItems, token, type) => {
     selectedItems?.[9] || undefined
   ]
   if (type && token) {
-    items[places[type]] = token;
+    items[c1Places.indexOf(type)] = token;
   }
   return items
 }
 
+
+const versionItems = {
+  '0xc1': c1Items
+}
+
+const versionPlaces = {
+  '0xc1': c1Places
+}
+
+const serialToItem = (serial) => {
+  const version = serial.substr(0, 4);
+  const typeId = (parseInt(serial.substr(4, 2)) || 0) % 8;
+  const itemsObj = versionItems[version];
+  const itemPlaces = versionPlaces[version];
+  const type = itemPlaces[typeId];
+  const items = itemsObj[type];
+  const serialString = serial.substr(-4, 4)
+  const serialNumber = parseInt(serialString, 16)
+  const itemName = items[serialNumber % items.length]
+  return {
+    type,
+    itemName
+  }
+}
+
 module.exports = {
-  allTraits,
-  allItems,
+  a1Traits,
+  c1Items,
   ghostProperties,
   getRandomProperties,
-  addItemsToArray
+  addItemsToArray,
+  serialToItem
 }

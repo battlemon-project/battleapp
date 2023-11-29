@@ -12,8 +12,7 @@ export function useLemons() {
     args: [address]
   })
   const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x', 
-    balance: Number(lemonBalance?.data),
+    contract: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
     pageSize: 100
   })
   

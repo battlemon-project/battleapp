@@ -19,12 +19,11 @@ const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dum
 
 interface UseFetcherProps {
   contract: string
-  balance: number,
   pageSize: number
 }
 
 
-export function useFetcher({ contract, balance, pageSize }: UseFetcherProps) {
+export function useFetcher({ contract, pageSize }: UseFetcherProps) {
   const [currPageKey, setCurrPageKey] = useState<string>('');
   const [nextPageKey, setNextPageKey] = useState<string>('');
   const [prevPageKey, setPrevPageKey] = useState<string>('');
@@ -66,9 +65,8 @@ export function useFetcher({ contract, balance, pageSize }: UseFetcherProps) {
     return encoded;
   }
 
-  const fetcher = async ({contract, balance}: UseFetcherProps) => {
+  const fetcher = async ({contract}: UseFetcherProps) => {
     const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
-    if (!balance) return [];
     const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${currPageKey || ''}`);
     const providerData: ProviderData = await providerResponse.json();
     if (providerData.pageKey) {
@@ -95,7 +93,7 @@ export function useFetcher({ contract, balance, pageSize }: UseFetcherProps) {
   }
 
   const { data, mutate, isLoading } = useSWR<NftMetaData[]>(
-    { contract, balance, currPageKey }, 
+    { contract, currPageKey }, 
     fetcher, 
     { 
       revalidateOnFocus: false,

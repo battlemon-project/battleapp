@@ -4,9 +4,18 @@ import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
 import { truncate } from 'utils/misc';
 import { useItems } from 'hooks/useItems';
+import { useItemsBalance } from 'hooks/useItemsBalance';
+import { useEffect } from 'react';
 
 export default function BuyItemPage() {
-  const { itemMint, itemBalance, itemStatus } = useItems();
+  const { itemMint, itemStatus } = useItems();
+  const { balance, refreshBalance } = useItemsBalance();
+
+  useEffect(() => {
+    if (itemStatus !== 'loading') {
+      refreshBalance?.();
+    }
+  }, [itemStatus])
 
   return (
     <div className="container py-3 mb-auto">
@@ -46,9 +55,9 @@ export default function BuyItemPage() {
             }
           </button>
           
-          {!!itemBalance && <Link href="/hub/items">
+          {!!balance && <Link href="/hub/items">
             <button className='btn btn-lg btn-outline-light w-100'>
-              <span className='ps-2'>Look at your {itemBalance} item{itemBalance !== 1 ? 's' : ''} in NFT Hub</span>
+              <span className='ps-2'>Look at your {balance} item{balance !== 1 ? 's' : ''} in NFT Hub</span>
             </button>
           </Link>}
         </div>

@@ -1,7 +1,7 @@
 import LemonScene from 'components/babylon/LemonScene';
 import { PropertiesType } from 'lemon';
 import { useState } from 'react';
-import { allTraits, allItems, ghostProperties } from 'utils/properties';
+import { a1Traits, c1Items, ghostProperties } from 'utils/properties';
 
 export default function SanboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
@@ -20,7 +20,7 @@ export default function SanboxPage() {
 
   return (<div className="d-flex align-self-stretch">
     <div className='p-4'>
-      {Object.entries(allTraits).map(([propkey, options]) => {
+      {Object.entries(a1Traits).map(([propkey, options]) => {
         return <div key={propkey}>
           {propkey}
           <select className="form-select" onChange={changeProperties('traits', propkey)} value={properties.traits[propkey] || ''}>
@@ -34,7 +34,7 @@ export default function SanboxPage() {
       <LemonScene properties={properties} />
     </div>
     <div className='p-4'>
-      {Object.entries(allItems).map(([propkey, options]) => {
+      {Object.entries(c1Items).map(([propkey, options]) => {
         return <div key={propkey}>
           {propkey}
           <select className="form-select" onChange={changeProperties('items', propkey)} value={properties.items[propkey] || ''}>

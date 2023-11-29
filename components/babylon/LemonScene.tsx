@@ -7,7 +7,7 @@ import LemonModel from 'components/babylon/LemonModel';
 import ItemModel from 'components/babylon/ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
 import { PropertiesList, PropertiesType } from 'lemon';
-import { allItems } from 'utils/properties';
+import { c1Items } from 'utils/properties';
 
 interface SanboxPageProps {
   properties: PropertiesType
@@ -87,7 +87,7 @@ export default function SanboxPage({ properties, isPaused, preloadItems, setProp
           
           <Suspense>
             <LemonModel properties={visibleProperties} onModelReady={onModelReady} setProperties={setProperties}>
-              {Object.entries(preloadItems ? allItems : loadedItems).map(([placeholderName, itemNames]) => {
+              {Object.entries(preloadItems ? c1Items : loadedItems).map(([placeholderName, itemNames]) => {
                 return itemNames.map(itemName => {
                   //if (!itemName) return <Fragment key={placeholderName + 'none'}></Fragment>;
                   if (placeholderName == 'shoes') {
