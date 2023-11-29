@@ -77,7 +77,6 @@ export function initializeStore(
         lemon.properties.items[type] = name
       }
       const selectedItems: ItemsArray = addItemsToArray(state.selectedItems, token, type)
-      console.log(selectedItems)
       return {
         ...state,
         selectedLemons: [lemon],

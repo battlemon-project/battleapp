@@ -1,21 +1,29 @@
-import { useLemons } from "hooks/useLemons";
 import TabsLayout from "../layout/TabsLayout";
 import styles from '../inventory.module.css'
 import TokensList from "../layout/TokensList";
 import cn from 'classnames';
 import Link from "next/link";
 import { useLemonStore } from "../store/lemonStore";
-import { useOnMount } from "hooks/useOnMount";
 import NextTokens from "../layout/NextTokens";
 import PrevTokens from "../layout/PrevTokens";
+import { useFetcher } from "hooks/useFetcher";
+import { useEffect } from "react";
 
-export default function LemonStart() {
+interface LemonStartProps {
+  balance: number
+}
+
+export default function LemonStart({ balance }: LemonStartProps) {
   const { selectedLemons, selectLemon, changeStage } = useLemonStore()
-  const { tokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, lemonBalance, isLoading, refreshTokens } = useLemons()
-
-  useOnMount(() => {
-    refreshTokens();
+  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
+    contract: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
+    pageSize: 100
   })
+
+  useEffect(() => {
+    if (!balance) return
+    refreshTokens();
+  }, [balance])
 
   return (<>
     <TabsLayout>
@@ -25,14 +33,14 @@ export default function LemonStart() {
         {isNextTokens && <NextTokens onClick={nextTokens} />}
       </div>
     </TabsLayout>
-    {!lemonBalance && <>
+    {!balance && <>
       <div className="col-12 mt-2">
         <Link href="/shop/lemon" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy lemon in the Shop
         </Link>
       </div>
     </>}
-    {!!lemonBalance && <div className="row gx-2 ">
+    {!!balance && <div className="row gx-2 ">
       <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
         <button className="btn btn-lg btn-default fs-13 text-uppercase w-100">Level up</button>
       </div>

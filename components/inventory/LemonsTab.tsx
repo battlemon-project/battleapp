@@ -1,4 +1,3 @@
-import { useLemons } from "hooks/useLemons";
 import styles from './inventory.module.css'
 import cn from "classnames";
 import { useState } from "react";
@@ -7,11 +6,14 @@ import { ghostProperties } from "utils/properties";
 import LemonStart from "./stages/LemonStart";
 import { useLemonStore } from "./store/lemonStore";
 import LemonItems from "./stages/LemonItems";
+import { useLemonBalance } from "hooks/useLemonBalance";
+import { useItemBalance } from 'hooks/useItemBalance';
 
 export default function LemonTab() {
   const { selectedLemons, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
-  const { lemonBalance } = useLemons()
+  const { balance: lemonBalance } = useLemonBalance()
+  const { balance: itemBalance } = useItemBalance()
 
   return (<div className="row">
     <div className="col-5">
@@ -26,9 +28,9 @@ export default function LemonTab() {
     </div>
     <div className={cn('col-7', styles.inventoryContainer)}>
       <div className={cn({'d-none': stage !== 'Start'})}>
-        <LemonStart />
+        <LemonStart balance={lemonBalance} />
       </div>
-      {stage == 'Items' && <LemonItems />}
+      {stage == 'Items' && <LemonItems balance={itemBalance} />}
     </div>
   </div>)
 }

@@ -2,11 +2,20 @@ import cn from 'classnames';
 import styles from './shop.module.css'
 import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
-import { useLemons } from 'hooks/useLemons';
+import { useLemonMint } from 'hooks/useLemonMint';
 import { truncate } from 'utils/misc';
+import { useLemonBalance } from 'hooks/useLemonBalance';
+import { useEffect } from 'react';
 
 export default function BuyLemonPage() {
-  const { lemonMint, lemonBalance, lemonStatus } = useLemons();
+  const { lemonMint, lemonMintStatus } = useLemonMint();
+  const { balance, refreshBalance } = useLemonBalance();
+
+  useEffect(() => {
+    if (lemonMintStatus !== 'loading') {
+      refreshBalance?.();
+    }
+  }, [lemonMintStatus])
 
   return (
     <div className="container py-3 mb-auto">
@@ -40,7 +49,7 @@ export default function BuyLemonPage() {
 
 
           <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => lemonMint()}>
-            { lemonStatus == 'loading' ? 
+            { lemonMintStatus == 'loading' ? 
               <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
               <>
                 <span className='fs-17 fst-italic pe-2'>Buy Lemon for </span>
@@ -49,9 +58,9 @@ export default function BuyLemonPage() {
             }
           </button>
           
-          {!!lemonBalance && <Link href="/hub/lemons">
+          {!!balance && <Link href="/hub/lemons">
             <button className='btn btn-lg btn-outline-light w-100'>
-              <span className='ps-2'>Look at your {lemonBalance} lemon{lemonBalance !== 1 ? 's' : ''} in NFT Hub</span>
+              <span className='ps-2'>Look at your {balance} lemon{balance !== 1 ? 's' : ''} in NFT Hub</span>
             </button>
           </Link>}
         </div>
