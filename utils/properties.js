@@ -185,6 +185,7 @@ const getRandomProperties = () => {
 }
 
 const ghostProperties = {
+  name: 'ghost',
   dna: '',
   type: 'omega',
   traits: {
@@ -195,7 +196,8 @@ const ghostProperties = {
     hands: 'Hands_Ghost',
     head: 'Head_Ghost'
   },
-  items: {}
+  items: {},
+  dress: []
 }
 
 const a1Places = [

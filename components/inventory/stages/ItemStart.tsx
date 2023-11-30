@@ -15,7 +15,7 @@ interface ItemStartProps {
 
 export default function ItemStart({ balance }: ItemStartProps) {
   const { selectedItems, selectItem, changeStage } = useItemStore();
-  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
+  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
     contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
     pageSize: 100
   })
@@ -27,7 +27,7 @@ export default function ItemStart({ balance }: ItemStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isLoading={isLoading} />
+      <TokensList tokens={tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} />
       <div className="position-relative">
         {isPrevTokens && <PrevTokens onClick={prevTokens} />}
         {isNextTokens && <NextTokens onClick={nextTokens} />}

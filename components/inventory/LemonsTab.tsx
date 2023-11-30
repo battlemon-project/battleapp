@@ -8,13 +8,14 @@ import { useLemonStore } from "./store/lemonStore";
 import LemonItems from "./stages/LemonItems";
 import { useLemonBalance } from "hooks/useLemonBalance";
 import { useItemBalance } from 'hooks/useItemBalance';
+import { PropertiesType } from 'lemon';
 
 export default function LemonTab() {
   const { selectedLemons, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { balance: lemonBalance } = useLemonBalance()
   const { balance: itemBalance } = useItemBalance()
-
+  
   return (<div className="row">
     <div className="col-5">
       {!lemonBalance && <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/lemons-gallery.gif" />}
@@ -22,7 +23,7 @@ export default function LemonTab() {
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
           { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%', width: '3rem', height: '3rem'}} />}
-          <LemonScene properties={selectedLemons[0]?.properties || ghostProperties} onModelReady={() => setIsModelLoading(false)} />
+          <LemonScene properties={selectedLemons[0]?.properties || (ghostProperties as PropertiesType)} onModelReady={() => setIsModelLoading(false)} />
         </div>
       </div>}
     </div>

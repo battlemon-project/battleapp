@@ -84,7 +84,15 @@ export function useFetcher({ contract, pageSize }: UseFetcherProps) {
       } catch(e) {
         const empty: NftMetaData = {
           tokenId: NaN,
-          image: dummyImage
+          image: dummyImage,
+          properties: {
+            dna: '',
+            type: '',
+            traits: {},
+            items: {},
+            name: '',
+            dress: []
+          }
         }
         return empty;
       }
@@ -92,7 +100,7 @@ export function useFetcher({ contract, pageSize }: UseFetcherProps) {
     return Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(tokenId)))
   }
 
-  const { data, mutate, isLoading } = useSWR<NftMetaData[]>(
+  const { data, mutate, isValidating } = useSWR<NftMetaData[]>(
     { contract, currPageKey }, 
     fetcher, 
     { 
@@ -104,7 +112,7 @@ export function useFetcher({ contract, pageSize }: UseFetcherProps) {
 
   return {
     data,
-    isLoading,
+    isValidating,
     mutate,
     isNextTokens,
     isPrevTokens,

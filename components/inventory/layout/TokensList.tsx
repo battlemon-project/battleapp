@@ -5,15 +5,15 @@ import { NftMetaData } from "lemon";
 
 interface TokensListProps {
   tokens: NftMetaData[] | undefined
-  isLoading: boolean
+  isValidating: boolean
   height: number
   colWidth?: number
   selectedTokens: (NftMetaData | undefined)[]
   onClick: (...args: any) => React.MouseEventHandler
 }
 
-export default function TokensList({ tokens, isLoading, colWidth = 20, height, selectedTokens, onClick }: TokensListProps) {
-  if (isLoading) {
+export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, onClick }: TokensListProps) {
+  if (isValidating) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <div className="spinner-border text-light mx-auto" style={{ width: '3rem', height: '3rem' }} />
     </div>

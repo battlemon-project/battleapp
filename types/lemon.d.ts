@@ -18,12 +18,15 @@ declare module 'lemon' {
     items: {
       [key: string]: string | undefined
     }
+    dress: number[]
+    name: string
   }
 
   interface NftMetaData {
     tokenId: number
     image: sring
-    properties?: PropertiesType
+    properties: PropertiesType
+    original?: NftMetaData
   }
 
   interface ProviderData {

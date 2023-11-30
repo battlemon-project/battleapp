@@ -15,7 +15,7 @@ interface LemonStartProps {
 
 export default function LemonStart({ balance }: LemonStartProps) {
   const { selectedLemons, selectLemon, changeStage } = useLemonStore()
-  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isLoading } = useFetcher({ 
+  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
     contract: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
     pageSize: 100
   })
@@ -27,7 +27,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isLoading={isLoading} />
+      <TokensList tokens={tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} />
       <div className="position-relative">
         {isPrevTokens && <PrevTokens onClick={prevTokens} />}
         {isNextTokens && <NextTokens onClick={nextTokens} />}

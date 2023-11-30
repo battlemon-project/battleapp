@@ -54,13 +54,13 @@ export function initializeStore(
         stage
       }
       if (stage == 'Start') {
-        const selectedItems: ItemsArray = addItemsToArray();
-        const _lemon = structuredClone(state.selectedLemons[0]);
-        if (_lemon.properties) {
-          _lemon.properties.items = {}
-        };
-        _state.selectedItems = selectedItems;
-        _state.selectedLemons = [_lemon];
+        if (state.selectedLemons[0].original) {
+          _state.selectedLemons = [state.selectedLemons[0].original];
+        }
+      }
+      if (stage == 'Items') {
+        _state.selectedItems = [];
+        state.selectedLemons[0].original = structuredClone(state.selectedLemons[0])
       }
       return _state;
     }),
