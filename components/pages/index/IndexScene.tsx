@@ -9,7 +9,7 @@ export default function BabylonScene() {
   if (engine && scene?.activeCamera) {
     scene.clearColor = new Color4(0, 0, 0, 0);
     const hdrTexture = new HDRCubeTexture(
-      `/models/index/clarens_midday_1k.hdr`,
+      (process.env.NEXT_ASSETS || '') + `/models/index/clarens_midday_1k.hdr`,
       scene,
       23
     );

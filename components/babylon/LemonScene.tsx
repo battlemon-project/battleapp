@@ -50,7 +50,7 @@ export default function SanboxPage({ properties, isPaused, preloadItems, setProp
 
     scene.clearColor = new Color4(0, 0, 0, 0);
     const hdrTexture = CubeTexture.CreateFromPrefilteredData(
-      `/models/lemon/environmentSpecular.env`,
+      (process.env.NEXT_ASSETS || '') + `/models/lemon/environmentSpecular.env`,
       scene
     );
     scene.environmentTexture = hdrTexture;
