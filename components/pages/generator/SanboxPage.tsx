@@ -1,7 +1,7 @@
 import LemonScene from 'components/babylon/LemonScene';
 import { PropertiesType } from 'lemon';
 import { useState } from 'react';
-import { a1Traits, c1Items, ghostProperties } from 'utils/properties';
+import { a1Traits, c1Items, getRandomProperties, ghostProperties } from 'utils/properties';
 
 export default function SanboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
@@ -17,6 +17,10 @@ export default function SanboxPage() {
     })
   };
 
+  const setRandomProperties = () => {
+    setProperties(getRandomProperties())
+  };
+
 
   return (<div className="d-flex align-self-stretch">
     <div className='p-4'>
@@ -29,6 +33,7 @@ export default function SanboxPage() {
           </select>
         </div>
       })}
+      <button className='btn btn-primary w-100 fs-18 rounded-3 mt-3' onClick={setRandomProperties}>Random</button>
     </div>
     <div className='mx-auto vh-100 w-100'>
       <LemonScene properties={properties} />
