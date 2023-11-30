@@ -10,7 +10,7 @@ interface ItemModelProps {
 
 export default function ItemModel({ name, placeholderName, enabled }: ItemModelProps) {
   const itemRef = useRef<AbstractMesh | null>(null)
-  const baseUrl = (process.env.NEXT_ASSETS || '') + '/models/items/'
+  const baseUrl = (process.env.NEXT_PUBLIC_ASSETS || '') + '/models/items/'
   const scene = useScene();
 
   const onItemLoaded = (model: ILoadedModel): void => {

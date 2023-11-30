@@ -7,7 +7,7 @@ export function useItemMint(type: number) {
   const { address }  = useAccount();
  
   const itemMint = address && useItemProxyMint({
-    address: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
+    address: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
     args: [address, type]
   })
 

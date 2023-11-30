@@ -7,7 +7,7 @@ export function useLemonBalance() {
   const { address }  = useAccount();
 
   const balance = address && useLemonBalanceOf({
-    address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
+    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [address]
   })
 

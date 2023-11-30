@@ -16,7 +16,7 @@ interface ItemStartProps {
 export default function ItemStart({ balance }: ItemStartProps) {
   const { selectedItems, selectItem, changeStage } = useItemStore();
   const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
+    contract: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
     pageSize: 100
   })
 

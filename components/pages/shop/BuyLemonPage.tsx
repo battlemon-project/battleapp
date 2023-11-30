@@ -39,7 +39,7 @@ export default function BuyLemonPage() {
             <p className="mb-3">Unique NFT key-pass will be available in Testnet and also transferred to Mainnet.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_LEMONS_CONTRACT!, 8)}</div>
+              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!, 8)}</div>
             </div>
             <div className="d-flex justify-content-between">
               <b>Token Standard</b>

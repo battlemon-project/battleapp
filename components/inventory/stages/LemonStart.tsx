@@ -16,7 +16,7 @@ interface LemonStartProps {
 export default function LemonStart({ balance }: LemonStartProps) {
   const { selectedLemons, selectLemon, changeStage } = useLemonStore()
   const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
+    contract: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     pageSize: 100
   })
 

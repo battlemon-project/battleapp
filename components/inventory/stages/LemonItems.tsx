@@ -18,7 +18,7 @@ export default function LemonItems({ balance }: LemonItemsProps) {
   const [disabledBack, setDisabledBack] = useState(false)
   const { selectItem, selectedItems, changeStage, selectedLemons } = useLemonStore()
   const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_ITEMS_CONTRACT as '0x',
+    contract: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
     pageSize: 100
   })
 

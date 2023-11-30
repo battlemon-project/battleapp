@@ -9,7 +9,7 @@ import { useOnMount } from 'hooks/useOnMount';
 export default function BabylonScene() {
   const [isLoading, setIsLoading] = useState(true)
 
-  const baseUrl = (process.env.NEXT_ASSETS || '') + '/models/index/'
+  const baseUrl = (process.env.NEXT_PUBLIC_ASSETS || '') + '/models/index/'
 
   useOnMount(() => {
     SceneLoader.OnPluginActivatedObservable.add(function (loader) {

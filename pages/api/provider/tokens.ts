@@ -10,8 +10,8 @@ export default async function handler (req: NextRequest) {
   const pageSize = nextUrl.searchParams.get("pageSize");
   const pageKey = nextUrl.searchParams.get("pageKey");
   const contracts: string[] = [
-    process.env.NEXT_PUBLIC_ITEMS_CONTRACT!,
-    process.env.NEXT_PUBLIC_LEMONS_CONTRACT!
+    process.env.NEXT_PUBLIC_CONTRACT_ITEMS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LEMONS!
   ]
   const siwe = req.cookies.get('siwe')?.value
   const { address }  = await unsealData(siwe || '', ironOptions)

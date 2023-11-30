@@ -5,14 +5,14 @@ import useSWR from "swr";
 //const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dummyImage: string }} = {
-  [process.env.NEXT_PUBLIC_ITEMS_CONTRACT!]: {
+  [process.env.NEXT_PUBLIC_CONTRACT_ITEMS!]: {
     storageUrl: 'https://storage-testnet.battlemon.com/v1/items/',
-    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_ITEMS_CONTRACT}`,
+    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}`,
     dummyImage: '/images/hub/empty-item.png'
   },
-  [process.env.NEXT_PUBLIC_LEMONS_CONTRACT!]: {
+  [process.env.NEXT_PUBLIC_CONTRACT_LEMONS!]: {
     storageUrl: 'https://storage-testnet.battlemon.com/v1/lemons/',
-    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_LEMONS_CONTRACT}`,
+    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`,
     dummyImage: '/images/hub/empty-lemon.png'
   }
 }

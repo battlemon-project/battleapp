@@ -13,7 +13,7 @@ interface LemonModelType {
 export default function LemonModel({ children, properties, setProperties, onModelReady }: PropsWithChildren<LemonModelType>) {
   const lemonRef = useRef<ILoadedModel | null>(null)
   const [ lemonNodes, setLemonNodes ] = useState<(AbstractMesh | TransformNode)[]>()
-  const baseUrl = (process.env.NEXT_ASSETS || '') + '/models/lemon/'
+  const baseUrl = (process.env.NEXT_PUBLIC_ASSETS || '') + '/models/lemon/'
   const engine = useEngine();
   const scene = useScene();
 

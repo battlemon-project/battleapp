@@ -7,7 +7,7 @@ export function useLemonMint() {
   const { address }  = useAccount();
   
   const lemonMint = address && useLemonProxyMint({
-    address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
+    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [1]
   })
 

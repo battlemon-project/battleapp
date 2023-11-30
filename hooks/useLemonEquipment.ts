@@ -14,7 +14,7 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   }
 
   const changeEquipment = address && useLemonChangeEquipmentBatch({
-    address: process.env.NEXT_PUBLIC_LEMONS_CONTRACT as '0x',
+    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [
       BigInt(lemonId),
       items.map(i => BigInt(i))
