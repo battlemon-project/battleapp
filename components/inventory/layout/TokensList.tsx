@@ -2,6 +2,7 @@ import styles from '../inventory.module.css'
 import { Fragment } from "react";
 import cn from 'classnames';
 import { NftMetaData } from "lemon";
+import LoadMore from './LoadMore';
 
 interface TokensListProps {
   tokens: NftMetaData[] | undefined
@@ -9,10 +10,11 @@ interface TokensListProps {
   height: number
   colWidth?: number
   selectedTokens: (NftMetaData | undefined)[]
+  loadMore?: (...args: any) => any,
   onClick: (...args: any) => React.MouseEventHandler
 }
 
-export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, onClick }: TokensListProps) {
+export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, loadMore, onClick }: TokensListProps) {
   if (isValidating) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <div className="spinner-border text-light mx-auto" style={{ width: '3rem', height: '3rem' }} />
@@ -37,6 +39,9 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
               </div>
             </Fragment>
           })}
+        </div>
+        <div>
+          {loadMore && <LoadMore loadMore={loadMore} />}
         </div>
       </div>
     </div>

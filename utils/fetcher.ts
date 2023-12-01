@@ -1,0 +1,57 @@
+import { NftMetaData } from 'lemon';
+
+const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dummyImage: string }} = {
+  [process.env.NEXT_PUBLIC_CONTRACT_ITEMS!]: {
+    storageUrl: 'https://storage-testnet.battlemon.com/v1/items/',
+    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}`,
+    dummyImage: '/images/hub/empty-item.png'
+  },
+  [process.env.NEXT_PUBLIC_CONTRACT_LEMONS!]: {
+    storageUrl: 'https://storage-testnet.battlemon.com/v1/lemons/',
+    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`,
+    dummyImage: '/images/hub/empty-lemon.png'
+  }
+}
+
+export interface ProviderData {
+  ownedNfts: { tokenId: number }[]
+  pageKey: string | undefined
+  totalCount: number
+}
+
+export interface UseFetcherResult {
+  tokens: NftMetaData[],
+  pageKey?: string
+}
+
+export interface UseFetcherProps {
+  pageSize: number
+  pageKey?: string
+}
+
+export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+  const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
+  const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}`);
+  const providerData: ProviderData = await providerResponse.json();
+
+  const f = async (tokenId: number) => {
+    try {
+      const res = await fetch(storageUrl + tokenId)
+      const json: NftMetaData = await res.json()
+      json.tokenId = tokenId;
+      return json;
+    } catch(e) {
+      const empty: NftMetaData = {
+        tokenId: NaN,
+        image: dummyImage,
+        properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [] }
+      }
+      return empty;
+    }
+  }
+  const tokens: NftMetaData[] = await Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(tokenId)))
+  return {
+    tokens,
+    pageKey: providerData.pageKey
+  }
+}

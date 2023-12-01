@@ -1,13 +1,11 @@
 import TabsLayout from "../layout/TabsLayout";
-import styles from '../inventory.module.css'
 import TokensList from "../layout/TokensList";
 import Link from "next/link";
 import { useItemStore } from "../store/itemStore";
 import TokensFilter from "../layout/TokensFilter";
-import NextTokens from "../layout/NextTokens";
-import PrevTokens from "../layout/PrevTokens";
-import { useFetcher } from "hooks/useFetcher";
 import { useEffect } from "react";
+import useSWR from "swr";
+import { fetcher } from "utils/fetcher";
 
 interface ItemStartProps {
   balance: number
@@ -15,23 +13,32 @@ interface ItemStartProps {
 
 export default function ItemStart({ balance }: ItemStartProps) {
   const { selectedItems, selectItem, changeStage } = useItemStore();
-  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
-    pageSize: 100
-  })
 
+  const { data, mutate, isValidating } = useSWR(
+    process.env.NEXT_PUBLIC_CONTRACT_ITEMS, 
+    fetcher({ pageSize: 100 })
+  )
+
+  const loadMore = async () => {
+    const nextData = await fetcher({ pageSize: 100, pageKey: data?.pageKey })(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!)
+    mutate({
+      tokens: [
+        ...(data?.tokens || []),
+        ...(nextData?.tokens || [])
+      ],
+      pageKey: nextData?.pageKey
+    }, {
+      revalidate: false
+    })
+  }
   useEffect(() => {
     if (!balance) return
-    refreshTokens();
+    mutate();
   }, [balance])
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} />
-      <div className="position-relative">
-        {isPrevTokens && <PrevTokens onClick={prevTokens} />}
-        {isNextTokens && <NextTokens onClick={nextTokens} />}
-      </div>
+      <TokensList tokens={data?.tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} loadMore={data?.pageKey ? loadMore : undefined} />
       <TokensFilter />
     </TabsLayout>
     {!balance && <>

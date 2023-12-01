@@ -1,5 +1,5 @@
 export const runtime = 'edge'
-import { ProviderData } from 'lemon';
+import type { ProviderData } from 'utils/fetcher';
 import { unsealData } from 'iron-session/edge';
 import { NextRequest, NextResponse } from 'next/server';
 import { ironOptions } from 'utils/iron';

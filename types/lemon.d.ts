@@ -29,11 +29,5 @@ declare module 'lemon' {
     original?: NftMetaData
   }
 
-  interface ProviderData {
-    ownedNfts: { tokenId: number }[]
-    pageKey: string | undefined
-    totalCount: number
-  }
-
   type ItemsArray = (NftMetaData | undefined)[]
 }

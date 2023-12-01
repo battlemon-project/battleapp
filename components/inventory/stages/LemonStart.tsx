@@ -1,13 +1,11 @@
 import TabsLayout from "../layout/TabsLayout";
-import styles from '../inventory.module.css'
 import TokensList from "../layout/TokensList";
 import cn from 'classnames';
 import Link from "next/link";
 import { useLemonStore } from "../store/lemonStore";
-import NextTokens from "../layout/NextTokens";
-import PrevTokens from "../layout/PrevTokens";
-import { useFetcher } from "hooks/useFetcher";
 import { useEffect } from "react";
+import useSWR from "swr";
+import { fetcher } from "utils/fetcher";
 
 interface LemonStartProps {
   balance: number
@@ -15,23 +13,33 @@ interface LemonStartProps {
 
 export default function LemonStart({ balance }: LemonStartProps) {
   const { selectedLemons, selectLemon, changeStage } = useLemonStore()
-  const { data: tokens, mutate: refreshTokens, nextTokens, isNextTokens, prevTokens, isPrevTokens, isValidating } = useFetcher({ 
-    contract: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
-    pageSize: 100
-  })
+
+  const { data, mutate, isValidating } = useSWR(
+    process.env.NEXT_PUBLIC_CONTRACT_LEMONS, 
+    fetcher({ pageSize: 100 })
+  )
+
+  const loadMore = async () => {
+    const nextData = await fetcher({ pageSize: 100, pageKey: data?.pageKey })(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!)
+    mutate({
+      tokens: [
+        ...(data?.tokens || []),
+        ...(nextData?.tokens || [])
+      ],
+      pageKey: nextData?.pageKey
+    }, {
+      revalidate: false
+    })
+  }
 
   useEffect(() => {
     if (!balance) return
-    refreshTokens();
+    mutate();
   }, [balance])
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} />
-      <div className="position-relative">
-        {isPrevTokens && <PrevTokens onClick={prevTokens} />}
-        {isNextTokens && <NextTokens onClick={nextTokens} />}
-      </div>
+      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} loadMore={data?.pageKey ? loadMore : undefined} />
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
