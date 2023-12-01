@@ -58,11 +58,11 @@ export default function ConfirmEquipment({ lemon, items, setDisabledBack }: Conf
     if (index < 0) return;
 
     setTimeout(async () => {
+      mutate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!)
+      setGlobalLoader(false)
       await refetchLemonData(data, index, lemon)
       selectLemon(lemon)
-      setGlobalLoader(false)
-      mutate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!)
-    }, 5000)
+    }, 500)
 
   }
 

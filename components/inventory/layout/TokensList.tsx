@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import cn from 'classnames';
 import { NftMetaData } from "lemon";
 import LoadMore from './LoadMore';
+import TokenLink from './TokenLink';
 
 interface TokensListProps {
   tokens: NftMetaData[] | undefined
@@ -34,10 +35,7 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
           {tokens.map((token, idx)=> {
             return <Fragment key={idx}>
               <div className='col-auto mb-2' style={{width: colWidth + '%'}}>
-                <div className={cn('rounded-4', styles.itemBg, { [styles.itemBgActive]: selectedTokens.map(t => t?.tokenId).includes(token.tokenId) })} onClick={onClick(token)}>
-                  {false && (token.image.split('stamp=17')[1] || '')}
-                  <img src={token.image} className="img-fluid" height="512" width="512" />
-                </div>
+                <TokenLink token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} />
               </div>
             </Fragment>
           })}
