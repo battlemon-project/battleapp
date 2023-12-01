@@ -29,6 +29,14 @@ export interface UseFetcherProps {
   pageKey?: string
 }
 
+export const getFromStorage = async (contract: string, tokenId: number) => {
+  const { storageUrl } = tokenTypes[contract];
+  const res = await fetch(storageUrl + tokenId)
+  const json: NftMetaData = await res.json()
+  json.tokenId = tokenId;
+  return json;
+}
+
 export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
   const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}`);
@@ -36,10 +44,7 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
 
   const f = async (tokenId: number) => {
     try {
-      const res = await fetch(storageUrl + tokenId)
-      const json: NftMetaData = await res.json()
-      json.tokenId = tokenId;
-      return json;
+      return await getFromStorage(contract, tokenId);
     } catch(e) {
       const empty: NftMetaData = {
         tokenId: NaN,

@@ -19,19 +19,6 @@ export default function LemonStart({ balance }: LemonStartProps) {
     fetcher({ pageSize: 100 })
   )
 
-  const loadMore = async () => {
-    const nextData = await fetcher({ pageSize: 100, pageKey: data?.pageKey })(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!)
-    mutate({
-      tokens: [
-        ...(data?.tokens || []),
-        ...(nextData?.tokens || [])
-      ],
-      pageKey: nextData?.pageKey
-    }, {
-      revalidate: false
-    })
-  }
-
   useEffect(() => {
     if (!balance) return
     mutate();
@@ -39,7 +26,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} loadMore={data?.pageKey ? loadMore : undefined} />
+      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_LEMONS} isNextPage={!!data?.pageKey} />
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">

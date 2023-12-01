@@ -10,11 +10,12 @@ interface TokensListProps {
   height: number
   colWidth?: number
   selectedTokens: (NftMetaData | undefined)[]
-  loadMore?: (...args: any) => any,
+  isNextPage?: boolean
+  contract?: string
   onClick: (...args: any) => React.MouseEventHandler
 }
 
-export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, loadMore, onClick }: TokensListProps) {
+export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, isNextPage, contract, onClick }: TokensListProps) {
   if (isValidating) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <div className="spinner-border text-light mx-auto" style={{ width: '3rem', height: '3rem' }} />
@@ -34,6 +35,7 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
             return <Fragment key={idx}>
               <div className='col-auto mb-2' style={{width: colWidth + '%'}}>
                 <div className={cn('rounded-4', styles.itemBg, { [styles.itemBgActive]: selectedTokens.map(t => t?.tokenId).includes(token.tokenId) })} onClick={onClick(token)}>
+                  {false && (token.image.split('stamp=17')[1] || '')}
                   <img src={token.image} className="img-fluid" height="512" width="512" />
                 </div>
               </div>
@@ -41,7 +43,7 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
           })}
         </div>
         <div>
-          {loadMore && <LoadMore loadMore={loadMore} />}
+          {isNextPage && contract && <LoadMore contract={contract} />}
         </div>
       </div>
     </div>

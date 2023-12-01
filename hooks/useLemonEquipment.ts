@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction } from 'wagmi';
 
 export function useLemonEquipment(lemonId: number, items: number[]) {
-  const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
+  const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle' | 'process'>('idle')
   const { address }  = useAccount();
   
   if (items.length < 9) {
@@ -24,7 +24,10 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   const changeEquipmentResult = useWaitForTransaction({ hash: changeEquipment?.data?.hash });
   
   useEffect(() => {
-    if (changeEquipment?.status === 'loading' || changeEquipment?.status === 'success') {
+    if (changeEquipment?.status === 'success') {
+      setStatus('process')
+    }
+    if (changeEquipment?.status === 'loading') {
       setStatus('loading')
     };
     if (changeEquipment?.status === 'error') {
@@ -33,7 +36,7 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   }, [changeEquipment?.status])
 
   useEffect(() => {
-    if (!changeEquipmentResult.isSuccess) return;
+    if (!changeEquipmentResult.isSuccess && !changeEquipmentResult.isError) return;
     setStatus('success')
   }, [changeEquipmentResult])
 

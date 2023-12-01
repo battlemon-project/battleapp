@@ -19,18 +19,6 @@ export default function ItemStart({ balance }: ItemStartProps) {
     fetcher({ pageSize: 100 })
   )
 
-  const loadMore = async () => {
-    const nextData = await fetcher({ pageSize: 100, pageKey: data?.pageKey })(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!)
-    mutate({
-      tokens: [
-        ...(data?.tokens || []),
-        ...(nextData?.tokens || [])
-      ],
-      pageKey: nextData?.pageKey
-    }, {
-      revalidate: false
-    })
-  }
   useEffect(() => {
     if (!balance) return
     mutate();
@@ -38,7 +26,7 @@ export default function ItemStart({ balance }: ItemStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} loadMore={data?.pageKey ? loadMore : undefined} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
       <TokensFilter />
     </TabsLayout>
     {!balance && <>
