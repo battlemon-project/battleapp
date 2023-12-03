@@ -14,9 +14,9 @@ interface DefaultStoreInterface {
 
 interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
-  selectLemon: (token: NftMetaData) => () => void
-  selectItem: (token: NftMetaData) => () => void
-  selectGem: (token: NftMetaData) => () => void
+  selectLemon: (token: NftMetaData) => void
+  selectItem: (token: NftMetaData) => void
+  selectGem: (token: NftMetaData) => void
 }
 
 export type StoreType = ReturnType<typeof initializeStore>
@@ -64,13 +64,13 @@ export function initializeStore(
       }
       return _state;
     }),
-    selectLemon: (token) => () => set((state) => {
+    selectLemon: (token) => set((state) => {
       return {
         ...state, 
         selectedLemons: [token]
       }
     }),
-    selectItem: (token) => () => set((state) => { 
+    selectItem: (token) => set((state) => { 
       const lemon = structuredClone(state.selectedLemons[0]);
       const [ _png, name, type ]: [string, string, string] = token.image.split(/[/.]+/).reverse();
       if (lemon?.properties) {
@@ -83,7 +83,7 @@ export function initializeStore(
         selectedItems: selectedItems
       }
     }),
-    selectGem: (token) => () => set((state) => {
+    selectGem: (token) => set((state) => {
       return {
         ...state, 
         selectedGems: [token]

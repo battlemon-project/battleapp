@@ -12,8 +12,8 @@ interface DefaultStoreInterface {
 
 interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
-  selectItem: (token: NftMetaData) => () => void
-  selectGem: (token: NftMetaData) => () => void
+  selectItem: (token: NftMetaData) => void
+  selectGem: (token: NftMetaData) => void
 }
 
 export type StoreType = ReturnType<typeof initializeStore>
@@ -45,13 +45,13 @@ export function initializeStore(
     ...getDefaultInitialState(),
     ...preloadedState,
     changeStage: (stage) => set((state) => ({ ...state, stage })),
-    selectItem: (token) => () => set((state) => {
+    selectItem: (token) => set((state) => {
       return {
         ...state, 
         selectedItems: [token]
       }
     }),
-    selectGem: (token) => () => set((state) => {
+    selectGem: (token) => set((state) => {
       return {
         ...state, 
         selectedGems: [token]

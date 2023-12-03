@@ -37,13 +37,14 @@ export default function ConfirmEquipment({ lemon, items, setDisabledBack }: Conf
   const { changeEquipment, changeEquipmentStatus } = useLemonEquipment(lemon.tokenId, itemsIds)
 
   const refetchLemonData = async (data: UseFetcherResult, indexOf: number, lemon: NftMetaData) => {
-    const json = await getFromStorage(contract, lemon.tokenId)
-    data.tokens[indexOf] = json
-    mutate(contract, {
+    const _lemon = await getFromStorage({ contract, tokenId: lemon.tokenId })
+    data.tokens[indexOf] = _lemon
+    await mutate(contract, {
       ...data
     }, {
       revalidate: false
     })
+    return _lemon
   }
 
   const updateLemonJson = async (lemon: NftMetaData) => {
@@ -60,9 +61,9 @@ export default function ConfirmEquipment({ lemon, items, setDisabledBack }: Conf
     setTimeout(async () => {
       mutate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!)
       setGlobalLoader(false)
-      await refetchLemonData(data, index, lemon)
-      selectLemon(lemon)
-    }, 500)
+      const _lemon = await refetchLemonData(data, index, lemon)
+      selectLemon(_lemon)
+    }, 1000)
 
   }
 

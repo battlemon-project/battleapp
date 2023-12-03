@@ -13,7 +13,7 @@ interface TokensListProps {
   selectedTokens: (NftMetaData | undefined)[]
   isNextPage?: boolean
   contract?: string
-  onClick: (...args: any) => React.MouseEventHandler
+  onClick: (token: NftMetaData) => void
 }
 
 export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, isNextPage, contract, onClick }: TokensListProps) {
