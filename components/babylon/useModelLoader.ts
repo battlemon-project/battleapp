@@ -4,12 +4,8 @@ import {
   S3Client,
   PutObjectCommand
 } from "@aws-sdk/client-s3";
-import { PropertiesType } from "lemon";
 import { Buffer } from "buffer";
-import { getRandomProperties } from "utils/properties";
-function timeout(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+import { PropertiesType } from "utils/properties";
 
 interface ModelReadyProps {
   engine: Engine | undefined, 
@@ -49,7 +45,6 @@ export function useModelLoader() {
       });
     }
 
-    (window as any).getRandomProperties = getRandomProperties;
     (window as any).generateLemon = function (properties: PropertiesType | undefined) {
       if (!properties) {
         console.log("Not passed properties to generateLemon()")

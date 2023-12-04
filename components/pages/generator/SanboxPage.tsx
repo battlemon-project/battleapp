@@ -1,7 +1,6 @@
 import LemonScene from 'components/babylon/LemonScene';
-import { PropertiesType } from 'lemon';
 import { useState } from 'react';
-import { a1Traits, c1Items, getRandomProperties, ghostProperties } from 'utils/properties';
+import { a1Traits, c1Items, PropertiesType, getRandomProperties, ghostProperties } from 'utils/properties';
 
 export default function SanboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)

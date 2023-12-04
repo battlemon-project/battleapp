@@ -3,10 +3,10 @@ import { Scene as BabylonScene, Color4, SceneLoader, Vector3, CubeTexture } from
 import { Engine, Scene } from 'react-babylonjs'
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
 import { Dispatch, Fragment, SetStateAction, Suspense, useEffect, useState } from 'react';
-import LemonModel from 'components/babylon/LemonModel';
-import ItemModel from 'components/babylon/ItemModel';
+import LemonModel from './LemonModel';
+import ItemModel from './ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
-import { PropertiesList, PropertiesType } from 'lemon';
+import { PropertiesList, PropertiesType } from 'utils/properties';
 import { c1Items } from 'utils/properties';
 
 interface SanboxPageProps {

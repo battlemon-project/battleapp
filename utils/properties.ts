@@ -1,4 +1,21 @@
-const a1Traits = {
+export interface PropertiesList {
+  [key: string]: string[]
+}
+
+export interface PropertiesType {
+  dna: string
+  type: string
+  traits: {
+    [key: string]: string | undefined
+  }
+  items: {
+    [key: string]: string | undefined
+  }
+  dress: number[]
+  name: string
+}
+
+export const a1Traits: PropertiesList = {
   head: [
     'Head_Fresh_Lemon',
     'Head_Zombie',
@@ -117,7 +134,7 @@ const a1Traits = {
   ]
 }
 
-const b1Traits = {
+const b1Traits: PropertiesList = {
   head: [
     'Head_Fresh_Lemon',
     'Head_Zombie',
@@ -144,7 +161,7 @@ const b1Traits = {
   ],
 }
 
-const c1Items = {
+export const c1Items: PropertiesList = {
   back: [
     'Back_Insecticide_Bottle',
     'Back_Bomb_Barrel',
@@ -215,15 +232,15 @@ const c1Items = {
   // ],
 }
 
-const itemsSet = () => {
-  const rand = Math.floor(Math.random() * 2)
-  return [
-    Object.assign({}, ...Object.entries(c1Items).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
-    Object.assign({}, ...Object.entries(c1Items).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
-  ][rand]
-}
+// const itemsSet = () => {
+//   const rand = Math.floor(Math.random() * 2)
+//   return [
+//     Object.assign({}, ...Object.entries(c1Items).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+//     Object.assign({}, ...Object.entries(c1Items).filter(([k]) => k !== 'mask').map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+//   ][rand]
+// }
 
-const getRandomProperties = () => {
+export const getRandomProperties = (): PropertiesType => {
   return {
     dna: '',
     name: 'random',
@@ -234,7 +251,7 @@ const getRandomProperties = () => {
   }
 }
 
-const ghostProperties = {
+export const ghostProperties = {
   name: 'ghost',
   dna: '',
   type: 'omega',
@@ -295,7 +312,7 @@ const c2Places = [
   'platform'
 ]
 
-const addItemsToArray = (selectedItems, token, type) => {
+export const addItemsToArray = (selectedItems: number[], token: number, type: string) => {
   const items = [
     selectedItems?.[0] || undefined,
     selectedItems?.[1] || undefined,
@@ -315,37 +332,36 @@ const addItemsToArray = (selectedItems, token, type) => {
 }
 
 
-const versionItems = {
+const versionItems: { [key: string]: PropertiesList } = {
   '0xc1': c1Items
 }
 
-const versionItemsPlaces = {
+export const versionItemsPlaces: { [key: string]: string[] } = {
   '0xa1': c1Places,
   '0xb1': c1Places,
   '0xc1': c1Places
 }
 
-const versionTraits = {
+const versionTraits: { [key: string]: PropertiesList } = {
   '0xa1': a1Traits,
   '0xb1': b1Traits
 }
 
-const versionTraitsPlaces = {
+const versionTraitsPlaces: { [key: string]: string[] } = {
   '0xa1': a1Places,
   '0xb1': b1Places
 }
 
-const versionLemonTypes = {
+const versionLemonTypes: { [key: string]: string } = {
   '0xa1': 'alfa',
   '0xb1': 'omega'
 }
 
-const getVersion = (dna) => {
+export const getVersion = (dna: string) => {
   return dna.substr(0, 4);
 }
 
-const betterName = (type) => {
-  let name = ''
+export const betterName = (type: string) => {
   const parts = type.split('_').map(part => {
     const capitalized = part.charAt(0).toUpperCase() + part.slice(1)
     return capitalized
@@ -353,7 +369,7 @@ const betterName = (type) => {
   return parts.join(' ');
 }
 
-const dnaToItem = (dna) => {
+export const dnaToItem = (dna: string) => {
   const version = getVersion(dna);
   const itemsObj = versionItems[version];
   const itemPlaces = versionItemsPlaces[version];
@@ -369,40 +385,24 @@ const dnaToItem = (dna) => {
   }
 }
 
-const dnaToLemonProperties = (dna) => {
+export const dnaToLemonProperties = (dna: string) => {
   const version = getVersion(dna);
   const traits = versionTraits[version];
   const traitsPlaces = versionTraitsPlaces[version];
   const dnaArray = dna.substr(4, 24).match(/.{1,2}/g) || []
-  const properties = {
-    traits: {},
-    items: {}
-  }
+  const _traits: { [key: string]: string } = {}
   dnaArray.forEach((hex, idx) => {
     const type = traitsPlaces[idx]
     const num = parseInt(hex, 16)
     if (traits[type]?.length) {
       const traitIdx = num % traits[type]?.length;
-      properties.traits[type] = traits[type][traitIdx];
+      _traits[type] = traits[type][traitIdx];
     }
   })
   return {
     type: versionLemonTypes[version],
-    properties
+    traits: _traits
   };
 }
 
 // console.log(dnaToLemonProperties('0xa17361582ceb65e0ebce9c244d'))
-
-module.exports = {
-  betterName,
-  a1Traits,
-  c1Items,
-  ghostProperties,
-  getVersion,
-  versionItemsPlaces,
-  getRandomProperties,
-  addItemsToArray,
-  dnaToItem,
-  dnaToLemonProperties
-}

@@ -2,13 +2,12 @@ import styles from './inventory.module.css'
 import cn from "classnames";
 import { useState } from "react";
 import LemonScene from "components/babylon/LemonScene";
-import { ghostProperties } from "utils/properties";
+import { ghostProperties, PropertiesType } from "utils/properties";
 import LemonStart from "./stages/LemonStart";
 import { useLemonStore } from "./store/lemonStore";
 import LemonItems from "./stages/LemonItems";
 import { useLemonBalance } from "hooks/useLemonBalance";
 import { useItemBalance } from 'hooks/useItemBalance';
-import { PropertiesType } from 'lemon';
 
 export default function LemonTab() {
   const { selectedLemons, stage } = useLemonStore()
