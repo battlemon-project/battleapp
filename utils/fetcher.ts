@@ -47,7 +47,7 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
       return await getFromStorage({ contract, tokenId });
     } catch(e) {
       const empty: NftMetaData = {
-        tokenId: NaN,
+        tokenId: -1*tokenId,
         image: dummyImage,
         properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [] }
       }
