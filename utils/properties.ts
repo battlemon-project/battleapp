@@ -1,3 +1,5 @@
+import { NftMetaData } from "lemon"
+
 export interface PropertiesList {
   [key: string]: string[]
 }
@@ -312,7 +314,7 @@ const c2Places = [
   'platform'
 ]
 
-export const addItemsToArray = (selectedItems: number[], token: number, type: string) => {
+export const addItemsToArray = (selectedItems: (NftMetaData | undefined)[], token: NftMetaData, type: string) => {
   const items = [
     selectedItems?.[0] || undefined,
     selectedItems?.[1] || undefined,
@@ -339,7 +341,8 @@ const versionItems: { [key: string]: PropertiesList } = {
 export const versionItemsPlaces: { [key: string]: string[] } = {
   '0xa1': c1Places,
   '0xb1': c1Places,
-  '0xc1': c1Places
+  '0xc1': c1Places,
+  '0xc2': c2Places
 }
 
 const versionTraits: { [key: string]: PropertiesList } = {

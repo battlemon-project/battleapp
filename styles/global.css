@@ -16,9 +16,21 @@ body {
 }
 
 .btn {
+  --bs-btn-disabled-opacity: 0.2;
   border-radius: var(--bs-border-radius-xl);
   font-size: 14px;
   color: #fff;
+}
+
+.btn-primary {
+  background: linear-gradient(106deg, rgba(25, 202, 96, 0.50) 0%, rgba(25, 202, 96, 0.70) 50%, rgba(25, 202, 96, 0.50) 100%);
+  --bs-btn-border-color: linear-gradient(106deg, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0.10) 100%);
+  --bs-btn-hover-bg: rgba(25, 202, 96, 0.60);
+  --bs-btn-hover-border-color: #19ca60;
+  --bs-btn-active-bg: rgba(25, 202, 96, 0.70);
+  --bs-btn-active-border-color: #19ca60;
+  --bs-btn-disabled-bg: rgba(255, 255, 255, 0.50);
+  --bs-btn-disabled-border-color: rgba(255, 255, 255, 0.50);;
 }
 
 .btn-lg {

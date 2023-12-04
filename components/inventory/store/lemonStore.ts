@@ -16,6 +16,7 @@ interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectLemon: (token: NftMetaData) => void
   selectItem: (token: NftMetaData) => void
+  clearSelectItems: () => void
   selectGem: (token: NftMetaData) => void
 }
 
@@ -81,6 +82,12 @@ export function initializeStore(
         ...state,
         selectedLemons: [lemon],
         selectedItems: selectedItems
+      }
+    }),
+    clearSelectItems: () => set((state) => {
+      return {
+        ...state,
+        selectedItems: []
       }
     }),
     selectGem: (token) => set((state) => {

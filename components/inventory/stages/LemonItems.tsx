@@ -1,9 +1,9 @@
 import TabsLayout from "../layout/TabsLayout";
 import cn from 'classnames'
 import TokensList from "../layout/TokensList";
+import styles from '../inventory.module.css'
 import Link from "next/link";
 import { useLemonStore } from "../store/lemonStore";
-import TokensFilter from "../layout/TokensFilter";
 import { useEffect, useState } from "react";
 import ConfirmEquipment from "../layout/ConfirmEquipment";
 import useSWR from "swr";
@@ -29,8 +29,8 @@ export default function LemonItems({ balance }: LemonItemsProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={350} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
-      <TokensFilter />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
+      {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
@@ -39,14 +39,15 @@ export default function LemonItems({ balance }: LemonItemsProps) {
         </Link>
       </div>
     </>}
-    {!!balance && <div className="row gx-2 ">
-      <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
-        <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: disabledBack })} onClick={() => {changeStage('Start')}}>Back</button>
+    {!!balance && <div className={styles.inventoryButtonsRow}>
+      <div className='row gx-2'>
+        <div className="col-12 col-sm-6 col-lg-5 mt-2 d-flex">
+          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: disabledBack })} onClick={() => {changeStage('Start')}}>Back</button>
+        </div>
+        <div className="col-12 col-sm-6 col-lg-7 mt-2 d-flex">
+          <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={!selectedItems?.length} />
+        </div>
       </div>
-      <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
-        <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dress</button>
-      </div>
-      <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} setDisabledBack={setDisabledBack} />
     </div>}
   </>)
 }

@@ -2,7 +2,7 @@ import { useLemonEquipment } from "hooks/useLemonEquipment"
 import { NftMetaData } from "lemon"
 import cn from 'classnames'
 import { versionItemsPlaces, getVersion } from "utils/properties"
-import { Dispatch, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useLemonStore } from "../store/lemonStore"
 import { SWRResponse, useSWRConfig } from 'swr'
 import { UseFetcherResult, getFromStorage } from "utils/fetcher"
@@ -11,13 +11,13 @@ import BattlemonLoader from "components/layout/BattlemonLoader"
 interface ConfirmEquipmentProps {
   lemon: NftMetaData
   items: (NftMetaData | undefined)[]
-  setDisabledBack: Dispatch<any>
+  disabled: boolean
 }
 
-export default function ConfirmEquipment({ lemon, items, setDisabledBack }: ConfirmEquipmentProps) {
+export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEquipmentProps) {
   const [ globalLoader, setGlobalLoader ] = useState(false)
   const contract = process.env.NEXT_PUBLIC_CONTRACT_LEMONS!
-  const { selectLemon } = useLemonStore()
+  const { selectLemon, clearSelectItems } = useLemonStore()
   const { cache, mutate } = useSWRConfig()
   const version: string = getVersion(lemon.properties.dna)
   const places = (versionItemsPlaces as {[key: string]: string[]})[version]
@@ -69,6 +69,7 @@ export default function ConfirmEquipment({ lemon, items, setDisabledBack }: Conf
 
   useEffect(() => {
     if (changeEquipmentStatus == 'success') {
+      clearSelectItems();
       lemon.original = structuredClone(lemon);
       selectLemon(lemon)
       updateLemonJson(lemon)
@@ -79,14 +80,12 @@ export default function ConfirmEquipment({ lemon, items, setDisabledBack }: Conf
   }, [changeEquipmentStatus])
 
   return (<>
-    <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
-      <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: changeEquipmentStatus == 'loading'})} onClick={() => changeEquipment()}>
-        &nbsp;{ changeEquipmentStatus == 'loading' ? 
-          <div className="spinner-border spinner-border-sm position-absolute" role="status" style={{margin: '-2px 0 0 -8px'}}></div> :
-          <>Confirm {false && JSON.stringify(itemsIds)}</>
-        }&nbsp;
-      </button>
-    </div>
+    <button className={cn('btn btn-lg btn-primary fs-13 text-uppercase w-100', { disabled: disabled || changeEquipmentStatus == 'loading'})} onClick={() => changeEquipment()}>
+      &nbsp;{ changeEquipmentStatus == 'loading' ? 
+        <div className="spinner-border spinner-border-sm position-absolute" role="status" style={{margin: '-2px 0 0 -8px'}}></div> :
+        <>Confirm {false && JSON.stringify(itemsIds)}</>
+      }&nbsp;
+    </button>
     {globalLoader && <BattlemonLoader />}
   </>)
 }

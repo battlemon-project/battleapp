@@ -17,6 +17,10 @@
   margin: 0 auto;
 }
 
+.inventoryButtonsRow {
+  min-height: 140px;
+}
+
 .inventoryTabs {
   padding: 0 10px;
   border-bottom: 2px solid rgba(255,255,255,0.3);
