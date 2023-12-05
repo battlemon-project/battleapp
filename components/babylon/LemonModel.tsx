@@ -1,6 +1,6 @@
 import { Engine, Scene, AbstractMesh, TransformNode, Vector3 } from '@babylonjs/core'
 import { useOnMount } from 'hooks/useOnMount';
-import { PropertiesType } from 'utils/properties';
+import { PropertiesType } from 'lemon';
 import { Dispatch, PropsWithChildren, SetStateAction, useEffect, useRef, useState } from 'react';
 import { ILoadedModel, Model, useEngine, useScene } from 'react-babylonjs'
 

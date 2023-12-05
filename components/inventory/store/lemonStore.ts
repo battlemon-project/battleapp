@@ -16,7 +16,7 @@ interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectLemon: (token: NftMetaData) => void
   selectItem: (token: NftMetaData) => void
-  clearSelectItems: () => void
+  confirmDressLemon: () => void
   selectGem: (token: NftMetaData) => void
 }
 
@@ -84,9 +84,16 @@ export function initializeStore(
         selectedItems: selectedItems
       }
     }),
-    clearSelectItems: () => set((state) => {
+    confirmDressLemon: () => set((state) => {
+      const _lemon = state.selectedLemons[0]
+      state.selectedItems.forEach(item => {
+        if (!item) return
+        _lemon.properties.items[item.properties.type] = item.properties.name
+      })
+      _lemon.original = _lemon;
       return {
         ...state,
+        selectedLemons: [_lemon],
         selectedItems: []
       }
     }),

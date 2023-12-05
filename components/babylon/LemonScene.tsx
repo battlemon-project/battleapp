@@ -6,8 +6,8 @@ import { Dispatch, Fragment, SetStateAction, Suspense, useEffect, useState } fro
 import LemonModel from './LemonModel';
 import ItemModel from './ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
-import { PropertiesList, PropertiesType } from 'utils/properties';
 import { c1Items } from 'utils/properties';
+import { PropertiesList, PropertiesType } from 'lemon';
 
 interface SanboxPageProps {
   properties: PropertiesType

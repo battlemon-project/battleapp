@@ -5,7 +5,8 @@ import {
   PutObjectCommand
 } from "@aws-sdk/client-s3";
 import { Buffer } from "buffer";
-import { PropertiesType, getRandomProperties, getRandomPropertiesWithItems } from "utils/properties";
+import { getRandomProperties, getRandomPropertiesWithItems } from "utils/properties";
+import { PropertiesType } from "lemon";
 
 interface ModelReadyProps {
   engine: Engine | undefined, 

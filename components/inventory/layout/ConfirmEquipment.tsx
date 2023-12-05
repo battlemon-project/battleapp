@@ -4,8 +4,6 @@ import cn from 'classnames'
 import { versionItemsPlaces, getVersion } from "utils/properties"
 import { useEffect, useState } from "react"
 import { useLemonStore } from "../store/lemonStore"
-import { SWRResponse, useSWRConfig } from 'swr'
-import { UseFetcherResult, getFromStorage } from "utils/fetcher"
 import BattlemonLoader from "components/layout/BattlemonLoader"
 
 interface ConfirmEquipmentProps {
@@ -16,9 +14,7 @@ interface ConfirmEquipmentProps {
 
 export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEquipmentProps) {
   const [ globalLoader, setGlobalLoader ] = useState(false)
-  const contract = process.env.NEXT_PUBLIC_CONTRACT_LEMONS!
-  const { selectLemon, clearSelectItems } = useLemonStore()
-  const { cache, mutate } = useSWRConfig()
+  const { confirmDressLemon } = useLemonStore()
   const version: string = getVersion(lemon.properties.dna)
   const places = (versionItemsPlaces as {[key: string]: string[]})[version]
 
@@ -36,43 +32,12 @@ export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEqui
   
   const { changeEquipment, changeEquipmentStatus } = useLemonEquipment(lemon.tokenId, itemsIds)
 
-  const refetchLemonData = async (data: UseFetcherResult, indexOf: number, lemon: NftMetaData) => {
-    const _lemon = await getFromStorage({ contract, tokenId: lemon.tokenId })
-    data.tokens[indexOf] = _lemon
-    await mutate(contract, {
-      ...data
-    }, {
-      revalidate: false
-    })
-    return _lemon
-  }
-
-  const updateLemonJson = async (lemon: NftMetaData) => {
-    const { data } = cache.get(contract) as SWRResponse<UseFetcherResult>
-
-    if (!data?.tokens?.length) return;
-
-    const index = data.tokens.findIndex(token => {
-      return token.tokenId == lemon.tokenId
-    })
-
-    if (index < 0) return;
-
-    setTimeout(async () => {
-      mutate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!)
-      setGlobalLoader(false)
-      const _lemon = await refetchLemonData(data, index, lemon)
-      selectLemon(_lemon)
-    }, 1000)
-
-  }
-
   useEffect(() => {
     if (changeEquipmentStatus == 'success') {
-      clearSelectItems();
-      lemon.original = structuredClone(lemon);
-      selectLemon(lemon)
-      updateLemonJson(lemon)
+      setTimeout(() => {
+        setGlobalLoader(false)
+        confirmDressLemon();
+      }, 1000)
     }
     if (changeEquipmentStatus == 'process') {
       setGlobalLoader(true)

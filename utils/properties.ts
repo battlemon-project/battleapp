@@ -1,21 +1,4 @@
-import { NftMetaData } from "lemon"
-
-export interface PropertiesList {
-  [key: string]: string[]
-}
-
-export interface PropertiesType {
-  dna: string
-  type: string
-  traits: {
-    [key: string]: string | undefined
-  }
-  items: {
-    [key: string]: string | undefined
-  }
-  dress: number[]
-  name: string
-}
+import { NftMetaData, PropertiesList, PropertiesType } from "lemon"
 
 export const a1Traits: PropertiesList = {
   head: [

@@ -12,15 +12,15 @@ interface NextTokenProps {
   isSelected: boolean
 }
 
-export default function TokenLinkGenerator({ onClick, token, isSelected }: NextTokenProps) {
+export default function TokenLinkGenerator({ onClick, token: defaultToken, isSelected }: NextTokenProps) {
   const { cache, mutate } = useSWRConfig()
-  const { stage } = useLemonStore()
+  const { stage, selectLemon } = useLemonStore()
   const [ loader, setLoader ] = useState(false)
-  const [ image, setImage ] = useState(token.image)
+  const [ token, setToken ] = useState(defaultToken)
 
-  const checkShadowLemon = (image: string) => {
-    if (!image.includes('shadow-lemon.png')) return false;
-    const time = Number(image.split('timestamp=')[1])
+  const checkShadowLemon = (token: NftMetaData) => {
+    if (!token.image.includes('shadow-lemon.png')) return false;
+    const time = Number(token.image.split('timestamp=')[1])
     const MINUTES_5 = 5*60*1000;
     const duration = Date.now() - time;
     if (duration < MINUTES_5) {
@@ -29,42 +29,38 @@ export default function TokenLinkGenerator({ onClick, token, isSelected }: NextT
     return false
   }
 
-  const checkLast20sec = (image: string) => {
-    const time = Number(image.split('timestamp=')[1])
-    const SECONDS_20 = 20*1000;
-    const duration = Date.now() - time;
-    if (duration < SECONDS_20) {
-      return true
-    }
-    return false
-  }
+  // const checkLast10sec = (token: NftMetaData) => {
+  //   const time = Number(token.image.split('timestamp=')[1])
+  //   const SECONDS_20 = 20*1000;
+  //   const duration = Date.now() - time;
+  //   if (duration < SECONDS_20) {
+  //     return true
+  //   }
+  //   return false
+  // }
 
-  const { data } = useSWR(() => checkShadowLemon(image) || checkLast20sec(image) ? {
+  const { data } = useSWR(() => checkShadowLemon(token) ? {
     contract: process.env.NEXT_PUBLIC_CONTRACT_LEMONS!,
     tokenId: token.tokenId 
   } : null, getFromStorage, {
     revalidateOnFocus: true,
     revalidateOnReconnect: true,
-    refreshInterval: 2000
+    refreshInterval: 1000
   })
 
   useEffect(() => {
-    if (image.includes('shadow-lemon.png')) {
+    if (data && !data.image.includes('shadow-lemon.png')) {
+      setToken(data)
+    }
+  }, [data?.image])
+
+  useEffect(() => {
+    if (token.image?.includes('shadow-lemon.png')) {
       setLoader(true)
     } else {
       setLoader(false)
     }
-  }, [image])
-
-  useEffect(() => {
-    if (!data?.image) return;
-    setImage(data?.image)
-  }, [data?.image])
-
-  useEffect(() => {
-    setImage(token.image)
   }, [token.image])
-
   
   const refetchLemonData = async (contract: string, lemon: NftMetaData) => {
     const { data } = cache.get(contract) as SWRResponse<UseFetcherResult>
@@ -79,6 +75,7 @@ export default function TokenLinkGenerator({ onClick, token, isSelected }: NextT
     }, {
       revalidate: false
     })
+    setToken(_lemon);
   }
 
   useEffect(() => {
@@ -93,8 +90,7 @@ export default function TokenLinkGenerator({ onClick, token, isSelected }: NextT
 
   return (<>
     <div className={cn('rounded-4 position-relative', styles.itemBg, { [styles.itemBgActive]: isSelected })} onClick={handleClick(token)}>
-      {false && (token.image.split('stamp=17')[1] || '')}
-      <img src={image} className="img-fluid" height="512" width="512" />
+      <img src={token.image} className="img-fluid" height="512" width="512" />
       {loader && <div className="spinner-border spinner-border-md position-absolute" role="status" style={{margin: '-17px 0 0 -15px', left: '50%', top: '50%'}}></div>}
     </div>
   </>)

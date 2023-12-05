@@ -1,8 +1,9 @@
 import ReactDOM from "react-dom/client";
 import LemonScene from './LemonScene';
-import { ghostProperties, PropertiesType } from 'utils/properties';
+import { ghostProperties } from 'utils/properties';
 import { useModelLoader } from './useModelLoader';
 import { useState } from 'react';
+import { PropertiesType } from "lemon";
 
 function GeneratorWrapper() {
   const { onModelReady } = useModelLoader()

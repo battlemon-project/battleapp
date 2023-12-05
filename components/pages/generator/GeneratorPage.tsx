@@ -2,7 +2,7 @@ import LemonScene from 'components/babylon/LemonScene';
 import { ghostProperties } from 'utils/properties';
 import { useModelLoader } from 'components/babylon/useModelLoader';
 import { useState } from 'react';
-import { PropertiesType } from 'utils/properties';
+import { PropertiesType } from 'lemon';
 
 export default function GeneratorPage() {
   const { onModelReady } = useModelLoader()

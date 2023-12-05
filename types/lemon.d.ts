@@ -1,3 +1,4 @@
+
 declare module 'lemon' {
   interface ItemType {
     flavour: string,
@@ -11,6 +12,24 @@ declare module 'lemon' {
     properties: PropertiesType
     original?: NftMetaData
   }
+
+  interface PropertiesList {
+    [key: string]: string[]
+  }
+  
+  interface PropertiesType {
+    dna: string
+    type: string
+    traits: {
+      [key: string]: string | undefined
+    }
+    items: {
+      [key: string]: string | undefined
+    }
+    dress: number[]
+    name: string
+  }
+  
 
   type ItemsArray = (NftMetaData | undefined)[]
 }
