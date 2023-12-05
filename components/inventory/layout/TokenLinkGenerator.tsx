@@ -13,8 +13,8 @@ interface NextTokenProps {
 }
 
 export default function TokenLinkGenerator({ onClick, token, isSelected }: NextTokenProps) {
-  // const { cache, mutate } = useSWRConfig()
-  // const { stage } = useLemonStore()
+  const { cache, mutate } = useSWRConfig()
+  const { stage } = useLemonStore()
   const [ loader, setLoader ] = useState(false)
   const [ image, setImage ] = useState(token.image)
 
@@ -66,25 +66,25 @@ export default function TokenLinkGenerator({ onClick, token, isSelected }: NextT
   }, [token.image])
 
   
-  // const refetchLemonData = async (contract: string, lemon: NftMetaData) => {
-  //   const { data } = cache.get(contract) as SWRResponse<UseFetcherResult>
-  //   if (!data) return
-  //   const index = data?.tokens.findIndex(token => {
-  //     return token.tokenId == lemon.tokenId
-  //   })
-  //   const _lemon = await getFromStorage({ contract, tokenId: lemon.tokenId })
-  //   data.tokens[index] = _lemon
-  //   await mutate(contract, {
-  //     ...data
-  //   }, {
-  //     revalidate: false
-  //   })
-  // }
+  const refetchLemonData = async (contract: string, lemon: NftMetaData) => {
+    const { data } = cache.get(contract) as SWRResponse<UseFetcherResult>
+    if (!data) return
+    const index = data?.tokens.findIndex(token => {
+      return token.tokenId == lemon.tokenId
+    })
+    const _lemon = await getFromStorage({ contract, tokenId: lemon.tokenId })
+    data.tokens[index] = _lemon
+    await mutate(contract, {
+      ...data
+    }, {
+      revalidate: false
+    })
+  }
 
-  // useEffect(() => {
-  //   if (!isSelected) return;
-  //   refetchLemonData(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!, token)
-  // }, [stage, isSelected])
+  useEffect(() => {
+    if (!isSelected) return;
+    refetchLemonData(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!, token)
+  }, [stage, isSelected])
 
   const handleClick = (token: NftMetaData) => (e: React.MouseEvent) => {
     e.preventDefault();
