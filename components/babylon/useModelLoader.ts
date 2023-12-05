@@ -5,7 +5,7 @@ import {
   PutObjectCommand
 } from "@aws-sdk/client-s3";
 import { Buffer } from "buffer";
-import { PropertiesType } from "utils/properties";
+import { PropertiesType, getRandomProperties, getRandomPropertiesWithItems } from "utils/properties";
 
 interface ModelReadyProps {
   engine: Engine | undefined, 
@@ -45,15 +45,20 @@ export function useModelLoader() {
       });
     }
 
-    (window as any).generateLemon = function (properties: PropertiesType | undefined) {
+    (window as any).getRandomProperties = getRandomProperties;
+    (window as any).getRandomPropertiesWithItems = getRandomPropertiesWithItems;
+    (window as any).generateLemon = async function (properties: PropertiesType | undefined) {
       if (!properties) {
         console.log("Not passed properties to generateLemon()")
         return;
       }
       setProperties?.(properties);
+      await new Promise(resolve => setTimeout(resolve, 50));
     };
     (window as any).save = async function (properties: PropertiesType | undefined, lemonId: number) {
       if (!properties) return;
+      sceneRef.current?.render();
+      await new Promise(resolve => setTimeout(resolve, 50));
       await putPic(lemonId, properties);
       //await Promise.all([putPic(lemonId, properties), putFile(lemonId, properties)])
     };

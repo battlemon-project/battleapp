@@ -11,7 +11,7 @@ function GeneratorWrapper() {
 
   return (
     <div className='mx-auto' style={{width: '512px', height: '512px'}}>
-      <LemonScene properties={properties} onModelReady={onModelReady} setProperties={setProperties} isPaused={true} />
+      <LemonScene properties={properties} onModelReady={onModelReady} setProperties={setProperties} isPaused={true} preloadItems={true} />
     </div>
   )
 }

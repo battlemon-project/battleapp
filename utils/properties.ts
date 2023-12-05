@@ -242,6 +242,18 @@ export const c1Items: PropertiesList = {
 //   ][rand]
 // }
 
+
+export const getRandomPropertiesWithItems = (): PropertiesType => {
+  return {
+    dna: '',
+    name: 'random',
+    type: 'omega',
+    traits: Object.assign({}, ...Object.entries(a1Traits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    items: Object.assign({}, ...Object.entries(c1Items).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    dress: []
+  }
+}
+
 export const getRandomProperties = (): PropertiesType => {
   return {
     dna: '',

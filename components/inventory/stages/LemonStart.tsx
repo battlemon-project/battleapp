@@ -27,7 +27,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_LEMONS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_LEMONS} isNextPage={!!data?.pageKey} withGenerator={true} />
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
