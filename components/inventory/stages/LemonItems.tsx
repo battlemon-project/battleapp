@@ -4,7 +4,7 @@ import TokensList from "../layout/TokensList";
 import styles from '../inventory.module.css'
 import Link from "next/link";
 import { useLemonStore } from "../store/lemonStore";
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import ConfirmEquipment from "../layout/ConfirmEquipment";
 import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
@@ -14,6 +14,7 @@ interface LemonItemsProps {
 }
 
 export default function LemonItems({ balance }: LemonItemsProps) {
+  const [ tab, setTab ] = useState<'all' | 'equiped'>('all')
   const { selectItem, selectedItems, changeStage, selectedLemons } = useLemonStore()
 
   const { data, mutate, isValidating } = useSWR(
@@ -24,11 +25,34 @@ export default function LemonItems({ balance }: LemonItemsProps) {
   useEffect(() => {
     if (!balance) return
     mutate();
-  }, [balance])
+  }, [])
   
+  const handleClickAll: MouseEventHandler = (e) => {
+    e.preventDefault();
+    if (tab == 'all') return;
+    setTab('all')
+  }
+  
+  const handleClickEquiped: MouseEventHandler = (e) => {
+    e.preventDefault()
+    if (tab == 'equiped') return;
+    setTab('equiped')
+  }
+
   return (<>
-    <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
+    <TabsLayout disableMenu={true}>
+      <div className={cn('d-flex', styles.inventoryTabs)}>
+        <a className={cn(styles.inventoryTabLink, { [styles.linkActive]: tab == 'all' })} href="" onClick={handleClickAll}>
+          All Items
+        </a>
+        <a className={cn(styles.inventoryTabLink, { [styles.linkActive]: tab == 'equiped' })} href="" onClick={handleClickEquiped}>
+          Equiped
+        </a>
+      </div>
+      <div className={cn({ 'd-none': tab == 'equiped' })}>
+        <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
+      </div>
+      {tab == 'equiped' && <TokensList tokens={[]} colWidth={20} height={410} selectedTokens={[]} onClick={selectItem} isValidating={false} />}
       {/* <TokensFilter /> */}
     </TabsLayout>
     <div className={styles.inventoryButtonsRow}>
