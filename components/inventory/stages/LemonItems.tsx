@@ -22,10 +22,10 @@ export default function LemonItems({ balance }: LemonItemsProps) {
     fetcher({ pageSize: 100 })
   )
 
-  useEffect(() => {
-    if (!balance) return
-    mutate();
-  }, [balance])
+  // useEffect(() => {
+  //   if (!balance) return
+  //   mutate();
+  // }, [balance])
 
   return (<>
     <TabsLayout>
@@ -45,7 +45,7 @@ export default function LemonItems({ balance }: LemonItemsProps) {
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: disabledBack })} onClick={() => {changeStage('Start')}}>Back</button>
         </div>
         <div className="col-12 col-sm-6 col-lg-7 mt-2 d-flex">
-          <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={!selectedItems?.length} />
+          <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={!selectedItems?.length} refresh={mutate} />
         </div>
       </div>
     </div>}

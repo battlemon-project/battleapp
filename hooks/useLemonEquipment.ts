@@ -7,10 +7,10 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   const { address }  = useAccount();
   
   if (items.length < 9) {
-    items.push(-2)
+    items.push(-1)
   }  
   if (items.length < 10) {
-    items.push(-2)
+    items.push(-1)
   }
 
   const changeEquipment = address && useLemonChangeEquipmentBatch({

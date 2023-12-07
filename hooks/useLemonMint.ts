@@ -1,14 +1,16 @@
-import { useLemonProxyMint } from './generated';
+import { useLemonMint as generatedUseLemonMint } from './generated';
 import { useEffect, useState } from 'react';
+import { parseEther } from 'viem';
 import { useAccount, useWaitForTransaction } from 'wagmi';
 
 export function useLemonMint() {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
   
-  const lemonMint = address && useLemonProxyMint({
+  const lemonMint = address && generatedUseLemonMint({
     address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
-    args: [1]
+    args: [1],
+    value: parseEther('0.0000005')
   })
 
   const lemonMintResult = useWaitForTransaction({ hash: lemonMint?.data?.hash });

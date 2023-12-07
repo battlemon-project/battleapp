@@ -8,21 +8,14 @@ import { useItemBalance } from 'hooks/useItemBalance';
 import { useEffect } from 'react';
 
 export default function BuyItemPage() {
-  const { itemMint: mintBack, itemMintStatus: mintBackStatus } = useItemMint(0);
-  const { itemMint: mintCap, itemMintStatus: mintCapStatus } = useItemMint(1);
-  const { itemMint: mintBelt, itemMintStatus: mintBeltStatus } = useItemMint(2);
-  const { itemMint: mintGlasses, itemMintStatus: mintGlassesStatus } = useItemMint(3);
-  const { itemMint: mintMask, itemMintStatus: mintMaskStatus } = useItemMint(4);
-  const { itemMint: mintFireArms, itemMintStatus: mintFireArmsStatus } = useItemMint(5);
-  const { itemMint: mintColdArms, itemMintStatus: mintColdArmsStatus } = useItemMint(6);
-  const { itemMint: mintShoes, itemMintStatus: mintShoesStatus } = useItemMint(7);
+  const { itemMint, itemMintStatus } = useItemMint();
   const { balance, refreshBalance } = useItemBalance();
 
   useEffect(() => {
-    if (![mintBackStatus, mintCapStatus, mintBeltStatus, mintGlassesStatus, mintMaskStatus, mintFireArmsStatus, mintColdArmsStatus, mintShoesStatus].includes('loading')) {
+    if (itemMintStatus !== 'loading') {
       refreshBalance?.();
     }
-  }, [mintBackStatus, mintCapStatus, mintBeltStatus, mintGlassesStatus, mintMaskStatus, mintFireArmsStatus, mintColdArmsStatus, mintShoesStatus])
+  }, [itemMintStatus])
 
   return (
     <div className="container py-3 mb-auto">
@@ -53,94 +46,17 @@ export default function BuyItemPage() {
           </div>
 
           <div className="row">
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintBack()}>
-                { mintBackStatus == 'loading' ? 
+            <div className="col-12">
+              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => itemMint()}>
+                { itemMintStatus == 'loading' ? 
                   <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
                   <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Back for </span>
+                    <span className='fs-17 fst-italic pe-2'>Buy Item for </span>
                     <EthSymbol>0.01</EthSymbol>
                   </>
                 }
               </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintCap()}>
-                { mintCapStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Cap for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintBelt()}>
-                { mintBeltStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Belt for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintGlasses()}>
-                { mintGlassesStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Glasses for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintMask()}>
-                { mintMaskStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Mask for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintFireArms()}>
-                { mintFireArmsStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Fire Arms for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintColdArms()}>
-                { mintColdArmsStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Cold Arms for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>
-            <div className="col-6">
-              <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => mintShoes()}>
-                { mintShoesStatus == 'loading' ? 
-                  <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
-                    <span className='fs-17 fst-italic pe-2'>Buy Shoes for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
-                }
-              </button>
-            </div>            
+            </div>     
           </div>
           
           {!!balance && <Link href="/hub/items">

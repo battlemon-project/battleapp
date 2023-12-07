@@ -10,25 +10,25 @@ interface ConfirmEquipmentProps {
   lemon: NftMetaData
   items: (NftMetaData | undefined)[]
   disabled: boolean
+  refresh: (...args: any) => any
 }
 
-export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEquipmentProps) {
+export default function ConfirmEquipment({ lemon, items, disabled, refresh }: ConfirmEquipmentProps) {
   const [ globalLoader, setGlobalLoader ] = useState(false)
   const { confirmDressLemon } = useLemonStore()
   const version: string = getVersion(lemon.properties.dna)
   const places = (versionItemsPlaces as {[key: string]: string[]})[version]
-
   const itemsIds = places.map((place, idx) => {
     const currentItemId = lemon.properties.dress[idx]
     const item = items.find(i => i?.properties.type === place)
     if (item) {
       return item.tokenId
-    } else if (currentItemId) {
+    } else if (currentItemId !== undefined) {
       return currentItemId
     } else {
-      return -2
+      return -1
     }
-  }).filter(x => x);
+  })
   
   const { changeEquipment, changeEquipmentStatus } = useLemonEquipment(lemon.tokenId, itemsIds)
 
@@ -37,6 +37,7 @@ export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEqui
       setTimeout(() => {
         setGlobalLoader(false)
         confirmDressLemon();
+        refresh();
       }, 1000)
     }
     if (changeEquipmentStatus == 'process') {
@@ -48,7 +49,7 @@ export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEqui
     <button className={cn('btn btn-lg btn-primary fs-13 text-uppercase w-100', { disabled: disabled || changeEquipmentStatus == 'loading'})} onClick={() => changeEquipment()}>
       &nbsp;{ changeEquipmentStatus == 'loading' ? 
         <div className="spinner-border spinner-border-sm position-absolute" role="status" style={{margin: '-2px 0 0 -8px'}}></div> :
-        <>Confirm {false && JSON.stringify(itemsIds)}</>
+        <>Confirm {true && JSON.stringify(itemsIds)}</>
       }&nbsp;
     </button>
     {globalLoader && <BattlemonLoader />}
