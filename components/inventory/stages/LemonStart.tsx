@@ -13,7 +13,7 @@ interface LemonStartProps {
 }
 
 export default function LemonStart({ balance }: LemonStartProps) {
-  const { selectedLemons, selectLemon, changeStage } = useLemonStore()
+  const { selectedLemons, selectLemon, changeStage } = useLemonStore();
 
   const { data, mutate, isValidating } = useSWR(
     process.env.NEXT_PUBLIC_CONTRACT_LEMONS, 
