@@ -10,13 +10,10 @@ export default function TabsLayout({ children }: PropsWithChildren) {
   return <div className={cn('rounded-4', styles.inventoryBg)}>
     <div className={cn('d-flex', styles.inventoryTabs)}>
       <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/lemons")})} href="/hub/lemons">
-        <img src="/images/hub/tab_lemons.png" />
+        Lemons
       </Link>
       <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/items")})} href="/hub/items">
-        <img src="/images/hub/tab_items.png" />
-      </Link>
-      <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/gems")})} href="/hub/gems">
-        <img src="/images/hub/tab_gems.png" />
+        Items
       </Link>
     </div>
     {children}

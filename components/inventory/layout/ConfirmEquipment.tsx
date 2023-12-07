@@ -49,7 +49,7 @@ export default function ConfirmEquipment({ lemon, items, disabled, refresh }: Co
     <button className={cn('btn btn-lg btn-primary fs-13 text-uppercase w-100', { disabled: disabled || changeEquipmentStatus == 'loading'})} onClick={() => changeEquipment()}>
       &nbsp;{ changeEquipmentStatus == 'loading' ? 
         <div className="spinner-border spinner-border-sm position-absolute" role="status" style={{margin: '-2px 0 0 -8px'}}></div> :
-        <>Confirm {true && JSON.stringify(itemsIds)}</>
+        <>Confirm {false && JSON.stringify(itemsIds)}</>
       }&nbsp;
     </button>
     {globalLoader && <BattlemonLoader />}
