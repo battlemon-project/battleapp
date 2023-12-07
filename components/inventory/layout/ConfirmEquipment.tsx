@@ -36,7 +36,7 @@ export default function ConfirmEquipment({ lemon, items, disabled, refresh }: Co
     if (changeEquipmentStatus == 'success') {
       setTimeout(() => {
         setGlobalLoader(false)
-        confirmDressLemon();
+        confirmDressLemon(itemsIds);
         refresh();
       }, 1000)
     }

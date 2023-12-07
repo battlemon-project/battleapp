@@ -14,7 +14,6 @@ interface LemonItemsProps {
 }
 
 export default function LemonItems({ balance }: LemonItemsProps) {
-  const [disabledBack, setDisabledBack] = useState(false)
   const { selectItem, selectedItems, changeStage, selectedLemons } = useLemonStore()
 
   const { data, mutate, isValidating } = useSWR(
@@ -22,32 +21,28 @@ export default function LemonItems({ balance }: LemonItemsProps) {
     fetcher({ pageSize: 100 })
   )
 
-  // useEffect(() => {
-  //   if (!balance) return
-  //   mutate();
-  // }, [balance])
-
+  useEffect(() => {
+    if (!balance) return
+    mutate();
+  }, [balance])
+  
   return (<>
     <TabsLayout>
       <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
       {/* <TokensFilter /> */}
     </TabsLayout>
-    {!balance && <>
-      <div className="col-12 mt-2">
-        <Link href="/shop/lemon" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          Buy lemon in the Shop
-        </Link>
-      </div>
-    </>}
-    {!!balance && <div className={styles.inventoryButtonsRow}>
+    <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-12 col-sm-6 col-lg-5 mt-2 d-flex">
-          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: disabledBack })} onClick={() => {changeStage('Start')}}>Back</button>
+          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')} onClick={() => {changeStage('Start')}}>Back</button>
         </div>
         <div className="col-12 col-sm-6 col-lg-7 mt-2 d-flex">
-          <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={!selectedItems?.length} refresh={mutate} />
+          {!!balance && <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={!selectedItems?.length} refresh={mutate} />}
+          {!balance && <Link href="/shop/item" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+            Buy item
+          </Link>}
         </div>
       </div>
-    </div>}
+    </div>
   </>)
 }
