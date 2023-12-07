@@ -731,6 +731,12 @@ export const itemABI = [
         indexed: false,
       },
       { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
+      {
+        name: 'level',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
     ],
     name: 'Create',
   },
@@ -872,17 +878,6 @@ export const itemABI = [
     inputs: [],
     name: 'MAX_BUY_SUPPLY',
     outputs: [{ name: '', internalType: 'uint24', type: 'uint24' }],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: 'itemId', internalType: 'uint256', type: 'uint256' },
-      { name: 'gemId', internalType: 'uint256', type: 'uint256' },
-      { name: '_stat', internalType: 'uint8', type: 'uint8' },
-    ],
-    name: '_levelUp2',
-    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -1035,7 +1030,7 @@ export const itemABI = [
       { name: 'itemId', internalType: 'uint256', type: 'uint256' },
       { name: 'gemId', internalType: 'uint256', type: 'uint256' },
     ],
-    name: 'freeLevelUp',
+    name: 'levelUpFree',
     outputs: [],
   },
   {
@@ -1316,7 +1311,31 @@ export const lemonABI = [
         type: 'uint8',
         indexed: true,
       },
+      {
+        name: 'agility',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'speed',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'luck',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
       { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
+      {
+        name: 'level',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
     ],
     name: 'Create',
   },
@@ -1337,9 +1356,17 @@ export const lemonABI = [
         indexed: true,
       },
       {
-        name: 'lemonDna',
-        internalType: 'bytes',
-        type: 'bytes',
+        name: 'lemonData',
+        internalType: 'struct Lemons.Metadata',
+        type: 'tuple',
+        components: [
+          { name: 'level', internalType: 'uint8', type: 'uint8' },
+          { name: 'lemonType', internalType: 'uint8', type: 'uint8' },
+          { name: 'dna', internalType: 'bytes', type: 'bytes' },
+          { name: 'agility', internalType: 'uint256', type: 'uint256' },
+          { name: 'speed', internalType: 'uint256', type: 'uint256' },
+          { name: 'luck', internalType: 'uint256', type: 'uint256' },
+        ],
         indexed: false,
       },
       {
@@ -1349,9 +1376,19 @@ export const lemonABI = [
         indexed: false,
       },
       {
-        name: 'itemsDNA',
-        internalType: 'bytes[10]',
-        type: 'bytes[10]',
+        name: 'itemsMetadata',
+        internalType: 'struct IItems.Metadata[10]',
+        type: 'tuple[10]',
+        components: [
+          { name: 'isEquipped', internalType: 'bool', type: 'bool' },
+          { name: 'itemType', internalType: 'uint8', type: 'uint8' },
+          { name: 'level', internalType: 'uint8', type: 'uint8' },
+          { name: 'agility', internalType: 'uint256', type: 'uint256' },
+          { name: 'speed', internalType: 'uint256', type: 'uint256' },
+          { name: 'luck', internalType: 'uint256', type: 'uint256' },
+          { name: 'actualOwner', internalType: 'address', type: 'address' },
+          { name: 'dna', internalType: 'bytes', type: 'bytes' },
+        ],
         indexed: false,
       },
     ],
@@ -1592,6 +1629,9 @@ export const lemonABI = [
       { name: 'level', internalType: 'uint8', type: 'uint8' },
       { name: 'lemonType', internalType: 'uint8', type: 'uint8' },
       { name: 'dna', internalType: 'bytes', type: 'bytes' },
+      { name: 'agility', internalType: 'uint256', type: 'uint256' },
+      { name: 'speed', internalType: 'uint256', type: 'uint256' },
+      { name: 'luck', internalType: 'uint256', type: 'uint256' },
     ],
   },
   {
@@ -4915,31 +4955,6 @@ export function useItemWrite<
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"_levelUp2"`.
- */
-export function useItemLevelUp2<TMode extends WriteContractMode = undefined>(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof itemABI,
-          '_levelUp2'
-        >['request']['abi'],
-        '_levelUp2',
-        TMode
-      > & { functionName?: '_levelUp2' }
-    : UseContractWriteConfig<typeof itemABI, '_levelUp2', TMode> & {
-        abi?: never
-        functionName?: '_levelUp2'
-      } = {} as any,
-) {
-  return useContractWrite<typeof itemABI, '_levelUp2', TMode>({
-    abi: itemABI,
-    functionName: '_levelUp2',
-    ...config,
-  } as any)
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"approve"`.
  */
 export function useItemApprove<TMode extends WriteContractMode = undefined>(
@@ -5083,26 +5098,26 @@ export function useItemLevelUp<TMode extends WriteContractMode = undefined>(
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"freeLevelUp"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"levelUpFree"`.
  */
-export function useItemFreeLevelUp<TMode extends WriteContractMode = undefined>(
+export function useItemLevelUpFree<TMode extends WriteContractMode = undefined>(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
           typeof itemABI,
-          'freeLevelUp'
+          'levelUpFree'
         >['request']['abi'],
-        'freeLevelUp',
+        'levelUpFree',
         TMode
-      > & { functionName?: 'freeLevelUp' }
-    : UseContractWriteConfig<typeof itemABI, 'freeLevelUp', TMode> & {
+      > & { functionName?: 'levelUpFree' }
+    : UseContractWriteConfig<typeof itemABI, 'levelUpFree', TMode> & {
         abi?: never
-        functionName?: 'freeLevelUp'
+        functionName?: 'levelUpFree'
       } = {} as any,
 ) {
-  return useContractWrite<typeof itemABI, 'freeLevelUp', TMode>({
+  return useContractWrite<typeof itemABI, 'levelUpFree', TMode>({
     abi: itemABI,
-    functionName: 'freeLevelUp',
+    functionName: 'levelUpFree',
     ...config,
   } as any)
 }
@@ -5542,22 +5557,6 @@ export function usePrepareItemWrite<TFunctionName extends string>(
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"_levelUp2"`.
- */
-export function usePrepareItemLevelUp2(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof itemABI, '_levelUp2'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: itemABI,
-    functionName: '_levelUp2',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof itemABI, '_levelUp2'>)
-}
-
-/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"approve"`.
  */
 export function usePrepareItemApprove(
@@ -5654,19 +5653,19 @@ export function usePrepareItemLevelUp(
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"freeLevelUp"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"levelUpFree"`.
  */
-export function usePrepareItemFreeLevelUp(
+export function usePrepareItemLevelUpFree(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof itemABI, 'freeLevelUp'>,
+    UsePrepareContractWriteConfig<typeof itemABI, 'levelUpFree'>,
     'abi' | 'functionName'
   > = {} as any,
 ) {
   return usePrepareContractWrite({
     abi: itemABI,
-    functionName: 'freeLevelUp',
+    functionName: 'levelUpFree',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof itemABI, 'freeLevelUp'>)
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'levelUpFree'>)
 }
 
 /**
