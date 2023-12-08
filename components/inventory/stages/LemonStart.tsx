@@ -39,7 +39,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
-          <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('Items')}>Inventory</button>
+          <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('AllItems')}>Inventory</button>
         </div>
         <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>

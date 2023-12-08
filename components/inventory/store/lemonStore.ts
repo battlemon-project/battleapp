@@ -1,9 +1,9 @@
 import { ItemsArray, NftMetaData } from 'lemon'
 import { createContext, useContext } from 'react'
-import { addItemsToArray } from 'utils/properties'
+import { addItemsToArray, dressedItemsToNftMetaData, removeItemsFromArray } from 'utils/properties'
 import { createStore, useStore as useZustandStore } from 'zustand'
 
-type StageType = 'Start' | 'Items' | 'Gems'
+type StageType = 'Start' | 'AllItems' | 'EquipedItems' | 'Gems'
 
 interface DefaultStoreInterface {
   stage: StageType
@@ -55,17 +55,24 @@ export function initializeStore(
         stage
       }
       if (stage == 'Start') {
-        if (state.selectedLemons[0].original) {
-          _state.selectedLemons = [state.selectedLemons[0].original];
-        }
-      }
-      if (stage == 'Items') {
         _state.selectedItems = [];
-        state.selectedLemons[0].original = structuredClone(state.selectedLemons[0])
       }
+      if (stage == 'EquipedItems') {
+        _state.selectedItems = dressedItemsToNftMetaData(state.selectedLemons[0].properties.itemsData);
+      }
+      if (stage == 'AllItems') {
+        _state.selectedItems = [];
+      }
+
+      if (state.selectedLemons[0].original) {
+        _state.selectedLemons = [state.selectedLemons[0].original];
+        _state.selectedLemons[0].original = structuredClone(_state.selectedLemons[0]);
+      }
+      
       return _state;
     }),
     selectLemon: (token) => set((state) => {
+      token.original = structuredClone(token)
       return {
         ...state, 
         selectedLemons: [token]
@@ -73,11 +80,26 @@ export function initializeStore(
     }),
     selectItem: (token) => set((state) => { 
       const lemon = structuredClone(state.selectedLemons[0]);
-      const [ _png, name, type ]: [string, string, string] = token.image.split(/[/.]+/).reverse();
-      if (lemon?.properties) {
-        lemon.properties.items[type] = name
+      const [ _png, name, type ]: string[] = token.image.split(/[/.]+/).reverse();
+      
+      let selectedItems: ItemsArray = []
+
+      if (state.selectedItems?.find(data => data?.tokenId == token.tokenId)) {
+        if (lemon?.properties) {
+          if (lemon.original?.properties.items[type]) {
+            lemon.properties.items[type] = lemon.original?.properties.items[type]
+          } else {
+            delete lemon.properties.items[type]
+          }
+        }
+        selectedItems = removeItemsFromArray(state.selectedItems, token, type)
+      } else {
+        if (lemon?.properties) {
+          lemon.properties.items[type] = name
+        }
+        selectedItems = addItemsToArray(state.selectedItems, token, type)
       }
-      const selectedItems: ItemsArray = addItemsToArray(state.selectedItems, token, type)
+      
       return {
         ...state,
         selectedLemons: [lemon],

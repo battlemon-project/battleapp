@@ -6336,7 +6336,7 @@ export function useLemonIsApprovedForAll<
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"itemsContract"`.
  */
-export function useLemonItemsContract<
+export function useLemonAllItemsContract<
   TFunctionName extends 'itemsContract',
   TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
 >(

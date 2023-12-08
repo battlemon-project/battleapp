@@ -10,10 +10,9 @@ interface ConfirmEquipmentProps {
   lemon: NftMetaData
   items: (NftMetaData | undefined)[]
   disabled: boolean
-  refresh: (...args: any) => any
 }
 
-export default function ConfirmEquipment({ lemon, items, disabled, refresh }: ConfirmEquipmentProps) {
+export default function ConfirmEquipment({ lemon, items, disabled }: ConfirmEquipmentProps) {
   const [ globalLoader, setGlobalLoader ] = useState(false)
   const { confirmDressLemon } = useLemonStore()
   const version: string = getVersion(lemon.properties.dna)
@@ -37,7 +36,6 @@ export default function ConfirmEquipment({ lemon, items, disabled, refresh }: Co
       setTimeout(() => {
         setGlobalLoader(false)
         confirmDressLemon(itemsIds);
-        refresh();
       }, 1000)
     }
     if (changeEquipmentStatus == 'process') {
@@ -49,7 +47,7 @@ export default function ConfirmEquipment({ lemon, items, disabled, refresh }: Co
     <button className={cn('btn btn-lg btn-primary fs-13 text-uppercase w-100', { disabled: disabled || changeEquipmentStatus == 'loading'})} onClick={() => changeEquipment()}>
       &nbsp;{ changeEquipmentStatus == 'loading' ? 
         <div className="spinner-border spinner-border-sm position-absolute" role="status" style={{margin: '-2px 0 0 -8px'}}></div> :
-        <>Confirm Dress {JSON.stringify(itemsIds)}</>
+        <>Confirm Undress {JSON.stringify(itemsIds)}</>
       }&nbsp;
     </button>
     {globalLoader && <BattlemonLoader />}

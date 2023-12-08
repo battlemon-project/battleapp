@@ -8,7 +8,7 @@ declare module 'lemon' {
 
   interface NftMetaData {
     tokenId: number
-    image: sring
+    image: string
     properties: PropertiesType
     original?: NftMetaData
   }
@@ -17,6 +17,18 @@ declare module 'lemon' {
     [key: string]: string[]
   }
   
+  interface DressedItemData {
+    [key: string]: {
+      level: number
+      agility: number
+      speed: number
+      luck: number
+      dna: string
+      itemName: string
+      tokenId: number
+    }
+  }
+
   interface PropertiesType {
     dna: string
     type: string
@@ -26,10 +38,10 @@ declare module 'lemon' {
     items: {
       [key: string]: string | undefined
     }
+    itemsData?: DressedItemData
     dress: number[]
     name: string
   }
   
-
   type ItemsArray = (NftMetaData | undefined)[]
 }

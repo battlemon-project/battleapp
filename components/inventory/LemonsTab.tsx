@@ -5,10 +5,11 @@ import LemonScene from "components/babylon/LemonScene";
 import { ghostProperties } from "utils/properties";
 import LemonStart from "./stages/LemonStart";
 import { useLemonStore } from "./store/lemonStore";
-import LemonItems from "./stages/LemonItems";
+import LemonAllItems from "./stages/LemonAllItems";
 import { useLemonBalance } from "hooks/useLemonBalance";
 import { useItemBalance } from 'hooks/useItemBalance';
 import { PropertiesType } from 'lemon';
+import LemonEquipedItems from './stages/LemonEquipedItems';
 
 export default function LemonTab() {
   const { selectedLemons, stage } = useLemonStore()
@@ -31,7 +32,12 @@ export default function LemonTab() {
       <div className={cn({'d-none': stage !== 'Start'})}>
         <LemonStart balance={lemonBalance} />
       </div>
-      {stage == 'Items' && <LemonItems balance={itemBalance} />}
+      {(stage == 'AllItems' || stage == 'EquipedItems') && <div className={cn({'d-none': stage !== 'AllItems'})}>
+        <LemonAllItems balance={itemBalance} />
+      </div>}
+      {stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
+        <LemonEquipedItems />
+      </div>}
     </div>
   </div>)
 }

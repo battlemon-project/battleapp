@@ -1,4 +1,4 @@
-import { NftMetaData, PropertiesList, PropertiesType } from "lemon"
+import { DressedItemData, NftMetaData, PropertiesList, PropertiesType } from "lemon"
 
 export const a1Traits: PropertiesList = {
   head: [
@@ -217,6 +217,26 @@ export const c1Items: PropertiesList = {
   // ],
 }
 
+export const dressedItemsToNftMetaData = (data: DressedItemData | undefined): NftMetaData[] => {
+  let tokens: NftMetaData[] = [];
+  if (!data) return tokens;
+  Object.entries(data).forEach(([type, data]) => {
+    tokens.push({
+      tokenId: data.tokenId,
+      image: `${process.env.NEXT_PUBLIC_STORAGE_URL}/v1/items/${type}/${data.itemName}.png`,
+      properties: {
+        dna: data.dna,
+        type: type,
+        traits: {},
+        items: {},
+        dress: [],
+        name: data.itemName
+      }
+    })
+  })
+  return tokens;
+}
+
 // const itemsSet = () => {
 //   const rand = Math.floor(Math.random() * 2)
 //   return [
@@ -309,8 +329,8 @@ const c2Places = [
   'platform'
 ]
 
-export const addItemsToArray = (selectedItems: (NftMetaData | undefined)[], token: NftMetaData, type: string) => {
-  const items = [
+const itemsToArray = (selectedItems: (NftMetaData | undefined)[]) => {
+  return [
     selectedItems?.[0] || undefined,
     selectedItems?.[1] || undefined,
     selectedItems?.[2] || undefined,
@@ -322,8 +342,20 @@ export const addItemsToArray = (selectedItems: (NftMetaData | undefined)[], toke
     selectedItems?.[8] || undefined,
     selectedItems?.[9] || undefined
   ]
+}
+
+export const addItemsToArray = (selectedItems: (NftMetaData | undefined)[], token: NftMetaData, type: string) => {
+  const items = itemsToArray(selectedItems)
   if (type && token) {
     items[c1Places.indexOf(type)] = token;
+  }
+  return items
+}
+
+export const removeItemsFromArray = (selectedItems: (NftMetaData | undefined)[], token: NftMetaData, type: string) => {
+  const items = itemsToArray(selectedItems)
+  if (type && token) {
+    items[c1Places.indexOf(type)] = undefined;
   }
   return items
 }
