@@ -330,18 +330,13 @@ const c2Places = [
 ]
 
 const itemsToArray = (selectedItems: (NftMetaData | undefined)[]) => {
-  return [
-    selectedItems?.[0] || undefined,
-    selectedItems?.[1] || undefined,
-    selectedItems?.[2] || undefined,
-    selectedItems?.[3] || undefined,
-    selectedItems?.[4] || undefined,
-    selectedItems?.[5] || undefined,
-    selectedItems?.[6] || undefined,
-    selectedItems?.[7] || undefined,
-    selectedItems?.[8] || undefined,
-    selectedItems?.[9] || undefined
-  ]
+  const array: (NftMetaData | undefined)[] = [undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined]
+  selectedItems.forEach(data => {
+    if (!data) return;
+    const index = c2Places.indexOf(data?.properties.type)
+    array[index] = data;
+  })
+  return array
 }
 
 export const addItemsToArray = (selectedItems: (NftMetaData | undefined)[], token: NftMetaData, type: string) => {

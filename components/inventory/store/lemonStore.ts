@@ -86,10 +86,10 @@ export function initializeStore(
 
       if (state.selectedItems?.find(data => data?.tokenId == token.tokenId)) {
         if (lemon?.properties) {
-          if (lemon.original?.properties.items[type]) {
-            lemon.properties.items[type] = lemon.original?.properties.items[type]
+          if (state.stage == 'EquipedItems') {
+            lemon.properties.items[type] = undefined
           } else {
-            delete lemon.properties.items[type]
+            lemon.properties.items[type] = lemon.original?.properties.items[type] || undefined
           }
         }
         selectedItems = removeItemsFromArray(state.selectedItems, token, type)
