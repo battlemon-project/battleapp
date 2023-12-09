@@ -274,20 +274,6 @@ export const gemABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: '_eventEndingTimestamp',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: '_isEventRunning',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
     name: '_itemsAddress',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
@@ -322,34 +308,6 @@ export const gemABI = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [],
-    name: '_prizePoolReward',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: '_referralContractAddress',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: '_referralPricePerMerge',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: '_referralReward',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
     inputs: [{ name: '', internalType: 'address', type: 'address' }],
     name: '_senderWhitelist',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
@@ -360,13 +318,6 @@ export const gemABI = [
     inputs: [],
     name: '_treasuryAddress',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: '_withdrawalDelay',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -407,13 +358,6 @@ export const gemABI = [
     outputs: [],
   },
   {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [],
-    name: 'completeEvent',
-    outputs: [],
-  },
-  {
     stateMutability: 'view',
     type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
@@ -432,19 +376,6 @@ export const gemABI = [
     type: 'function',
     inputs: [
       { name: 'pricePerMerge_', internalType: 'uint256', type: 'uint256' },
-      {
-        name: 'referralContractAddress_',
-        internalType: 'address',
-        type: 'address',
-      },
-      {
-        name: 'referralPricePerMerge_',
-        internalType: 'uint256',
-        type: 'uint256',
-      },
-      { name: 'referralReward_', internalType: 'uint256', type: 'uint256' },
-      { name: 'prizePoolReward_', internalType: 'uint256', type: 'uint256' },
-      { name: 'withdrawalDelay_', internalType: 'uint256', type: 'uint256' },
       { name: 'treasuryAddress_', internalType: 'address', type: 'address' },
     ],
     name: 'initialize',
@@ -1250,6 +1181,14 @@ export const itemABI = [
 export const lemonABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
+    type: 'error',
+    inputs: [
+      { name: 'have', internalType: 'address', type: 'address' },
+      { name: 'want', internalType: 'address', type: 'address' },
+    ],
+    name: 'OnlyCoordinatorCanFulfill',
+  },
+  {
     type: 'event',
     anonymous: false,
     inputs: [
@@ -1459,6 +1398,19 @@ export const lemonABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'COORDINATOR',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract VRFCoordinatorV2Interface',
+        type: 'address',
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'LEMON_PRICE',
     outputs: [{ name: '', internalType: 'uint56', type: 'uint56' }],
   },
@@ -1599,7 +1551,10 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [
+      { name: '_subId', internalType: 'uint64', type: 'uint64' },
+      { name: '_keyHash', internalType: 'bytes32', type: 'bytes32' },
+    ],
     name: 'initialize',
     outputs: [],
   },
@@ -1619,6 +1574,13 @@ export const lemonABI = [
     inputs: [],
     name: 'itemsContract',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'keyHash',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
   {
     stateMutability: 'view',
@@ -1668,6 +1630,13 @@ export const lemonABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'mintRequests',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [],
     name: 'name',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
@@ -1692,6 +1661,16 @@ export const lemonABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'uint256', type: 'uint256' },
+      { name: 'randomWords', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
+    name: 'rawFulfillRandomWords',
+    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -1763,6 +1742,13 @@ export const lemonABI = [
     ],
     name: 'slotEquipped',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'subId',
+    outputs: [{ name: '', internalType: 'uint64', type: 'uint64' }],
   },
   {
     stateMutability: 'view',
@@ -3105,44 +3091,6 @@ export function useGemRead<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_eventEndingTimestamp"`.
- */
-export function useGemEventEndingTimestamp<
-  TFunctionName extends '_eventEndingTimestamp',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_eventEndingTimestamp',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_isEventRunning"`.
- */
-export function useGemIsEventRunning<
-  TFunctionName extends '_isEventRunning',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_isEventRunning',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_itemsAddress"`.
  */
 export function useGemItemsAddress<
@@ -3238,82 +3186,6 @@ export function useGemPricePerMerge<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_prizePoolReward"`.
- */
-export function useGemPrizePoolReward<
-  TFunctionName extends '_prizePoolReward',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_prizePoolReward',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_referralContractAddress"`.
- */
-export function useGemReferralContractAddress<
-  TFunctionName extends '_referralContractAddress',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_referralContractAddress',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_referralPricePerMerge"`.
- */
-export function useGemReferralPricePerMerge<
-  TFunctionName extends '_referralPricePerMerge',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_referralPricePerMerge',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_referralReward"`.
- */
-export function useGemReferralReward<
-  TFunctionName extends '_referralReward',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_referralReward',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_senderWhitelist"`.
  */
 export function useGemSenderWhitelist<
@@ -3347,25 +3219,6 @@ export function useGemTreasuryAddress<
   return useContractRead({
     abi: gemABI,
     functionName: '_treasuryAddress',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"_withdrawalDelay"`.
- */
-export function useGemWithdrawalDelay<
-  TFunctionName extends '_withdrawalDelay',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: '_withdrawalDelay',
     ...config,
   } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
 }
@@ -3758,33 +3611,6 @@ export function useGemChangeMergeChance<
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"completeEvent"`.
- */
-export function useGemCompleteEvent<
-  TMode extends WriteContractMode = undefined,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof gemABI,
-          'completeEvent'
-        >['request']['abi'],
-        'completeEvent',
-        TMode
-      > & { functionName?: 'completeEvent' }
-    : UseContractWriteConfig<typeof gemABI, 'completeEvent', TMode> & {
-        abi?: never
-        functionName?: 'completeEvent'
-      } = {} as any,
-) {
-  return useContractWrite<typeof gemABI, 'completeEvent', TMode>({
-    abi: gemABI,
-    functionName: 'completeEvent',
-    ...config,
-  } as any)
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"initialize"`.
  */
 export function useGemInitialize<TMode extends WriteContractMode = undefined>(
@@ -4148,22 +3974,6 @@ export function usePrepareGemChangeMergeChance(
     functionName: 'changeMergeChance',
     ...config,
   } as UsePrepareContractWriteConfig<typeof gemABI, 'changeMergeChance'>)
-}
-
-/**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"completeEvent"`.
- */
-export function usePrepareGemCompleteEvent(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof gemABI, 'completeEvent'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: gemABI,
-    functionName: 'completeEvent',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof gemABI, 'completeEvent'>)
 }
 
 /**
@@ -6087,6 +5897,25 @@ export function useLemonRead<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"COORDINATOR"`.
+ */
+export function useLemonCoordinator<
+  TFunctionName extends 'COORDINATOR',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'COORDINATOR',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"LEMON_PRICE"`.
  */
 export function useLemonLemonPrice<
@@ -6336,7 +6165,7 @@ export function useLemonIsApprovedForAll<
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"itemsContract"`.
  */
-export function useLemonAllItemsContract<
+export function useLemonItemsContract<
   TFunctionName extends 'itemsContract',
   TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
 >(
@@ -6348,6 +6177,25 @@ export function useLemonAllItemsContract<
   return useContractRead({
     abi: lemonABI,
     functionName: 'itemsContract',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"keyHash"`.
+ */
+export function useLemonKeyHash<
+  TFunctionName extends 'keyHash',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'keyHash',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -6405,6 +6253,25 @@ export function useLemonLevelOf<
   return useContractRead({
     abi: lemonABI,
     functionName: 'levelOf',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"mintRequests"`.
+ */
+export function useLemonMintRequests<
+  TFunctionName extends 'mintRequests',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'mintRequests',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -6500,6 +6367,25 @@ export function useLemonSlotEquipped<
   return useContractRead({
     abi: lemonABI,
     functionName: 'slotEquipped',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"subId"`.
+ */
+export function useLemonSubId<
+  TFunctionName extends 'subId',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'subId',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -6886,6 +6772,37 @@ export function useLemonMint<TMode extends WriteContractMode = undefined>(
   return useContractWrite<typeof lemonABI, 'mint', TMode>({
     abi: lemonABI,
     functionName: 'mint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"rawFulfillRandomWords"`.
+ */
+export function useLemonRawFulfillRandomWords<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'rawFulfillRandomWords'
+        >['request']['abi'],
+        'rawFulfillRandomWords',
+        TMode
+      > & { functionName?: 'rawFulfillRandomWords' }
+    : UseContractWriteConfig<
+        typeof lemonABI,
+        'rawFulfillRandomWords',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'rawFulfillRandomWords'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'rawFulfillRandomWords', TMode>({
+    abi: lemonABI,
+    functionName: 'rawFulfillRandomWords',
     ...config,
   } as any)
 }
@@ -7288,6 +7205,22 @@ export function usePrepareLemonMint(
     functionName: 'mint',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'mint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"rawFulfillRandomWords"`.
+ */
+export function usePrepareLemonRawFulfillRandomWords(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'rawFulfillRandomWords'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'rawFulfillRandomWords',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'rawFulfillRandomWords'>)
 }
 
 /**
