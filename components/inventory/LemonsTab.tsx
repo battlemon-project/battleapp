@@ -32,7 +32,7 @@ export default function LemonTab() {
       <div className={cn({'d-none': stage !== 'Start'})}>
         <LemonStart balance={lemonBalance} />
       </div>
-      {(stage == 'AllItems' || stage == 'EquipedItems') && <div className={cn({'d-none': stage !== 'AllItems'})}>
+      {stage == 'AllItems' && <div className={cn({'d-none': stage !== 'AllItems'})}>
         <LemonAllItems balance={itemBalance} />
       </div>}
       {stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
