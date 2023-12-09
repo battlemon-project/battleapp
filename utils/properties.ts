@@ -218,6 +218,10 @@ export const c1Items: PropertiesList = {
     'Shoes_Kicks_Red',
     'Shoes_Kicks_Green',    
   ],
+  platform: [
+    'Pod_SkateBoard_B',
+    'Pod_SkateBoard_A',    
+  ],
   // cloth: [
   //   'Cloth_Poncho'
   // ],
@@ -319,7 +323,8 @@ const c1Places = [
   'mask',
   'fire_arms',
   'cold_arms',
-  'shoes'
+  'shoes',
+  'platform'
 ]
 
 const c2Places = [
@@ -331,8 +336,8 @@ const c2Places = [
   'fire_arms',
   'cold_arms',
   'shoes',
-  'wrist',
-  'platform'
+  'platform',
+  'wrist'
 ]
 
 const itemsToArray = (selectedItems: (NftMetaData | undefined)[]) => {
