@@ -1181,14 +1181,6 @@ export const itemABI = [
 export const lemonABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
   {
-    type: 'error',
-    inputs: [
-      { name: 'have', internalType: 'address', type: 'address' },
-      { name: 'want', internalType: 'address', type: 'address' },
-    ],
-    name: 'OnlyCoordinatorCanFulfill',
-  },
-  {
     type: 'event',
     anonymous: false,
     inputs: [
@@ -1398,19 +1390,6 @@ export const lemonABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'COORDINATOR',
-    outputs: [
-      {
-        name: '',
-        internalType: 'contract VRFCoordinatorV2Interface',
-        type: 'address',
-      },
-    ],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
     name: 'LEMON_PRICE',
     outputs: [{ name: '', internalType: 'uint56', type: 'uint56' }],
   },
@@ -1551,10 +1530,7 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [
-      { name: '_subId', internalType: 'uint64', type: 'uint64' },
-      { name: '_keyHash', internalType: 'bytes32', type: 'bytes32' },
-    ],
+    inputs: [],
     name: 'initialize',
     outputs: [],
   },
@@ -1574,13 +1550,6 @@ export const lemonABI = [
     inputs: [],
     name: 'itemsContract',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'keyHash',
-    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
   {
     stateMutability: 'view',
@@ -1630,13 +1599,6 @@ export const lemonABI = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-    name: 'mintRequests',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
     inputs: [],
     name: 'name',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
@@ -1661,16 +1623,6 @@ export const lemonABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [
-      { name: 'requestId', internalType: 'uint256', type: 'uint256' },
-      { name: 'randomWords', internalType: 'uint256[]', type: 'uint256[]' },
-    ],
-    name: 'rawFulfillRandomWords',
-    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -1742,13 +1694,6 @@ export const lemonABI = [
     ],
     name: 'slotEquipped',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'subId',
-    outputs: [{ name: '', internalType: 'uint64', type: 'uint64' }],
   },
   {
     stateMutability: 'view',
@@ -5897,25 +5842,6 @@ export function useLemonRead<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"COORDINATOR"`.
- */
-export function useLemonCoordinator<
-  TFunctionName extends 'COORDINATOR',
-  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: lemonABI,
-    functionName: 'COORDINATOR',
-    ...config,
-  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"LEMON_PRICE"`.
  */
 export function useLemonLemonPrice<
@@ -6182,25 +6108,6 @@ export function useLemonItemsContract<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"keyHash"`.
- */
-export function useLemonKeyHash<
-  TFunctionName extends 'keyHash',
-  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: lemonABI,
-    functionName: 'keyHash',
-    ...config,
-  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"lemonData"`.
  */
 export function useLemonLemonData<
@@ -6253,25 +6160,6 @@ export function useLemonLevelOf<
   return useContractRead({
     abi: lemonABI,
     functionName: 'levelOf',
-    ...config,
-  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"mintRequests"`.
- */
-export function useLemonMintRequests<
-  TFunctionName extends 'mintRequests',
-  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: lemonABI,
-    functionName: 'mintRequests',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -6367,25 +6255,6 @@ export function useLemonSlotEquipped<
   return useContractRead({
     abi: lemonABI,
     functionName: 'slotEquipped',
-    ...config,
-  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"subId"`.
- */
-export function useLemonSubId<
-  TFunctionName extends 'subId',
-  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: lemonABI,
-    functionName: 'subId',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -6772,37 +6641,6 @@ export function useLemonMint<TMode extends WriteContractMode = undefined>(
   return useContractWrite<typeof lemonABI, 'mint', TMode>({
     abi: lemonABI,
     functionName: 'mint',
-    ...config,
-  } as any)
-}
-
-/**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"rawFulfillRandomWords"`.
- */
-export function useLemonRawFulfillRandomWords<
-  TMode extends WriteContractMode = undefined,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof lemonABI,
-          'rawFulfillRandomWords'
-        >['request']['abi'],
-        'rawFulfillRandomWords',
-        TMode
-      > & { functionName?: 'rawFulfillRandomWords' }
-    : UseContractWriteConfig<
-        typeof lemonABI,
-        'rawFulfillRandomWords',
-        TMode
-      > & {
-        abi?: never
-        functionName?: 'rawFulfillRandomWords'
-      } = {} as any,
-) {
-  return useContractWrite<typeof lemonABI, 'rawFulfillRandomWords', TMode>({
-    abi: lemonABI,
-    functionName: 'rawFulfillRandomWords',
     ...config,
   } as any)
 }
@@ -7205,22 +7043,6 @@ export function usePrepareLemonMint(
     functionName: 'mint',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'mint'>)
-}
-
-/**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"rawFulfillRandomWords"`.
- */
-export function usePrepareLemonRawFulfillRandomWords(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof lemonABI, 'rawFulfillRandomWords'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: lemonABI,
-    functionName: 'rawFulfillRandomWords',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof lemonABI, 'rawFulfillRandomWords'>)
 }
 
 /**
