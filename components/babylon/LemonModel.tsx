@@ -41,7 +41,7 @@ export default function LemonModel({ children, properties, setProperties, onMode
     const idleAnimation = model.animationGroups.find(
       (animation) => animation.name == 'Idle'
     );
-    idleAnimation?.start(false, 1, 89, 89)
+    idleAnimation?.start(false, 1, 0, 0)
     if (onModelReady) {
       setTimeout(() => onModelReady({ engine, scene, properties, setProperties }))
     }
