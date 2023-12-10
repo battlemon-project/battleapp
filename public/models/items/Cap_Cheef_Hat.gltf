@@ -26,51 +26,6 @@
             "name" : "Cap_Cheef_Hat"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Cap_Cheef_Hat",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -88,7 +43,6 @@
             }
         },
         {
-            "doubleSided" : true,
             "extensions" : {
                 "KHR_materials_specular" : {
                     "specularColorFactor" : [
@@ -101,7 +55,7 @@
                     "ior" : 1.4500000476837158
                 }
             },
-            "name" : "MAT_Outfit_Plastic",
+            "name" : "MAT_Outfit_Plastic_B",
             "normalTexture" : {
                 "index" : 2,
                 "texCoord" : 1
@@ -175,11 +129,11 @@
         },
         {
             "sampler" : 0,
-            "source" : 1
+            "source" : 3
         },
         {
             "sampler" : 0,
-            "source" : 3
+            "source" : 4
         }
     ],
     "images" : [
@@ -200,6 +154,11 @@
         },
         {
             "mimeType" : "image/png",
+            "name" : "BTLN_TrimColor_B",
+            "uri" : "BTLN_TrimColor_B.png"
+        },
+        {
+            "mimeType" : "image/png",
             "name" : "TEX_MP_Roughness_A",
             "uri" : "TEX_MP_Roughness_A.png"
         }
@@ -210,14 +169,14 @@
             "componentType" : 5126,
             "count" : 1774,
             "max" : [
-                0.615415096282959,
-                0.6552859544754028,
-                0.6794557571411133
+                0.6188819408416748,
+                0.6224444508552551,
+                0.6880075335502625
             ],
             "min" : [
-                -0.7528784871101379,
-                0.024320799857378006,
-                -0.7078243494033813
+                -0.7494116425514221,
+                -0.008520692586898804,
+                -0.6992725729942322
             ],
             "type" : "VEC3"
         },
@@ -254,41 +213,41 @@
         {
             "bufferView" : 6,
             "componentType" : 5126,
-            "count" : 562,
+            "count" : 555,
             "max" : [
-                0.4273030161857605,
-                0.22419114410877228,
-                0.42523127794265747
+                0.43076983094215393,
+                0.19134965538978577,
+                0.43378308415412903
             ],
             "min" : [
-                -0.47211799025535583,
-                0.08586669713258743,
-                -0.47999805212020874
+                -0.4686511754989624,
+                0.05302520468831062,
+                -0.4714462459087372
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 7,
             "componentType" : 5126,
-            "count" : 562,
+            "count" : 555,
             "type" : "VEC3"
         },
         {
             "bufferView" : 8,
             "componentType" : 5126,
-            "count" : 562,
+            "count" : 555,
             "type" : "VEC4"
         },
         {
             "bufferView" : 9,
             "componentType" : 5126,
-            "count" : 562,
+            "count" : 555,
             "type" : "VEC2"
         },
         {
             "bufferView" : 10,
             "componentType" : 5126,
-            "count" : 562,
+            "count" : 555,
             "type" : "VEC2"
         },
         {
@@ -296,36 +255,6 @@
             "componentType" : 5123,
             "count" : 1680,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -367,59 +296,39 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 6744,
+            "byteLength" : 6660,
             "byteOffset" : 113456,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 6744,
-            "byteOffset" : 120200,
+            "byteLength" : 6660,
+            "byteOffset" : 120116,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 8992,
-            "byteOffset" : 126944,
+            "byteLength" : 8880,
+            "byteOffset" : 126776,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 4496,
-            "byteOffset" : 135936,
+            "byteLength" : 4440,
+            "byteOffset" : 135656,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 4496,
-            "byteOffset" : 140432,
+            "byteLength" : 4440,
+            "byteOffset" : 140096,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 3360,
-            "byteOffset" : 144928,
+            "byteOffset" : 144536,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 148288
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 149492
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 153104
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 157920
         }
     ],
     "samplers" : [
@@ -430,7 +339,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 161532,
+            "byteLength" : 147896,
             "uri" : "Cap_Cheef_Hat.bin"
         }
     ]

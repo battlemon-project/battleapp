@@ -26,51 +26,6 @@
             "name" : "Cap_Ladle"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Cap_Ladle",
-            "samplers" : [
-                {
-                    "input" : 6,
-                    "interpolation" : "LINEAR",
-                    "output" : 7
-                },
-                {
-                    "input" : 6,
-                    "interpolation" : "LINEAR",
-                    "output" : 8
-                },
-                {
-                    "input" : 6,
-                    "interpolation" : "LINEAR",
-                    "output" : 9
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -168,41 +123,41 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 1031,
+            "count" : 1048,
             "max" : [
-                0.9731250405311584,
+                0.9893798232078552,
                 0.7563090324401855,
-                0.47785481810569763
+                0.4745415449142456
             ],
             "min" : [
-                -0.4686940610408783,
+                -0.4524392783641815,
                 -0.17369818687438965,
-                -0.6122531294822693
+                -0.6155664324760437
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 1031,
+            "count" : 1048,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 1031,
+            "count" : 1048,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5126,
-            "count" : 1031,
+            "count" : 1048,
             "type" : "VEC2"
         },
         {
             "bufferView" : 4,
             "componentType" : 5123,
-            "count" : 1031,
+            "count" : 1048,
             "normalized" : true,
             "type" : "VEC4"
         },
@@ -211,94 +166,44 @@
             "componentType" : 5123,
             "count" : 2736,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 6,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 7,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 8,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 9,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 12372,
+            "byteLength" : 12576,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 12372,
-            "byteOffset" : 12372,
+            "byteLength" : 12576,
+            "byteOffset" : 12576,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 8248,
-            "byteOffset" : 24744,
+            "byteLength" : 8384,
+            "byteOffset" : 25152,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 8248,
-            "byteOffset" : 32992,
+            "byteLength" : 8384,
+            "byteOffset" : 33536,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 8248,
-            "byteOffset" : 41240,
+            "byteLength" : 8384,
+            "byteOffset" : 41920,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 5472,
-            "byteOffset" : 49488,
+            "byteOffset" : 50304,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 54960
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 56164
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 59776
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 64592
         }
     ],
     "samplers" : [
@@ -309,7 +214,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 68204,
+            "byteLength" : 55776,
             "uri" : "Cap_Ladle.bin"
         }
     ]
