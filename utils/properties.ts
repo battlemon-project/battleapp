@@ -11,7 +11,6 @@ export const a1Traits: PropertiesList = {
     'Head_Lava',
     'Head_Lime',
     'Head_Pink',
-    'Head_Zombie',
   ],
   eyes: [
     'Eyes_Alien',
@@ -26,7 +25,6 @@ export const a1Traits: PropertiesList = {
     'Eyes_Laser',
     'Eyes_Lila',
     'Eyes_Matrix',
-    'Eyes_Zombie',
   ],
   exo_top: [
     'ExoTop_01',
