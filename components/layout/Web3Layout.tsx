@@ -4,6 +4,7 @@ import { useIsMounted } from "hooks/useIsMounted";
 import { Roboto } from 'next/font/google'
 import cn from 'classnames'
 import Header from "./Header";
+import OgHead from "./OgScheme";
  
 const roboto = Roboto({
   weight: '400',
@@ -20,7 +21,8 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
   const isMounted = useIsMounted()
   const { isSignedIn, isSupportedChain } = useAuth();
   
-  return (
+  return (<>
+    <OgHead />
     <main className={cn('position-relative min-vh-100 d-flex flex-column', roboto.className)}>
       <Header hideDesktopMenu={hideDesktopMenu} fixedTop={fixedTop} />
 
@@ -36,5 +38,5 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
         })()}
       </div>
     </main>
-  )
+  </>)
 }
