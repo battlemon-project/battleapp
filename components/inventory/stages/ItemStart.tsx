@@ -39,16 +39,16 @@ export default function ItemStart({ balance }: ItemStartProps) {
     </>}
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
-        <div className="col-12 col-sm-4 col-lg-3 mt-2 d-flex">
+        <div className="col-6 col-lg-3 mt-2 d-flex">
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>
         </div>
-        <div className="col-12 col-sm-4 col-lg-3 mt-2 d-flex">
+        <div className="col-6 col-lg-3 mt-2 d-flex">
           <Link href="/shop/item" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
         </div>
-        <div className="col-12 col-sm-4 col-lg-3 mt-2 d-flex">
+        <div className="col-6 col-lg-3 mt-2 d-flex">
           <Link target="_blank" href={`${process.env.NEXT_PUBLIC_OPENSEA_URL}/${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}/${selectedItems[0]?.tokenId}/sell`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})}>Sell</Link>
         </div>
-        <div className="col-12 col-sm-4 col-lg-3 mt-2 d-flex">
+        <div className="col-6 col-lg-3 mt-2 d-flex">
           <Link target="_blank" href={`${process.env.NEXT_PUBLIC_OPENSEA_URL}/${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}/${selectedItems[0]?.tokenId}/transfer`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})}>Send</Link>
         </div>
       </div>

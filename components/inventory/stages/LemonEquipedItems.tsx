@@ -36,10 +36,10 @@ export default function LemonAllItems({}: LemonAllItemsProps) {
     </TabsLemonItems>
     <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
-        <div className="col-12 col-sm-6 col-lg-5 mt-2 d-flex">
+        <div className="col-6 col-lg-5 mt-2 d-flex">
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')} onClick={() => {changeStage('Start')}}>Back</button>
         </div>
-        <div className="col-12 col-sm-6 col-lg-7 mt-2 d-flex">
+        <div className="col-6 col-lg-7 mt-2 d-flex">
           <UndressEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={(selectedItems?.filter(i => i !== undefined) || []).length == (tokens || []).length} refreshItems={refreshItems} />
         </div>
       </div>
