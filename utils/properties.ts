@@ -11,6 +11,10 @@ export const a1Traits: PropertiesList = {
     'Head_Lava',
     'Head_Lime',
     'Head_Pink',
+    'Head_Paint_03',
+    'Head_Paint_04',
+    'Head_Paint_05',
+    'Head_Paint_08',
   ],
   eyes: [
     'Eyes_Alien',
@@ -120,6 +124,10 @@ export const a1Traits: PropertiesList = {
     'Scar_Barbarian_R',
     'Scar_Samurai_R',
     'Scar_Macedonian_R',    
+    'Scar_Tatoo_01',
+    'Scar_Tatoo_02',
+    'Scar_Tatoo_03',
+    'Scar_Tatoo_04',
   ]
 }
 
