@@ -38,10 +38,10 @@ export default function LemonModel({ children, properties, setProperties, onMode
       }
     });
     scene?.render();
-    const idleAnimation = model.animationGroups.find(
-      (animation) => animation.name == 'Idle'
+    const smileAnimation = model.animationGroups.find(
+      (animation) => animation.name == 'Smile'
     );
-    idleAnimation?.start(false, 1, 0, 0);
+    smileAnimation?.start(false, 1, 0, 0);
     if (onModelReady) {
       setTimeout(() => onModelReady({ engine, scene, properties, setProperties }))
     }
