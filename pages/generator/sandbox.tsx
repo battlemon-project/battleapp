@@ -5,7 +5,7 @@ import Head from 'next/head';
 export default function Sandbox() {
   return (<>
     <Head>
-      <title>Battlemon Sandbox</title>
+      <title>Sandbox</title>
     </Head>
     <EmptyLayout>
       <SandboxPage />
