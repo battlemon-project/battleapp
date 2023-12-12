@@ -216,7 +216,6 @@ export const c1Items: PropertiesList = {
   ],
   cold_arms: [
     'ColdArms_Bottle_Rose',
-    //'ColdArms_Grappling_Hook',
     'ColdArms_Chopper_Knife',
     'ColdArms_Katana',
   ],
@@ -460,31 +459,37 @@ export const betterName = (name: string) => {
     Pod_SkateBoard_A: 'Hoverboat',    
     FireArms_Assault_Rifle_A: 'Assault Rifle',
     FireArms_Assault_Rifle_M: 'AKM',   
-    FireArms_Handgun_SMG: 'Uzi'
+    FireArms_Handgun_SMG: 'Uzi',
+    Scar_Spartan_R: 'Spartan',
+    Scar_Gaul_R: 'Gaul',
+    Scar_Barbarian_R: 'Barbarian',
+    Scar_Samurai_R: 'Samurai',
+    Scar_Macedonian_R: 'Macedonian',  
+    Glasses_Techno_A: 'Techno'
   }
   
   if (better[name]) {
     return better[name]
   }
 
-  name.replace('Eyes_', '');
-  name.replace('Head_', '');
-  name.replace('ExoTop_', '');
-  name.replace('ExoBot_', '');
-  name.replace('Feet_', '');
-  name.replace('Hands_', '');
-  name.replace('Teeth_', '');
-  name.replace('Hair_', '');
-  name.replace('Scar_', '');
-  name.replace('Back_', '');
-  name.replace('Cap_', '');
-  name.replace('Belt_', '');
-  name.replace('Glasses_', '');
-  name.replace('Mask_', '');
-  name.replace('FireArms_', '');
-  name.replace('ColdArms_', '');
-  name.replace('Shoes_', '');
-  name.replace('Pod_', ''); 
+  name = name.replace('Eyes_', '');
+  name = name.replace('Head_', '');
+  name = name.replace('ExoTop_', '');
+  name = name.replace('ExoBot_', '');
+  name = name.replace('Feet_', '');
+  name = name.replace('Hands_', '');
+  name = name.replace('Teeth_', '');
+  name = name.replace('Hair_', '');
+  name = name.replace('Scar_', '');
+  name = name.replace('Back_', '');
+  name = name.replace('Cap_', '');
+  name = name.replace('Belt_', '');
+  name = name.replace('Glasses_', '');
+  name = name.replace('Mask_', '');
+  name = name.replace('FireArms_', '');
+  name = name.replace('ColdArms_', '');
+  name = name.replace('Shoes_', '');
+  name = name.replace('Pod_', ''); 
 
   const parts = name.split('_').map(part => {
     const capitalized = part.charAt(0).toUpperCase() + part.slice(1)
