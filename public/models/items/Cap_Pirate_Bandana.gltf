@@ -26,51 +26,6 @@
             "name" : "Cap_Pirate_Bandana"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Cap_Pirate_Bandana",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -209,14 +164,14 @@
             "componentType" : 5126,
             "count" : 1599,
             "max" : [
-                0.5245639681816101,
-                0.3502466082572937,
-                0.5660929679870605
+                0.4692348837852478,
+                0.33715397119522095,
+                0.5035213828086853
             ],
             "min" : [
-                -0.5372671484947205,
-                -0.14393498003482819,
-                -0.6758878827095032
+                -0.48193806409835815,
+                -0.13040193915367126,
+                -0.6715436577796936
             ],
             "type" : "VEC3"
         },
@@ -256,14 +211,14 @@
             "componentType" : 5126,
             "count" : 412,
             "max" : [
-                0.2560504376888275,
-                0.06654085963964462,
-                0.5868949294090271
+                0.22870434820652008,
+                0.068733811378479,
+                0.5232025384902954
             ],
             "min" : [
-                0.09095604717731476,
-                -0.07032229006290436,
-                0.4799814820289612
+                0.08081518858671188,
+                -0.06075538694858551,
+                0.422049343585968
             ],
             "type" : "VEC3"
         },
@@ -297,36 +252,6 @@
             "componentType" : 5123,
             "count" : 798,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -401,26 +326,6 @@
             "byteLength" : 1596,
             "byteOffset" : 103272,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 104868
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 106072
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 109684
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 114500
         }
     ],
     "samplers" : [
@@ -431,7 +336,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 118112,
+            "byteLength" : 104868,
             "uri" : "Cap_Pirate_Bandana.bin"
         }
     ]

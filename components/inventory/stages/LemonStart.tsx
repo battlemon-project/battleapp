@@ -38,22 +38,22 @@ export default function LemonStart({ balance }: LemonStartProps) {
     </>}
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
-        <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
+        <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('AllItems')}>Inventory</button>
         </div>
-        <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
+        <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>
         </div>
-        <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
+        <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Raid</button>
         </div>
-        <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
+        <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link href="/shop/lemon" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
         </div>
-        <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
+        <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link target="_blank" href={`${process.env.NEXT_PUBLIC_OPENSEA_URL}/${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}/${selectedLemons[0]?.tokenId}/sell`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
         </div>
-        <div className="col-12 col-sm-6 col-lg-4 mt-2 d-flex">
+        <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link target="_blank" href={`${process.env.NEXT_PUBLIC_OPENSEA_URL}/${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}/${selectedLemons[0]?.tokenId}/transfer`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Send</Link>
         </div>
       </div>

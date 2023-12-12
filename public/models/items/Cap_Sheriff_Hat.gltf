@@ -26,51 +26,6 @@
             "name" : "Cap_Sheriff_Hat"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Cap_Sheriff_Hat",
-            "samplers" : [
-                {
-                    "input" : 21,
-                    "interpolation" : "LINEAR",
-                    "output" : 22
-                },
-                {
-                    "input" : 21,
-                    "interpolation" : "LINEAR",
-                    "output" : 23
-                },
-                {
-                    "input" : 21,
-                    "interpolation" : "LINEAR",
-                    "output" : 24
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -279,13 +234,13 @@
             "count" : 810,
             "max" : [
                 0.7206952571868896,
-                0.2820507287979126,
-                0.7690274715423584
+                0.2604905664920807,
+                0.7626521587371826
             ],
             "min" : [
                 -0.746218204498291,
-                0.05855567008256912,
-                -0.7859049439430237
+                0.004103213548660278,
+                -0.7881268858909607
             ],
             "type" : "VEC3"
         },
@@ -332,13 +287,13 @@
             "count" : 730,
             "max" : [
                 0.6861369013786316,
-                0.7400237321853638,
-                0.736051082611084
+                0.7171016931533813,
+                0.7283681631088257
             ],
             "min" : [
                 -0.7099550366401672,
-                0.07105100899934769,
-                -0.752405047416687
+                0.01721322536468506,
+                -0.7557109594345093
             ],
             "type" : "VEC3"
         },
@@ -385,13 +340,13 @@
             "count" : 923,
             "max" : [
                 0.36313921213150024,
-                0.5124952793121338,
-                0.37976953387260437
+                0.5374432802200317,
+                0.342097669839859
             ],
             "min" : [
                 -0.3682912290096283,
-                0.2668452262878418,
-                -0.14156851172447205
+                0.24268552660942078,
+                -0.1748233437538147
             ],
             "type" : "VEC3"
         },
@@ -431,36 +386,6 @@
             "componentType" : 5123,
             "count" : 1842,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 21,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 22,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 23,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 24,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -589,26 +514,6 @@
             "byteLength" : 3684,
             "byteOffset" : 166488,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 170172
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 171376
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 174988
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 179804
         }
     ],
     "samplers" : [
@@ -619,7 +524,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 183416,
+            "byteLength" : 170172,
             "uri" : "Cap_Sheriff_Hat.bin"
         }
     ]

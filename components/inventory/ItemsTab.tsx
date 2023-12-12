@@ -9,13 +9,13 @@ export default function ItemsTab() {
   const { balance } = useItemBalance()
 
   return (<div className="row">
-    <div className="col-5">
+    <div className="col-lg-5 d-none d-lg-block">
       {!balance && <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/items-gallery.gif" />}
       {!!balance && <div className="position-relative p-5">
         <img src={selectedItems[0]?.image || '/images/hub/choose-item.png'} className="img-fluid pr-5" />
       </div>}
     </div>
-    <div className={cn('col-7', styles.inventoryContainer)}>
+    <div className={cn('col-lg-7 col-12', styles.inventoryContainer)}>
       {stage == 'Start' && <ItemStart balance={balance} />}
     </div>
   </div>)

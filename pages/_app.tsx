@@ -14,6 +14,7 @@ import {
   darkTheme
 } from '@rainbow-me/rainbowkit';
 import {
+  walletConnectWallet,
   metaMaskWallet,
   trustWallet,
   ledgerWallet,
@@ -26,7 +27,7 @@ import {
   polygon,
   polygonMumbai
 } from 'wagmi/chains';
-import { RoninConnector, ronin, saigon } from 'ronin-connector'
+//import { RoninConnector, ronin, saigon } from 'ronin-connector'
 import { publicProvider } from 'wagmi/providers/public';
 import { SiweMessage } from 'siwe';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -35,8 +36,9 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 
 const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [polygonMumbai] : [polygon]
-const roninChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [saigon] : [ronin]
-const chainList = [...evmChains, ...roninChains];
+//const roninChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [saigon] : [ronin]
+//const chainList = [...evmChains, ...roninChains];
+const chainList = [...evmChains];
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [...evmChains],
@@ -45,29 +47,30 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!;
 
-const roninWallet = ({ projectId }: { projectId: string }): Wallet => ({
-  id: 'ronin',
-  name: 'Ronin',
-  iconUrl: 'https://docs.skymavis.com/img/ronin.svg',
-  iconBackground: '#004de5',
-  createConnector: () => {
-    return {
-      connector: new RoninConnector({
-        chains: roninChains,
-        options: {
-          projectId
-        }
-      })
-    }
-  }
-})
+// const roninWallet = ({ projectId }: { projectId: string }): Wallet => ({
+//   id: 'ronin',
+//   name: 'Ronin',
+//   iconUrl: 'https://docs.skymavis.com/img/ronin.svg',
+//   iconBackground: '#004de5',
+//   createConnector: () => {
+//     return {
+//       connector: new RoninConnector({
+//         chains: roninChains,
+//         options: {
+//           projectId
+//         }
+//       })
+//     }
+//   }
+// })
 
 const connectors = connectorsForWallets([
   {
     groupName: 'Popular',
     wallets: [
+      walletConnectWallet({ projectId, chains }),
       metaMaskWallet({ projectId, chains }),
-      roninWallet({ projectId }),
+      //roninWallet({ projectId }),
       coinbaseWallet({ appName: 'App', chains }),
       okxWallet({ projectId, chains }),
       bitgetWallet({ projectId, chains }),

@@ -13,6 +13,7 @@ interface DefaultStoreInterface {
 }
 
 interface StoreInterface extends DefaultStoreInterface {
+  updateStore: (...args: any) => void
   changeStage: (stage: StageType) => void
   selectLemon: (token: NftMetaData) => void
   selectItem: (token: NftMetaData) => void
@@ -49,6 +50,13 @@ export function initializeStore(
   return createStore<StoreInterface>((set, get) => ({
     ...getDefaultInitialState(),
     ...preloadedState,
+    updateStore: (newState) => set((state) => {
+      const _state = { 
+        ...state, 
+        ...newState
+      }
+      return _state
+    }),
     changeStage: (stage) => set((state) => {
       const _state = { 
         ...state, 
@@ -56,9 +64,6 @@ export function initializeStore(
       }
       if (stage == 'Start') {
         _state.selectedItems = [];
-      }
-      if (stage == 'EquipedItems') {
-        _state.selectedItems = dressedItemsToNftMetaData(state.selectedLemons[0].properties.itemsData);
       }
       if (stage == 'AllItems') {
         _state.selectedItems = [];
@@ -86,10 +91,10 @@ export function initializeStore(
 
       if (state.selectedItems?.find(data => data?.tokenId == token.tokenId)) {
         if (lemon?.properties) {
-          if (lemon.original?.properties.items[type]) {
-            lemon.properties.items[type] = lemon.original?.properties.items[type]
+          if (state.stage == 'EquipedItems') {
+            lemon.properties.items[type] = undefined
           } else {
-            delete lemon.properties.items[type]
+            lemon.properties.items[type] = lemon.original?.properties.items[type] || undefined
           }
         }
         selectedItems = removeItemsFromArray(state.selectedItems, token, type)
@@ -117,7 +122,7 @@ export function initializeStore(
       return {
         ...state,
         selectedLemons: [_lemon],
-        selectedItems: []
+        selectedItems: state.stage == 'EquipedItems' ? state.selectedItems : []
       }
     }),
     selectGem: (token) => set((state) => {

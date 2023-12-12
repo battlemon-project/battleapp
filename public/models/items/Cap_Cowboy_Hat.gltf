@@ -26,51 +26,6 @@
             "name" : "Cap_Cowboy_Hat"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Cap_Cowboy_Hat",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -242,13 +197,13 @@
             "count" : 1502,
             "max" : [
                 0.7112168073654175,
-                0.5952920317649841,
-                0.7768180966377258
+                0.5405157804489136,
+                0.7711238861083984
             ],
             "min" : [
                 -0.7344070076942444,
-                0.15534675121307373,
-                -0.757097601890564
+                0.07178685069084167,
+                -0.762019157409668
             ],
             "type" : "VEC3"
         },
@@ -289,13 +244,13 @@
             "count" : 2287,
             "max" : [
                 0.4125717580318451,
-                0.421170175075531,
-                0.4329383373260498
+                0.36453011631965637,
+                0.4265863597393036
             ],
             "min" : [
                 -0.41349366307258606,
-                0.18157276511192322,
-                -0.4248424768447876
+                0.11521667242050171,
+                -0.43161535263061523
             ],
             "type" : "VEC3"
         },
@@ -329,36 +284,6 @@
             "componentType" : 5123,
             "count" : 4566,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -433,26 +358,6 @@
             "byteLength" : 9132,
             "byteOffset" : 188496,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 197628
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 198832
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 202444
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 207260
         }
     ],
     "samplers" : [
@@ -463,7 +368,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 210872,
+            "byteLength" : 197628,
             "uri" : "Cap_Cowboy_Hat.bin"
         }
     ]
