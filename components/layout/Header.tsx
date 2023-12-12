@@ -18,9 +18,17 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
         
         <div className="order-lg-2 navbar-connectbutton">
           {process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'false' ? <>
-            {mounted && <button className='btn btn-outline-light'>
-              <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} />
-            </button>}
+            {mounted && <>
+              { router.pathname == '/' ? <>
+                <button className='btn btn-light fs-16' style={{width: '125px', color: '#000', lineHeight: '24px'}}>
+                  <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} />
+                </button>
+              </> : <>
+                <button className='btn btn-outline-light fs-16' style={{width: '125px', lineHeight: '24px'}}>
+                  <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} />
+                </button>
+              </>}
+            </>}
           </> : <>
             <ConnectButton accountStatus={'address'} showBalance={false}/>
           </>}
