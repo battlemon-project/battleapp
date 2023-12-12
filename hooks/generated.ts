@@ -553,26 +553,6 @@ export const gemABI = [
     name: 'transferOwnership',
     outputs: [],
   },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [
-      {
-        name: 'req',
-        internalType: 'struct Gem.MintRequest',
-        type: 'tuple',
-        components: [
-          { name: 'sender', internalType: 'address', type: 'address' },
-          { name: 'proxy', internalType: 'address', type: 'address' },
-          { name: 'level', internalType: 'uint8', type: 'uint8' },
-          { name: 'nonce', internalType: 'uint256', type: 'uint256' },
-        ],
-      },
-      { name: 'signature', internalType: 'bytes', type: 'bytes' },
-    ],
-    name: 'verify',
-    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
-  },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1411,8 +1391,22 @@ export const lemonABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'WHITELIST_AMOUNT',
+    outputs: [{ name: '', internalType: 'uint16', type: 'uint16' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: '_nextTokenId',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'users', internalType: 'address[]', type: 'address[]' }],
+    name: 'addToWhitelist',
+    outputs: [],
   },
   {
     stateMutability: 'view',
@@ -1623,6 +1617,13 @@ export const lemonABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'publicMintOpenTime',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -3411,25 +3412,6 @@ export function useGemTokenUri<
   return useContractRead({
     abi: gemABI,
     functionName: 'tokenURI',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"verify"`.
- */
-export function useGemVerify<
-  TFunctionName extends 'verify',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: 'verify',
     ...config,
   } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
 }
@@ -5899,6 +5881,25 @@ export function useLemonMaxAlphaLemonSupply<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"WHITELIST_AMOUNT"`.
+ */
+export function useLemonWhitelistAmount<
+  TFunctionName extends 'WHITELIST_AMOUNT',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'WHITELIST_AMOUNT',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"_nextTokenId"`.
  */
 export function useLemonNextTokenId<
@@ -6241,6 +6242,25 @@ export function useLemonOwnerOf<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"publicMintOpenTime"`.
+ */
+export function useLemonPublicMintOpenTime<
+  TFunctionName extends 'publicMintOpenTime',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'publicMintOpenTime',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"slotEquipped"`.
  */
 export function useLemonSlotEquipped<
@@ -6411,6 +6431,33 @@ export function useLemonWrite<
 ) {
   return useContractWrite<typeof lemonABI, TFunctionName, TMode>({
     abi: lemonABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"addToWhitelist"`.
+ */
+export function useLemonAddToWhitelist<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'addToWhitelist'
+        >['request']['abi'],
+        'addToWhitelist',
+        TMode
+      > & { functionName?: 'addToWhitelist' }
+    : UseContractWriteConfig<typeof lemonABI, 'addToWhitelist', TMode> & {
+        abi?: never
+        functionName?: 'addToWhitelist'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'addToWhitelist', TMode>({
+    abi: lemonABI,
+    functionName: 'addToWhitelist',
     ...config,
   } as any)
 }
@@ -6899,6 +6946,22 @@ export function usePrepareLemonWrite<TFunctionName extends string>(
     abi: lemonABI,
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"addToWhitelist"`.
+ */
+export function usePrepareLemonAddToWhitelist(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'addToWhitelist'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'addToWhitelist',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'addToWhitelist'>)
 }
 
 /**
