@@ -216,7 +216,7 @@ export const c1Items: PropertiesList = {
   ],
   cold_arms: [
     'ColdArms_Bottle_Rose',
-    'ColdArms_Grappling_Hook',
+    //'ColdArms_Grappling_Hook',
     'ColdArms_Chopper_Knife',
     'ColdArms_Katana',
   ],
@@ -403,8 +403,90 @@ export const getVersion = (dna: string) => {
   return dna.substr(0, 4);
 }
 
-export const betterName = (type: string) => {
-  const parts = type.split('_').map(part => {
+export const betterName = (name: string) => {
+  const better: {[key: string]: string} = {
+    fire_arms: 'Arm',
+    cold_arms: 'Waist',
+    Head_Paint_03: 'Splash',
+    Head_Paint_04: 'Painter',
+    Head_Paint_05: 'Azure',
+    Head_Paint_08: 'Dalmatian',
+    Eyes_BTC_Etherium: 'Crypto',
+    Hands_01: 'Titan',
+    Hands_04: 'Latte',
+    Hands_05: 'Electro',
+    Hands_15: 'Palladium',
+    Hands_17: 'Neon',
+    Hands_19: 'Optimus',
+    Hands_20: 'Lightning',
+    Hands_21: 'Mustard',
+    Hands_24: 'Iron Juice',
+    Hands_25: 'Mystic',
+    ExoTop_01: 'Titan',
+    ExoTop_04: 'Latte',
+    ExoTop_05: 'Electro',
+    ExoTop_15: 'Palladium',
+    ExoTop_17: 'Neon',
+    ExoTop_19: 'Optimus',
+    ExoTop_20: 'Lightning',
+    ExoTop_21: 'Mustard',
+    ExoTop_24: 'Iron Juice',
+    ExoTop_25: 'Mystic',
+    ExoBot_01: 'Titan',
+    ExoBot_04: 'Latte',
+    ExoBot_05: 'Electro',
+    ExoBot_15: 'Palladium',
+    ExoBot_17: 'Neon',
+    ExoBot_19: 'Optimus',
+    ExoBot_20: 'Lightning',
+    ExoBot_21: 'Mustard',
+    ExoBot_24: 'Iron Juice',
+    ExoBot_25: 'Mystic',
+    Feet_01: 'Titan',
+    Feet_04: 'Latte',
+    Feet_05: 'Electro',
+    Feet_15: 'Palladium',
+    Feet_17: 'Neon',
+    Feet_19: 'Optimus',
+    Feet_20: 'Lightning',
+    Feet_21: 'Mustard',
+    Feet_24: 'Iron Juice',
+    Feet_25: 'Mystic',
+    Scar_Tatoo_01: 'Warrior',
+    Scar_Tatoo_02: 'Rupture',
+    Scar_Tatoo_03: 'Star',
+    Scar_Tatoo_04: 'Raven',
+    Pod_SkateBoard_B: 'Hoverboard',
+    Pod_SkateBoard_A: 'Hoverboat',    
+    FireArms_Assault_Rifle_A: 'Assault Rifle',
+    FireArms_Assault_Rifle_M: 'AKM',   
+    FireArms_Handgun_SMG: 'Uzi'
+  }
+  
+  if (better[name]) {
+    return better[name]
+  }
+
+  name.replace('Eyes_', '');
+  name.replace('Head_', '');
+  name.replace('ExoTop_', '');
+  name.replace('ExoBot_', '');
+  name.replace('Feet_', '');
+  name.replace('Hands_', '');
+  name.replace('Teeth_', '');
+  name.replace('Hair_', '');
+  name.replace('Scar_', '');
+  name.replace('Back_', '');
+  name.replace('Cap_', '');
+  name.replace('Belt_', '');
+  name.replace('Glasses_', '');
+  name.replace('Mask_', '');
+  name.replace('FireArms_', '');
+  name.replace('ColdArms_', '');
+  name.replace('Shoes_', '');
+  name.replace('Pod_', ''); 
+
+  const parts = name.split('_').map(part => {
     const capitalized = part.charAt(0).toUpperCase() + part.slice(1)
     return capitalized
   })
