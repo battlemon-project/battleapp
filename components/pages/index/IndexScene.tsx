@@ -57,6 +57,7 @@ export default function BabylonScene() {
       },
       stake: {
         stroke: ['stake_stroke', 'stake_coin_stroke'],
+        page: '/claim',
       },
       shop: {
         stroke: ['shop_stroke', 'windmill_stroke_01', 'windmill_stroke_02'],

@@ -5,6 +5,8 @@ import { Roboto } from 'next/font/google'
 import cn from 'classnames'
 import Header from "./Header";
 import OgHead from "./OgScheme";
+import Timer from "./Timer";
+import { useRouter } from "next/router";
  
 const roboto = Roboto({
   weight: '400',
@@ -18,7 +20,8 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixedTop }: PropsWithChildren<LayoutProps>) {
-  const isMounted = useIsMounted()
+  const isMounted = useIsMounted();
+  const router = useRouter();
   const { isSignedIn, isSupportedChain } = useAuth();
   
   return (<>
@@ -28,6 +31,9 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
 
       <div className="flex-fill d-flex flex-column justify-content-center align-items-center">
         {(() => {
+          if (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'false' && router.pathname !== '/') {
+            return isMounted && <span className="fs-18">Battlemon will fly after <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} /></span>
+          }
           if (isMounted && (alwaysVisible || (isSignedIn && isSupportedChain))) {
             return children
           } else if (isSignedIn && !isSupportedChain) {
