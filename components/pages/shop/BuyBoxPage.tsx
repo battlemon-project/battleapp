@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import styles from './shop.module.css'
-import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
 import { truncate } from 'utils/misc';
 import { useBox } from 'hooks/useBox';
+import PolSymbol from 'components/layout/PolSymbol';
 
 export default function BuyBoxPage() {
   const { buyCheapBox, boxStatus } = useBox();
@@ -34,7 +34,7 @@ export default function BuyBoxPage() {
               <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
               <>
                 <span className='fs-17 fst-italic pe-2'>Buy Box for </span>
-                <EthSymbol>0.0033</EthSymbol>
+                <span className='fs-14'><PolSymbol>15</PolSymbol></span>
               </>
             }
           </button>

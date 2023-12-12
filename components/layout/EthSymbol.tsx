@@ -19,7 +19,7 @@ export default function EthSymbol({ children }: PropsWithChildren) {
           </clipPath>
         </defs>
       </svg>
-      <span className="fst-italic fw-semi fs-14 ps-1">
+      <span className="fst-italic fw-semi ps-1">
         {children}
       </span>
     </div>

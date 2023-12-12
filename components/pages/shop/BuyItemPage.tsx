@@ -6,6 +6,7 @@ import { truncate } from 'utils/misc';
 import { useItemMint } from 'hooks/useItemMint';
 import { useItemBalance } from 'hooks/useItemBalance';
 import { useEffect } from 'react';
+import PolSymbol from 'components/layout/PolSymbol';
 
 export default function BuyItemPage() {
   const { itemMint, itemMintStatus } = useItemMint();
@@ -39,9 +40,13 @@ export default function BuyItemPage() {
               <b>Contract Address</b>
               <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!, 8)}</div>
             </div>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>
               <div>ERC721</div>
+            </div>
+            <div className="d-flex justify-content-between ">
+              <b>Network</b>
+              <div className='fs-16'><PolSymbol>Polygon</PolSymbol></div>
             </div>
           </div>
 
@@ -50,10 +55,10 @@ export default function BuyItemPage() {
               <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => itemMint()}>
                 { itemMintStatus == 'loading' ? 
                   <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-                  <>
+                  <div className='d-flex'>
                     <span className='fs-17 fst-italic pe-2'>Buy Item for </span>
-                    <EthSymbol>0.01</EthSymbol>
-                  </>
+                    <span className='fs-15'><PolSymbol>22 MATIC</PolSymbol></span>
+                  </div>
                 }
               </button>
             </div>     

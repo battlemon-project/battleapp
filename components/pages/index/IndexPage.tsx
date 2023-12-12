@@ -2,13 +2,15 @@ import { SceneLoader, Vector3 } from '@babylonjs/core'
 import { Engine, Model, Scene } from 'react-babylonjs'
 import IndexScene from './IndexScene';
 import { type GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import BattlemonLoader from 'components/layout/BattlemonLoader';
 import { useOnMount } from 'hooks/useOnMount';
+import useWindowSize from 'hooks/useWindowSize';
 
 export default function BabylonScene() {
   const [isLoading, setIsLoading] = useState(true)
-
+  const size = useWindowSize();
+  console.log(size)
   const baseUrl = (process.env.NEXT_PUBLIC_ASSETS || '') + '/models/index/'
 
   useOnMount(() => {
@@ -16,6 +18,13 @@ export default function BabylonScene() {
       (loader as GLTFFileLoader).animationStartMode = GLTFLoaderAnimationStartMode.ALL;
     });
   })
+
+  useEffect(() => {
+    const canv: HTMLCanvasElement = document.querySelector('#babylon-canvas')!
+    if (canv) {
+      setTimeout(() => canv.width = size.width)
+    }
+  }, [size.width])
 
   return (
     <div className='vh-100'>
