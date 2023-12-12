@@ -6,11 +6,11 @@ import { useAccount, useWaitForTransaction } from 'wagmi';
 export function useLemonMint(count: number) {
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
-  
+  const longString = '0.' + String(5 * (count || 1)).padStart(7, '0');
   const lemonMint = address && generatedUseLemonMint({
     address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [count || 1],
-    value: parseEther('0.0000005')
+    value: parseEther(longString)
   })
 
   const lemonMintResult = useWaitForTransaction({ hash: lemonMint?.data?.hash });
