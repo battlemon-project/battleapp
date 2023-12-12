@@ -3,7 +3,7 @@ import { PropertiesType } from 'lemon';
 import { useState } from 'react';
 import { a1Traits, c1Items, getRandomProperties, ghostProperties } from 'utils/properties';
 
-export default function SanboxPage() {
+export default function SandboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
 
   const changeProperties = (type: 'traits' | 'items', propkey: string) => (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,7 +36,7 @@ export default function SanboxPage() {
       <button className='btn btn-primary w-100 fs-18 rounded-3 mt-3' onClick={setRandomProperties}>Random</button>
     </div>
     <div className='mx-auto vh-100 w-100'>
-      <LemonScene properties={properties} />
+      <LemonScene properties={properties} debug={true} />
     </div>
     <div className='p-4'>
       {Object.entries(c1Items).map(([propkey, options]) => {

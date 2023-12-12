@@ -1,5 +1,5 @@
 import EmptyLayout from 'components/layout/EmptyLayout';
-import SandboxPage from 'components/pages/generator/SanboxPage';
+import SandboxPage from 'components/pages/generator/SandboxPage';
 import Head from 'next/head';
 
 export default function Sandbox() {

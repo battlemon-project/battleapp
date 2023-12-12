@@ -8,8 +8,10 @@ import ItemModel from './ItemModel';
 import { useIsMounted } from 'hooks/useIsMounted';
 import { c1Items } from 'utils/properties';
 import { PropertiesList, PropertiesType } from 'lemon';
+import DebugLayer from './DebugLayer';
 
-interface SanboxPageProps {
+interface LemonSceneProps {
+  debug?: boolean,
   properties: PropertiesType
   isPaused?: boolean,
   preloadItems?: boolean,
@@ -17,7 +19,7 @@ interface SanboxPageProps {
   setProperties?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function SanboxPage({ properties, isPaused, preloadItems, setProperties, onModelReady }: SanboxPageProps) {
+export default function LemonScene({ properties, isPaused, preloadItems, setProperties, onModelReady, debug }: LemonSceneProps) {
   const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
   const [ loadedItems, setLoadedItems ] = useState<PropertiesList>({})
   const mounted = useIsMounted()
@@ -113,7 +115,7 @@ export default function SanboxPage({ properties, isPaused, preloadItems, setProp
             </LemonModel>
           </Suspense>
 
-          {/* <DebugLayer /> */}
+          {debug && <DebugLayer />}
         </Scene>
       </Engine>}
     </>
