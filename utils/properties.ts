@@ -226,10 +226,7 @@ export const c1Items: PropertiesList = {
   platform: [
     'Pod_SkateBoard_B',
     'Pod_SkateBoard_A',    
-  ],
-  // cloth: [
-  //   'Cloth_Poncho'
-  // ],
+  ]
 }
 
 export const dressedItemsToNftMetaData = (data: DressedItemData | undefined): NftMetaData[] => {

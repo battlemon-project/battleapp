@@ -2,9 +2,12 @@ import cn from 'classnames'
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Timer from './Timer';
+import { useIsMounted } from 'hooks/useIsMounted';
 
 export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boolean, hideDesktopMenu?: boolean }) {
   const router = useRouter();
+  const mounted = useIsMounted()
 
   return (
     <nav className={cn('navbar navbar-expand-lg py-3', { 'fixed-top': fixedTop })}>
@@ -14,7 +17,13 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
         </Link>
         
         <div className="order-lg-2 navbar-connectbutton">
-          <ConnectButton accountStatus={'address'} showBalance={false}/>
+          {process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'false' ? <>
+            {mounted && <button className='btn btn-outline-light'>
+              <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} />
+            </button>}
+          </> : <>
+            <ConnectButton accountStatus={'address'} showBalance={false}/>
+          </>}
         </div>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

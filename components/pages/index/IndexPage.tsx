@@ -10,7 +10,6 @@ import useWindowSize from 'hooks/useWindowSize';
 export default function BabylonScene() {
   const [isLoading, setIsLoading] = useState(true)
   const size = useWindowSize();
-  console.log(size)
   const baseUrl = (process.env.NEXT_PUBLIC_ASSETS || '') + '/models/index/'
 
   useOnMount(() => {

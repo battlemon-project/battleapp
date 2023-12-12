@@ -38,7 +38,7 @@ export default function ItemModel({ name, placeholderName, enabled }: ItemModelP
       id={name}
       name={name}
       rootUrl={baseUrl}
-      sceneFilename={`${name}.gltf`}
+      sceneFilename={`${name}.gltf?hash=001`}
       scaleToDimension={undefined}
       onModelLoaded={onItemLoaded}
     />
