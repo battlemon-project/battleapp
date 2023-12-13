@@ -85,7 +85,7 @@ export function initializeStore(
     }),
     selectItem: (token) => set((state) => { 
       const lemon = structuredClone(state.selectedLemons[0]);
-      const [ _png, name, type ]: string[] = token.image.split(/[/.]+/).reverse();
+      const { type, name } = token.properties;
       
       let selectedItems: ItemsArray = []
 
