@@ -8,7 +8,7 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   const { address }  = useAccount();
   
   const fee = useFeeData()
-  const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(3) : undefined
+  const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
 
   if (items.length < 10) {
     items.push(-1)

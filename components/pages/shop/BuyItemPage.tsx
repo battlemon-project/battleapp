@@ -60,7 +60,7 @@ export default function BuyItemPage() {
                 <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
                 <div className='d-flex'>
                   <span className='fs-17 fst-italic pe-2'>Buy {count} Item{count > 1 ? 's' : ''} for </span>
-                  <span className='fs-15'><PolSymbol>{process.env.NEXT_PUBLIC_MINT_ITEMS_PRICE} MATIC</PolSymbol></span>
+                  <span className='fs-15'><PolSymbol>{(Number(process.env.NEXT_PUBLIC_MINT_ITEMS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")} MATIC</PolSymbol></span>
                 </div>
               }
             </button>

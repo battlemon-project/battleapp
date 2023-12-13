@@ -10,7 +10,7 @@ interface ItemModelProps {
 
 export default function ItemModel({ name, placeholderName, enabled }: ItemModelProps) {
   const itemRef = useRef<AbstractMesh | null>(null)
-  const baseUrl = (process.env.NEXT_PUBLIC_ASSETS || '') + '/models/items/'
+  const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/items/'
   const scene = useScene();
 
   const onItemLoaded = (model: ILoadedModel): void => {
@@ -38,7 +38,7 @@ export default function ItemModel({ name, placeholderName, enabled }: ItemModelP
       id={name}
       name={name}
       rootUrl={baseUrl}
-      sceneFilename={`${name}.gltf?hash=001`}
+      sceneFilename={`${name}.gltf?hash=002`}
       scaleToDimension={undefined}
       onModelLoaded={onItemLoaded}
     />
