@@ -48,7 +48,7 @@ export default async function handler (req: NextRequest) {
       }
   
       result.ownedNfts = result.ownedNfts.map(({ tokenId }) => {
-        return { tokenId: Number(tokenId) };
+        return { tokenId: Number(tokenId) }
       })
       
       return NextResponse.json(result)
