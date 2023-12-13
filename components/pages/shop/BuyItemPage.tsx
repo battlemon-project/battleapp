@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import styles from './shop.module.css'
-import EthSymbol from 'components/layout/EthSymbol';
 import Link from 'next/link';
 import { truncate } from 'utils/misc';
 import { useItemMint } from 'hooks/useItemMint';
@@ -35,8 +34,7 @@ export default function BuyItemPage() {
         </div>
         <div className="col-12 col-md-7">
           <div className={cn('p-3 py-4 rounded-4 mb-4', styles.lightBg)}>
-            <p className="mb-3">Unique Key-card that gives access to the incredible game world of Lemoland, full of adventures and NFT treasures. </p>
-            <p className="mb-3">Unique NFT key-pass will be available in Testnet and also transferred to Mainnet.</p>
+            <p className="mb-3">The items are boost for the character. Each item has luck, agility, and speed, which affect the results of the raid. The more items you wear into the raid, the better your results will be.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
               <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!, 8)}</div>

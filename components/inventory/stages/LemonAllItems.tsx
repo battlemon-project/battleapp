@@ -25,6 +25,10 @@ export default function LemonAllItems({ balance }: LemonAllItemsProps) {
     if (!balance) return
     mutate();
   }, [balance])
+
+  useEffect(() => {
+    mutate();
+  }, [])
   
   return (<>
     <TabsLemonItems>

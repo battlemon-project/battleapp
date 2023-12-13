@@ -468,7 +468,11 @@ export const betterName = (name: string) => {
     Scar_Barbarian_R: 'Barbarian',
     Scar_Samurai_R: 'Samurai',
     Scar_Macedonian_R: 'Macedonian',  
-    Glasses_Techno_A: 'Techno'
+    Glasses_Techno_A: 'Techno',
+    Mask_Wrestler_Red: 'Red Alert',
+    Mask_Wrestler_Green: 'Verde Guard',
+    Mask_Wrestler_Orange: 'Amber Aegis',
+    Mask_Wrestler_Blue: 'Aero Shield',
   }
   
   if (better[name]) {
