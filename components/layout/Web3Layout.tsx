@@ -7,6 +7,7 @@ import Header from "./Header";
 import OgHead from "./OgScheme";
 import Timer from "./Timer";
 import { useRouter } from "next/router";
+import { ToastContainer } from 'react-toastify';
  
 const roboto = Roboto({
   weight: '400',
@@ -43,6 +44,8 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
           }
         })()}
       </div>
+
+      <ToastContainer position="bottom-right" />
     </main>
   </>)
 }

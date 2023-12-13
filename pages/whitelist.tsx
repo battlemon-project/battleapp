@@ -6,9 +6,8 @@ import { useState } from 'react';
 
 export default function Whitelist() {
   const [addresses, setAddresses] = useState<`0x${string}`[]>(['0x']);
-  const { address } = useAccount();
 
-  const addToWhitelist = address && useLemonAddToWhitelist({
+  const addToWhitelist = useLemonAddToWhitelist({
     address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [addresses]
   })

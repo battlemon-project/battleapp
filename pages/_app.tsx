@@ -2,6 +2,7 @@
 // https://wagmi.sh/examples/sign-in-with-ethereum
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/global.css';
+import 'react-toastify/dist/ReactToastify.css';
 import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
 import {
@@ -202,16 +203,16 @@ export default function App({ Component, pageProps }: AppProps) {
     </WagmiConfig>
     <Script id='googletagmanager'
       strategy={'beforeInteractive'}
-      src={`https://www.googletagmanager.com/gtag/js?id=G-FXNCZP5QS7`}
+      src={`https://www.googletagmanager.com/gtag/js?id=G-CH01L71EQZ`}
     />
-    <Script id='googledataLayer' strategy={'beforeInteractive'}>
+    <Script id='googledataLayer' strategy={'afterInteractive'}>
       {`
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);
         }
         gtag('js', new Date());
-        gtag('config', 'G-FXNCZP5QS7');
+        gtag('config', 'G-CH01L71EQZ');
       `}
     </Script>
   </>);

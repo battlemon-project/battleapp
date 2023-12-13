@@ -360,6 +360,16 @@ export const gemABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [
+      { name: 'gemId', internalType: 'uint256', type: 'uint256' },
+      { name: 'sender', internalType: 'address', type: 'address' },
+    ],
+    name: 'checkOwnerOf',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'getApproved',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -773,20 +783,6 @@ export const itemABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'ITEM_TYPES_AMOUNT',
-    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'LVLUP_PRICE',
-    outputs: [{ name: '', internalType: 'uint56', type: 'uint56' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
     name: 'MAX_BUY_SUPPLY',
     outputs: [{ name: '', internalType: 'uint24', type: 'uint24' }],
   },
@@ -947,7 +943,7 @@ export const itemABI = [
   {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [{ name: 'to', internalType: 'address', type: 'address' }],
+    inputs: [{ name: 'amount', internalType: 'uint16', type: 'uint16' }],
     name: 'mint',
     outputs: [],
   },
@@ -1053,6 +1049,13 @@ export const itemABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'setLvlUpPrice',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
     name: 'setMaxItemTypes',
     outputs: [],
   },
@@ -1099,6 +1102,13 @@ export const itemABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'tokenURI',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'totalBuySupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'view',
@@ -1762,6 +1772,16 @@ export const lemonABI = [
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'whitelist',
+    outputs: [
+      { name: 'amount', internalType: 'uint16', type: 'uint16' },
+      { name: 'whitelisted', internalType: 'bool', type: 'bool' },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -3189,6 +3209,25 @@ export function useGemBalanceOf<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"checkOwnerOf"`.
+ */
+export function useGemCheckOwnerOf<
+  TFunctionName extends 'checkOwnerOf',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'checkOwnerOf',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"getApproved"`.
  */
 export function useGemGetApproved<
@@ -4251,44 +4290,6 @@ export function useItemItemPrice<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"ITEM_TYPES_AMOUNT"`.
- */
-export function useItemItemTypesAmount<
-  TFunctionName extends 'ITEM_TYPES_AMOUNT',
-  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: itemABI,
-    functionName: 'ITEM_TYPES_AMOUNT',
-    ...config,
-  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"LVLUP_PRICE"`.
- */
-export function useItemLvlupPrice<
-  TFunctionName extends 'LVLUP_PRICE',
-  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: itemABI,
-    functionName: 'LVLUP_PRICE',
-    ...config,
-  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"MAX_BUY_SUPPLY"`.
  */
 export function useItemMaxBuySupply<
@@ -4645,6 +4646,25 @@ export function useItemTokenUri<
   return useContractRead({
     abi: itemABI,
     functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"totalBuySupply"`.
+ */
+export function useItemTotalBuySupply<
+  TFunctionName extends 'totalBuySupply',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'totalBuySupply',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -5089,6 +5109,33 @@ export function useItemSetLemonAddress<
   return useContractWrite<typeof itemABI, 'setLemonAddress', TMode>({
     abi: itemABI,
     functionName: 'setLemonAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setLvlUpPrice"`.
+ */
+export function useItemSetLvlUpPrice<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'setLvlUpPrice'
+        >['request']['abi'],
+        'setLvlUpPrice',
+        TMode
+      > & { functionName?: 'setLvlUpPrice' }
+    : UseContractWriteConfig<typeof itemABI, 'setLvlUpPrice', TMode> & {
+        abi?: never
+        functionName?: 'setLvlUpPrice'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'setLvlUpPrice', TMode>({
+    abi: itemABI,
+    functionName: 'setLvlUpPrice',
     ...config,
   } as any)
 }
@@ -5547,6 +5594,22 @@ export function usePrepareItemSetLemonAddress(
     functionName: 'setLemonAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'setLemonAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setLvlUpPrice"`.
+ */
+export function usePrepareItemSetLvlUpPrice(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'setLvlUpPrice'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'setLvlUpPrice',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'setLvlUpPrice'>)
 }
 
 /**
@@ -6408,6 +6471,25 @@ export function useLemonTotalUniqueSupply<
   return useContractRead({
     abi: lemonABI,
     functionName: 'totalUniqueSupply',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"whitelist"`.
+ */
+export function useLemonWhitelist<
+  TFunctionName extends 'whitelist',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'whitelist',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
