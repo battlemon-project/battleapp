@@ -196,14 +196,14 @@
             "componentType" : 5126,
             "count" : 1130,
             "max" : [
-                0.3746406137943268,
-                0.40947097539901733,
-                0.7493038177490234
+                0.3669138252735138,
+                0.40407389402389526,
+                0.7857945561408997
             ],
             "min" : [
-                -0.3991924524307251,
-                0.03967827558517456,
-                -0.4556014835834503
+                -0.4069192409515381,
+                0.03428118675947189,
+                -0.4191107451915741
             ],
             "type" : "VEC3"
         },
@@ -241,41 +241,41 @@
         {
             "bufferView" : 6,
             "componentType" : 5126,
-            "count" : 48,
+            "count" : 50,
             "max" : [
-                0.05763103812932968,
-                0.39515769481658936,
-                0.43301570415496826
+                0.04990425333380699,
+                0.3897606134414673,
+                0.4695064425468445
             ],
             "min" : [
-                -0.082182876765728,
-                0.20488201081752777,
-                0.3716433346271515
+                -0.08990966528654099,
+                0.1994849145412445,
+                0.4081340730190277
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 7,
             "componentType" : 5126,
-            "count" : 48,
+            "count" : 50,
             "type" : "VEC3"
         },
         {
             "bufferView" : 8,
             "componentType" : 5126,
-            "count" : 48,
+            "count" : 50,
             "type" : "VEC2"
         },
         {
             "bufferView" : 9,
             "componentType" : 5126,
-            "count" : 48,
+            "count" : 50,
             "type" : "VEC2"
         },
         {
             "bufferView" : 10,
             "componentType" : 5123,
-            "count" : 48,
+            "count" : 50,
             "normalized" : true,
             "type" : "VEC4"
         },
@@ -325,38 +325,38 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 576,
+            "byteLength" : 600,
             "byteOffset" : 60144,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 576,
-            "byteOffset" : 60720,
+            "byteLength" : 600,
+            "byteOffset" : 60744,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 384,
-            "byteOffset" : 61296,
+            "byteLength" : 400,
+            "byteOffset" : 61344,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 384,
-            "byteOffset" : 61680,
+            "byteLength" : 400,
+            "byteOffset" : 61744,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 384,
-            "byteOffset" : 62064,
+            "byteLength" : 400,
+            "byteOffset" : 62144,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 132,
-            "byteOffset" : 62448,
+            "byteOffset" : 62544,
             "target" : 34963
         }
     ],
@@ -368,7 +368,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 62580,
+            "byteLength" : 62676,
             "uri" : "Cap_Military_Cap.bin"
         }
     ]

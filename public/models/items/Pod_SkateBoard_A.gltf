@@ -24,7 +24,13 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "Pod_SkateBoard_A"
+            "name" : "Pod_SkateBoard_A",
+            "rotation" : [
+                0,
+                -1,
+                0,
+                1.6292068494294654e-07
+            ]
         }
     ],
     "materials" : [
@@ -240,7 +246,7 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 516,
+            "count" : 670,
             "max" : [
                 1.0027515888214111,
                 0.0821513831615448,
@@ -248,7 +254,7 @@
             ],
             "min" : [
                 -1.0877859592437744,
-                -0.2719847857952118,
+                -0.2920325994491577,
                 -0.3442130982875824
             ],
             "type" : "VEC3"
@@ -256,32 +262,32 @@
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 516,
+            "count" : 670,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 516,
+            "count" : 670,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5126,
-            "count" : 516,
+            "count" : 670,
             "type" : "VEC2"
         },
         {
             "bufferView" : 4,
             "componentType" : 5123,
-            "count" : 516,
+            "count" : 670,
             "normalized" : true,
             "type" : "VEC4"
         },
         {
             "bufferView" : 5,
             "componentType" : 5123,
-            "count" : 1638,
+            "count" : 1992,
             "type" : "SCALAR"
         },
         {
@@ -334,7 +340,7 @@
         {
             "bufferView" : 12,
             "componentType" : 5126,
-            "count" : 152,
+            "count" : 190,
             "max" : [
                 0.9203651547431946,
                 0.002223577117547393,
@@ -342,7 +348,7 @@
             ],
             "min" : [
                 -1.1003820896148682,
-                -0.10306970030069351,
+                -0.23028063774108887,
                 -0.3569171726703644
             ],
             "type" : "VEC3"
@@ -350,142 +356,142 @@
         {
             "bufferView" : 13,
             "componentType" : 5126,
-            "count" : 152,
+            "count" : 190,
             "type" : "VEC3"
         },
         {
             "bufferView" : 14,
             "componentType" : 5126,
-            "count" : 152,
+            "count" : 190,
             "type" : "VEC2"
         },
         {
             "bufferView" : 15,
             "componentType" : 5126,
-            "count" : 152,
+            "count" : 190,
             "type" : "VEC2"
         },
         {
             "bufferView" : 16,
             "componentType" : 5123,
-            "count" : 152,
+            "count" : 190,
             "normalized" : true,
             "type" : "VEC4"
         },
         {
             "bufferView" : 17,
             "componentType" : 5123,
-            "count" : 456,
+            "count" : 564,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 6192,
+            "byteLength" : 8040,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 6192,
-            "byteOffset" : 6192,
+            "byteLength" : 8040,
+            "byteOffset" : 8040,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 4128,
-            "byteOffset" : 12384,
+            "byteLength" : 5360,
+            "byteOffset" : 16080,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 4128,
-            "byteOffset" : 16512,
+            "byteLength" : 5360,
+            "byteOffset" : 21440,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 4128,
-            "byteOffset" : 20640,
+            "byteLength" : 5360,
+            "byteOffset" : 26800,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 3276,
-            "byteOffset" : 24768,
+            "byteLength" : 3984,
+            "byteOffset" : 32160,
             "target" : 34963
         },
         {
             "buffer" : 0,
             "byteLength" : 960,
-            "byteOffset" : 28044,
+            "byteOffset" : 36144,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 960,
-            "byteOffset" : 29004,
+            "byteOffset" : 37104,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 640,
-            "byteOffset" : 29964,
+            "byteOffset" : 38064,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 640,
-            "byteOffset" : 30604,
+            "byteOffset" : 38704,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 640,
-            "byteOffset" : 31244,
+            "byteOffset" : 39344,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 456,
-            "byteOffset" : 31884,
+            "byteOffset" : 39984,
             "target" : 34963
         },
         {
             "buffer" : 0,
-            "byteLength" : 1824,
-            "byteOffset" : 32340,
+            "byteLength" : 2280,
+            "byteOffset" : 40440,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1824,
-            "byteOffset" : 34164,
+            "byteLength" : 2280,
+            "byteOffset" : 42720,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1216,
-            "byteOffset" : 35988,
+            "byteLength" : 1520,
+            "byteOffset" : 45000,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1216,
-            "byteOffset" : 37204,
+            "byteLength" : 1520,
+            "byteOffset" : 46520,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 1216,
-            "byteOffset" : 38420,
+            "byteLength" : 1520,
+            "byteOffset" : 48040,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 912,
-            "byteOffset" : 39636,
+            "byteLength" : 1128,
+            "byteOffset" : 49560,
             "target" : 34963
         }
     ],
@@ -497,7 +503,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 40548,
+            "byteLength" : 50688,
             "uri" : "Pod_SkateBoard_A.bin"
         }
     ]
