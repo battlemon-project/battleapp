@@ -31,10 +31,10 @@ export function useItemMint(count: number) {
   
   useEffect(() => {
     if (itemMint?.status === 'loading' || itemMint?.status === 'success') {
-      setStatus('loading')
+      setStatus('loading');
     };
     if (itemMint?.status === 'error') {
-      setStatus('error')
+      setStatus('error');
     };
   }, [itemMint?.status])
 
