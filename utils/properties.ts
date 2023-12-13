@@ -219,7 +219,6 @@ export const c1Items: PropertiesList = {
     'FireArms_Assault_Rifle_M',    
   ],
   cold_arms: [
-    'ColdArms_Bottle_Rose',
     'ColdArms_Chopper_Knife',
     'ColdArms_Katana',
   ],

@@ -32,12 +32,11 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
     <main className={cn('position-relative min-vh-100 d-flex flex-column', roboto.className)}>
       <Header hideDesktopMenu={hideDesktopMenu} fixedTop={fixedTop} />
 
-      {Date.now() > openTime*1000 && <div style={{position: 'absolute', top: '58px', left: '50%', transform: 'translateX(-50%)'}}>
-      
-        {!whitelist?.[1] && <div className="alert alert-success">
+      {Date.now() < openTime*1000 && <div style={{position: 'absolute', top: '58px', left: '50%', transform: 'translateX(-50%)'}}>
+        {!!whitelist?.[1] && <div className="alert alert-success">
           You are in Whitelist, you can mint {whitelist?.[0]} Battlemons
         </div>}
-        {!!whitelist?.[1] && <div className="alert alert-danger">
+        {!whitelist?.[1] && <div className="alert alert-danger">
           You are NOT IN Whitelist, you can mint after <Timer deadline={openTime*1000} />
         </div>}
       </div>}
