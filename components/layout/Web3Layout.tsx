@@ -8,6 +8,7 @@ import OgHead from "./OgScheme";
 import Timer from "./Timer";
 import { useRouter } from "next/router";
 import { ToastContainer } from 'react-toastify';
+import { useWhitelist } from 'hooks/useWhitelist';
  
 const roboto = Roboto({
   weight: '400',
@@ -21,6 +22,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixedTop }: PropsWithChildren<LayoutProps>) {
+  const { whitelist, openTime } = useWhitelist();
   const isMounted = useIsMounted();
   const router = useRouter();
   const { isSignedIn, isSupportedChain } = useAuth();
@@ -29,6 +31,16 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
     <OgHead />
     <main className={cn('position-relative min-vh-100 d-flex flex-column', roboto.className)}>
       <Header hideDesktopMenu={hideDesktopMenu} fixedTop={fixedTop} />
+
+      {Date.now() > openTime*1000 && <div style={{position: 'absolute', top: '58px', left: '50%', transform: 'translateX(-50%)'}}>
+      
+        {!whitelist?.[1] && <div className="alert alert-success">
+          You are in Whitelist, you can mint {whitelist?.[0]} Battlemons
+        </div>}
+        {!!whitelist?.[1] && <div className="alert alert-danger">
+          You are NOT IN Whitelist, you can mint after <Timer deadline={openTime*1000} />
+        </div>}
+      </div>}
 
       <div className="flex-fill d-flex flex-column justify-content-center align-items-center">
         {(() => {

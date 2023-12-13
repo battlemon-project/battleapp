@@ -5,15 +5,12 @@ import { useLemonMint } from 'hooks/useLemonMint';
 import { truncate } from 'utils/misc';
 import { useLemonBalance } from 'hooks/useLemonBalance';
 import { useEffect, useState } from 'react';
-import { useWhitelist } from 'hooks/useWhitelist';
 import PolSymbol from 'components/layout/PolSymbol';
-import Timer from 'components/layout/Timer';
 
 export default function BuyLemonPage() {
   const [ count, setCount ] = useState<number>(1)
   const { lemonMint, lemonMintStatus } = useLemonMint(count);
   const { balance, refreshBalance } = useLemonBalance();
-  const { whitelist, openTime } = useWhitelist();
 
   useEffect(() => {
     if (lemonMintStatus !== 'loading') {
@@ -33,19 +30,6 @@ export default function BuyLemonPage() {
           </button>
         </Link>
       </div>
-
-      {Date.now() < openTime*1000 ? <>
-        {!!whitelist?.[1] && <div className="alert alert-success mt-4">
-          You are in Whitelist, you can mint {whitelist?.[0]} Battlemons
-        </div>}
-        {!whitelist?.[1] && <div className="alert alert-danger mt-4">
-          You are NOT IN Whitelist, you can mint after <Timer deadline={openTime*1000} />
-        </div>}
-      </> : <>
-        <div className="alert alert-info mt-4">
-          Now everyone can buy Battlemons 
-        </div>
-      </>}
 
       <div className="row mt-3">
         <div className='col-12 col-md-5 mb-4'>

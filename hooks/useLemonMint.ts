@@ -9,7 +9,7 @@ export function useLemonMint(count: number) {
   const { address }  = useAccount();
 
   const batchPrice = (Number(process.env.NEXT_PUBLIC_MINT_LEMONS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")
-  
+  console.log('price', batchPrice)
   const fee = useFeeData()
   const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(3) : undefined
 

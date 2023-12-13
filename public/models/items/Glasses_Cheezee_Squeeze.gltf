@@ -140,41 +140,41 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 264,
+            "count" : 262,
             "max" : [
                 0.48423638939857483,
-                0.17437505722045898,
-                0.525682806968689
+                0.16124498844146729,
+                0.48815709352493286
             ],
             "min" : [
                 -0.47286829352378845,
-                -0.07202303409576416,
-                0.11171330511569977
+                -0.08515309542417526,
+                0.07418760657310486
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 264,
+            "count" : 262,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 264,
+            "count" : 262,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
             "componentType" : 5126,
-            "count" : 264,
+            "count" : 262,
             "type" : "VEC2"
         },
         {
             "bufferView" : 4,
             "componentType" : 5123,
-            "count" : 264,
+            "count" : 262,
             "normalized" : true,
             "type" : "VEC4"
         },
@@ -190,13 +190,13 @@
             "count" : 12,
             "max" : [
                 0.36431506276130676,
-                0.09191977977752686,
-                0.5175408720970154
+                0.07878971844911575,
+                0.4800151586532593
             ],
             "min" : [
                 -0.3529469668865204,
-                -0.04939025640487671,
-                0.5175408720970154
+                -0.06252031773328781,
+                0.4800151586532593
             ],
             "type" : "VEC3"
         },
@@ -235,50 +235,56 @@
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 3168,
+            "byteLength" : 3144,
             "byteOffset" : 0,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 3168,
-            "byteOffset" : 3168,
+            "byteLength" : 3144,
+            "byteOffset" : 3144,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2112,
-            "byteOffset" : 6336,
+            "byteLength" : 2096,
+            "byteOffset" : 6288,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2112,
-            "byteOffset" : 8448,
+            "byteLength" : 2096,
+            "byteOffset" : 8384,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2112,
-            "byteOffset" : 10560,
+            "byteLength" : 2096,
+            "byteOffset" : 10480,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 888,
-            "byteOffset" : 12672,
+            "byteOffset" : 12576,
             "target" : 34963
         },
         {
             "buffer" : 0,
             "byteLength" : 144,
-            "byteOffset" : 13560,
+            "byteOffset" : 13464,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 144,
-            "byteOffset" : 13704,
+            "byteOffset" : 13608,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 96,
+            "byteOffset" : 13752,
             "target" : 34962
         },
         {
@@ -295,14 +301,8 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 96,
-            "byteOffset" : 14040,
-            "target" : 34962
-        },
-        {
-            "buffer" : 0,
             "byteLength" : 48,
-            "byteOffset" : 14136,
+            "byteOffset" : 14040,
             "target" : 34963
         }
     ],
@@ -314,7 +314,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 14184,
+            "byteLength" : 14088,
             "uri" : "Glasses_Cheezee_Squeeze.bin"
         }
     ]

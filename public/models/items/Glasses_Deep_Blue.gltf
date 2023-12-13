@@ -170,14 +170,14 @@
             "componentType" : 5126,
             "count" : 458,
             "max" : [
-                0.5045008063316345,
-                0.1984965205192566,
-                0.5477768182754517
+                0.4804104268550873,
+                0.17991137504577637,
+                0.5344292521476746
             ],
             "min" : [
-                -0.49313268065452576,
-                -0.08457070589065552,
-                0.06326960027217865
+                -0.4690423011779785,
+                -0.10315585881471634,
+                0.049914222210645676
             ],
             "type" : "VEC3"
         },
@@ -215,41 +215,41 @@
         {
             "bufferView" : 6,
             "componentType" : 5126,
-            "count" : 328,
+            "count" : 338,
             "max" : [
                 0.31941166520118713,
-                0.1708086133003235,
-                0.5370129346847534
+                0.15222346782684326,
+                0.5236653685569763
             ],
             "min" : [
                 -0.30804356932640076,
-                -0.056882791221141815,
-                0.5370128750801086
+                -0.07546794414520264,
+                0.5236653089523315
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 7,
             "componentType" : 5126,
-            "count" : 328,
+            "count" : 338,
             "type" : "VEC3"
         },
         {
             "bufferView" : 8,
             "componentType" : 5126,
-            "count" : 328,
+            "count" : 338,
             "type" : "VEC2"
         },
         {
             "bufferView" : 9,
             "componentType" : 5126,
-            "count" : 328,
+            "count" : 338,
             "type" : "VEC2"
         },
         {
             "bufferView" : 10,
             "componentType" : 5123,
-            "count" : 328,
+            "count" : 338,
             "normalized" : true,
             "type" : "VEC4"
         },
@@ -299,38 +299,38 @@
         },
         {
             "buffer" : 0,
-            "byteLength" : 3936,
+            "byteLength" : 4056,
             "byteOffset" : 24408,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 3936,
-            "byteOffset" : 28344,
+            "byteLength" : 4056,
+            "byteOffset" : 28464,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2624,
-            "byteOffset" : 32280,
+            "byteLength" : 2704,
+            "byteOffset" : 32520,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2624,
-            "byteOffset" : 34904,
+            "byteLength" : 2704,
+            "byteOffset" : 35224,
             "target" : 34962
         },
         {
             "buffer" : 0,
-            "byteLength" : 2624,
-            "byteOffset" : 37528,
+            "byteLength" : 2704,
+            "byteOffset" : 37928,
             "target" : 34962
         },
         {
             "buffer" : 0,
             "byteLength" : 1176,
-            "byteOffset" : 40152,
+            "byteOffset" : 40632,
             "target" : 34963
         }
     ],
@@ -342,7 +342,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 41328,
+            "byteLength" : 41808,
             "uri" : "Glasses_Deep_Blue.bin"
         }
     ]

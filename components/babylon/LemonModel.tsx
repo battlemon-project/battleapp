@@ -78,7 +78,7 @@ export default function LemonModel({ children, properties, setProperties, onMode
     <Model
       name="Lemon"
       rootUrl={baseUrl}
-      sceneFilename={`BTLMN_Lemon.gltf?hash=004`}
+      sceneFilename={`BTLMN_Lemon.glb?hash=005`}
       scaleToDimension={undefined}
       onModelLoaded={onLemonLoaded}
       position={new Vector3(0,-1.15,0)}
