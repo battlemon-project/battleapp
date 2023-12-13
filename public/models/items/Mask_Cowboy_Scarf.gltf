@@ -18,51 +18,6 @@
             "name" : "Mask_Cowboy_Scarf"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Mask_Cowboy_Scarf",
-            "samplers" : [
-                {
-                    "input" : 6,
-                    "interpolation" : "LINEAR",
-                    "output" : 7
-                },
-                {
-                    "input" : 6,
-                    "interpolation" : "LINEAR",
-                    "output" : 8
-                },
-                {
-                    "input" : 6,
-                    "interpolation" : "LINEAR",
-                    "output" : 9
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -115,9 +70,9 @@
             "uri" : "TEX_MP_Detail_Fabric_N_A.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         }
     ],
     "accessors" : [
@@ -126,14 +81,14 @@
             "componentType" : 5126,
             "count" : 2448,
             "max" : [
-                0.5396833419799805,
+                0.5316144824028015,
                 0.26511865854263306,
-                0.565220832824707
+                0.5765579342842102
             ],
             "min" : [
-                -0.5372957587242126,
+                -0.5453646183013916,
                 -0.6158356070518494,
-                -0.5514756441116333
+                -0.5401385426521301
             ],
             "type" : "VEC3"
         },
@@ -167,36 +122,6 @@
             "componentType" : 5123,
             "count" : 5388,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 6,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 7,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 8,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 9,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -235,26 +160,6 @@
             "byteLength" : 10776,
             "byteOffset" : 117504,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 128280
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 129484
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 133096
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 137912
         }
     ],
     "samplers" : [
@@ -265,7 +170,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 141524,
+            "byteLength" : 128280,
             "uri" : "Mask_Cowboy_Scarf.bin"
         }
     ]

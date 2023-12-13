@@ -36,7 +36,7 @@ export default function SandboxPage() {
       <button className='btn btn-primary w-100 fs-18 rounded-3 mt-3' onClick={setRandomProperties}>Random</button>
     </div>
     <div className='mx-auto vh-100 w-100'>
-      <LemonScene properties={properties} debug={true} />
+      <LemonScene properties={properties} debug={false} />
     </div>
     <div className='p-4'>
       {Object.entries(c1Items).map(([propkey, options]) => {

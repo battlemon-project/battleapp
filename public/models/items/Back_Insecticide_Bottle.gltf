@@ -26,51 +26,6 @@
             "name" : "Back_Insecticide_Bottle"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Back_Insecticide_Bottle",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -215,19 +170,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -236,14 +191,14 @@
             "componentType" : 5126,
             "count" : 953,
             "max" : [
-                0.1372998207807541,
-                0.7668964862823486,
-                0.16443628072738647
+                0.13729983568191528,
+                0.7655166983604431,
+                0.21354693174362183
             ],
             "min" : [
                 -0.37804192304611206,
-                -0.4078748822212219,
-                -0.016817335039377213
+                -0.4043081998825073,
+                -0.0006720572710037231
             ],
             "type" : "VEC3"
         },
@@ -284,13 +239,13 @@
             "count" : 2199,
             "max" : [
                 0.23419824242591858,
-                0.5824371576309204,
-                0.3474319875240326
+                0.5820253491401672,
+                0.3541773557662964
             ],
             "min" : [
                 -0.43509212136268616,
-                -0.3094868063926697,
-                -0.09327731281518936
+                -0.31663963198661804,
+                -0.09917421638965607
             ],
             "type" : "VEC3"
         },
@@ -324,36 +279,6 @@
             "componentType" : 5123,
             "count" : 4326,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -428,26 +353,6 @@
             "byteLength" : 8652,
             "byteOffset" : 154812,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 163464
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 164668
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 168280
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 173096
         }
     ],
     "samplers" : [
@@ -458,7 +363,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 176708,
+            "byteLength" : 163464,
             "uri" : "Back_Insecticide_Bottle.bin"
         }
     ]

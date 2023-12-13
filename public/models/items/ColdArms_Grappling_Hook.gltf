@@ -26,51 +26,6 @@
             "name" : "ColdArms_Grappling_Hook"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "ColdArms_Grappling_Hook",
-            "samplers" : [
-                {
-                    "input" : 14,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                },
-                {
-                    "input" : 14,
-                    "interpolation" : "LINEAR",
-                    "output" : 16
-                },
-                {
-                    "input" : 14,
-                    "interpolation" : "LINEAR",
-                    "output" : 17
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -217,19 +172,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -238,14 +193,14 @@
             "componentType" : 5126,
             "count" : 732,
             "max" : [
-                0.05966915190219879,
-                0.04114925488829613,
-                0.06168350949883461
+                0.04562802612781525,
+                0.07986175268888474,
+                0.06444572657346725
             ],
             "min" : [
-                -0.05966915190219879,
-                -0.18424318730831146,
-                -0.061738889664411545
+                -0.0753583163022995,
+                -0.14553070068359375,
+                -0.05851845443248749
             ],
             "type" : "VEC3"
         },
@@ -291,14 +246,14 @@
             "componentType" : 5126,
             "count" : 756,
             "max" : [
-                0.2553560137748718,
-                0.4347347021102905,
-                0.29441335797309875
+                0.16625668108463287,
+                0.47344720363616943,
+                0.27069658041000366
             ],
             "min" : [
-                -0.2545829117298126,
-                -0.32214993238449097,
-                -0.16226312518119812
+                -0.3079509735107422,
+                -0.28343743085861206,
+                -0.23697581887245178
             ],
             "type" : "VEC3"
         },
@@ -338,36 +293,6 @@
             "componentType" : 5123,
             "count" : 1323,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 16,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 17,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -454,26 +379,6 @@
             "byteLength" : 2646,
             "byteOffset" : 97728,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 100376
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 101580
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 105192
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 110008
         }
     ],
     "samplers" : [
@@ -484,7 +389,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 113620,
+            "byteLength" : 100376,
             "uri" : "ColdArms_Grappling_Hook.bin"
         }
     ]

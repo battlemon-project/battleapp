@@ -28,7 +28,6 @@
     ],
     "materials" : [
         {
-            "doubleSided" : true,
             "extensions" : {
                 "KHR_materials_specular" : {
                     "specularColorFactor" : [
@@ -41,7 +40,7 @@
                     "ior" : 1.4500000476837158
                 }
             },
-            "name" : "MAT_Outfit_M",
+            "name" : "MAT_Outfit_M_B",
             "normalTexture" : {
                 "index" : 0,
                 "texCoord" : 1
@@ -85,10 +84,6 @@
                 }
             },
             "name" : "MAT_Outfit_Glass_B",
-            "normalTexture" : {
-                "index" : 3,
-                "texCoord" : 1
-            },
             "pbrMetallicRoughness" : {
                 "baseColorFactor" : [
                     1,
@@ -97,30 +92,13 @@
                     0.6000000238418579
                 ],
                 "baseColorTexture" : {
-                    "index" : 4
+                    "index" : 3
                 },
                 "metallicFactor" : 0,
-                "metallicRoughnessTexture" : {
-                    "extensions" : {
-                        "KHR_texture_transform" : {
-                            "offset" : [
-                                0,
-                                -2
-                            ],
-                            "scale" : [
-                                3,
-                                3
-                            ]
-                        }
-                    },
-                    "index" : 5,
-                    "texCoord" : 1
-                },
-                "roughnessFactor" : 0.30000001192092896
+                "roughnessFactor" : 0
             }
         },
         {
-            "doubleSided" : true,
             "extensions" : {
                 "KHR_materials_specular" : {
                     "specularColorFactor" : [
@@ -135,12 +113,12 @@
             },
             "name" : "MAT_Outfit_Plastic_B",
             "normalTexture" : {
-                "index" : 6,
+                "index" : 4,
                 "texCoord" : 1
             },
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
-                    "index" : 7
+                    "index" : 5
                 },
                 "metallicFactor" : 0,
                 "metallicRoughnessTexture" : {
@@ -156,7 +134,7 @@
                             ]
                         }
                     },
-                    "index" : 8,
+                    "index" : 6,
                     "texCoord" : 1
                 },
                 "roughnessFactor" : 0.5
@@ -221,15 +199,7 @@
         },
         {
             "sampler" : 0,
-            "source" : 0
-        },
-        {
-            "sampler" : 0,
-            "source" : 3
-        },
-        {
-            "sampler" : 0,
-            "source" : 2
+            "source" : 1
         },
         {
             "sampler" : 0,
@@ -237,7 +207,7 @@
         },
         {
             "sampler" : 0,
-            "source" : 3
+            "source" : 1
         },
         {
             "sampler" : 0,
@@ -246,24 +216,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
-            "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
-        },
-        {
-            "mimeType" : "image/png",
-            "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
-        },
-        {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "BTLN_TrimColor_B",
-            "uri" : "BTLN_TrimColor_B.png"
+            "uri" : "BTLN_TrimColor_B.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "TEX_MP_Roughness_A",
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [

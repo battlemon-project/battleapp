@@ -26,51 +26,6 @@
             "name" : "Belt_Skull_Belt"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Belt_Skull_Belt",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -215,19 +170,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -236,14 +191,14 @@
             "componentType" : 5126,
             "count" : 1468,
             "max" : [
-                0.12816444039344788,
-                0.10769736766815186,
-                0.39522796869277954
+                0.1204790472984314,
+                0.11113271862268448,
+                0.3825575113296509
             ],
             "min" : [
-                -0.449523389339447,
-                -0.1392824351787567,
-                -0.3816571831703186
+                -0.4572087824344635,
+                -0.1621433049440384,
+                -0.389034241437912
             ],
             "type" : "VEC3"
         },
@@ -283,14 +238,14 @@
             "componentType" : 5126,
             "count" : 2392,
             "max" : [
-                0.4118896722793579,
-                0.153524711728096,
-                0.4006136953830719
+                0.40420427918434143,
+                0.15813568234443665,
+                0.3816656470298767
             ],
             "min" : [
-                -0.453437864780426,
-                -0.14535583555698395,
-                -0.44011390209198
+                -0.4611232578754425,
+                -0.17215418815612793,
+                -0.43641397356987
             ],
             "type" : "VEC3"
         },
@@ -324,36 +279,6 @@
             "componentType" : 5123,
             "count" : 4488,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -428,26 +353,6 @@
             "byteLength" : 8976,
             "byteOffset" : 190844,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 199820
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 201024
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 204636
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 209452
         }
     ],
     "samplers" : [
@@ -458,7 +363,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 213064,
+            "byteLength" : 199820,
             "uri" : "Belt_Skull_Belt.bin"
         }
     ]

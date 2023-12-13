@@ -100,7 +100,7 @@
                     "index" : 4
                 },
                 "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "roughnessFactor" : 0.5999999642372131
             }
         },
         {
@@ -221,19 +221,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "BTLN_TrimColor_B",
-            "uri" : "BTLN_TrimColor_B.png"
+            "uri" : "BTLN_TrimColor_B.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [

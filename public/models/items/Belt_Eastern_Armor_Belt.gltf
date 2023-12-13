@@ -26,51 +26,6 @@
             "name" : "Belt_Eastern_Armor_Belt"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Belt_Eastern_Armor_Belt",
-            "samplers" : [
-                {
-                    "input" : 7,
-                    "interpolation" : "LINEAR",
-                    "output" : 8
-                },
-                {
-                    "input" : 7,
-                    "interpolation" : "LINEAR",
-                    "output" : 9
-                },
-                {
-                    "input" : 7,
-                    "interpolation" : "LINEAR",
-                    "output" : 10
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -150,19 +105,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -172,13 +127,13 @@
             "count" : 5307,
             "max" : [
                 0.39022892713546753,
-                0.11990891396999359,
-                0.32840222120285034
+                0.146682471036911,
+                0.32886984944343567
             ],
             "min" : [
-                -0.38441649079322815,
-                -0.09806597232818604,
-                -0.44870275259017944
+                -0.38441652059555054,
+                -0.10698790848255157,
+                -0.4468100965023041
             ],
             "type" : "VEC3"
         },
@@ -218,36 +173,6 @@
             "componentType" : 5123,
             "count" : 9408,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 7,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 8,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 9,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 10,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -292,26 +217,6 @@
             "byteLength" : 18816,
             "byteOffset" : 339648,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 358464
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 359668
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 363280
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 368096
         }
     ],
     "samplers" : [
@@ -322,7 +227,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 371708,
+            "byteLength" : 358464,
             "uri" : "Belt_Eastern_Armor_Belt.bin"
         }
     ]

@@ -26,51 +26,6 @@
             "name" : "FireArms_Revolver"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "FireArms_Revolver",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -215,19 +170,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -236,14 +191,14 @@
             "componentType" : 5126,
             "count" : 2306,
             "max" : [
-                0.0732506662607193,
-                0.272911012172699,
-                0.5896739363670349
+                0.09830275923013687,
+                0.2770724594593048,
+                0.5365375280380249
             ],
             "min" : [
-                -0.07386815547943115,
-                -0.19561752676963806,
-                -0.1346026211977005
+                -0.03766767680644989,
+                -0.1559518575668335,
+                -0.13285481929779053
             ],
             "type" : "VEC3"
         },
@@ -283,14 +238,14 @@
             "componentType" : 5126,
             "count" : 220,
             "max" : [
-                0.05322561040520668,
-                0.09067347645759583,
-                0.05308464914560318
+                0.07979516685009003,
+                0.1086445301771164,
+                0.04060987010598183
             ],
             "min" : [
-                -0.053843364119529724,
-                -0.19561752676963806,
-                -0.1346026211977005
+                -0.01916031911969185,
+                -0.1559518575668335,
+                -0.13285481929779053
             ],
             "type" : "VEC3"
         },
@@ -324,36 +279,6 @@
             "componentType" : 5123,
             "count" : 402,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -428,26 +353,6 @@
             "byteLength" : 804,
             "byteOffset" : 130872,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 131676
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 132880
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 136492
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 141308
         }
     ],
     "samplers" : [
@@ -458,7 +363,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 144920,
+            "byteLength" : 131676,
             "uri" : "FireArms_Revolver.bin"
         }
     ]

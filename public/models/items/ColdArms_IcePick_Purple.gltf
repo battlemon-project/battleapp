@@ -1,0 +1,368 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v3.3.27",
+        "version" : "2.0"
+    },
+    "extensionsUsed" : [
+        "KHR_materials_specular",
+        "KHR_materials_ior",
+        "KHR_texture_transform"
+    ],
+    "extensionsRequired" : [
+        "KHR_texture_transform"
+    ],
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "ColdArms_IcePick_Purple"
+        }
+    ],
+    "materials" : [
+        {
+            "extensions" : {
+                "KHR_materials_specular" : {
+                    "specularColorFactor" : [
+                        2.371357614441398,
+                        2.371357614441398,
+                        2.371357614441398
+                    ]
+                },
+                "KHR_materials_ior" : {
+                    "ior" : 1.4500000476837158
+                }
+            },
+            "name" : "MAT_Outfit_Plastic_B",
+            "normalTexture" : {
+                "index" : 0,
+                "texCoord" : 1
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 1
+                },
+                "metallicFactor" : 0,
+                "metallicRoughnessTexture" : {
+                    "extensions" : {
+                        "KHR_texture_transform" : {
+                            "offset" : [
+                                0,
+                                -2
+                            ],
+                            "scale" : [
+                                3,
+                                3
+                            ]
+                        }
+                    },
+                    "index" : 2,
+                    "texCoord" : 1
+                },
+                "roughnessFactor" : 0.5
+            }
+        },
+        {
+            "extensions" : {
+                "KHR_materials_specular" : {
+                    "specularColorFactor" : [
+                        1.3595783411134539,
+                        1.3595783411134539,
+                        1.3595783411134539
+                    ]
+                },
+                "KHR_materials_ior" : {
+                    "ior" : 1.4500000476837158
+                }
+            },
+            "name" : "MAT_Outfit_M_B",
+            "normalTexture" : {
+                "index" : 3,
+                "texCoord" : 1
+            },
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 4
+                },
+                "metallicRoughnessTexture" : {
+                    "extensions" : {
+                        "KHR_texture_transform" : {
+                            "offset" : [
+                                0,
+                                -2
+                            ],
+                            "scale" : [
+                                3,
+                                3
+                            ]
+                        }
+                    },
+                    "index" : 5,
+                    "texCoord" : 1
+                },
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Cylinder.019",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2,
+                        "TEXCOORD_1" : 3,
+                        "COLOR_0" : 4
+                    },
+                    "indices" : 5,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 6,
+                        "NORMAL" : 7,
+                        "TEXCOORD_0" : 8,
+                        "TEXCOORD_1" : 9,
+                        "COLOR_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 1
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        },
+        {
+            "sampler" : 0,
+            "source" : 0
+        },
+        {
+            "sampler" : 0,
+            "source" : 1
+        },
+        {
+            "sampler" : 0,
+            "source" : 2
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "TEX_Trim_A_N",
+            "uri" : "TEX_Trim_A_N.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "BTLN_TrimColor_B",
+            "uri" : "BTLN_TrimColor_B.jpg"
+        },
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "TEX_MP_Roughness_A",
+            "uri" : "TEX_MP_Roughness_A.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 297,
+            "max" : [
+                0.0698992982506752,
+                0.5273939371109009,
+                0.08117160201072693
+            ],
+            "min" : [
+                -0.052755337208509445,
+                -0.5922929644584656,
+                -0.08121069520711899
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 297,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 297,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5126,
+            "count" : 297,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5123,
+            "count" : 297,
+            "normalized" : true,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5123,
+            "count" : 606,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 624,
+            "max" : [
+                0.0936160534620285,
+                0.5152041912078857,
+                0.39355748891830444
+            ],
+            "min" : [
+                -0.07631860673427582,
+                0.2000649869441986,
+                -0.2925330400466919
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 624,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 624,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 624,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5123,
+            "count" : 624,
+            "normalized" : true,
+            "type" : "VEC4"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 1491,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 3564,
+            "byteOffset" : 0,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3564,
+            "byteOffset" : 3564,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2376,
+            "byteOffset" : 7128,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2376,
+            "byteOffset" : 9504,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2376,
+            "byteOffset" : 11880,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1212,
+            "byteOffset" : 14256,
+            "target" : 34963
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 7488,
+            "byteOffset" : 15468,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 7488,
+            "byteOffset" : 22956,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4992,
+            "byteOffset" : 30444,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4992,
+            "byteOffset" : 35436,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4992,
+            "byteOffset" : 40428,
+            "target" : 34962
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2982,
+            "byteOffset" : 45420,
+            "target" : 34963
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 48404,
+            "uri" : "ColdArms_IcePick_Purple.bin"
+        }
+    ]
+}

@@ -52,7 +52,7 @@ export default function LemonScene({ properties, isPaused, preloadItems, setProp
 
     scene.clearColor = new Color4(0, 0, 0, 0);
     const hdrTexture = CubeTexture.CreateFromPrefilteredData(
-      (process.env.NEXT_PUBLIC_ASSETS || '') + `/models/lemon/environmentSpecular.env`,
+      (process.env.NEXT_PUBLIC_ASSETS || '') + `/models/index/environmentSpecular.env`,
       scene
     );
     scene.environmentTexture = hdrTexture;

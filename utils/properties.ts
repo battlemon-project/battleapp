@@ -204,7 +204,11 @@ export const c1Items: PropertiesList = {
     'Glasses_Visor_AR',    
   ],
   mask: [
-    'Mask_Cowboy_Scarf'
+    'Mask_Cowboy_Scarf',
+    'Mask_Wrestler_Red',
+    'Mask_Wrestler_Green',
+    'Mask_Wrestler_Orange',
+    'Mask_Wrestler_Blue',
   ],
   fire_arms: [
     'FireArms_Sniper_Rifle',
@@ -224,6 +228,7 @@ export const c1Items: PropertiesList = {
     'Shoes_Kicks_Green',    
   ],
   platform: [
+    'Pod_Round_A',
     'Pod_SkateBoard_B',
     'Pod_SkateBoard_A',    
   ]
@@ -452,6 +457,7 @@ export const betterName = (name: string) => {
     Scar_Tatoo_02: 'Rupture',
     Scar_Tatoo_03: 'Star',
     Scar_Tatoo_04: 'Raven',
+    Pod_Round_A: 'Plate',
     Pod_SkateBoard_B: 'Hoverboard',
     Pod_SkateBoard_A: 'Hoverboat',    
     FireArms_Assault_Rifle_A: 'Assault Rifle',

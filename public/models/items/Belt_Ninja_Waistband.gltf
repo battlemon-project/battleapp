@@ -26,51 +26,6 @@
             "name" : "Belt_Ninja_Waistband"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Belt_Ninja_Waistband",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -188,19 +143,19 @@
             "uri" : "TEX_MP_Detail_Fabric_N_A.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -210,13 +165,13 @@
             "count" : 1358,
             "max" : [
                 0.4104817509651184,
-                0.1221635639667511,
-                0.3943783938884735
+                0.14784175157546997,
+                0.39738643169403076
             ],
             "min" : [
                 -0.397379994392395,
-                -0.4013327956199646,
-                -0.452899694442749
+                -0.4157077372074127,
+                -0.44081413745880127
             ],
             "type" : "VEC3"
         },
@@ -257,13 +212,13 @@
             "count" : 651,
             "max" : [
                 -0.15568464994430542,
-                0.13488972187042236,
-                0.38153916597366333
+                0.12288740277290344,
+                0.39224451780319214
             ],
             "min" : [
-                -0.4552476108074188,
-                -0.2091873586177826,
-                0.02629154920578003
+                -0.45524758100509644,
+                -0.21881815791130066,
+                0.03282909095287323
             ],
             "type" : "VEC3"
         },
@@ -297,36 +252,6 @@
             "componentType" : 5123,
             "count" : 1068,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -401,26 +326,6 @@
             "byteLength" : 2136,
             "byteOffset" : 101288,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 103424
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 104628
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 108240
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 113056
         }
     ],
     "samplers" : [
@@ -431,7 +336,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 116668,
+            "byteLength" : 103424,
             "uri" : "Belt_Ninja_Waistband.bin"
         }
     ]

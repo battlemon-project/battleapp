@@ -26,51 +26,6 @@
             "name" : "FireArms_Handgun_SMG"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "FireArms_Handgun_SMG",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -215,19 +170,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -236,13 +191,13 @@
             "componentType" : 5126,
             "count" : 1474,
             "max" : [
-                0.10522501915693283,
-                0.2682943046092987,
+                0.13001714646816254,
+                0.31664836406707764,
                 0.4749593436717987
             ],
             "min" : [
-                -0.08898836374282837,
-                -0.4879954755306244,
+                -0.06419624388217926,
+                -0.43964141607284546,
                 -0.26816296577453613
             ],
             "type" : "VEC3"
@@ -283,13 +238,13 @@
             "componentType" : 5126,
             "count" : 1745,
             "max" : [
-                0.0958976075053215,
-                0.23928922414779663,
+                0.12068973481655121,
+                0.28764328360557556,
                 0.355057954788208
             ],
             "min" : [
-                -0.08058986812829971,
-                -0.2819485068321228,
+                -0.055797744542360306,
+                -0.23359446227550507,
                 -0.30268925428390503
             ],
             "type" : "VEC3"
@@ -324,36 +279,6 @@
             "componentType" : 5123,
             "count" : 4143,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -428,26 +353,6 @@
             "byteLength" : 8286,
             "byteOffset" : 161268,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 169556
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 170760
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 174372
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 179188
         }
     ],
     "samplers" : [
@@ -458,7 +363,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 182800,
+            "byteLength" : 169556,
             "uri" : "FireArms_Handgun_SMG.bin"
         }
     ]

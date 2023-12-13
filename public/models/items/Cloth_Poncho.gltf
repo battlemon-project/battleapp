@@ -23,51 +23,11 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "Cloth_Poncho"
-        }
-    ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
             "name" : "Cloth_Poncho",
-            "samplers" : [
-                {
-                    "input" : 14,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                },
-                {
-                    "input" : 14,
-                    "interpolation" : "LINEAR",
-                    "output" : 16
-                },
-                {
-                    "input" : 14,
-                    "interpolation" : "LINEAR",
-                    "output" : 17
-                }
+            "translation" : [
+                0.0066814906895160675,
+                0,
+                -0.005137618165463209
             ]
         }
     ],
@@ -191,19 +151,19 @@
             "uri" : "TEX_MP_Detail_Fabric_N_A.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -312,36 +272,6 @@
             "componentType" : 5123,
             "count" : 1581,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 16,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 17,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -428,26 +358,6 @@
             "byteLength" : 3162,
             "byteOffset" : 178352,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 181516
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 182720
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 186332
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 191148
         }
     ],
     "samplers" : [
@@ -458,7 +368,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 194760,
+            "byteLength" : 181516,
             "uri" : "Cloth_Poncho.bin"
         }
     ]

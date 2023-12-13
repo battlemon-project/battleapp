@@ -26,51 +26,6 @@
             "name" : "FireArms_Assault_Rifle_A"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "FireArms_Assault_Rifle_A",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -215,19 +170,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -236,14 +191,14 @@
             "componentType" : 5126,
             "count" : 2089,
             "max" : [
-                0.10552264750003815,
-                0.24902522563934326,
-                0.7142342925071716
+                0.14087876677513123,
+                0.3050871193408966,
+                0.7258102297782898
             ],
             "min" : [
-                -0.10755645483732224,
-                -0.3053358197212219,
-                -0.28248366713523865
+                -0.07220034301280975,
+                -0.24927392601966858,
+                -0.2709077298641205
             ],
             "type" : "VEC3"
         },
@@ -283,14 +238,14 @@
             "componentType" : 5126,
             "count" : 2675,
             "max" : [
-                0.12086772918701172,
-                0.36060231924057007,
-                0.8905671834945679
+                0.1562238335609436,
+                0.4166642129421234,
+                0.902143120765686
             ],
             "min" : [
-                -0.10127028822898865,
-                -0.089142806828022,
-                -0.16838039457798004
+                -0.06591417640447617,
+                -0.03308090567588806,
+                -0.15680445730686188
             ],
             "type" : "VEC3"
         },
@@ -324,36 +279,6 @@
             "componentType" : 5123,
             "count" : 4872,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -428,26 +353,6 @@
             "byteLength" : 9744,
             "byteOffset" : 237044,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 246788
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 247992
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 251604
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 256420
         }
     ],
     "samplers" : [
@@ -458,7 +363,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 260032,
+            "byteLength" : 246788,
             "uri" : "FireArms_Assault_Rifle_A.bin"
         }
     ]

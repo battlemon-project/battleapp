@@ -26,51 +26,6 @@
             "name" : "FireArms_Sniper_Rifle"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "FireArms_Sniper_Rifle",
-            "samplers" : [
-                {
-                    "input" : 18,
-                    "interpolation" : "LINEAR",
-                    "output" : 19
-                },
-                {
-                    "input" : 18,
-                    "interpolation" : "LINEAR",
-                    "output" : 20
-                },
-                {
-                    "input" : 18,
-                    "interpolation" : "LINEAR",
-                    "output" : 21
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -281,19 +236,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -302,14 +257,14 @@
             "componentType" : 5126,
             "count" : 1181,
             "max" : [
-                0.10526761412620544,
-                0.4012071490287781,
-                0.9549338221549988
+                0.13853105902671814,
+                0.45294347405433655,
+                0.9743703603744507
             ],
             "min" : [
-                -0.14005473256111145,
-                -0.09520424902439117,
-                -0.1478215605020523
+                -0.10679128021001816,
+                -0.0434679314494133,
+                -0.1283850073814392
             ],
             "type" : "VEC3"
         },
@@ -349,14 +304,14 @@
             "componentType" : 5126,
             "count" : 2015,
             "max" : [
-                0.09257985651493073,
-                0.3832119107246399,
-                0.6169690489768982
+                0.12584331631660461,
+                0.43494823575019836,
+                0.6364055871963501
             ],
             "min" : [
-                -0.0924999937415123,
-                -0.26266491413116455,
-                -0.30742040276527405
+                -0.059236541390419006,
+                -0.21092858910560608,
+                -0.28798386454582214
             ],
             "type" : "VEC3"
         },
@@ -396,14 +351,14 @@
             "componentType" : 5126,
             "count" : 122,
             "max" : [
-                0.08134778589010239,
-                0.3719896078109741,
-                0.5692547559738159
+                0.11461123824119568,
+                0.4237259328365326,
+                0.5886912941932678
             ],
             "min" : [
-                -0.0812668576836586,
-                0.2093750387430191,
-                -0.05030156299471855
+                -0.04800340533256531,
+                0.2611113488674164,
+                -0.0308650191873312
             ],
             "type" : "VEC3"
         },
@@ -437,36 +392,6 @@
             "componentType" : 5123,
             "count" : 348,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 18,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 19,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 20,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 21,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -577,26 +502,6 @@
             "byteLength" : 696,
             "byteOffset" : 173864,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 174560
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 175764
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 179376
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 184192
         }
     ],
     "samplers" : [
@@ -607,7 +512,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 187804,
+            "byteLength" : 174560,
             "uri" : "FireArms_Sniper_Rifle.bin"
         }
     ]

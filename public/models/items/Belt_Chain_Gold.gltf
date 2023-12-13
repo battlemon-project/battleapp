@@ -26,51 +26,6 @@
             "name" : "Belt_Chain_Gold"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Belt_Chain_Gold",
-            "samplers" : [
-                {
-                    "input" : 7,
-                    "interpolation" : "LINEAR",
-                    "output" : 8
-                },
-                {
-                    "input" : 7,
-                    "interpolation" : "LINEAR",
-                    "output" : 9
-                },
-                {
-                    "input" : 7,
-                    "interpolation" : "LINEAR",
-                    "output" : 10
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
             "doubleSided" : true,
@@ -150,19 +105,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "uri" : "TEX_Outfit_AA.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -172,13 +127,13 @@
             "count" : 3588,
             "max" : [
                 0.439084529876709,
-                0.15273259580135345,
-                0.40464892983436584
+                0.15540853142738342,
+                0.4068974554538727
             ],
             "min" : [
                 -0.4442617893218994,
-                -0.3170340359210968,
-                -0.5033603310585022
+                -0.3361149728298187,
+                -0.4975116550922394
             ],
             "type" : "VEC3"
         },
@@ -218,36 +173,6 @@
             "componentType" : 5123,
             "count" : 6240,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 7,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 8,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 9,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 10,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -292,26 +217,6 @@
             "byteLength" : 12480,
             "byteOffset" : 229632,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 242112
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 243316
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 246928
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 251744
         }
     ],
     "samplers" : [
@@ -322,7 +227,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 255356,
+            "byteLength" : 242112,
             "uri" : "Belt_Chain_Gold.bin"
         }
     ]

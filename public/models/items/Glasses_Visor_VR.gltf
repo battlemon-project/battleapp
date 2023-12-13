@@ -27,54 +27,8 @@
             "name" : "Glasses_Visor_VR"
         }
     ],
-    "animations" : [
-        {
-            "channels" : [
-                {
-                    "sampler" : 0,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "translation"
-                    }
-                },
-                {
-                    "sampler" : 1,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "rotation"
-                    }
-                },
-                {
-                    "sampler" : 2,
-                    "target" : {
-                        "node" : 0,
-                        "path" : "scale"
-                    }
-                }
-            ],
-            "name" : "Glasses_Visor_VR",
-            "samplers" : [
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 13
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 14
-                },
-                {
-                    "input" : 12,
-                    "interpolation" : "LINEAR",
-                    "output" : 15
-                }
-            ]
-        }
-    ],
     "materials" : [
         {
-            "doubleSided" : true,
             "extensions" : {
                 "KHR_materials_specular" : {
                     "specularColorFactor" : [
@@ -87,7 +41,7 @@
                     "ior" : 1.4500000476837158
                 }
             },
-            "name" : "MAT_Outfit_Metal_A",
+            "name" : "MAT_Outfit_M_B",
             "normalTexture" : {
                 "index" : 0,
                 "texCoord" : 1
@@ -193,19 +147,19 @@
     ],
     "images" : [
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_Trim_A_N",
-            "uri" : "TEX_Trim_A_N.png"
+            "uri" : "TEX_Trim_A_N.jpg"
         },
         {
-            "mimeType" : "image/png",
-            "name" : "TEX_Outfit_AA",
-            "uri" : "TEX_Outfit_AA.png"
+            "mimeType" : "image/jpeg",
+            "name" : "BTLN_TrimColor_B",
+            "uri" : "BTLN_TrimColor_B.jpg"
         },
         {
-            "mimeType" : "image/png",
+            "mimeType" : "image/jpeg",
             "name" : "TEX_MP_Roughness_A",
-            "uri" : "TEX_MP_Roughness_A.png"
+            "uri" : "TEX_MP_Roughness_A.jpg"
         }
     ],
     "accessors" : [
@@ -214,14 +168,14 @@
             "componentType" : 5126,
             "count" : 1346,
             "max" : [
-                0.5278831124305725,
-                0.27271178364753723,
-                0.6357749700546265
+                0.5446561574935913,
+                0.2030322253704071,
+                0.6124933958053589
             ],
             "min" : [
-                -0.5255265235900879,
-                -0.29995566606521606,
-                -0.2898440361022949
+                -0.5410515069961548,
+                -0.3873446583747864,
+                -0.3417023718357086
             ],
             "type" : "VEC3"
         },
@@ -261,14 +215,14 @@
             "componentType" : 5126,
             "count" : 61,
             "max" : [
-                0.36349719762802124,
-                0.09455418586730957,
-                0.6039831638336182
+                0.37329280376434326,
+                0.019580479711294174,
+                0.5797725915908813
             ],
             "min" : [
-                -0.361140638589859,
-                0.02276952564716339,
-                0.45725637674331665
+                -0.37253570556640625,
+                -0.054988618940114975,
+                0.4275861084461212
             ],
             "type" : "VEC3"
         },
@@ -302,36 +256,6 @@
             "componentType" : 5123,
             "count" : 144,
             "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 12,
-            "componentType" : 5126,
-            "count" : 301,
-            "max" : [
-                12.5
-            ],
-            "min" : [
-                0
-            ],
-            "type" : "SCALAR"
-        },
-        {
-            "bufferView" : 13,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
-        },
-        {
-            "bufferView" : 14,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC4"
-        },
-        {
-            "bufferView" : 15,
-            "componentType" : 5126,
-            "count" : 301,
-            "type" : "VEC3"
         }
     ],
     "bufferViews" : [
@@ -406,26 +330,6 @@
             "byteLength" : 288,
             "byteOffset" : 73848,
             "target" : 34963
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 1204,
-            "byteOffset" : 74136
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 75340
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 4816,
-            "byteOffset" : 78952
-        },
-        {
-            "buffer" : 0,
-            "byteLength" : 3612,
-            "byteOffset" : 83768
         }
     ],
     "samplers" : [
@@ -436,7 +340,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 87380,
+            "byteLength" : 74136,
             "uri" : "Glasses_Visor_VR.bin"
         }
     ]
