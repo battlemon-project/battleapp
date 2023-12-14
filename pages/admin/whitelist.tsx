@@ -16,12 +16,9 @@ export default function Whitelist() {
     addToWhitelist?.write()
   }
 
-  function update(index: number, event: React.ChangeEvent<HTMLInputElement>) {
-    const newAddresses = [...addresses];
-    if (newAddresses[index]) {
-      newAddresses[index] = event.target.value as `0x${string}`
-    }
-    setAddresses(newAddresses);
+  function update(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    const newAddresses = event.target.value.split(/\n/) as `0x${string}`[]
+    setAddresses(newAddresses.map(x => x.trim() as `0x${string}`).filter(x => x && x.length == 42));
   }
 
   return (<>
@@ -29,20 +26,13 @@ export default function Whitelist() {
       <title>Whitelist</title>
     </Head>
     <Layout>
-      <div className="container">
-        {addresses.map((address, index) => {
-          return (
-            <input
-              key={index + address}
+      <button className='btn btn-success mt-5' onClick={handleAddButton}>Add to whitelist {addresses?.length || 0} adresses</button>
+      <div className="container mx-auto" style={{maxWidth: '800px'}}>
+      <textarea style={{height: '1000px'}}
               className='form-control w-100 my-1'
-              type="text"
-              value={address}
-              onChange={event => update(index, event)}
+              value={addresses.join('\n')}
+              onChange={event => update(event)}
             />
-          );
-        })}
-        <button className='btn btn-info' onClick={() => setAddresses([...addresses, '0x'])}>Add new</button> &nbsp;
-        <button className='btn btn-success' onClick={handleAddButton}>Add to whitelist</button>
       </div>
     </Layout>
   </>);
