@@ -7,8 +7,12 @@ export default function Claim() {
       <title>Battlemon Claim</title>
     </Head>
     <Layout>
-      <div className="container">
-        <h1 className="text-center">CLAIM</h1>
+      <div className="container text-center">
+        <h4>Claim is coming soon...</h4>
+        <p className="lead mt-3">
+          Here you can exchange a level 10 gem for a limited Genesis collection Alpha Lemon.<br />
+          Total supply 33333.
+        </p>
       </div>
     </Layout>
   </>);

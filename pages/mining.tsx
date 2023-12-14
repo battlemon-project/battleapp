@@ -7,8 +7,12 @@ export default function Mining() {
       <title>Battlemon Mining</title>
     </Head>
     <Layout>
-      <div className="container">
-        <h1 className="text-center">MINING</h1>
+      <div className="container text-center">
+        <h4>Mining is coming soon...</h4>
+        <p className="lead mt-3">
+          Here you can mine gems from the mine.<br />
+          A pickaxe is needed for mining.
+        </p>
       </div>
     </Layout>
   </>);

@@ -1,14 +1,31 @@
-import { useLemonChangeEquipmentBatch } from './generated';
+import { useLemonChangeEquipmentBatch, lemonABI } from './generated';
 import { useEffect, useState } from 'react';
-import { useAccount, useWaitForTransaction, useFeeData } from 'wagmi';
+import { useAccount, useWaitForTransaction, usePublicClient, useFeeData } from 'wagmi';
 import { toast } from 'react-toastify';
 
 export function useLemonEquipment(lemonId: number, items: number[]) {
+  const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle' | 'process'>('idle')
   const { address }  = useAccount();
-  
   const fee = useFeeData()
-  const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
+  
+  const estimateGas = async () => {
+    const gas = await publicClient.estimateContractGas({
+      address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+      abi: lemonABI,
+      functionName: 'changeEquipmentBatch',
+      args: [
+        BigInt(lemonId),
+        items.map(i => BigInt(i))
+      ],
+      account: address as '0x',
+    })
+    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
+    return {
+      gas,
+      gasPrice
+    }
+  }
 
   if (items.length < 10) {
     items.push(-1)
@@ -20,7 +37,6 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
       BigInt(lemonId),
       items.map(i => BigInt(i))
     ],
-    gasPrice: gasPrice,
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
@@ -50,6 +66,7 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   }, [changeEquipmentResult])
 
   return {
+    estimateGas: estimateGas,
     changeEquipment: changeEquipment?.write || (() => {}),
     changeEquipmentStatus: status
   };

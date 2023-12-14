@@ -27,7 +27,7 @@ export default function ConfirmEquipment({ lemon, items, disabled, refreshItems 
     }
   })
   
-  const { changeEquipment, changeEquipmentStatus } = useLemonEquipment(lemon.tokenId, itemsIds)
+  const { changeEquipment, changeEquipmentStatus, estimateGas } = useLemonEquipment(lemon.tokenId, itemsIds)
 
   useEffect(() => {
     if (changeEquipmentStatus == 'success') {
@@ -42,8 +42,13 @@ export default function ConfirmEquipment({ lemon, items, disabled, refreshItems 
     }
   }, [changeEquipmentStatus])
 
+  const hangleChangeEquipment = async () => {
+    const { gas, gasPrice } = await estimateGas();
+    changeEquipment({ gas, gasPrice })
+  }
+
   return (<>
-    <button className={cn('btn btn-lg btn-primary fs-13 text-uppercase w-100', { disabled: disabled || changeEquipmentStatus == 'loading'})} onClick={() => changeEquipment()}>
+    <button className={cn('btn btn-lg btn-primary fs-13 text-uppercase w-100', { disabled: disabled || changeEquipmentStatus == 'loading'})} onClick={hangleChangeEquipment}>
       &nbsp;{ changeEquipmentStatus == 'loading' ? 
         <div className="spinner-border spinner-border-sm position-absolute" role="status" style={{margin: '-2px 0 0 -8px'}}></div> :
         <>Confirm Undress {false && JSON.stringify(itemsIds)}</>

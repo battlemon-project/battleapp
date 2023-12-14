@@ -9,7 +9,7 @@ import PolSymbol from 'components/layout/PolSymbol';
 
 export default function BuyItemPage() {
   const [ count, setCount ] = useState<number>(1)
-  const { itemMint, itemMintStatus } = useItemMint(count);
+  const { itemMint, itemMintStatus, estimateGas } = useItemMint(count);
   const { balance, refreshBalance } = useItemBalance();
 
   useEffect(() => {
@@ -17,6 +17,11 @@ export default function BuyItemPage() {
       refreshBalance?.();
     }
   }, [itemMintStatus])
+
+  const handleItemMint = async () => {
+    const { gas, gasPrice } = await estimateGas()
+    itemMint({ gas, gasPrice })
+  }
 
   return (
     <div className="container py-3 mb-auto">
@@ -53,7 +58,7 @@ export default function BuyItemPage() {
             <button className={cn('btn btn-lg btn-outline-light py-1', { disabled: count < 2 })} onClick={() => setCount(count - 1)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16"><path d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/></svg>
             </button>
-            <button className={cn('d-flex justify-content-center mx-2', styles.buyBtn)} onClick={() => itemMint()}>
+            <button className={cn('d-flex justify-content-center mx-2', styles.buyBtn)} onClick={handleItemMint}>
               { itemMintStatus == 'loading' ? 
                 <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
                 <div className='d-flex'>

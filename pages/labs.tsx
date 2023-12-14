@@ -7,8 +7,9 @@ export default function Labs() {
       <title>Battlemon Labs</title>
     </Head>
     <Layout>
-      <div className="container">
-        <h1 className="text-center">LABS</h1>
+      <div className="container text-center">
+        <h4>Labs is coming soon...</h4>
+        <p className="lead mt-3">Here you can merge your gems, which are needed to level up NFTs.</p>
       </div>
     </Layout>
   </>);
