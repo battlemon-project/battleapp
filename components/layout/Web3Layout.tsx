@@ -33,17 +33,6 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
     <main className={cn('position-relative min-vh-100 d-flex flex-column', roboto.className)}>
       <Header hideDesktopMenu={hideDesktopMenu} fixedTop={fixedTop} />
 
-      {isMounted && Date.now() < 1702583163000 && !router.pathname.includes('/hub') && <div style={{position: 'absolute', top: '58px', left: '50%', transform: 'translateX(-50%)'}}>
-        {!!whitelist?.[1] && <Link href="/shop" className="alert alert-success text-center d-block" style={{color: '#fff', fontSize: '18px', background: '#ae00cc'}}>
-          You are in Whitelist, you can mint {whitelist?.[0]} Battlemons<br />
-          {!router.pathname.includes('/shop') && <u>You can go to Shop</u>}
-        </Link>}
-        {!whitelist?.[1] && <div className="alert alert-danger text-center">
-          You are NOT IN Whitelist, you can mint Lemon after <Timer deadline={1702583163000} />,<br />
-          {!router.pathname.includes('/shop') && <span>but now you can mint Item in the <Link href="/shop/item">Shop</Link></span>}
-        </div>}
-      </div>}
-
       <div className="flex-fill d-flex flex-column justify-content-center align-items-center">
         {(() => {
           if (isMounted && (alwaysVisible || (isSignedIn && isSupportedChain))) {
