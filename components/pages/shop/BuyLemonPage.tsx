@@ -6,6 +6,7 @@ import { truncate } from 'utils/misc';
 import { useLemonBalance } from 'hooks/useLemonBalance';
 import { useEffect, useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
+import { toast } from 'react-toastify';
 
 export default function BuyLemonPage() {
   const [ count, setCount ] = useState<number>(1)
@@ -19,8 +20,15 @@ export default function BuyLemonPage() {
   }, [lemonMintStatus])
 
   const handleLemonMint = async () => {
-    const { gas, gasPrice } = await estimateGas()
-    lemonMint({ gas, gasPrice })
+    estimateGas().then(({ gas, gasPrice }) => {
+      lemonMint({ gas, gasPrice })
+    }).catch(e => {
+      let message = (e as any).message;
+      message = message.split('Raw Call Arguments')[0];
+      message = message.split('Request Arguments')[0];
+      message = message.split('Contract Call')[0];
+      toast.error(message)
+    })
   }
 
   return (

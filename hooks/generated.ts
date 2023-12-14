@@ -226,7 +226,7 @@ export const itemABI = [
     type: 'function',
     inputs: [],
     name: 'ITEM_PRICE',
-    outputs: [{ name: '', internalType: 'uint56', type: 'uint56' }],
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'view',
@@ -340,6 +340,7 @@ export const itemABI = [
     inputs: [
       { name: 'name', internalType: 'string', type: 'string' },
       { name: 'symbol', internalType: 'string', type: 'string' },
+      { name: 'tresuary_', internalType: 'address', type: 'address' },
     ],
     name: 'initialize',
     outputs: [],
@@ -595,6 +596,13 @@ export const itemABI = [
     outputs: [],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'tresuary',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -830,7 +838,7 @@ export const lemonABI = [
     type: 'function',
     inputs: [],
     name: 'LEMON_PRICE',
-    outputs: [{ name: '', internalType: 'uint56', type: 'uint56' }],
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'view',
@@ -983,7 +991,7 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: 'tresuary_', internalType: 'address', type: 'address' }],
     name: 'initialize',
     outputs: [],
   },
@@ -1127,6 +1135,13 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newURI', internalType: 'string', type: 'string' }],
+    name: 'setBaseURI',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_box', internalType: 'address', type: 'address' }],
     name: 'setBoxAddress',
     outputs: [],
@@ -1221,6 +1236,13 @@ export const lemonABI = [
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'tresuary',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
@@ -1697,6 +1719,25 @@ export function useItemTotalSupply<
   return useContractRead({
     abi: itemABI,
     functionName: 'totalSupply',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"tresuary"`.
+ */
+export function useItemTresuary<
+  TFunctionName extends 'tresuary',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'tresuary',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -3489,6 +3530,25 @@ export function useLemonTotalUniqueSupply<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"tresuary"`.
+ */
+export function useLemonTresuary<
+  TFunctionName extends 'tresuary',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'tresuary',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"whitelist"`.
  */
 export function useLemonWhitelist<
@@ -3864,6 +3924,31 @@ export function useLemonSetApprovalForAll<
   return useContractWrite<typeof lemonABI, 'setApprovalForAll', TMode>({
     abi: lemonABI,
     functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function useLemonSetBaseUri<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'setBaseURI'
+        >['request']['abi'],
+        'setBaseURI',
+        TMode
+      > & { functionName?: 'setBaseURI' }
+    : UseContractWriteConfig<typeof lemonABI, 'setBaseURI', TMode> & {
+        abi?: never
+        functionName?: 'setBaseURI'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'setBaseURI', TMode>({
+    abi: lemonABI,
+    functionName: 'setBaseURI',
     ...config,
   } as any)
 }
@@ -4249,6 +4334,22 @@ export function usePrepareLemonSetApprovalForAll(
     functionName: 'setApprovalForAll',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function usePrepareLemonSetBaseUri(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'setBaseURI'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setBaseURI'>)
 }
 
 /**

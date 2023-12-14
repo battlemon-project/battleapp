@@ -5,7 +5,7 @@ import PolSymbol from 'components/layout/PolSymbol';
 
 export default function ShopPage() {
   return (
-    <div className="container py-3">
+    <div className="container py-3 mb-5" style={{maxWidth: '992px'}}>
       <div className={`p-4 rounded-5 ${styles.marketBg}`}>
         <div className={cn('d-flex mb-4', styles.marketBtnsRow)}>
           <div className="col-6 d-flex">
@@ -15,10 +15,9 @@ export default function ShopPage() {
             <button className={cn(styles.marketBtn)}>MARKETPLACE <sup className='fs-11'>COMING SOON</sup></button>
           </div>
         </div>
-        <img className="position-relative rounded-4 img-fluid w-100" src="/images/shop/marketplace-frame.png" />
 
         <div className="row mt-4">
-          <Link href='/shop/lemon' className="col-12 col-sm-6 col-xl-3 col-lg-4 d-flex mb-4">
+          <Link href='/shop/lemon' className="col-12 col-sm-6 d-flex mb-4">
             <div className={cn('flex-fill d-flex flex-column justify-content-between', styles.marketPlate, styles.marketPlateLemons)}>
               <span className='fs-14'><PolSymbol>{process.env.NEXT_PUBLIC_MINT_LEMONS_PRICE} MATIC</PolSymbol></span>
               <div>
@@ -27,7 +26,7 @@ export default function ShopPage() {
               </div>
             </div>
           </Link>
-          <Link href='/shop/item' className="col-12 col-sm-6 col-xl-3 col-lg-4 d-flex mb-4">
+          <Link href='/shop/item' className="col-12 col-sm-6 d-flex mb-4">
             <div className={cn('flex-fill d-flex flex-column justify-content-between', styles.marketPlate, styles.marketPlateItems)}>
               <span className='fs-14'><PolSymbol>{process.env.NEXT_PUBLIC_MINT_ITEMS_PRICE} MATIC</PolSymbol></span>
               <div>
@@ -36,7 +35,7 @@ export default function ShopPage() {
               </div>
             </div>
           </Link>
-          <div className="col-12 col-sm-6 col-xl-3 col-lg-4 d-flex mb-4 opacity-25">
+          <div className="col-12 col-sm-6 d-flex mb-4 opacity-25">
             <div className={cn('flex-fill d-flex flex-column justify-content-end', styles.marketPlate, styles.marketPlateChests)}>
               <div>
                 <div className='fs-14 fw-semi fst-italic'>COMING SOON</div>
@@ -45,7 +44,7 @@ export default function ShopPage() {
               </div>
             </div>
           </div>
-          <div className="col-12 col-sm-6 col-xl-3 col-lg-4 d-flex mb-4 opacity-25">
+          <div className="col-12 col-sm-6 d-flex mb-4 opacity-25">
             <div className={cn('flex-fill d-flex flex-column justify-content-end', styles.marketPlate, styles.marketPlateKeys)}>
               <div>
                 <div className='fs-14 fw-semi fst-italic'>COMING SOON</div>

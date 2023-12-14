@@ -45,9 +45,6 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
 
       <div className="flex-fill d-flex flex-column justify-content-center align-items-center">
         {(() => {
-          if (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'false' && router.pathname !== '/') {
-            return isMounted && <span className="fs-18">Battlemon will fly after <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} /></span>
-          }
           if (isMounted && (alwaysVisible || (isSignedIn && isSupportedChain))) {
             return children
           } else if (isSignedIn && !isSupportedChain) {

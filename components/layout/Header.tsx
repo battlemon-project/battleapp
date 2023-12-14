@@ -17,21 +17,7 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
         </Link>
         
         <div className="order-lg-2 navbar-connectbutton">
-          {process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'false' ? <>
-            {mounted && <>
-              { router.pathname == '/' ? <>
-                <button className='btn btn-light fs-16' style={{width: '125px', color: '#000', lineHeight: '24px'}}>
-                  <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} />
-                </button>
-              </> : <>
-                <button className='btn btn-outline-light fs-16' style={{width: '125px', lineHeight: '24px'}}>
-                  <Timer deadline={"Dec 14 2023 13:00:00 GMT+0100"} />
-                </button>
-              </>}
-            </>}
-          </> : <>
-            <ConnectButton accountStatus={'address'} showBalance={false}/>
-          </>}
+          <ConnectButton accountStatus={'address'} showBalance={false}/>
         </div>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

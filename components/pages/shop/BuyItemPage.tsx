@@ -6,6 +6,7 @@ import { useItemMint } from 'hooks/useItemMint';
 import { useItemBalance } from 'hooks/useItemBalance';
 import { useEffect, useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
+import { toast } from 'react-toastify';
 
 export default function BuyItemPage() {
   const [ count, setCount ] = useState<number>(1)
@@ -19,9 +20,17 @@ export default function BuyItemPage() {
   }, [itemMintStatus])
 
   const handleItemMint = async () => {
-    const { gas, gasPrice } = await estimateGas()
-    itemMint({ gas, gasPrice })
+    estimateGas().then(({ gas, gasPrice }) => {
+      itemMint({ gas, gasPrice })
+    }).catch(e => {
+      let message = (e as any).message;
+      message = message.split('Raw Call Arguments')[0];
+      message = message.split('Request Arguments')[0];
+      message = message.split('Contract Call')[0];
+      toast.error(message)
+    })
   }
+
 
   return (
     <div className="container py-3 mb-auto">
