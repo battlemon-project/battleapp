@@ -18,7 +18,6 @@ import {
   walletConnectWallet,
   metaMaskWallet,
   trustWallet,
-  ledgerWallet,
   coinbaseWallet,
   okxWallet,
   bitgetWallet
@@ -75,8 +74,7 @@ const connectors = connectorsForWallets([
       coinbaseWallet({ appName: 'App', chains }),
       okxWallet({ projectId, chains }),
       bitgetWallet({ projectId, chains }),
-      trustWallet({ projectId, chains }),
-      ledgerWallet({ projectId, chains }),
+      trustWallet({ projectId, chains })
     ],
   },
 ]);
