@@ -2,12 +2,9 @@ import cn from 'classnames'
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import Timer from './Timer';
-import { useIsMounted } from 'hooks/useIsMounted';
 
 export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boolean, hideDesktopMenu?: boolean }) {
   const router = useRouter();
-  const mounted = useIsMounted()
 
   return (
     <nav className={cn('navbar navbar-expand-lg py-3', { 'fixed-top': fixedTop })}>

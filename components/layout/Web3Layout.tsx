@@ -5,11 +5,7 @@ import { Roboto } from 'next/font/google'
 import cn from 'classnames'
 import Header from "./Header";
 import OgHead from "./OgScheme";
-import Timer from "./Timer";
-import { useRouter } from "next/router";
 import { ToastContainer } from 'react-toastify';
-import { useWhitelist } from 'hooks/useWhitelist';
-import Link from "next/link";
  
 const roboto = Roboto({
   weight: '400',
@@ -23,9 +19,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixedTop }: PropsWithChildren<LayoutProps>) {
-  const { whitelist } = useWhitelist();
   const isMounted = useIsMounted();
-  const router = useRouter();
   const { isSignedIn, isSupportedChain } = useAuth();
   
   return (<>
