@@ -6,6 +6,8 @@ import cn from 'classnames'
 import Header from "./Header";
 import OgHead from "./OgScheme";
 import { ToastContainer } from 'react-toastify';
+import Footer from "./Footer";
+import { useRouter } from "next/router";
  
 const roboto = Roboto({
   weight: '400',
@@ -19,6 +21,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixedTop }: PropsWithChildren<LayoutProps>) {
+  const router = useRouter();
   const isMounted = useIsMounted();
   const { isSignedIn, isSupportedChain } = useAuth();
   
@@ -27,7 +30,7 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
     <main className={cn('position-relative min-vh-100 d-flex flex-column', roboto.className)}>
       <Header hideDesktopMenu={hideDesktopMenu} fixedTop={fixedTop} />
 
-      <div className="flex-fill d-flex flex-column justify-content-center align-items-center">
+      <div className={cn('flex-fill d-flex flex-column justify-content-center align-items-center', {'pb-5': router.pathname !== '/' })}>
         {(() => {
           if (isMounted && (alwaysVisible || (isSignedIn && isSupportedChain))) {
             return children
@@ -40,6 +43,7 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
       </div>
 
       <ToastContainer position="bottom-right" />
+      <Footer />
     </main>
   </>)
 }
