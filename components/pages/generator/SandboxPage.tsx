@@ -1,7 +1,7 @@
 import LemonScene from 'components/babylon/LemonScene';
 import { PropertiesType } from 'lemon';
 import { useState } from 'react';
-import { a1Traits, c1Items, getRandomProperties, ghostProperties } from 'utils/properties';
+import { a1Traits, c1Items, getRandomItems, getRandomTraits, ghostProperties } from 'utils/properties';
 
 export default function SandboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
@@ -19,9 +19,16 @@ export default function SandboxPage() {
   };
 
   const setRandomProperties = () => {
-    setProperties(getRandomProperties())
+    const props = structuredClone(properties);
+    props.traits = getRandomTraits();
+    setProperties(props)
   };
 
+  const setRandomItems = () => {
+    const props = structuredClone(properties);
+    props.items = getRandomItems();
+    setProperties(props)
+  };
 
   return (<div className="d-flex align-self-stretch">
     <div className='p-4'>
@@ -65,6 +72,8 @@ export default function SandboxPage() {
 
       <span>background</span>
       <input className="form-control" onChange={(e) => setBackground(e.target.value)} value={background} />
+
+      <button className='btn btn-info w-100 fs-18 rounded-3 mt-3' onClick={setRandomItems}>Random</button>
     </div>
   </div>)
 }

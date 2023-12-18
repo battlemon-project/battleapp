@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useWaitForTransaction, usePublicClient, useFeeData } from 'wagmi';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 export function useLemonMint(count: number) {
+  const router = useRouter()
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
@@ -49,12 +51,14 @@ export function useLemonMint(count: number) {
     };
     if (lemonMint?.status === 'error') {
       setStatus('error')
+      router.push(router.pathname + `?buy=error`)
     };
   }, [lemonMint?.status])
 
   useEffect(() => {
     if (!lemonMintResult.isSuccess) return;
     setStatus('success')
+    router.push(router.pathname + `?buy=success`)
   }, [lemonMintResult])
 
   return {

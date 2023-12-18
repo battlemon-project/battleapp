@@ -262,13 +262,21 @@ export const dressedItemsToNftMetaData = (data: DressedItemData | undefined): Nf
 // }
 
 
+export const getRandomTraits = (): { [key: string]: string | undefined } => {
+  return Object.assign({}, ...Object.entries(a1Traits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+}
+
+export const getRandomItems = (): { [key: string]: string | undefined } => {
+  return Object.assign({}, ...Object.entries(c1Items).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]})))
+}
+
 export const getRandomPropertiesWithItems = (): PropertiesType => {
   return {
     dna: '',
     name: 'random',
     type: 'omega',
-    traits: Object.assign({}, ...Object.entries(a1Traits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
-    items: Object.assign({}, ...Object.entries(c1Items).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    traits: getRandomTraits(),
+    items: getRandomItems(),
     dress: []
   }
 }
@@ -278,11 +286,12 @@ export const getRandomProperties = (): PropertiesType => {
     dna: '',
     name: 'random',
     type: 'omega',
-    traits: Object.assign({}, ...Object.entries(a1Traits).map(([k, p]) => ({[k]: p[(Math.floor(Math.random() * p.length))]}))),
+    traits: getRandomTraits(),
     items: {},
     dress: []
   }
 }
+
 
 export const ghostProperties = {
   name: 'ghost',
