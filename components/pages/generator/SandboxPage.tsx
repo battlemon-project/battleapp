@@ -5,6 +5,7 @@ import { a1Traits, c1Items, getRandomProperties, ghostProperties } from 'utils/p
 
 export default function SandboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
+  const [background, setBackground] = useState<string>('');
 
   const changeProperties = (type: 'traits' | 'items', propkey: string) => (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -35,8 +36,21 @@ export default function SandboxPage() {
       })}
       <button className='btn btn-primary w-100 fs-18 rounded-3 mt-3' onClick={setRandomProperties}>Random</button>
     </div>
-    <div className='mx-auto vh-100 w-100'>
-      <LemonScene properties={properties} debug={false} />
+    <div className='mx-auto vh-100 w-100' style={{
+      background:
+        background && background.indexOf('http') > -1
+          ? `url(${background})`
+          : background,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+    }}>
+      <div className='mx-auto vh-100 w-100 mt-5 pt-5' style={{
+        maxWidth: '600px',
+        maxHeight: '600px',
+        margin: '0 auto'
+      }}>
+        <LemonScene properties={properties} debug={false} enableY={true} />
+      </div>
     </div>
     <div className='p-4'>
       {Object.entries(c1Items).map(([propkey, options]) => {
@@ -48,6 +62,9 @@ export default function SandboxPage() {
           </select>
         </div>
       })}
+
+      <span>background</span>
+      <input className="form-control" onChange={(e) => setBackground(e.target.value)} value={background} />
     </div>
   </div>)
 }

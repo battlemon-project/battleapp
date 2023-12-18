@@ -14,12 +14,13 @@ interface LemonSceneProps {
   debug?: boolean,
   properties: PropertiesType
   isPaused?: boolean,
+  enableY?: boolean,
   preloadItems?: boolean,
   onModelReady?: (...args: any) => void
   setProperties?: Dispatch<SetStateAction<PropertiesType>>
 }
 
-export default function LemonScene({ properties, isPaused, preloadItems, setProperties, onModelReady, debug }: LemonSceneProps) {
+export default function LemonScene({ properties, isPaused, preloadItems, setProperties, onModelReady, debug, enableY }: LemonSceneProps) {
   const [ visibleProperties, setVisibleProperties ] = useState<PropertiesType>(properties)
   const [ loadedItems, setLoadedItems ] = useState<PropertiesList>({})
   const mounted = useIsMounted()
@@ -69,8 +70,8 @@ export default function LemonScene({ properties, isPaused, preloadItems, setProp
             lowerAlphaLimit={isPaused ? 1.35 : undefined}
             upperAlphaLimit={isPaused ? 1.35 : undefined}
             beta={1.6} 
-            lowerBetaLimit={1.6}
-            upperBetaLimit={1.6}
+            lowerBetaLimit={enableY ? undefined : 1.6}
+            upperBetaLimit={enableY ? undefined : 1.6}
             radius={4} 
             lowerRadiusLimit={4}
             upperRadiusLimit={4}
