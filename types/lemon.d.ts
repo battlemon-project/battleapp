@@ -41,6 +41,10 @@ declare module 'lemon' {
     itemsData?: DressedItemData
     dress: number[]
     name: string
+    agility: number
+    speed: number
+    luck: number
+    level: number
   }
   
   type ItemsArray = (NftMetaData | undefined)[]

@@ -246,7 +246,11 @@ export const dressedItemsToNftMetaData = (data: DressedItemData | undefined): Nf
         traits: {},
         items: {},
         dress: [],
-        name: data.itemName
+        name: data.itemName,
+        agility: data.agility,
+        speed: data.speed,
+        luck: data.luck,
+        level: data.level
       }
     })
   })
@@ -277,7 +281,11 @@ export const getRandomPropertiesWithItems = (): PropertiesType => {
     type: 'omega',
     traits: getRandomTraits(),
     items: getRandomItems(),
-    dress: []
+    dress: [],
+    agility: 3,
+    speed: 3,
+    luck: 3,
+    level: 1
   }
 }
 
@@ -288,7 +296,11 @@ export const getRandomProperties = (): PropertiesType => {
     type: 'omega',
     traits: getRandomTraits(),
     items: {},
-    dress: []
+    dress: [],
+    agility: 3,
+    speed: 3,
+    luck: 3,
+    level: 1
   }
 }
 
@@ -306,7 +318,11 @@ export const ghostProperties = {
     head: 'Head_Ghost'
   },
   items: {},
-  dress: []
+  dress: [],
+  agility: 3,
+  speed: 3,
+  luck: 3,
+  level: 1
 }
 
 const a1Places = [

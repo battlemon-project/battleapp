@@ -49,7 +49,7 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
       const empty: NftMetaData = {
         tokenId: -1*tokenId,
         image: dummyImage,
-        properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [] }
+        properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [], agility: 3, speed: 3, luck: 3, level: 1 }
       }
       return empty;
     }

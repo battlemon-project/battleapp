@@ -93,18 +93,43 @@ export function initializeStore(
         if (lemon?.properties) {
           if (state.stage == 'EquipedItems') {
             lemon.properties.items[type] = undefined
+            if (lemon.properties.itemsData?.[type]) {
+              delete lemon.properties.itemsData[type]
+            }
           } else {
             lemon.properties.items[type] = lemon.original?.properties.items[type] || undefined
+            if (lemon.original?.properties.itemsData?.[type] && lemon.properties.itemsData) {
+              lemon.properties.itemsData[type] = lemon.original.properties.itemsData[type] 
+            } else if (lemon.properties.itemsData) {
+              delete lemon.properties.itemsData[type]
+            }
           }
         }
         selectedItems = removeItemsFromArray(state.selectedItems, token, type)
       } else {
         if (lemon?.properties) {
           lemon.properties.items[type] = name
+          if (lemon.properties.itemsData) {
+            lemon.properties.itemsData[type] = { 
+              level: token.properties.level,
+              agility: token.properties.agility,
+              speed: token.properties.speed,
+              luck: token.properties.luck,
+              dna: token.properties.dna,
+              itemName: token.properties.name,
+              tokenId: token.tokenId 
+            }
+          }
         }
         selectedItems = addItemsToArray(state.selectedItems, token, type)
       }
       
+      if (lemon.properties.itemsData) {
+        lemon.properties.agility = 3 + Object.values(lemon.properties.itemsData).map(i => i.agility).reduce((a,b)=>(a || 0)+(b || 0), 0)
+        lemon.properties.speed = 3 + Object.values(lemon.properties.itemsData).map(i => i.speed).reduce((a,b)=>(a || 0)+(b || 0), 0)
+        lemon.properties.luck = 3 + Object.values(lemon.properties.itemsData).map(i => i.luck).reduce((a,b)=>(a || 0)+(b || 0), 0)
+      }
+
       return {
         ...state,
         selectedLemons: [lemon],

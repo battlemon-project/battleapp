@@ -11,6 +11,7 @@ import { useItemBalance } from 'hooks/useItemBalance';
 import { PropertiesType } from 'lemon';
 import LemonEquipedItems from './stages/LemonEquipedItems';
 import useWindowSize from 'hooks/useWindowSize';
+import NftProps from './layout/NftProps';
 
 export default function LemonTab() {
   const size = useWindowSize()
@@ -30,7 +31,8 @@ export default function LemonTab() {
         </div>
       </div>}
     </div>}
-    <div className={cn('col-lg-7 col-12', styles.inventoryContainer)}>
+    <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
+      {selectedLemons[0] && <NftProps token={selectedLemons[0]} />}
       <div className={cn({'d-none': stage !== 'Start'})}>
         <LemonStart balance={lemonBalance} />
       </div>

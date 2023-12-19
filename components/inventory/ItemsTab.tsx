@@ -6,6 +6,7 @@ import { useItemBalance } from 'hooks/useItemBalance';
 import useWindowSize from 'hooks/useWindowSize';
 import ItemScene from 'components/babylon/ItemScene';
 import { useState } from 'react';
+import NftProps from './layout/NftProps';
 
 export default function ItemsTab() {
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
@@ -26,7 +27,8 @@ export default function ItemsTab() {
       </div>}
     </div>}
 
-    <div className={cn('col-lg-7 col-12', styles.inventoryContainer)}>
+    <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
+      {selectedItems[0] && <NftProps token={selectedItems[0]} />}
       {stage == 'Start' && <ItemStart balance={balance} />}
     </div>
   </div>)
