@@ -69,8 +69,8 @@ export default function BabylonScene() {
       },
       download: {
         stroke: ['download_client_car_stroke', 'download_client_car_adv_stroke'],
-        // page: 'https://linktr.ee/battlemon',
-        // newTab: true
+        page: 'https://battlemon.gitbook.io/lightpaper/about-the-project/introduction',
+        newTab: true
       },
       lemterprise: {
         stroke: ['lemterprise_stroke']
