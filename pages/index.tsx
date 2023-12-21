@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <Head>
       <title>Web3 App</title>
     </Head>
-    <Layout hideDesktopMenu={true} alwaysVisible={true} fixedTop={true}>
+    <Layout hideDesktopMenu={true} fixedTop={true}>
       <IndexPage />
     </Layout>
   </>);

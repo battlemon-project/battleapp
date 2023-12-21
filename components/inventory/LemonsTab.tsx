@@ -13,7 +13,7 @@ import LemonEquipedItems from './stages/LemonEquipedItems';
 import useWindowSize from 'hooks/useWindowSize';
 import NftProps from './layout/NftProps';
 
-export default function LemonTab() {
+export default function LemonsTab() {
   const size = useWindowSize()
   const { selectedLemons, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
@@ -22,14 +22,13 @@ export default function LemonTab() {
   
   return (<div className="row">
     {size.width > 992 && <div className="col-5">
-      {!lemonBalance && <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/lemons-gallery.gif" />}
-      {!!lemonBalance && <div className="position-relative">
+      <div className="position-relative">
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
           { isModelLoading && <div className="spinner-border text-light mx-auto position-absolute" style={{left: '50%', top: '48%', width: '3rem', height: '3rem'}} />}
           <LemonScene properties={selectedLemons[0]?.properties || (ghostProperties as PropertiesType)} onModelReady={() => setIsModelLoading(false)} />
         </div>
-      </div>}
+      </div>
     </div>}
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
       {selectedLemons[0] && <NftProps token={selectedLemons[0]} />}

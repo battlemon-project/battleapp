@@ -1,5 +1,4 @@
 import { PropsWithChildren } from "react";
-import useAuth from 'context/AuthContext';
 import { useIsMounted } from "hooks/useIsMounted";
 import { Roboto } from 'next/font/google'
 import cn from 'classnames'
@@ -16,14 +15,12 @@ const roboto = Roboto({
 
 interface LayoutProps {
   hideDesktopMenu?: boolean,
-  alwaysVisible?: boolean,
   fixedTop?: boolean
 }
 
-export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixedTop }: PropsWithChildren<LayoutProps>) {
+export default function Layout({ children, hideDesktopMenu, fixedTop }: PropsWithChildren<LayoutProps>) {
   const router = useRouter();
   const isMounted = useIsMounted();
-  const { isSignedIn, isSupportedChain } = useAuth();
   
   return (<>
     <OgHead />
@@ -31,15 +28,7 @@ export default function Layout({ children, hideDesktopMenu, alwaysVisible, fixed
       <Header hideDesktopMenu={hideDesktopMenu} fixedTop={fixedTop} />
 
       <div className={cn('flex-fill d-flex flex-column justify-content-center align-items-center', {'pb-5': router.pathname !== '/' })}>
-        {(() => {
-          if (isMounted && (alwaysVisible || (isSignedIn && isSupportedChain))) {
-            return children
-          } else if (isSignedIn && !isSupportedChain) {
-            return <span>Please Change Network</span>
-          } else {
-            return <span>Please Sign In</span>
-          }
-        })()}
+        {isMounted && children}
       </div>
 
       <ToastContainer position="bottom-right" />
