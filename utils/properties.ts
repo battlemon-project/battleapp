@@ -180,7 +180,13 @@ export const c1Items: PropertiesList = {
     'Cap_Assault_Helmet',
     'Cap_Cane_Cone_Hat',
     'Cap_Cocked_Hat',
-    'Cap_Pirate_Bandana',    
+    'Cap_Pirate_Bandana',
+    'Cap_NY_01_OKX',
+    'Cap_NY_01_UTORG',
+    'Cap_NY_02_OKX',
+    'Cap_NY_02_UTORG',
+    'Cap_NY_03_OKX',
+    'Cap_NY_03_UTORG'
   ],
   belt: [
     'Belt_Cheef_Sash',
@@ -225,6 +231,8 @@ export const c1Items: PropertiesList = {
   shoes: [
     'Shoes_Kicks_Red',
     'Shoes_Kicks_Green',    
+    'Shoes_NY_01',
+    'Shoes_NY_02',    
   ],
   platform: [
     'Pod_Round_A',
