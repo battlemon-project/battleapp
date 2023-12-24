@@ -183,10 +183,16 @@ export const c1Items: PropertiesList = {
     'Cap_Pirate_Bandana',
     'Cap_NY_01_OKX',
     'Cap_NY_01_UTORG',
+    'Cap_NY_01_DEW',
+    'Cap_NY_01_TOFUNFT',
     'Cap_NY_02_OKX',
     'Cap_NY_02_UTORG',
+    'Cap_NY_02_DEW',
+    'Cap_NY_02_TOFUNFT',
     'Cap_NY_03_OKX',
-    'Cap_NY_03_UTORG'
+    'Cap_NY_03_UTORG',
+    'Cap_NY_03_DEW',
+    'Cap_NY_03_TOFUNFT',
   ],
   belt: [
     'Belt_Cheef_Sash',
@@ -223,6 +229,7 @@ export const c1Items: PropertiesList = {
     'FireArms_Handgun_SMG',
     'FireArms_Assault_Rifle_A',
     'FireArms_Assault_Rifle_M',    
+    'ColdArms_Candy_01',
   ],
   cold_arms: [
     'ColdArms_Chopper_Knife',
