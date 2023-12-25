@@ -130,6 +130,11 @@
         {
             "alphaMode" : "BLEND",
             "doubleSided" : true,
+            "emissiveFactor" : [
+                1,
+                1,
+                1
+            ],
             "name" : "MAT_OKX",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
