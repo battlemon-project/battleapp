@@ -180,19 +180,7 @@ export const c1Items: PropertiesList = {
     'Cap_Assault_Helmet',
     'Cap_Cane_Cone_Hat',
     'Cap_Cocked_Hat',
-    'Cap_Pirate_Bandana',
-    'Cap_NY_01_OKX',
-    'Cap_NY_01_UTORG',
-    'Cap_NY_01_DEW',
-    'Cap_NY_01_TOFUNFT',
-    'Cap_NY_02_OKX',
-    'Cap_NY_02_UTORG',
-    'Cap_NY_02_DEW',
-    'Cap_NY_02_TOFUNFT',
-    'Cap_NY_03_OKX',
-    'Cap_NY_03_UTORG',
-    'Cap_NY_03_DEW',
-    'Cap_NY_03_TOFUNFT',
+    'Cap_Pirate_Bandana'
   ],
   belt: [
     'Belt_Cheef_Sash',
@@ -228,8 +216,7 @@ export const c1Items: PropertiesList = {
     'FireArms_Grenade_Launcher',
     'FireArms_Handgun_SMG',
     'FireArms_Assault_Rifle_A',
-    'FireArms_Assault_Rifle_M',    
-    'ColdArms_Candy_01',
+    'FireArms_Assault_Rifle_M',
   ],
   cold_arms: [
     'ColdArms_Chopper_Knife',
@@ -237,14 +224,66 @@ export const c1Items: PropertiesList = {
   ],
   shoes: [
     'Shoes_Kicks_Red',
-    'Shoes_Kicks_Green',    
-    'Shoes_NY_01',
-    'Shoes_NY_02',    
+    'Shoes_Kicks_Green',
   ],
   platform: [
     'Pod_Round_A',
     'Pod_SkateBoard_B',
     'Pod_SkateBoard_A',    
+  ]
+}
+
+export const e1Items: PropertiesList = {
+  cap: [
+    'Cap_NY_01_UTORG',
+    'Cap_NY_02_UTORG',
+    'Cap_NY_03_UTORG',
+  ],
+  fire_arms: [
+    'ColdArms_Candy_01',
+  ],
+  shoes: [
+    'Shoes_NY_01',
+    'Shoes_NY_02',    
+  ]
+}
+
+export const sandboxItems: PropertiesList = {
+  back: [
+    ...c1Items.back,
+    ...(e1Items.back || []),
+  ],
+  cap: [
+    ...c1Items.cap,
+    ...(e1Items.cap || []),
+  ],
+  belt: [
+    ...c1Items.belt,
+    ...(e1Items.belt || []),
+  ],
+  glasses: [
+    ...c1Items.glasses,
+    ...(e1Items.glasses || []),
+  ],
+  mask: [
+    ...c1Items.mask,
+    ...(e1Items.mask || []),
+  ],
+  fire_arms: [
+    ...c1Items.fire_arms,
+    ...(e1Items.fire_arms || []),
+  ],
+  cold_arms: [
+    ...c1Items.cold_arms,
+    ...(e1Items.cold_arms || []),
+  ],
+  shoes: [
+    ...c1Items.shoes,
+    ...(e1Items.shoes || []),
+  ],
+  platform: [  
+    ...c1Items.platform,
+    ...(e1Items.platform || []),
   ]
 }
 
@@ -512,6 +551,21 @@ export const betterName = (name: string) => {
     Mask_Wrestler_Green: 'Verde Guard',
     Mask_Wrestler_Orange: 'Amber Aegis',
     Mask_Wrestler_Blue: 'Aero Shield',
+    Cap_NY_01_OKX: 'Cyber Santa',
+    Cap_NY_01_UTORG: 'Cyber Santa',
+    Cap_NY_01_DEW: 'Cyber Santa',
+    Cap_NY_01_TOFUNFT: 'Cyber Santa',
+    Cap_NY_02_OKX: 'Santa',
+    Cap_NY_02_UTORG: 'Santa',
+    Cap_NY_02_DEW: 'Santa',
+    Cap_NY_02_TOFUNFT: 'Santa',
+    Cap_NY_03_OKX: 'Christmas',
+    Cap_NY_03_UTORG: 'Christmas',
+    Cap_NY_03_DEW: 'Christmas',
+    Cap_NY_03_TOFUNFT: 'Christmas',
+    ColdArms_Candy_01: 'Candy',
+    Shoes_NY_01: 'Christmas Red',
+    Shoes_NY_02: 'Christmas Blue',
   }
   
   if (better[name]) {

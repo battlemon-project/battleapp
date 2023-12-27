@@ -1,7 +1,7 @@
 import LemonScene from 'components/babylon/LemonScene';
 import { PropertiesType } from 'lemon';
 import { useState } from 'react';
-import { a1Traits, c1Items, getRandomItems, getRandomTraits, ghostProperties } from 'utils/properties';
+import { a1Traits, sandboxItems, getRandomItems, getRandomTraits, ghostProperties } from 'utils/properties';
 
 export default function SandboxPage() {
   const [properties, setProperties] = useState<PropertiesType>(ghostProperties)
@@ -60,7 +60,7 @@ export default function SandboxPage() {
       </div>
     </div>
     <div className='p-4'>
-      {Object.entries(c1Items).map(([propkey, options]) => {
+      {Object.entries(sandboxItems).map(([propkey, options]) => {
         return <div key={propkey}>
           {propkey}
           <select className="form-select" onChange={changeProperties('items', propkey)} value={properties.items[propkey] || ''}>
