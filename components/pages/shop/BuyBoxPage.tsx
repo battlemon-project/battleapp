@@ -1,10 +1,14 @@
 import cn from 'classnames';
 import styles from './shop.module.css'
 import Link from 'next/link';
+import BuyBox from './buttons/BuyBox';
+import useAuth from 'context/AuthContext';
 import { truncate } from 'utils/misc';
-import PolSymbol from 'components/layout/PolSymbol';
+import { BoxType } from 'hooks/useBuyBox';
+import { SignInButton } from './buttons/SignInButton';
 
 export default function BuyBoxPage() {
+  const { isSignedIn, isSupportedChain } = useAuth();
 
   return (
     <div className="container py-3 mb-auto">
@@ -23,19 +27,29 @@ export default function BuyBoxPage() {
             <p className="mb-3">Unique NFT key-pass will be available in Testnet and also transferred to Mainnet.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_BOXES_CONTRACT!, 8)}</div>
+              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_BOXES!, 8)}</div>
             </div>
           </div>
 
-          <button className={cn('d-flex justify-content-center mb-4', styles.buyBtn)} onClick={() => {}}>
-            { false ? 
-              <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-              <>
-                <span className='fs-17 fst-italic pe-2'>Buy Box for </span>
-                <span className='fs-14'><PolSymbol>15</PolSymbol></span>
-              </>
+
+          {(() => {
+            if (!isSignedIn || !isSupportedChain) {
+              return <SignInButton />
+            } else {
+              return <div className='row'>
+                <div className='col-6'>
+                  <BuyBox type={BoxType.Cheap} />
+                </div>
+                <div className='col-6'>
+                  <BuyBox type={BoxType.Good} />
+                </div>
+                <div className='col-6'>
+                  <BuyBox type={BoxType.Great} />
+                </div>
+              </div>
             }
-          </button>
+          })()}
+
         </div>
       </div>
     </div>

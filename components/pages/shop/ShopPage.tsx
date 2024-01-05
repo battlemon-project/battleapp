@@ -35,15 +35,15 @@ export default function ShopPage() {
               </div>
             </div>
           </Link>
-          <div className="col-12 col-sm-6 d-flex mb-4 opacity-25">
+          <Link href='/shop/box' className="col-12 col-sm-6 d-flex mb-4">
             <div className={cn('flex-fill d-flex flex-column justify-content-end', styles.marketPlate, styles.marketPlateChests)}>
               <div>
-                <div className='fs-14 fw-semi fst-italic'>COMING SOON</div>
+                <div className='fs-14 fw-semi fst-italic'>BUY BOX</div>
                 <div className='fs-20 fw-semi fst-italic'>PRIZE POOL</div>
                 <div className='fs-20 fw-semi fst-italic'>$1.000.000</div>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="col-12 col-sm-6 d-flex mb-4 opacity-25">
             <div className={cn('flex-fill d-flex flex-column justify-content-end', styles.marketPlate, styles.marketPlateKeys)}>
               <div>
