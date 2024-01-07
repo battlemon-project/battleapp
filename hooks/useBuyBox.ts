@@ -1,5 +1,5 @@
 import { useBoxBuyCheapBox, useBoxBuyGoodBox, useBoxBuyGreatBox, boxABI } from './generated';
-import { decodeEventLog, toHex } from 'viem'
+import { decodeEventLog, parseAbi, toHex } from 'viem'
 import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
@@ -16,6 +16,25 @@ export const boxPrices = {
   Cheap: process.env.NEXT_PUBLIC_MINT_CHEAP_BOX_PRICE!,
   Good: process.env.NEXT_PUBLIC_MINT_GOOD_BOX_PRICE!,
   Great: process.env.NEXT_PUBLIC_MINT_GREAT_BOX_PRICE!
+}
+
+const prizes: {[key: number]: string} = {
+  0: 'Sticker',
+  100: 'Small Matic',
+  101: 'Medium Matic',
+  102: 'Large Matic',
+  200: 'Small Points',
+  201: 'Medium Points',
+  210: 'Points for Lemon',
+  211: 'Points for Item',
+  300: 'Hoodie',
+  301: 'Shirt',
+  302: 'Cap',
+  400: 'Cheap Pickaxe',
+  401: 'Good Pickaxe',
+  402: 'Great Pickaxe',
+  500: 'Item',
+  600: 'Lemon'
 }
 
 export function useBuyBox(type: BoxType) {
@@ -80,19 +99,22 @@ export function useBuyBox(type: BoxType) {
     if (!buyBoxResult.isSuccess) return;
 
     buyBoxResult.data?.logs.forEach(log => {
-      if (log.topics[0] !== '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef') return;
+      if (log.address.toLowerCase() !== process.env.NEXT_PUBLIC_CONTRACT_BOXES!.toLowerCase()) return;
       console.log(log)
       try {
         const decoded = decodeEventLog({
-          abi: boxABI,
-          strict: false,
+          abi: parseAbi(['event Prize(address, uint256)']),
           data: log.data,
           topics: log.topics
         })
   
-        console.log(decoded)
-      } catch (e) {
-
+        const [address, _prize] = decoded.args
+        const prize = Number(_prize);
+        alert(prizes[prize])
+      } catch (error) {
+        let message = (error as Error).message;
+        console.log(error)
+        toast.error(message)
       }
     })
 
