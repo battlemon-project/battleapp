@@ -20,38 +20,25 @@ export default function BuyBoxPage() {
           <span className='ps-2'>Back to Shop</span>
         </button>
       </Link>
-      <div className="row mt-3">
-        <div className="col-12 col-md-7 mx-auto">
-          <div className={cn('p-3 py-4 rounded-4 mb-4', styles.lightBg)}>
-            <p className="mb-3">Unique Key-card that gives access to the incredible game world of Lemoland, full of adventures and NFT treasures. </p>
-            <p className="mb-3">Unique NFT key-pass will be available in Testnet and also transferred to Mainnet.</p>
-            <div className="d-flex justify-content-between mb-2">
-              <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_BOXES!, 8)}</div>
+      <br /><br /><br />
+      {(() => {
+        if (!isSignedIn || !isSupportedChain) {
+          return <SignInButton />
+        } else {
+          return <div className='row'>
+            <div className='col-4'>
+              <BuyBox type={BoxType.Cheap} />
+            </div>
+            <div className='col-4'>
+              <BuyBox type={BoxType.Good} />
+            </div>
+            <div className='col-4'>
+              <BuyBox type={BoxType.Great} />
             </div>
           </div>
+        }
+      })()}
 
-
-          {(() => {
-            if (!isSignedIn || !isSupportedChain) {
-              return <SignInButton />
-            } else {
-              return <div className='row'>
-                <div className='col-6'>
-                  <BuyBox type={BoxType.Cheap} />
-                </div>
-                <div className='col-6'>
-                  <BuyBox type={BoxType.Good} />
-                </div>
-                <div className='col-6'>
-                  <BuyBox type={BoxType.Great} />
-                </div>
-              </div>
-            }
-          })()}
-
-        </div>
-      </div>
     </div>
   );
 };

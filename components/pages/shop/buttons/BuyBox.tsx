@@ -10,7 +10,7 @@ interface BuyBoxProps {
 }
 
 export default function BuyBox({ type }: BuyBoxProps) {
-  const { buyBox, buyBoxStatus, estimateGas } = useBuyBox(type);
+  const { buyBox, buyBoxStatus, estimateGas } = useBuyBox(type, 600);
 
   const handleBuyBox = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
@@ -26,11 +26,11 @@ export default function BuyBox({ type }: BuyBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      <button className={cn('d-flex justify-content-center mx-2', styles.buyBtn)} onClick={handleBuyBox}>
+      <button className={cn('d-flex justify-content-center', styles.buyBtn)} onClick={handleBuyBox}>
         { buyBoxStatus == 'loading' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
-            <span className='fs-17 fst-italic pe-2'>Buy {type} Box for </span>
+            <span className='fs-17 fst-italic pe-2'>{type} Box </span>
             <span className='fs-15'><PolSymbol>{boxPrices[type]} MATIC</PolSymbol></span>
           </div>
         }

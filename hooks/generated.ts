@@ -48,6 +48,25 @@ export const boxABI = [
     name: 'OwnershipTransferred',
   },
   {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'winner',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'prizeId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Prize',
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [],
@@ -85,23 +104,37 @@ export const boxABI = [
   {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: 'r', internalType: 'uint256', type: 'uint256' }],
     name: 'buyCheapBox',
     outputs: [],
   },
   {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: 'r', internalType: 'uint256', type: 'uint256' }],
     name: 'buyGoodBox',
     outputs: [],
   },
   {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: 'r', internalType: 'uint256', type: 'uint256' }],
     name: 'buyGreatBox',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'cap',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'hoodie',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -114,7 +147,77 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'items',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'itemsMinted',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'largeAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'lemons',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'lemonsMinted',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'linea',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'mediumAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'pickaxe',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'points',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'referrals',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
@@ -169,6 +272,13 @@ export const boxABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'ref', internalType: 'address', type: 'address' }],
+    name: 'setReferallAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_shirt', internalType: 'address', type: 'address' }],
     name: 'setShirtAddress',
     outputs: [],
@@ -181,10 +291,231 @@ export const boxABI = [
     outputs: [],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'shirt',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'smallAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'stickers',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
+    outputs: [],
+  },
+  { stateMutability: 'payable', type: 'receive' },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Cap
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const capABI = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+    inputs: [{ name: 'box_', internalType: 'address', type: 'address' }],
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'to', internalType: 'address', type: 'address' }],
+    name: 'boxMint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'burn',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
     outputs: [],
   },
 ] as const
@@ -582,6 +913,205 @@ export const gemABI = [
     type: 'function',
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
+    outputs: [],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Hoodie
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const hoodieABI = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+    inputs: [{ name: 'box_', internalType: 'address', type: 'address' }],
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'to', internalType: 'address', type: 'address' }],
+    name: 'boxMint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'burn',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
     outputs: [],
   },
 ] as const
@@ -998,6 +1528,13 @@ export const itemABI = [
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'referrals',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [],
@@ -1079,6 +1616,13 @@ export const itemABI = [
     type: 'function',
     inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
     name: 'setMaxItemTypes',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'ref', internalType: 'address', type: 'address' }],
+    name: 'setReferallAddress',
     outputs: [],
   },
   {
@@ -1523,6 +2067,13 @@ export const lemonABI = [
     ],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'eventSigner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [{ name: 'gemId', internalType: 'uint256', type: 'uint256' }],
@@ -1665,6 +2216,13 @@ export const lemonABI = [
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'referrals',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [],
@@ -1721,6 +2279,13 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newSigner', internalType: 'address', type: 'address' }],
+    name: 'setEventSigner',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_gems', internalType: 'address', type: 'address' }],
     name: 'setGemsAddress',
     outputs: [],
@@ -1730,6 +2295,13 @@ export const lemonABI = [
     type: 'function',
     inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
     name: 'setItemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'ref', internalType: 'address', type: 'address' }],
+    name: 'setReferallAddress',
     outputs: [],
   },
   {
@@ -2277,6 +2849,722 @@ export const pickAxeABI = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Point
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const pointABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'spender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'addToWhiteList',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'spender', internalType: 'address', type: 'address' },
+    ],
+    name: 'allowance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'decimals',
+    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'subtractedValue', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'decreaseAllowance',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'spender', internalType: 'address', type: 'address' },
+      { name: 'addedValue', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'increaseAllowance',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'removeFromWhiteList',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transfer',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Referral
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const referralABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'ref', internalType: 'address', type: 'address', indexed: true },
+    ],
+    name: 'ReferralSet',
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'getUserRef',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'referrals',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'referralsCount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'ref', internalType: 'address', type: 'address' }],
+    name: 'setReferee',
+    outputs: [],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Shirt
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const shirtABI = [
+  {
+    stateMutability: 'nonpayable',
+    type: 'constructor',
+    inputs: [{ name: 'box_', internalType: 'address', type: 'address' }],
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'to', internalType: 'address', type: 'address' }],
+    name: 'boxMint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'burn',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Sticker
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const stickerABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'address_', internalType: 'address', type: 'address' }],
+    name: 'addAddressToWhitelist',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'tokenIds', internalType: 'uint256[4]', type: 'uint256[4]' },
+    ],
+    name: 'craftItem',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'initialize',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'account', internalType: 'address', type: 'address' }],
+    name: 'isWhitelisted',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'itemsAddress',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'mint',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
+    name: 'setItemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_typesAmount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setTypesAmount',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'typesAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // React
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2395,6 +3683,177 @@ export function useBoxMaxLemonsAmount<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"cap"`.
+ */
+export function useBoxCap<
+  TFunctionName extends 'cap',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'cap',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"hoodie"`.
+ */
+export function useBoxHoodie<
+  TFunctionName extends 'hoodie',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'hoodie',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"items"`.
+ */
+export function useBoxItems<
+  TFunctionName extends 'items',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'items',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"itemsMinted"`.
+ */
+export function useBoxItemsMinted<
+  TFunctionName extends 'itemsMinted',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'itemsMinted',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"largeAmount"`.
+ */
+export function useBoxLargeAmount<
+  TFunctionName extends 'largeAmount',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'largeAmount',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"lemons"`.
+ */
+export function useBoxLemons<
+  TFunctionName extends 'lemons',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'lemons',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"lemonsMinted"`.
+ */
+export function useBoxLemonsMinted<
+  TFunctionName extends 'lemonsMinted',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'lemonsMinted',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"linea"`.
+ */
+export function useBoxLinea<
+  TFunctionName extends 'linea',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'linea',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"mediumAmount"`.
+ */
+export function useBoxMediumAmount<
+  TFunctionName extends 'mediumAmount',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'mediumAmount',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"owner"`.
  */
 export function useBoxOwner<
@@ -2409,6 +3868,120 @@ export function useBoxOwner<
   return useContractRead({
     abi: boxABI,
     functionName: 'owner',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"pickaxe"`.
+ */
+export function useBoxPickaxe<
+  TFunctionName extends 'pickaxe',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'pickaxe',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"points"`.
+ */
+export function useBoxPoints<
+  TFunctionName extends 'points',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'points',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"referrals"`.
+ */
+export function useBoxReferrals<
+  TFunctionName extends 'referrals',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'referrals',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"shirt"`.
+ */
+export function useBoxShirt<
+  TFunctionName extends 'shirt',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'shirt',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"smallAmount"`.
+ */
+export function useBoxSmallAmount<
+  TFunctionName extends 'smallAmount',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'smallAmount',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"stickers"`.
+ */
+export function useBoxStickers<
+  TFunctionName extends 'stickers',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'stickers',
     ...config,
   } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
 }
@@ -2726,6 +4299,33 @@ export function useBoxSetPointsAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setReferallAddress"`.
+ */
+export function useBoxSetReferallAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'setReferallAddress'
+        >['request']['abi'],
+        'setReferallAddress',
+        TMode
+      > & { functionName?: 'setReferallAddress' }
+    : UseContractWriteConfig<typeof boxABI, 'setReferallAddress', TMode> & {
+        abi?: never
+        functionName?: 'setReferallAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'setReferallAddress', TMode>({
+    abi: boxABI,
+    functionName: 'setReferallAddress',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setShirtAddress"`.
  */
 export function useBoxSetShirtAddress<
@@ -2998,6 +4598,22 @@ export function usePrepareBoxSetPointsAddress(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setReferallAddress"`.
+ */
+export function usePrepareBoxSetReferallAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'setReferallAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'setReferallAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'setReferallAddress'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setShirtAddress"`.
  */
 export function usePrepareBoxSetShirtAddress(
@@ -3090,6 +4706,535 @@ export function useBoxOwnershipTransferredEvent(
     eventName: 'OwnershipTransferred',
     ...config,
   } as UseContractEventConfig<typeof boxABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link boxABI}__ and `eventName` set to `"Prize"`.
+ */
+export function useBoxPrizeEvent(
+  config: Omit<
+    UseContractEventConfig<typeof boxABI, 'Prize'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: boxABI,
+    eventName: 'Prize',
+    ...config,
+  } as UseContractEventConfig<typeof boxABI, 'Prize'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__.
+ */
+export function useCapRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({ abi: capABI, ...config } as UseContractReadConfig<
+    typeof capABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useCapBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useCapGetApproved<
+  TFunctionName extends 'getApproved',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useCapIsApprovedForAll<
+  TFunctionName extends 'isApprovedForAll',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"name"`.
+ */
+export function useCapName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useCapOwnerOf<
+  TFunctionName extends 'ownerOf',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useCapSupportsInterface<
+  TFunctionName extends 'supportsInterface',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'supportsInterface',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useCapSymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useCapTokenUri<
+  TFunctionName extends 'tokenURI',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__.
+ */
+export function useCapWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof capABI, string>['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof capABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, TFunctionName, TMode>({
+    abi: capABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"approve"`.
+ */
+export function useCapApprove<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof capABI, 'approve'>['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof capABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, 'approve', TMode>({
+    abi: capABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"boxMint"`.
+ */
+export function useCapBoxMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof capABI, 'boxMint'>['request']['abi'],
+        'boxMint',
+        TMode
+      > & { functionName?: 'boxMint' }
+    : UseContractWriteConfig<typeof capABI, 'boxMint', TMode> & {
+        abi?: never
+        functionName?: 'boxMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, 'boxMint', TMode>({
+    abi: capABI,
+    functionName: 'boxMint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"burn"`.
+ */
+export function useCapBurn<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof capABI, 'burn'>['request']['abi'],
+        'burn',
+        TMode
+      > & { functionName?: 'burn' }
+    : UseContractWriteConfig<typeof capABI, 'burn', TMode> & {
+        abi?: never
+        functionName?: 'burn'
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, 'burn', TMode>({
+    abi: capABI,
+    functionName: 'burn',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useCapSafeTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof capABI,
+          'safeTransferFrom'
+        >['request']['abi'],
+        'safeTransferFrom',
+        TMode
+      > & { functionName?: 'safeTransferFrom' }
+    : UseContractWriteConfig<typeof capABI, 'safeTransferFrom', TMode> & {
+        abi?: never
+        functionName?: 'safeTransferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, 'safeTransferFrom', TMode>({
+    abi: capABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useCapSetApprovalForAll<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof capABI,
+          'setApprovalForAll'
+        >['request']['abi'],
+        'setApprovalForAll',
+        TMode
+      > & { functionName?: 'setApprovalForAll' }
+    : UseContractWriteConfig<typeof capABI, 'setApprovalForAll', TMode> & {
+        abi?: never
+        functionName?: 'setApprovalForAll'
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, 'setApprovalForAll', TMode>({
+    abi: capABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useCapTransferFrom<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof capABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof capABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof capABI, 'transferFrom', TMode>({
+    abi: capABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__.
+ */
+export function usePrepareCapWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareCapApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"boxMint"`.
+ */
+export function usePrepareCapBoxMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, 'boxMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    functionName: 'boxMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, 'boxMint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"burn"`.
+ */
+export function usePrepareCapBurn(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, 'burn'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    functionName: 'burn',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, 'burn'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareCapSafeTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, 'safeTransferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, 'safeTransferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareCapSetApprovalForAll(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, 'setApprovalForAll'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareCapTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof capABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: capABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof capABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link capABI}__.
+ */
+export function useCapEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof capABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({ abi: capABI, ...config } as UseContractEventConfig<
+    typeof capABI,
+    TEventName
+  >)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link capABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useCapApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof capABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: capABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof capABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link capABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useCapApprovalForAllEvent(
+  config: Omit<
+    UseContractEventConfig<typeof capABI, 'ApprovalForAll'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: capABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  } as UseContractEventConfig<typeof capABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link capABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useCapTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof capABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: capABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof capABI, 'Transfer'>)
 }
 
 /**
@@ -4288,6 +6433,527 @@ export function useGemTransferEvent(
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__.
+ */
+export function useHoodieRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({ abi: hoodieABI, ...config } as UseContractReadConfig<
+    typeof hoodieABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useHoodieBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useHoodieGetApproved<
+  TFunctionName extends 'getApproved',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useHoodieIsApprovedForAll<
+  TFunctionName extends 'isApprovedForAll',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"name"`.
+ */
+export function useHoodieName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useHoodieOwnerOf<
+  TFunctionName extends 'ownerOf',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useHoodieSupportsInterface<
+  TFunctionName extends 'supportsInterface',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'supportsInterface',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useHoodieSymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useHoodieTokenUri<
+  TFunctionName extends 'tokenURI',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__.
+ */
+export function useHoodieWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof hoodieABI, string>['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof hoodieABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, TFunctionName, TMode>({
+    abi: hoodieABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"approve"`.
+ */
+export function useHoodieApprove<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof hoodieABI,
+          'approve'
+        >['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof hoodieABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, 'approve', TMode>({
+    abi: hoodieABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"boxMint"`.
+ */
+export function useHoodieBoxMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof hoodieABI,
+          'boxMint'
+        >['request']['abi'],
+        'boxMint',
+        TMode
+      > & { functionName?: 'boxMint' }
+    : UseContractWriteConfig<typeof hoodieABI, 'boxMint', TMode> & {
+        abi?: never
+        functionName?: 'boxMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, 'boxMint', TMode>({
+    abi: hoodieABI,
+    functionName: 'boxMint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"burn"`.
+ */
+export function useHoodieBurn<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof hoodieABI, 'burn'>['request']['abi'],
+        'burn',
+        TMode
+      > & { functionName?: 'burn' }
+    : UseContractWriteConfig<typeof hoodieABI, 'burn', TMode> & {
+        abi?: never
+        functionName?: 'burn'
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, 'burn', TMode>({
+    abi: hoodieABI,
+    functionName: 'burn',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useHoodieSafeTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof hoodieABI,
+          'safeTransferFrom'
+        >['request']['abi'],
+        'safeTransferFrom',
+        TMode
+      > & { functionName?: 'safeTransferFrom' }
+    : UseContractWriteConfig<typeof hoodieABI, 'safeTransferFrom', TMode> & {
+        abi?: never
+        functionName?: 'safeTransferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, 'safeTransferFrom', TMode>({
+    abi: hoodieABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useHoodieSetApprovalForAll<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof hoodieABI,
+          'setApprovalForAll'
+        >['request']['abi'],
+        'setApprovalForAll',
+        TMode
+      > & { functionName?: 'setApprovalForAll' }
+    : UseContractWriteConfig<typeof hoodieABI, 'setApprovalForAll', TMode> & {
+        abi?: never
+        functionName?: 'setApprovalForAll'
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, 'setApprovalForAll', TMode>({
+    abi: hoodieABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useHoodieTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof hoodieABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof hoodieABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof hoodieABI, 'transferFrom', TMode>({
+    abi: hoodieABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__.
+ */
+export function usePrepareHoodieWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareHoodieApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"boxMint"`.
+ */
+export function usePrepareHoodieBoxMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, 'boxMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    functionName: 'boxMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, 'boxMint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"burn"`.
+ */
+export function usePrepareHoodieBurn(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, 'burn'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    functionName: 'burn',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, 'burn'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareHoodieSafeTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, 'safeTransferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, 'safeTransferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareHoodieSetApprovalForAll(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, 'setApprovalForAll'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareHoodieTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof hoodieABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: hoodieABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof hoodieABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link hoodieABI}__.
+ */
+export function useHoodieEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof hoodieABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: hoodieABI,
+    ...config,
+  } as UseContractEventConfig<typeof hoodieABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link hoodieABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useHoodieApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof hoodieABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: hoodieABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof hoodieABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link hoodieABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useHoodieApprovalForAllEvent(
+  config: Omit<
+    UseContractEventConfig<typeof hoodieABI, 'ApprovalForAll'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: hoodieABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  } as UseContractEventConfig<typeof hoodieABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link hoodieABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useHoodieTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof hoodieABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: hoodieABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof hoodieABI, 'Transfer'>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__.
  */
 export function useItemRead<
@@ -4606,6 +7272,25 @@ export function useItemOwnerOf<
   return useContractRead({
     abi: itemABI,
     functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"referrals"`.
+ */
+export function useItemReferrals<
+  TFunctionName extends 'referrals',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'referrals',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -5242,6 +7927,33 @@ export function useItemSetMaxItemTypes<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setReferallAddress"`.
+ */
+export function useItemSetReferallAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'setReferallAddress'
+        >['request']['abi'],
+        'setReferallAddress',
+        TMode
+      > & { functionName?: 'setReferallAddress' }
+    : UseContractWriteConfig<typeof itemABI, 'setReferallAddress', TMode> & {
+        abi?: never
+        functionName?: 'setReferallAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'setReferallAddress', TMode>({
+    abi: itemABI,
+    functionName: 'setReferallAddress',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setStickersAddress"`.
  */
 export function useItemSetStickersAddress<
@@ -5703,6 +8415,22 @@ export function usePrepareItemSetMaxItemTypes(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setReferallAddress"`.
+ */
+export function usePrepareItemSetReferallAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'setReferallAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'setReferallAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'setReferallAddress'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setStickersAddress"`.
  */
 export function usePrepareItemSetStickersAddress(
@@ -6132,6 +8860,25 @@ export function useLemonEquipment<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"eventSigner"`.
+ */
+export function useLemonEventSigner<
+  TFunctionName extends 'eventSigner',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'eventSigner',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"gemsAddress"`.
  */
 export function useLemonGemsAddress<
@@ -6393,6 +9140,25 @@ export function useLemonPublicMintOpenTime<
   return useContractRead({
     abi: lemonABI,
     functionName: 'publicMintOpenTime',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"referrals"`.
+ */
+export function useLemonReferrals<
+  TFunctionName extends 'referrals',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'referrals',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -7001,6 +9767,33 @@ export function useLemonSetBoxAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setEventSigner"`.
+ */
+export function useLemonSetEventSigner<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'setEventSigner'
+        >['request']['abi'],
+        'setEventSigner',
+        TMode
+      > & { functionName?: 'setEventSigner' }
+    : UseContractWriteConfig<typeof lemonABI, 'setEventSigner', TMode> & {
+        abi?: never
+        functionName?: 'setEventSigner'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'setEventSigner', TMode>({
+    abi: lemonABI,
+    functionName: 'setEventSigner',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function useLemonSetGemsAddress<
@@ -7050,6 +9843,33 @@ export function useLemonSetItemsAddress<
   return useContractWrite<typeof lemonABI, 'setItemsAddress', TMode>({
     abi: lemonABI,
     functionName: 'setItemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setReferallAddress"`.
+ */
+export function useLemonSetReferallAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'setReferallAddress'
+        >['request']['abi'],
+        'setReferallAddress',
+        TMode
+      > & { functionName?: 'setReferallAddress' }
+    : UseContractWriteConfig<typeof lemonABI, 'setReferallAddress', TMode> & {
+        abi?: never
+        functionName?: 'setReferallAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'setReferallAddress', TMode>({
+    abi: lemonABI,
+    functionName: 'setReferallAddress',
     ...config,
   } as any)
 }
@@ -7389,6 +10209,22 @@ export function usePrepareLemonSetBoxAddress(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setEventSigner"`.
+ */
+export function usePrepareLemonSetEventSigner(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'setEventSigner'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'setEventSigner',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setEventSigner'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function usePrepareLemonSetGemsAddress(
@@ -7418,6 +10254,22 @@ export function usePrepareLemonSetItemsAddress(
     functionName: 'setItemsAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'setItemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setReferallAddress"`.
+ */
+export function usePrepareLemonSetReferallAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'setReferallAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'setReferallAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setReferallAddress'>)
 }
 
 /**
@@ -8900,4 +11752,2163 @@ export function usePickAxeTransferEvent(
     eventName: 'Transfer',
     ...config,
   } as UseContractEventConfig<typeof pickAxeABI, 'Transfer'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__.
+ */
+export function usePointRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({ abi: pointABI, ...config } as UseContractReadConfig<
+    typeof pointABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"allowance"`.
+ */
+export function usePointAllowance<
+  TFunctionName extends 'allowance',
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pointABI,
+    functionName: 'allowance',
+    ...config,
+  } as UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function usePointBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pointABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"decimals"`.
+ */
+export function usePointDecimals<
+  TFunctionName extends 'decimals',
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pointABI,
+    functionName: 'decimals',
+    ...config,
+  } as UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"name"`.
+ */
+export function usePointName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pointABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"symbol"`.
+ */
+export function usePointSymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pointABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"totalSupply"`.
+ */
+export function usePointTotalSupply<
+  TFunctionName extends 'totalSupply',
+  TSelectData = ReadContractResult<typeof pointABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pointABI,
+    functionName: 'totalSupply',
+    ...config,
+  } as UseContractReadConfig<typeof pointABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__.
+ */
+export function usePointWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof pointABI, string>['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof pointABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, TFunctionName, TMode>({
+    abi: pointABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"addToWhiteList"`.
+ */
+export function usePointAddToWhiteList<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'addToWhiteList'
+        >['request']['abi'],
+        'addToWhiteList',
+        TMode
+      > & { functionName?: 'addToWhiteList' }
+    : UseContractWriteConfig<typeof pointABI, 'addToWhiteList', TMode> & {
+        abi?: never
+        functionName?: 'addToWhiteList'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'addToWhiteList', TMode>({
+    abi: pointABI,
+    functionName: 'addToWhiteList',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePointApprove<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'approve'
+        >['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof pointABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'approve', TMode>({
+    abi: pointABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"decreaseAllowance"`.
+ */
+export function usePointDecreaseAllowance<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'decreaseAllowance'
+        >['request']['abi'],
+        'decreaseAllowance',
+        TMode
+      > & { functionName?: 'decreaseAllowance' }
+    : UseContractWriteConfig<typeof pointABI, 'decreaseAllowance', TMode> & {
+        abi?: never
+        functionName?: 'decreaseAllowance'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'decreaseAllowance', TMode>({
+    abi: pointABI,
+    functionName: 'decreaseAllowance',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"increaseAllowance"`.
+ */
+export function usePointIncreaseAllowance<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'increaseAllowance'
+        >['request']['abi'],
+        'increaseAllowance',
+        TMode
+      > & { functionName?: 'increaseAllowance' }
+    : UseContractWriteConfig<typeof pointABI, 'increaseAllowance', TMode> & {
+        abi?: never
+        functionName?: 'increaseAllowance'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'increaseAllowance', TMode>({
+    abi: pointABI,
+    functionName: 'increaseAllowance',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"mint"`.
+ */
+export function usePointMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof pointABI, 'mint'>['request']['abi'],
+        'mint',
+        TMode
+      > & { functionName?: 'mint' }
+    : UseContractWriteConfig<typeof pointABI, 'mint', TMode> & {
+        abi?: never
+        functionName?: 'mint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'mint', TMode>({
+    abi: pointABI,
+    functionName: 'mint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"removeFromWhiteList"`.
+ */
+export function usePointRemoveFromWhiteList<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'removeFromWhiteList'
+        >['request']['abi'],
+        'removeFromWhiteList',
+        TMode
+      > & { functionName?: 'removeFromWhiteList' }
+    : UseContractWriteConfig<typeof pointABI, 'removeFromWhiteList', TMode> & {
+        abi?: never
+        functionName?: 'removeFromWhiteList'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'removeFromWhiteList', TMode>({
+    abi: pointABI,
+    functionName: 'removeFromWhiteList',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"transfer"`.
+ */
+export function usePointTransfer<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'transfer'
+        >['request']['abi'],
+        'transfer',
+        TMode
+      > & { functionName?: 'transfer' }
+    : UseContractWriteConfig<typeof pointABI, 'transfer', TMode> & {
+        abi?: never
+        functionName?: 'transfer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'transfer', TMode>({
+    abi: pointABI,
+    functionName: 'transfer',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePointTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pointABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof pointABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pointABI, 'transferFrom', TMode>({
+    abi: pointABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__.
+ */
+export function usePreparePointWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"addToWhiteList"`.
+ */
+export function usePreparePointAddToWhiteList(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'addToWhiteList'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'addToWhiteList',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'addToWhiteList'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePreparePointApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"decreaseAllowance"`.
+ */
+export function usePreparePointDecreaseAllowance(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'decreaseAllowance'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'decreaseAllowance',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'decreaseAllowance'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"increaseAllowance"`.
+ */
+export function usePreparePointIncreaseAllowance(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'increaseAllowance'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'increaseAllowance',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'increaseAllowance'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"mint"`.
+ */
+export function usePreparePointMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'mint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'mint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'mint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"removeFromWhiteList"`.
+ */
+export function usePreparePointRemoveFromWhiteList(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'removeFromWhiteList'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'removeFromWhiteList',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'removeFromWhiteList'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"transfer"`.
+ */
+export function usePreparePointTransfer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'transfer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'transfer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'transfer'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pointABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePreparePointTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pointABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pointABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pointABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pointABI}__.
+ */
+export function usePointEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof pointABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: pointABI,
+    ...config,
+  } as UseContractEventConfig<typeof pointABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pointABI}__ and `eventName` set to `"Approval"`.
+ */
+export function usePointApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof pointABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: pointABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof pointABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pointABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function usePointTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof pointABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: pointABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof pointABI, 'Transfer'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link referralABI}__.
+ */
+export function useReferralRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof referralABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: referralABI,
+    ...config,
+  } as UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link referralABI}__ and `functionName` set to `"getUserRef"`.
+ */
+export function useReferralGetUserRef<
+  TFunctionName extends 'getUserRef',
+  TSelectData = ReadContractResult<typeof referralABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: referralABI,
+    functionName: 'getUserRef',
+    ...config,
+  } as UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link referralABI}__ and `functionName` set to `"referrals"`.
+ */
+export function useReferralReferrals<
+  TFunctionName extends 'referrals',
+  TSelectData = ReadContractResult<typeof referralABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: referralABI,
+    functionName: 'referrals',
+    ...config,
+  } as UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link referralABI}__ and `functionName` set to `"referralsCount"`.
+ */
+export function useReferralReferralsCount<
+  TFunctionName extends 'referralsCount',
+  TSelectData = ReadContractResult<typeof referralABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: referralABI,
+    functionName: 'referralsCount',
+    ...config,
+  } as UseContractReadConfig<typeof referralABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link referralABI}__.
+ */
+export function useReferralWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof referralABI,
+          string
+        >['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof referralABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof referralABI, TFunctionName, TMode>({
+    abi: referralABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link referralABI}__ and `functionName` set to `"setReferee"`.
+ */
+export function useReferralSetReferee<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof referralABI,
+          'setReferee'
+        >['request']['abi'],
+        'setReferee',
+        TMode
+      > & { functionName?: 'setReferee' }
+    : UseContractWriteConfig<typeof referralABI, 'setReferee', TMode> & {
+        abi?: never
+        functionName?: 'setReferee'
+      } = {} as any,
+) {
+  return useContractWrite<typeof referralABI, 'setReferee', TMode>({
+    abi: referralABI,
+    functionName: 'setReferee',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link referralABI}__.
+ */
+export function usePrepareReferralWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof referralABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: referralABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof referralABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link referralABI}__ and `functionName` set to `"setReferee"`.
+ */
+export function usePrepareReferralSetReferee(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof referralABI, 'setReferee'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: referralABI,
+    functionName: 'setReferee',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof referralABI, 'setReferee'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link referralABI}__.
+ */
+export function useReferralEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof referralABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: referralABI,
+    ...config,
+  } as UseContractEventConfig<typeof referralABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link referralABI}__ and `eventName` set to `"ReferralSet"`.
+ */
+export function useReferralReferralSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof referralABI, 'ReferralSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: referralABI,
+    eventName: 'ReferralSet',
+    ...config,
+  } as UseContractEventConfig<typeof referralABI, 'ReferralSet'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__.
+ */
+export function useShirtRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({ abi: shirtABI, ...config } as UseContractReadConfig<
+    typeof shirtABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useShirtBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useShirtGetApproved<
+  TFunctionName extends 'getApproved',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useShirtIsApprovedForAll<
+  TFunctionName extends 'isApprovedForAll',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"name"`.
+ */
+export function useShirtName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useShirtOwnerOf<
+  TFunctionName extends 'ownerOf',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useShirtSupportsInterface<
+  TFunctionName extends 'supportsInterface',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'supportsInterface',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useShirtSymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useShirtTokenUri<
+  TFunctionName extends 'tokenURI',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__.
+ */
+export function useShirtWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof shirtABI, string>['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof shirtABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, TFunctionName, TMode>({
+    abi: shirtABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"approve"`.
+ */
+export function useShirtApprove<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof shirtABI,
+          'approve'
+        >['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof shirtABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, 'approve', TMode>({
+    abi: shirtABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"boxMint"`.
+ */
+export function useShirtBoxMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof shirtABI,
+          'boxMint'
+        >['request']['abi'],
+        'boxMint',
+        TMode
+      > & { functionName?: 'boxMint' }
+    : UseContractWriteConfig<typeof shirtABI, 'boxMint', TMode> & {
+        abi?: never
+        functionName?: 'boxMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, 'boxMint', TMode>({
+    abi: shirtABI,
+    functionName: 'boxMint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"burn"`.
+ */
+export function useShirtBurn<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof shirtABI, 'burn'>['request']['abi'],
+        'burn',
+        TMode
+      > & { functionName?: 'burn' }
+    : UseContractWriteConfig<typeof shirtABI, 'burn', TMode> & {
+        abi?: never
+        functionName?: 'burn'
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, 'burn', TMode>({
+    abi: shirtABI,
+    functionName: 'burn',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useShirtSafeTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof shirtABI,
+          'safeTransferFrom'
+        >['request']['abi'],
+        'safeTransferFrom',
+        TMode
+      > & { functionName?: 'safeTransferFrom' }
+    : UseContractWriteConfig<typeof shirtABI, 'safeTransferFrom', TMode> & {
+        abi?: never
+        functionName?: 'safeTransferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, 'safeTransferFrom', TMode>({
+    abi: shirtABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useShirtSetApprovalForAll<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof shirtABI,
+          'setApprovalForAll'
+        >['request']['abi'],
+        'setApprovalForAll',
+        TMode
+      > & { functionName?: 'setApprovalForAll' }
+    : UseContractWriteConfig<typeof shirtABI, 'setApprovalForAll', TMode> & {
+        abi?: never
+        functionName?: 'setApprovalForAll'
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, 'setApprovalForAll', TMode>({
+    abi: shirtABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useShirtTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof shirtABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof shirtABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof shirtABI, 'transferFrom', TMode>({
+    abi: shirtABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__.
+ */
+export function usePrepareShirtWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareShirtApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"boxMint"`.
+ */
+export function usePrepareShirtBoxMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, 'boxMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    functionName: 'boxMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, 'boxMint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"burn"`.
+ */
+export function usePrepareShirtBurn(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, 'burn'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    functionName: 'burn',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, 'burn'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareShirtSafeTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, 'safeTransferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, 'safeTransferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareShirtSetApprovalForAll(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, 'setApprovalForAll'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareShirtTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof shirtABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: shirtABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof shirtABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link shirtABI}__.
+ */
+export function useShirtEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof shirtABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: shirtABI,
+    ...config,
+  } as UseContractEventConfig<typeof shirtABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link shirtABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useShirtApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof shirtABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: shirtABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof shirtABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link shirtABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useShirtApprovalForAllEvent(
+  config: Omit<
+    UseContractEventConfig<typeof shirtABI, 'ApprovalForAll'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: shirtABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  } as UseContractEventConfig<typeof shirtABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link shirtABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useShirtTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof shirtABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: shirtABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof shirtABI, 'Transfer'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__.
+ */
+export function useStickerRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useStickerBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useStickerGetApproved<
+  TFunctionName extends 'getApproved',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useStickerIsApprovedForAll<
+  TFunctionName extends 'isApprovedForAll',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"isWhitelisted"`.
+ */
+export function useStickerIsWhitelisted<
+  TFunctionName extends 'isWhitelisted',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'isWhitelisted',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"itemsAddress"`.
+ */
+export function useStickerItemsAddress<
+  TFunctionName extends 'itemsAddress',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'itemsAddress',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"name"`.
+ */
+export function useStickerName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"owner"`.
+ */
+export function useStickerOwner<
+  TFunctionName extends 'owner',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'owner',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useStickerOwnerOf<
+  TFunctionName extends 'ownerOf',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useStickerSupportsInterface<
+  TFunctionName extends 'supportsInterface',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'supportsInterface',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useStickerSymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useStickerTokenUri<
+  TFunctionName extends 'tokenURI',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"typesAmount"`.
+ */
+export function useStickerTypesAmount<
+  TFunctionName extends 'typesAmount',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'typesAmount',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__.
+ */
+export function useStickerWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof stickerABI, string>['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof stickerABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, TFunctionName, TMode>({
+    abi: stickerABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"addAddressToWhitelist"`.
+ */
+export function useStickerAddAddressToWhitelist<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'addAddressToWhitelist'
+        >['request']['abi'],
+        'addAddressToWhitelist',
+        TMode
+      > & { functionName?: 'addAddressToWhitelist' }
+    : UseContractWriteConfig<
+        typeof stickerABI,
+        'addAddressToWhitelist',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'addAddressToWhitelist'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'addAddressToWhitelist', TMode>({
+    abi: stickerABI,
+    functionName: 'addAddressToWhitelist',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"approve"`.
+ */
+export function useStickerApprove<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'approve'
+        >['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof stickerABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'approve', TMode>({
+    abi: stickerABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"craftItem"`.
+ */
+export function useStickerCraftItem<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'craftItem'
+        >['request']['abi'],
+        'craftItem',
+        TMode
+      > & { functionName?: 'craftItem' }
+    : UseContractWriteConfig<typeof stickerABI, 'craftItem', TMode> & {
+        abi?: never
+        functionName?: 'craftItem'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'craftItem', TMode>({
+    abi: stickerABI,
+    functionName: 'craftItem',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useStickerInitialize<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'initialize'
+        >['request']['abi'],
+        'initialize',
+        TMode
+      > & { functionName?: 'initialize' }
+    : UseContractWriteConfig<typeof stickerABI, 'initialize', TMode> & {
+        abi?: never
+        functionName?: 'initialize'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'initialize', TMode>({
+    abi: stickerABI,
+    functionName: 'initialize',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"mint"`.
+ */
+export function useStickerMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof stickerABI, 'mint'>['request']['abi'],
+        'mint',
+        TMode
+      > & { functionName?: 'mint' }
+    : UseContractWriteConfig<typeof stickerABI, 'mint', TMode> & {
+        abi?: never
+        functionName?: 'mint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'mint', TMode>({
+    abi: stickerABI,
+    functionName: 'mint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"renounceOwnership"`.
+ */
+export function useStickerRenounceOwnership<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'renounceOwnership'
+        >['request']['abi'],
+        'renounceOwnership',
+        TMode
+      > & { functionName?: 'renounceOwnership' }
+    : UseContractWriteConfig<typeof stickerABI, 'renounceOwnership', TMode> & {
+        abi?: never
+        functionName?: 'renounceOwnership'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'renounceOwnership', TMode>({
+    abi: stickerABI,
+    functionName: 'renounceOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useStickerSafeTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'safeTransferFrom'
+        >['request']['abi'],
+        'safeTransferFrom',
+        TMode
+      > & { functionName?: 'safeTransferFrom' }
+    : UseContractWriteConfig<typeof stickerABI, 'safeTransferFrom', TMode> & {
+        abi?: never
+        functionName?: 'safeTransferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'safeTransferFrom', TMode>({
+    abi: stickerABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useStickerSetApprovalForAll<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'setApprovalForAll'
+        >['request']['abi'],
+        'setApprovalForAll',
+        TMode
+      > & { functionName?: 'setApprovalForAll' }
+    : UseContractWriteConfig<typeof stickerABI, 'setApprovalForAll', TMode> & {
+        abi?: never
+        functionName?: 'setApprovalForAll'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'setApprovalForAll', TMode>({
+    abi: stickerABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setItemsAddress"`.
+ */
+export function useStickerSetItemsAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'setItemsAddress'
+        >['request']['abi'],
+        'setItemsAddress',
+        TMode
+      > & { functionName?: 'setItemsAddress' }
+    : UseContractWriteConfig<typeof stickerABI, 'setItemsAddress', TMode> & {
+        abi?: never
+        functionName?: 'setItemsAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'setItemsAddress', TMode>({
+    abi: stickerABI,
+    functionName: 'setItemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setTypesAmount"`.
+ */
+export function useStickerSetTypesAmount<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'setTypesAmount'
+        >['request']['abi'],
+        'setTypesAmount',
+        TMode
+      > & { functionName?: 'setTypesAmount' }
+    : UseContractWriteConfig<typeof stickerABI, 'setTypesAmount', TMode> & {
+        abi?: never
+        functionName?: 'setTypesAmount'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'setTypesAmount', TMode>({
+    abi: stickerABI,
+    functionName: 'setTypesAmount',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useStickerTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof stickerABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'transferFrom', TMode>({
+    abi: stickerABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"transferOwnership"`.
+ */
+export function useStickerTransferOwnership<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'transferOwnership'
+        >['request']['abi'],
+        'transferOwnership',
+        TMode
+      > & { functionName?: 'transferOwnership' }
+    : UseContractWriteConfig<typeof stickerABI, 'transferOwnership', TMode> & {
+        abi?: never
+        functionName?: 'transferOwnership'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'transferOwnership', TMode>({
+    abi: stickerABI,
+    functionName: 'transferOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__.
+ */
+export function usePrepareStickerWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"addAddressToWhitelist"`.
+ */
+export function usePrepareStickerAddAddressToWhitelist(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'addAddressToWhitelist'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'addAddressToWhitelist',
+    ...config,
+  } as UsePrepareContractWriteConfig<
+    typeof stickerABI,
+    'addAddressToWhitelist'
+  >)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareStickerApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"craftItem"`.
+ */
+export function usePrepareStickerCraftItem(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'craftItem'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'craftItem',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'craftItem'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareStickerInitialize(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'initialize'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'initialize',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'initialize'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"mint"`.
+ */
+export function usePrepareStickerMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'mint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'mint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'mint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"renounceOwnership"`.
+ */
+export function usePrepareStickerRenounceOwnership(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'renounceOwnership'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'renounceOwnership',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'renounceOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareStickerSafeTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'safeTransferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'safeTransferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareStickerSetApprovalForAll(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'setApprovalForAll'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setItemsAddress"`.
+ */
+export function usePrepareStickerSetItemsAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'setItemsAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'setItemsAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'setItemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setTypesAmount"`.
+ */
+export function usePrepareStickerSetTypesAmount(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'setTypesAmount'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'setTypesAmount',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'setTypesAmount'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareStickerTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"transferOwnership"`.
+ */
+export function usePrepareStickerTransferOwnership(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'transferOwnership'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'transferOwnership',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'transferOwnership'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__.
+ */
+export function useStickerEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useStickerApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useStickerApprovalForAllEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'ApprovalForAll'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useStickerInitializedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'Initialized'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'Initialized',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'Initialized'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"OwnershipTransferred"`.
+ */
+export function useStickerOwnershipTransferredEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'OwnershipTransferred'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'OwnershipTransferred',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useStickerTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'Transfer'>)
 }
