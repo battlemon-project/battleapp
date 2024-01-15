@@ -37,7 +37,27 @@ const prizes: {[key: number]: string} = {
   600: 'Lemon'
 }
 
-export function useBuyBox(type: BoxType) {
+
+const prizesChance: {[key: number]: number} = {
+  //0: 'Sticker',
+  100: 44,
+  101: 52,
+  102: 58,
+  200: 68,
+  201: 73,
+  //210: 'Points for Lemon',
+  //211: 'Points for Item',
+  300: 77,
+  301: 81,
+  302: 85,
+  400: 90,
+  401: 95,
+  402: 99,
+  500: 32,
+  600: 20
+}
+
+export function useBuyBox(type: BoxType, itemType: number) {
   const router = useRouter()
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
@@ -57,6 +77,7 @@ export function useBuyBox(type: BoxType) {
       functionName: funcNames[type],
       value: parseEther(boxPrices[type]),
       account: address as '0x',
+      args: [BigInt(prizesChance[itemType])],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -74,6 +95,7 @@ export function useBuyBox(type: BoxType) {
   const buyBox = address && methodsNames[type]({
     address: process.env.NEXT_PUBLIC_CONTRACT_BOXES as '0x',
     value: parseEther(boxPrices[type]),
+    args: [BigInt(prizesChance[itemType])],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
