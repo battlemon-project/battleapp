@@ -1,20 +1,41 @@
 
-import { Scene as BabylonScene, Color4, Vector3, CubeTexture, SceneLoader } from '@babylonjs/core'
-import { Engine, Model, Scene } from 'react-babylonjs'
+import { Scene as BabylonScene, Color4, Vector3, CubeTexture, SceneLoader, AnimationGroup, Nullable } from '@babylonjs/core'
+import { Engine, ILoadedModel, Model, Scene } from 'react-babylonjs'
 import '@babylonjs/loaders';
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useIsMounted } from 'hooks/useIsMounted';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
 import { useBoxStore } from '../store/boxStore';
-import BoxModel from './BoxModel';
 import DebugLayer from 'components/babylon/DebugLayer';
+import { PrizeType } from 'hooks/useBuyBox';
+import { xdc } from 'viem/chains';
 
 interface ItemSceneProps {
   name: string,
   debug?: boolean
 }
 
+const framesByPrize: {[key in PrizeType]?: number} = {
+  [PrizeType.Sticker]: 74,
+  [PrizeType.SmallMatic]: 90,
+  [PrizeType.MediumMatic]: 90,
+  [PrizeType.LargeMatic]: 90,
+  [PrizeType.SmallPoints]: 90,
+  [PrizeType.MediumPoints]: 90,
+  [PrizeType.PointsItem]: 90,
+  [PrizeType.PointsLemon]: 90,
+  [PrizeType.Hoodie]: 170,
+  [PrizeType.Shirt]: 170,
+  [PrizeType.Cap]: 170,
+  [PrizeType.CheapPickaxe]: 128,
+  [PrizeType.GoodPickaxe]: 128,
+  [PrizeType.GreatPickaxe]: 128,
+  [PrizeType.Item]: 10,
+  [PrizeType.Lemon]: 10
+}
+
 export default function BoxScene({ name, debug }: ItemSceneProps) {
+  const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/boxes/';
   const { box, status, prize } = useBoxStore()
   const mounted = useIsMounted()
 
@@ -33,6 +54,43 @@ export default function BoxScene({ name, debug }: ItemSceneProps) {
     scene.environmentTexture = hdrTexture;
     scene.environmentTexture.level = 1;
   }
+
+  const [ openAnimation, setOpenAnimation ] = useState<Nullable<AnimationGroup>>()
+  const [ rollAnimation, setRollAnimation ] = useState<Nullable<AnimationGroup>>()
+  const [ openIsEnd, setOpenIsEnd ] = useState<boolean>(false)
+
+  const onBoxLoaded = (model: ILoadedModel): void => {
+    const _openAnimation = model.animationGroups!.find(g => g.name == 'open');
+    setOpenAnimation(_openAnimation)
+    const _rollAnimation = model.animationGroups!.find(g => g.name == 'roll_01');
+    setRollAnimation(_rollAnimation)
+
+    // _openAnimation?.onAnimationEndObservable.add(function () {
+    //   setOpenIsEnd(true)
+    // });
+  }
+  
+  if (status == 'loading') {
+    openAnimation?.reset();
+    rollAnimation?.reset();
+  }
+
+  if (status == 'process') {
+    rollAnimation?.reset();
+    openAnimation?.start(false, 1);
+  }
+
+  if (status == 'success') {
+    openAnimation?.goToFrame(408);
+    rollAnimation?.stop()
+    rollAnimation?.start(false, 1, framesByPrize[prize!], framesByPrize[prize!]) 
+  }
+
+  useEffect(() => {
+    if (status == 'process') {
+      rollAnimation?.start(true, 1);
+    }
+  }, [status])
 
   return (
     <>
@@ -60,7 +118,14 @@ export default function BoxScene({ name, debug }: ItemSceneProps) {
           />
           
           <Suspense>
-            <BoxModel name={name} box={box} status={status} prize={prize} />
+            <Model
+              id={name}
+              name={name}
+              rootUrl={baseUrl}
+              sceneFilename={`${name}.gltf`}
+              scaleToDimension={undefined}
+              onModelLoaded={onBoxLoaded}
+            />
           </Suspense>
 
           {debug && <DebugLayer />}

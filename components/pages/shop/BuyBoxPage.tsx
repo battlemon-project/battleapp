@@ -43,7 +43,7 @@ export default function BuyBoxPage() {
             </div>
             <div className='col-8'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <BoxScene name='Basket_Chests_LP_oneReward' debug={true} />
+                <BoxScene name='Basket_Chests_LP_oneReward' debug={false} />
               </div>
             </div>
           </div>
