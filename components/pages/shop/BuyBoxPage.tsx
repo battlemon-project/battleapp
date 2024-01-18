@@ -4,12 +4,22 @@ import Link from 'next/link';
 import BuyBox from './buttons/BuyBox';
 import useAuth from 'context/AuthContext';
 import { truncate } from 'utils/misc';
-import { BoxType } from 'hooks/useBuyBox';
+import { BoxType, PrizeType, prizes, prizesChance } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
 import BoxScene from './scenes/BoxScene';
+import { useState } from 'react';
 
 export default function BuyBoxPage() {
   const { isSignedIn, isSupportedChain } = useAuth();
+  const [ prizeTypes, setPrizeTypes ] = useState<{ [key in BoxType]?: PrizeType }>()
+
+  const changePrizeType = (boxType: BoxType) => (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setPrizeTypes({
+      ...prizeTypes,
+      [boxType]: value
+    })
+  }
 
   return (<>
     <div className="container py-3 mb-auto">
@@ -32,7 +42,14 @@ export default function BuyBoxPage() {
         } else {
           return <div className='row'>
             <div className='col-4'>
+              {JSON.stringify(prizeTypes)}
               <br />
+              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Cheap)}  value={prizeTypes?.[BoxType.Cheap] || ''}>
+                <option value={''}>none</option>
+                {Object.keys(prizesChance.Cheap).map(k => <>
+                  <option>{prizes[Number(k)]}</option>
+                </>)}
+              </select>
               <BuyBox type={BoxType.Cheap} />
               <br />
               <br />
@@ -43,7 +60,7 @@ export default function BuyBoxPage() {
             </div>
             <div className='col-8'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <BoxScene name='Basket_Chests_LP_oneReward' debug={true} />
+                <BoxScene name='Basket_Chests_LP_oneReward' debug={false} />
               </div>
             </div>
           </div>
