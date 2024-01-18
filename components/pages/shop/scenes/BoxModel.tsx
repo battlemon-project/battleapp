@@ -30,29 +30,35 @@ export default function BoxModel({ name, box, status, prize }: BoxModelProps) {
     setOpenAnimation(_openAnimation)
     const _rollAnimation = scene.getAnimationGroupByName('roll_01');
     setRollAnimation(_rollAnimation)
-
-    _openAnimation?.onAnimationEndObservable.add(function () {
-      if (!_rollAnimation?.isStarted) {
-        _rollAnimation?.start(true, 1);
-      }
-    });
   }
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout | undefined = undefined;
+
+    if (status == 'loading') {
+      openAnimation?.reset();
+      rollAnimation?.reset();
+    }
   
-  if (status == 'loading') {
-    openAnimation?.goToFrame(0);
-    rollAnimation?.reset();
-  }
+    if (status == 'process') {
+      rollAnimation?.reset();
+      openAnimation?.start(false, 1);
+      timeout = setTimeout(() => {
+        rollAnimation?.start(true, 1);
+      }, 6800)
+    }
+  
+    if (status == 'success') {
+      openAnimation?.goToFrame(408);
+      clearTimeout(timeout)
+      rollAnimation?.stop()
+      rollAnimation?.start(false, 1, framesByPrize[prize!], framesByPrize[prize!]) 
+    }
 
-  if (status == 'process') {
-    rollAnimation?.reset();
-    openAnimation?.start(false, 1);
-  }
-
-  if (status == 'success') {
-    openAnimation?.goToFrame(408);
-    rollAnimation?.stop()
-    rollAnimation?.start(false, 1, framesByPrize[prize!], framesByPrize[prize!]) 
-  }
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [status])
 
   return (
     <Model

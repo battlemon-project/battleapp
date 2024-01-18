@@ -15,22 +15,22 @@ export enum BoxType {
 export type StatusType = 'error' | 'success' | 'loading' | 'idle' | 'process'
 
 export enum PrizeType {
-  Sticker,
-  SmallMatic,
-  MediumMatic, 
-  LargeMatic,
-  SmallPoints,
-  MediumPoints,
-  PointsLemon,
-  PointsItem,
-  Hoodie,
-  Shirt,
-  Cap, 
-  CheapPickaxe,
-  GoodPickaxe,
-  GreatPickaxe,
-  Item,
-  Lemon
+  Sticker = 'Sticker',
+  SmallMatic = 'Small Matic',
+  MediumMatic = 'Medium Matic', 
+  LargeMatic = 'Large Matic',
+  SmallPoints = 'Small Points',
+  MediumPoints = 'Medium Points',
+  PointsLemon = 'Points for Lemon',
+  PointsItem = 'Points for Item',
+  Hoodie = 'Hoodie',
+  Shirt = 'Shirt',
+  Cap = 'Cap', 
+  CheapPickaxe = 'Cheap Pickaxe',
+  GoodPickaxe = 'Good Pickaxe',
+  GreatPickaxe = 'Great Pickaxe',
+  Item = 'Item',
+  Lemon = 'Lemon'
 }
 
 export const boxPrices = {
@@ -39,7 +39,7 @@ export const boxPrices = {
   Great: process.env.NEXT_PUBLIC_MINT_GREAT_BOX_PRICE!
 }
 
-const prizes: {[key: number]: PrizeType} = {
+export const prizes: {[key: number]: PrizeType} = {
   0: PrizeType.Sticker,
   100: PrizeType.SmallMatic,
   101: PrizeType.MediumMatic,
@@ -59,7 +59,7 @@ const prizes: {[key: number]: PrizeType} = {
 }
 
 
-const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
+export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
   [BoxType.Cheap]: {
     0: 30, // Sticker
     100: 35, // Small Matic
