@@ -12,55 +12,105 @@ export enum BoxType {
   Great = 'Great'
 }
 
+export type StatusType = 'error' | 'success' | 'loading' | 'idle' | 'process'
+
+export enum PrizeType {
+  Sticker,
+  SmallMatic,
+  MediumMatic, 
+  LargeMatic,
+  SmallPoints,
+  MediumPoints,
+  PointsLemon,
+  PointsItem,
+  Hoodie,
+  Shirt,
+  Cap, 
+  CheapPickaxe,
+  GoodPickaxe,
+  GreatPickaxe,
+  Item,
+  Lemon
+}
+
 export const boxPrices = {
   Cheap: process.env.NEXT_PUBLIC_MINT_CHEAP_BOX_PRICE!,
   Good: process.env.NEXT_PUBLIC_MINT_GOOD_BOX_PRICE!,
   Great: process.env.NEXT_PUBLIC_MINT_GREAT_BOX_PRICE!
 }
 
-const prizes: {[key: number]: string} = {
-  0: 'Sticker',
-  100: 'Small Matic',
-  101: 'Medium Matic',
-  102: 'Large Matic',
-  200: 'Small Points',
-  201: 'Medium Points',
-  210: 'Points for Lemon',
-  211: 'Points for Item',
-  300: 'Hoodie',
-  301: 'Shirt',
-  302: 'Cap',
-  400: 'Cheap Pickaxe',
-  401: 'Good Pickaxe',
-  402: 'Great Pickaxe',
-  500: 'Item',
-  600: 'Lemon'
+const prizes: {[key: number]: PrizeType} = {
+  0: PrizeType.Sticker,
+  100: PrizeType.SmallMatic,
+  101: PrizeType.MediumMatic,
+  102: PrizeType.LargeMatic,
+  200: PrizeType.SmallPoints,
+  201: PrizeType.MediumPoints,
+  210: PrizeType.PointsLemon,
+  211: PrizeType.PointsItem,
+  300: PrizeType.Hoodie,
+  301: PrizeType.Shirt,
+  302: PrizeType.Cap,
+  400: PrizeType.CheapPickaxe,
+  401: PrizeType.GoodPickaxe,
+  402: PrizeType.GreatPickaxe,
+  500: PrizeType.Item,
+  600: PrizeType.Lemon
 }
 
 
-const prizesChance: {[key: number]: number} = {
-  //0: 'Sticker',
-  100: 44,
-  101: 52,
-  102: 58,
-  200: 68,
-  201: 73,
-  //210: 'Points for Lemon',
-  //211: 'Points for Item',
-  300: 77,
-  301: 81,
-  302: 85,
-  400: 90,
-  401: 95,
-  402: 99,
-  500: 32,
-  600: 20
+const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
+  [BoxType.Cheap]: {
+    0: 30, // Sticker
+    100: 35, // Small Matic
+    101: 38, // Medium Matic
+    102: 39, // Large Matic
+    200: 59, // Small Points
+    201: 69, // Medium Points
+    300: 71, // Hoodie
+    301: 73, // Shirt
+    302: 75, // Cap
+    400: 76, // Cheap Pickaxe
+  },
+  [BoxType.Good]: {
+    0: 30, // Sticker
+    100: 47, // Small Matic
+    101: 53, // Medium Matic
+    102: 56, // Large Matic
+    200: 71, // Small Points
+    201: 79, // Medium Points
+    300: 81, // Hoodie
+    301: 83, // Shirt
+    302: 85, // Cap
+    400: 95, // Cheap Pickaxe
+    401: 96, // Good Pickaxe
+    500: 38, // Item
+    211: 38, // Points for Item
+  },
+  [BoxType.Great]: {
+    100: 44, // Small Matic
+    101: 52, // Medium Matic
+    102: 58, // Large Matic
+    200: 68, // Small Points
+    201: 73, // Medium Points
+    300: 77, // Hoodie
+    301: 81, // Shirt
+    302: 85, // Cap
+    400: 90, // Cheap Pickaxe
+    401: 95, // Good Pickaxe
+    402: 96, // Great Pickaxe
+    500: 32, // Item
+    600: 20, // Lemon
+    211: 32, // Points for Item
+    210: 20, // Points for Lemon
+  }
 }
 
 export function useBuyBox(type: BoxType, itemType: number) {
   const router = useRouter()
   const publicClient = usePublicClient()
-  const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
+  const [ status, setStatus ] = useState<StatusType>('idle')
+  const [ prize, setPrize ] = useState<PrizeType>()
   const { address }  = useAccount();
   const fee = useFeeData()
    
@@ -77,7 +127,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
       functionName: funcNames[type],
       value: parseEther(boxPrices[type]),
       account: address as '0x',
-      args: [BigInt(prizesChance[itemType])],
+      args: [BigInt(prizesChance[type][itemType])],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -95,7 +145,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
   const buyBox = address && methodsNames[type]({
     address: process.env.NEXT_PUBLIC_CONTRACT_BOXES as '0x',
     value: parseEther(boxPrices[type]),
-    args: [BigInt(prizesChance[itemType])],
+    args: [BigInt(prizesChance[type][itemType])],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
@@ -108,7 +158,10 @@ export function useBuyBox(type: BoxType, itemType: number) {
   const buyBoxResult = useWaitForTransaction({ hash: buyBox?.data?.hash });
   
   useEffect(() => {
-    if (buyBox?.status === 'loading' || buyBox?.status === 'success') {
+    if (buyBox?.status === 'success') {
+      setStatus('process')
+    }    
+    if (buyBox?.status === 'loading') {
       setStatus('loading');
     };
     if (buyBox?.status === 'error') {
@@ -117,6 +170,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
     };
   }, [buyBox?.status])
 
+  
   useEffect(() => {
     if (!buyBoxResult.isSuccess) return;
 
@@ -132,7 +186,9 @@ export function useBuyBox(type: BoxType, itemType: number) {
   
         const [address, _prize] = decoded.args
         const prize = Number(_prize);
-        alert(prizes[prize])
+        console.log(prize)
+        console.log(prizes[prize])
+        setPrize(prizes[prize])
       } catch (error) {
         let message = (error as Error).message;
         console.log(error)
@@ -147,6 +203,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
   return {
     estimateGas: estimateGas,
     buyBox: buyBox?.write || (() => {}),
-    buyBoxStatus: status
+    buyBoxStatus: status,
+    prize: prize
   };
 }

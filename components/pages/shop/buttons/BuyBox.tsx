@@ -1,21 +1,25 @@
 import cn from 'classnames';
 import styles from '../shop.module.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
 import { toast } from 'react-toastify';
 import { BoxType, boxPrices, useBuyBox } from 'hooks/useBuyBox';
+import { useBoxStore } from '../store/boxStore';
 
 interface BuyBoxProps {
   type: BoxType
 }
 
 export default function BuyBox({ type }: BuyBoxProps) {
-  const { buyBox, buyBoxStatus, estimateGas } = useBuyBox(type, 600);
+  const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(type, 400);
+  const { setStatus, setBox, setPrize } = useBoxStore()
 
   const handleBuyBox = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
+      setStatus('loading')
       buyBox({ gas, gasPrice })
     }).catch(e => {
+      setStatus('idle')
       let message = (e as any).message;
       message = message.split('Raw Call Arguments')[0];
       message = message.split('Request Arguments')[0];
@@ -23,6 +27,18 @@ export default function BuyBox({ type }: BuyBoxProps) {
       toast.error(message)
     })
   }
+
+  useEffect(() => {
+    console.log(type, buyBoxStatus)
+    setStatus(buyBoxStatus)
+    setBox(type)
+  }, [buyBoxStatus])
+
+  
+  useEffect(() => {
+    if (!prize) return;
+    setPrize(prize);
+  }, [prize])
 
   return (<>
     <div className="d-flex mb-4">

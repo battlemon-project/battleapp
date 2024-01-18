@@ -6,11 +6,12 @@ import useAuth from 'context/AuthContext';
 import { truncate } from 'utils/misc';
 import { BoxType } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
+import BoxScene from './scenes/BoxScene';
 
 export default function BuyBoxPage() {
   const { isSignedIn, isSupportedChain } = useAuth();
 
-  return (
+  return (<>
     <div className="container py-3 mb-auto">
       <Link href="/shop">
         <button className='btn btn-outline-light'>
@@ -23,22 +24,32 @@ export default function BuyBoxPage() {
       <br /><br /><br />
       {(() => {
         if (!isSignedIn || !isSupportedChain) {
-          return <SignInButton />
+          return <div className='row justify-content-center'>
+            <div className='col-4'>
+              <SignInButton />
+            </div>
+          </div>
         } else {
           return <div className='row'>
             <div className='col-4'>
+              <br />
               <BuyBox type={BoxType.Cheap} />
-            </div>
-            <div className='col-4'>
+              <br />
+              <br />
               <BuyBox type={BoxType.Good} />
-            </div>
-            <div className='col-4'>
+              <br />
+              <br />
               <BuyBox type={BoxType.Great} />
+            </div>
+            <div className='col-8'>
+              <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                <BoxScene name='Basket_Chests_LP_oneReward' debug={true} />
+              </div>
             </div>
           </div>
         }
       })()}
 
     </div>
-  );
+  </>);
 };
