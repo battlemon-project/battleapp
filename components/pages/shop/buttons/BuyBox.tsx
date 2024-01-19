@@ -43,8 +43,8 @@ export default function BuyBox({ boxType, prizeType, disabled }: BuyBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.disabled]: disabled })} onClick={handleBuyBox}>
-        { buyBoxStatus == 'loading' ? 
+      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.disabled]: disabled, [styles.process]: buyBoxStatus == 'loading' || buyBoxStatus == 'process' })} onClick={handleBuyBox}>
+        { buyBoxStatus == 'loading' || buyBoxStatus == 'process' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
             <span className='fs-17 fst-italic pe-2'>{boxType} Box </span>
