@@ -9,9 +9,13 @@ export default async function handler (req: NextRequest) {
   const contract = nextUrl.searchParams.get("contract");
   const pageSize = nextUrl.searchParams.get("pageSize");
   const pageKey = nextUrl.searchParams.get("pageKey");
+  const withMetadata = nextUrl.searchParams.get("withMetadata") || 'false';
   const contracts: string[] = [
     process.env.NEXT_PUBLIC_CONTRACT_ITEMS!,
-    process.env.NEXT_PUBLIC_CONTRACT_LEMONS!
+    process.env.NEXT_PUBLIC_CONTRACT_LEMONS!,
+    process.env.NEXT_PUBLIC_CONTRACT_PICKAXES!,
+    process.env.NEXT_PUBLIC_CONTRACT_GEMS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POINTS!
   ]
   const siwe = req.cookies.get('siwe')?.value
   const { address }  = await unsealData(siwe || '', ironOptions)
@@ -26,7 +30,7 @@ export default async function handler (req: NextRequest) {
     }
 
     const options = {method: 'GET', headers: {accept: 'application/json'}};
-    let url = `${process.env.PROVIDER_URL}/getNFTsForOwner?owner=${address}&contractAddresses[]=${contract}&withMetadata=false&pageSize=${pageSize}`;
+    let url = `${process.env.PROVIDER_URL}/getNFTsForOwner?owner=${address}&contractAddresses[]=${contract}&withMetadata=${withMetadata}&pageSize=${pageSize}`;
     if (pageKey?.length) {
       url += '&pageKey=' + pageKey
     }
@@ -38,7 +42,7 @@ export default async function handler (req: NextRequest) {
       }
       
       const result: ProviderData = await response.json();
-  
+      
       if (!result?.ownedNfts) {
         return NextResponse.json({
           error: `Return undefined data`,
@@ -47,8 +51,8 @@ export default async function handler (req: NextRequest) {
         })
       }
   
-      result.ownedNfts = result.ownedNfts.map(({ tokenId }) => {
-        return { tokenId: Number(tokenId) }
+      result.ownedNfts = result.ownedNfts.map(({ tokenId, tokenUri }) => {
+        return { tokenId: Number(tokenId), tokenUri }
       })
       
       return NextResponse.json(result)

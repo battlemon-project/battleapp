@@ -2,10 +2,9 @@
 import { Scene as BabylonScene, Color4, Vector3, CubeTexture, SceneLoader } from '@babylonjs/core'
 import { Engine, Scene } from 'react-babylonjs'
 import '@babylonjs/loaders';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useIsMounted } from 'hooks/useIsMounted';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
-import { usePickaxeStore } from '../store/pickaxeStore';
 import BoxModel from './PickaxeModel';
 import DebugLayer from 'components/babylon/DebugLayer';
 
@@ -14,8 +13,13 @@ interface ItemSceneProps {
   debug?: boolean
 }
 
+const PickaxeTypes: {[key: string]: string} = {
+  '0': 'Cheap',
+  '1': 'Good',
+  '2': 'Great'
+}
+
 export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
-  const { selectedPickaxe } = usePickaxeStore()
   const mounted = useIsMounted()
 
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
@@ -33,6 +37,11 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
     scene.environmentTexture = hdrTexture;
     scene.environmentTexture.level = 1;
   }
+
+  useEffect(() => {
+    if (!pickaxeType) return;
+    alert(PickaxeTypes[pickaxeType])
+  }, [pickaxeType])
 
   return (
     <>

@@ -18,13 +18,13 @@ export default function PickaxesTab() {
       <div className="position-relative p-5">
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.generatorContainer}>
-          <PickaxeScene pickaxeType={selectedPickaxe?.properties.name} />
+          <PickaxeScene pickaxeType={ selectedPickaxe?.image.split('/').pop()?.split('.')[0] } />
         </div>
       </div>
     </div>}
 
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
-      {selectedPickaxe && <NftProps token={selectedPickaxe} />}
+      {/* {selectedPickaxe && <NftProps token={selectedPickaxe} />} */}
       {stage == 'Start' && <PickaxeStart balance={balance} />}
     </div>
   </div>)
