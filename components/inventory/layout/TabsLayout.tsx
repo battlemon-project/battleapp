@@ -19,6 +19,9 @@ export default function TabsLayout({ children, disableMenu }: PropsWithChildren<
       <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/items")})} href="/hub/items">
         Items
       </Link>
+      <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/pickaxes")})} href="/hub/pickaxes">
+        Pickaxes
+      </Link>
     </div>}
     {children}
   </div>
