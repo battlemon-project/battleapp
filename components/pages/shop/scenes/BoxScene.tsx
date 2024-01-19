@@ -36,7 +36,6 @@ export default function BoxScene({ name, debug }: ItemSceneProps) {
 
   return (
     <>
-      {box} {status}
       {mounted && <Engine antialias canvasId="box-canvas">
         <Scene onSceneMount={onSceneMount}>
           <arcRotateCamera
