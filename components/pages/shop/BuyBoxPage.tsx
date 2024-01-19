@@ -11,7 +11,11 @@ import { useState } from 'react';
 
 export default function BuyBoxPage() {
   const { isSignedIn, isSupportedChain } = useAuth();
-  const [ prizeTypes, setPrizeTypes ] = useState<{ [key in BoxType]?: PrizeType }>()
+  const [ prizeTypes, setPrizeTypes ] = useState<{ [key in BoxType]?: number }>({
+    [BoxType.Cheap]: -1,
+    [BoxType.Good]: -1,
+    [BoxType.Great]: -1
+  })
 
   const changePrizeType = (boxType: BoxType) => (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -42,21 +46,28 @@ export default function BuyBoxPage() {
         } else {
           return <div className='row'>
             <div className='col-4'>
-              {JSON.stringify(prizeTypes)}
               <br />
-              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Cheap)}  value={prizeTypes?.[BoxType.Cheap] || ''}>
-                <option value={''}>none</option>
-                {Object.keys(prizesChance.Cheap).map(k => <>
-                  <option>{prizes[Number(k)]}</option>
-                </>)}
+              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Cheap)} value={prizeTypes?.[BoxType.Cheap] || -1}>
+                <option value={-1}>none</option>
+                {Object.keys(prizesChance.Cheap).map(k => 
+                  <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
+                )}
               </select>
-              <BuyBox type={BoxType.Cheap} />
-              <br />
-              <br />
-              <BuyBox type={BoxType.Good} />
-              <br />
-              <br />
-              <BuyBox type={BoxType.Great} />
+              <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} disabled={!prizeTypes?.[BoxType.Cheap] || prizeTypes?.[BoxType.Cheap] < 0} />
+              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Good)} value={prizeTypes?.[BoxType.Good] || -1}>
+                <option value={-1}>none</option>
+                {Object.keys(prizesChance.Good).map(k =>
+                  <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
+                )}
+              </select>
+              <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} disabled={!prizeTypes?.[BoxType.Good] || prizeTypes?.[BoxType.Good] < 0} />
+              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Great)} value={prizeTypes?.[BoxType.Great] || -1}>
+                <option value={-1}>none</option>
+                {Object.keys(prizesChance.Great).map(k =>
+                  <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
+                )}
+              </select>
+              <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} disabled={!prizeTypes?.[BoxType.Great] || prizeTypes?.[BoxType.Great] < 0} />
             </div>
             <div className='col-8'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>

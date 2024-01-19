@@ -127,7 +127,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
       functionName: funcNames[type],
       value: parseEther(boxPrices[type]),
       account: address as '0x',
-      args: [BigInt(prizesChance[type][itemType])],
+      args: [BigInt(prizesChance[type][itemType] || -1)],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -145,7 +145,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
   const buyBox = address && methodsNames[type]({
     address: process.env.NEXT_PUBLIC_CONTRACT_BOXES as '0x',
     value: parseEther(boxPrices[type]),
-    args: [BigInt(prizesChance[type][itemType])],
+    args: [BigInt(prizesChance[type][itemType] || -1)],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];

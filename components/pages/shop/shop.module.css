@@ -80,3 +80,8 @@
     background: radial-gradient(65.09% 50% at 51.67% 50%, rgba(25, 188, 90, 0.25) 0%, rgba(8, 80, 37, 0.063) 100%);
   }
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

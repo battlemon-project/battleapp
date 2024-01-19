@@ -3,15 +3,17 @@ import styles from '../shop.module.css'
 import { useEffect, useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
 import { toast } from 'react-toastify';
-import { BoxType, boxPrices, useBuyBox } from 'hooks/useBuyBox';
+import { BoxType, PrizeType, boxPrices, useBuyBox } from 'hooks/useBuyBox';
 import { useBoxStore } from '../store/boxStore';
 
 interface BuyBoxProps {
-  type: BoxType
+  boxType: BoxType
+  prizeType: number
+  disabled: boolean
 }
 
-export default function BuyBox({ type }: BuyBoxProps) {
-  const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(type, 400);
+export default function BuyBox({ boxType, prizeType, disabled }: BuyBoxProps) {
+  const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType, prizeType);
   const { setStatus, setBox, setPrize } = useBoxStore()
 
   const handleBuyBox = async () => {
@@ -29,9 +31,8 @@ export default function BuyBox({ type }: BuyBoxProps) {
   }
 
   useEffect(() => {
-    console.log(type, buyBoxStatus)
     setStatus(buyBoxStatus)
-    setBox(type)
+    setBox(boxType)
   }, [buyBoxStatus])
 
   
@@ -42,12 +43,12 @@ export default function BuyBox({ type }: BuyBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      <button className={cn('d-flex justify-content-center', styles.buyBtn)} onClick={handleBuyBox}>
+      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.disabled]: disabled })} onClick={handleBuyBox}>
         { buyBoxStatus == 'loading' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
-            <span className='fs-17 fst-italic pe-2'>{type} Box </span>
-            <span className='fs-15'><PolSymbol>{boxPrices[type]} MATIC</PolSymbol></span>
+            <span className='fs-17 fst-italic pe-2'>{boxType} Box </span>
+            <span className='fs-15'><PolSymbol>{boxPrices[boxType]} MATIC</PolSymbol></span>
           </div>
         }
       </button>

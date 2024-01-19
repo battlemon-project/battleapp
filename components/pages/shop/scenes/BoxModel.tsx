@@ -11,10 +11,22 @@ interface BoxModelProps {
 }
 
 const framesByPrize: {[key in PrizeType]?: number} = {
-  [PrizeType.Sticker]: 275,
+  [PrizeType.Sticker]: 74,
+  [PrizeType.SmallMatic]: 90,
+  [PrizeType.MediumMatic]: 90,
+  [PrizeType.LargeMatic]: 90,
+  [PrizeType.SmallPoints]: 90,
+  [PrizeType.MediumPoints]: 90,
+  [PrizeType.PointsItem]: 90,
+  [PrizeType.PointsLemon]: 90,
+  [PrizeType.Hoodie]: 170,
+  [PrizeType.Shirt]: 170,
+  [PrizeType.Cap]: 170,
   [PrizeType.CheapPickaxe]: 128,
   [PrizeType.GoodPickaxe]: 128,
-  [PrizeType.GreatPickaxe]: 128
+  [PrizeType.GreatPickaxe]: 128,
+  [PrizeType.Item]: 10,
+  [PrizeType.Lemon]: 10
 }
 
 export default function BoxModel({ name, box, status, prize }: BoxModelProps) {
