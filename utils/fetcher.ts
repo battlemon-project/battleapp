@@ -14,7 +14,7 @@ const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dum
 }
 
 export interface ProviderData {
-  ownedNfts: { tokenId: number }[]
+  ownedNfts: { tokenId: number, tokenUri: string }[]
   pageKey: string | undefined
   totalCount: number
 }
@@ -55,6 +55,18 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
     }
   }
   const tokens: NftMetaData[] = await Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(tokenId)))
+  return {
+    tokens,
+    pageKey: providerData.pageKey
+  }
+}
+ 
+export const pickaxesFetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+  const providerUrl = `/api/provider/tokens?contract=${contract}`
+  const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&withMetadata=true`);
+  const providerData: ProviderData = await providerResponse.json();
+  console.log(providerData)
+  const tokens: NftMetaData[] = providerData.ownedNfts.map(nft => ({ tokenId: nft.tokenId, image: nft.tokenUri + '.png' })) as NftMetaData[]
   return {
     tokens,
     pageKey: providerData.pageKey

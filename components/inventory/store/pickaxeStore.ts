@@ -42,7 +42,7 @@ export function initializeStore(
     ...getDefaultInitialState(),
     ...preloadedState,
     changeStage: (stage) => set((state) => ({ ...state, stage })),
-    selectPickaxe: (pickaxe) => set((state) => ({ ...state, pickaxe }))
+    selectPickaxe: (selectedPickaxe) => set((state) => ({ ...state, selectedPickaxe }))
   }))
 }
 

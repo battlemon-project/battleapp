@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePickaxeStore } from "../store/pickaxeStore";
 import { useEffect } from "react";
 import useSWR from "swr";
-import { fetcher } from "utils/fetcher";
+import { pickaxesFetcher } from "utils/fetcher";
 
 interface PickaxeStartProps {
   balance: number
@@ -17,7 +17,7 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
 
   const { data, mutate, isValidating } = useSWR(
     process.env.NEXT_PUBLIC_CONTRACT_PICKAXES, 
-    fetcher({ pageSize: 100 })
+    pickaxesFetcher({ pageSize: 100 })
   )
 
   useEffect(() => {
