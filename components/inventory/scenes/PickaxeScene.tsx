@@ -49,16 +49,16 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
         <Scene onSceneMount={onSceneMount}>
           <arcRotateCamera
             name='box-camera' 
-            alpha={-0.2} 
-            lowerAlphaLimit={-0.2}
-            upperAlphaLimit={-0.2}
-            beta={1.3}
-            lowerBetaLimit={1.3}
-            upperBetaLimit={1.3}
+            alpha={0.2} 
+            lowerAlphaLimit={0.2}
+            upperAlphaLimit={0.2}
+            beta={1.6}
+            lowerBetaLimit={1.6}
+            upperBetaLimit={1.6}
             radius={2.8} 
             lowerRadiusLimit={2.8}
             upperRadiusLimit={2.8}
-            target={new Vector3(0,0.6,0)}
+            target={new Vector3(0.7,1,0.5)}
           />
 
           <hemisphericLight
