@@ -1,14 +1,14 @@
 import { AbstractMesh, AnimationGroup, Nullable, TransformNode, Vector3 } from '@babylonjs/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ILoadedModel, Model, useScene } from 'react-babylonjs'
 
 interface PickaxeModelProps { 
-  pickaxeType: string | undefined
+  pickaxeType: number
 }
 
 export default function BoxModel({ pickaxeType }: PickaxeModelProps) {
   const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/mining/';
-  const [ pickaxes, setPickaxes ] = useState<TransformNode[]>();
+  const [ pickaxes, setPickaxes ] = useState<TransformNode[]>()
   const [ placeholderGem, setPlaceholderGem] = useState<AbstractMesh>()
   const [ miningAnimation, setMiningAnimation] = useState<Nullable<AnimationGroup>>()
   const [ gemAppearAnimation, setGemAppearAnimation] = useState<Nullable<AnimationGroup>>()
@@ -22,13 +22,11 @@ export default function BoxModel({ pickaxeType }: PickaxeModelProps) {
     const idleAnimation = scene.getAnimationGroupByName('Idle');
     idleAnimation?.start(true, 1);
     const _pickaxes: TransformNode[] = [
+      scene.getTransformNodeByName('IcePick_Yellow') as TransformNode,
       scene.getTransformNodeByName('IcePick_Blue') as TransformNode,
       scene.getTransformNodeByName('IcePick_Purple') as TransformNode,
-      scene.getTransformNodeByName('IcePick_Yellow') as TransformNode,
     ]
-    _pickaxes.forEach(pa => {
-      pa.scaling = new Vector3(0, 0, 0);
-    })
+    _pickaxes.forEach(pa => pa.setEnabled(false))
     setPickaxes(_pickaxes);
     const _placeholderGem = scene.getMeshByName('placeholder_gem');
     if (_placeholderGem)  {
@@ -48,6 +46,13 @@ export default function BoxModel({ pickaxeType }: PickaxeModelProps) {
     setSharpingAnimation(_sharpingAnimation)
   }
 
+  useEffect(() => {
+    if (!pickaxes) return;
+    pickaxes[pickaxeType].setEnabled(true);
+    return () => {
+      pickaxes[pickaxeType].setEnabled(false);
+    }
+  }, [pickaxeType])
 
   return (
     <Model

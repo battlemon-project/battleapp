@@ -9,14 +9,14 @@ import BoxModel from './PickaxeModel';
 import DebugLayer from 'components/babylon/DebugLayer';
 
 interface ItemSceneProps {
-  pickaxeType: string | undefined,
+  pickaxeType: number,
   debug?: boolean
 }
 
 const PickaxeTypes: {[key: string]: string} = {
-  '0': 'Cheap',
-  '1': 'Good',
-  '2': 'Great'
+  0: 'Cheap',
+  1: 'Good',
+  2: 'Great'
 }
 
 export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
@@ -40,7 +40,6 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
 
   useEffect(() => {
     if (!pickaxeType) return;
-    alert(PickaxeTypes[pickaxeType])
   }, [pickaxeType])
 
   return (

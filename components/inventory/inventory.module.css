@@ -64,6 +64,13 @@
   width: 25%;
 }
 
+.pickaxeProps {
+  top: 50px;
+  right: 105%;
+  position: absolute;
+  width: 30%;
+}
+
 @media (max-width: 992px) { 
   .nftProps {
     position: relative;

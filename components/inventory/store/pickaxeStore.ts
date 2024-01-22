@@ -1,3 +1,4 @@
+import { StatusType } from 'hooks/useBuyBox'
 import { NftMetaData } from 'lemon'
 import { createContext, useContext } from 'react'
 import { createStore, useStore as useZustandStore } from 'zustand'
@@ -7,11 +8,17 @@ type StageType = 'Start'
 interface DefaultStoreInterface {
   stage: StageType
   selectedPickaxe: NftMetaData | undefined
+  gem: number | undefined
+  miningStatus: StatusType
+  repairStatus: StatusType
 }
 
 interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectPickaxe: (token: NftMetaData) => void
+  setGem: (gem: number) => void
+  setMiningStatus: (miningStatus: StatusType) => void
+  setRepairStatus: (repairStatus: StatusType) => void
 }
 
 export type StoreType = ReturnType<typeof initializeStore>
@@ -32,6 +39,9 @@ function getDefaultInitialState(): DefaultStoreInterface {
   return {
     stage: 'Start',
     selectedPickaxe: undefined,
+    miningStatus: 'idle',
+    repairStatus: 'idle',
+    gem: undefined
   }
 }
 
@@ -42,7 +52,10 @@ export function initializeStore(
     ...getDefaultInitialState(),
     ...preloadedState,
     changeStage: (stage) => set((state) => ({ ...state, stage })),
-    selectPickaxe: (selectedPickaxe) => set((state) => ({ ...state, selectedPickaxe }))
+    selectPickaxe: (selectedPickaxe) => set((state) => ({ ...state, selectedPickaxe })),
+    setMiningStatus: (miningStatus) => set((state) => ({ ...state, miningStatus })),
+    setRepairStatus: (repairStatus) => set((state) => ({ ...state, repairStatus })),
+    setGem: (gem) => set((state) => ({ ...state, gem })),
   }))
 }
 
