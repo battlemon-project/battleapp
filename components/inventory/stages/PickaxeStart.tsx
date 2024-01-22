@@ -47,7 +47,7 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Repair</button>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <PickaxeMiningButton pickaxeId={selectedPickaxe?.tokenId || -1} />
+          <PickaxeMiningButton pickaxeId={selectedPickaxe ? selectedPickaxe.tokenId : -1} />
         </div>
       </div>
     </div>}
