@@ -3,14 +3,16 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { usePickaxeStore } from '../store/pickaxeStore';
 import { usePickaxeMining } from 'hooks/usePickaxeMining';
+import { useGemRank } from 'hooks/useGemRank';
 
 interface PickaxeMiningProps {
   pickaxeId: number
 }
 
 export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
-  const { setMiningStatus, setGem  } = usePickaxeStore()
-  const { pickaxeMining, pickaxeMiningStatus, estimateGas, gemType } = usePickaxeMining(pickaxeId);
+  const { setMiningStatus, setGemRank } = usePickaxeStore()
+  const { pickaxeMining, pickaxeMiningStatus, estimateGas, gemId } = usePickaxeMining(pickaxeId);
+  const { getGemRank } = useGemRank();
 
   const handlePickaxeMining = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
@@ -27,19 +29,20 @@ export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
   }
 
   useEffect(() => {
+    console.log(pickaxeMiningStatus)
     setMiningStatus(pickaxeMiningStatus)
   }, [pickaxeMiningStatus])
 
   
   useEffect(() => {
-    if (!gemType) return;
-    setGem(gemType);
-  }, [gemType])
+    if (!gemId) return;
+    getGemRank(gemId).then((rank) => setGemRank(rank))
+  }, [gemId])
 
   return (<>
     <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: pickaxeId < 0 })} onClick={handlePickaxeMining}>
       { pickaxeMiningStatus == 'loading' || pickaxeMiningStatus == 'process' ? 
-        <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
+        <div className="spinner-border spinner-border-sm" role="status"></div> :
         <>Mining</>
       }
     </button>

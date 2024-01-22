@@ -8,7 +8,7 @@ type StageType = 'Start'
 interface DefaultStoreInterface {
   stage: StageType
   selectedPickaxe: NftMetaData | undefined
-  gem: number | undefined
+  gemRank: number | undefined
   miningStatus: StatusType
   repairStatus: StatusType
 }
@@ -16,7 +16,7 @@ interface DefaultStoreInterface {
 interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectPickaxe: (token: NftMetaData) => void
-  setGem: (gem: number) => void
+  setGemRank: (gemRank: number) => void
   setMiningStatus: (miningStatus: StatusType) => void
   setRepairStatus: (repairStatus: StatusType) => void
 }
@@ -41,7 +41,7 @@ function getDefaultInitialState(): DefaultStoreInterface {
     selectedPickaxe: undefined,
     miningStatus: 'idle',
     repairStatus: 'idle',
-    gem: undefined
+    gemRank: undefined
   }
 }
 
@@ -55,7 +55,7 @@ export function initializeStore(
     selectPickaxe: (selectedPickaxe) => set((state) => ({ ...state, selectedPickaxe })),
     setMiningStatus: (miningStatus) => set((state) => ({ ...state, miningStatus })),
     setRepairStatus: (repairStatus) => set((state) => ({ ...state, repairStatus })),
-    setGem: (gem) => set((state) => ({ ...state, gem })),
+    setGemRank: (gemRank) => set((state) => ({ ...state, gemRank })),
   }))
 }
 

@@ -7,6 +7,7 @@ import { useIsMounted } from 'hooks/useIsMounted';
 import { GLTFFileLoader, GLTFLoaderAnimationStartMode } from '@babylonjs/loaders';
 import BoxModel from './PickaxeModel';
 import DebugLayer from 'components/babylon/DebugLayer';
+import { usePickaxeStore } from "../store/pickaxeStore";
 
 interface ItemSceneProps {
   pickaxeType: number,
@@ -20,6 +21,7 @@ const PickaxeTypes: {[key: string]: string} = {
 }
 
 export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
+  const { miningStatus, selectedPickaxe, gemRank } = usePickaxeStore()
   const mounted = useIsMounted()
 
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
@@ -67,7 +69,7 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
           />
           
           <Suspense>
-            <BoxModel pickaxeType={pickaxeType} />
+            <BoxModel pickaxeType={pickaxeType} miningStatus={miningStatus} selectedPickaxe={selectedPickaxe} gemRank={gemRank} />
           </Suspense>
 
           {debug && <DebugLayer />}
