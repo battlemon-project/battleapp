@@ -37,6 +37,8 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
       message = message.split('Raw Call Arguments')[0];
       message = message.split('Request Arguments')[0];
       message = message.split('Contract Call')[0];
+      console.log('error 4')
+      setStatus('error');
       toast.error(message)
     }
   })
@@ -45,21 +47,34 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
   
   useEffect(() => {
     if (pickaxeMining?.status === 'success') {
-      setStatus('process')
+      setStatus('process');
+      return;
     }    
     if (pickaxeMining?.status === 'loading') {
       setStatus('loading');
+      return;
     };
     if (pickaxeMining?.status === 'error') {
+      console.log('error 0')
       setStatus('error');
       router.push(router.pathname + `?buy=error`)
+      return;
     };
-  }, [pickaxeMining?.status])
+  }, [pickaxeMining?.status]);
 
+  useEffect(() => {
+    if (!pickaxeMiningResult.isError) return;
+    console.log('error 1')
+    setStatus('error');
+  }, [pickaxeMiningResult.isError]);
   
   useEffect(() => {
     if (!pickaxeMiningResult.isSuccess) return;
-
+    if (pickaxeMiningResult.data?.logs.length && pickaxeMiningResult.data?.logs.length < 2) {
+      console.log('error 5')
+      setStatus('error');
+      return;
+    }
     pickaxeMiningResult.data?.logs.forEach(log => {
       if (log.address.toLowerCase() !== process.env.NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()) return;
       try {
@@ -72,18 +87,30 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
   
         console.log(decoded.args)
         let { tokenId } = decoded.args as { tokenId: number; }
+        if (tokenId == undefined) {
+          console.log('error 2')
+          setStatus('error');
+          return;
+        }
         tokenId = Number(tokenId);
         setGemId(tokenId)
+        console.log('success 1', tokenId)
+        setStatus('success');
+        router.push(router.pathname + `?mining=success`);
+        return;
       } catch (error) {
         let message = (error as Error).message;
+        console.log('error 3')
+        setStatus('error');
         console.log(error)
         toast.error(message)
       }
     })
-
-    setStatus('success')
-    router.push(router.pathname + `?mining=success`)
   }, [pickaxeMiningResult.isSuccess])
+
+  useEffect(() => {
+    console.log('ttt', status)
+  }, [status]);
 
   return {
     estimateGas: estimateGas,

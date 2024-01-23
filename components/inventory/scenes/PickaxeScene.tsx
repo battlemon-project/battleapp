@@ -42,7 +42,6 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
 
   return (
     <>
-      {gemRank}
       {mounted && <Engine antialias canvasId="box-canvas">
         <Scene onSceneMount={onSceneMount}>
           <arcRotateCamera

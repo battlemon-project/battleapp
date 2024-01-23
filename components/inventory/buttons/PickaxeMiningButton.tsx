@@ -15,6 +15,7 @@ export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
   const { getGemRank } = useGemRank();
 
   const handlePickaxeMining = async () => {
+    setGemRank(undefined);
     estimateGas().then(({ gas, gasPrice }) => {
       setMiningStatus('loading')
       pickaxeMining({ gas, gasPrice })
@@ -31,9 +32,6 @@ export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
   useEffect(() => {
     console.log('test 7')
     console.log(pickaxeMiningStatus)
-    if (pickaxeMiningStatus == 'loading') {
-      setGemRank(undefined)
-    }
     setMiningStatus(pickaxeMiningStatus)
   }, [pickaxeMiningStatus])
 
@@ -41,9 +39,7 @@ export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
   useEffect(() => {
     console.log('test 8')
     if (gemId == undefined) return;
-    console.log(gemId, miningStatus)
     getGemRank(gemId).then((rank) => {
-      console.log('RANK', rank)
       setGemRank(rank)
     })
   }, [gemId])

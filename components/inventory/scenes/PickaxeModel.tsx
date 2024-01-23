@@ -94,14 +94,18 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
       miningAnimation?.start(true, 1);
       showGem(-1);
     }
+    if (miningStatus == 'error') {
+      showGem(-1);
+      scene?.stopAllAnimations();
+      sadLemonAnimation?.start(true, 1);
+    }
   }, [miningStatus])
 
   useEffect(() => {
     console.log('test 1')
     if (miningStatus == 'success') {
       if (gemRank !== undefined && gemRank >= 0) showGem(gemRank);
-      miningAnimation?.reset();
-      miningAnimation?.stop();
+      scene?.stopAllAnimations();
       gemAppearAnimation?.start(false, 1);
       happyLemonAnimation?.start(true, 1);
     }
