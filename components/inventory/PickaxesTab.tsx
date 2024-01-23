@@ -42,7 +42,7 @@ export default function PickaxesTab() {
     </div>}
 
     <div className={cn('col-lg-7 col-12 position-relative mx-0', styles.inventoryContainer)}>
-      {sharpness && <PickaxeProps sharpness={sharpness} />}
+      {sharpness !== undefined && <PickaxeProps sharpness={sharpness} />}
       {stage == 'Start' && <PickaxeStart balance={balance} />}
     </div>
   </div>)
