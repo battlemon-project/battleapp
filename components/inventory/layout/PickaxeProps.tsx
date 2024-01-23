@@ -2,8 +2,6 @@ import cn from "classnames"
 import styles from '../inventory.module.css'
 
 export default function NftProps({ sharpness = 0 }: { sharpness: number }) {
-
-
   return (<>
     <div className={cn(styles.nftProps, styles.pickaxeProps)}>
       <div className='d-flex fs-13 justify-content-between'>

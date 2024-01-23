@@ -16,7 +16,7 @@ interface DefaultStoreInterface {
 interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectPickaxe: (token: NftMetaData) => void
-  setGemRank: (gemRank: number) => void
+  setGemRank: (gemRank: number | undefined) => void
   setMiningStatus: (miningStatus: StatusType) => void
   setRepairStatus: (repairStatus: StatusType) => void
 }

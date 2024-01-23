@@ -10,7 +10,7 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
   const router = useRouter()
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
-  const [ gemId, setGemId ] = useState<number>(0)
+  const [ gemId, setGemId ] = useState<number | undefined>(undefined)
   const { address }  = useAccount();
   const fee = useFeeData()
    

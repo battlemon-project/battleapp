@@ -71,7 +71,6 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
   }
 
   const showGem = (rank: number) => {
-    rank = rank - 1;
     gems?.forEach((gem, index) => {
       if (!gem) return;
       if (index !== rank) gem.setEnabled(false)
@@ -81,6 +80,7 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
   };
 
   useEffect(() => {
+    console.log('test 3')
     if (!pickaxes) return;
     pickaxes[pickaxeType].setEnabled(true);
     return () => {
@@ -89,6 +89,7 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
   }, [pickaxeType])
 
   useEffect(() => {
+    console.log('test 2')
     if (miningStatus == 'process') {
       miningAnimation?.start(true, 1);
       showGem(-1);
@@ -96,9 +97,9 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
   }, [miningStatus])
 
   useEffect(() => {
+    console.log('test 1')
     if (miningStatus == 'success') {
-      if (gemRank && gemRank >= 0) showGem(gemRank);
-      console.log(gemRank)
+      if (gemRank !== undefined && gemRank >= 0) showGem(gemRank);
       miningAnimation?.reset();
       miningAnimation?.stop();
       gemAppearAnimation?.start(false, 1);

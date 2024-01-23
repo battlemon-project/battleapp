@@ -10,7 +10,7 @@ interface PickaxeMiningProps {
 }
 
 export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
-  const { setMiningStatus, setGemRank } = usePickaxeStore()
+  const { setMiningStatus, setGemRank, miningStatus } = usePickaxeStore()
   const { pickaxeMining, pickaxeMiningStatus, estimateGas, gemId } = usePickaxeMining(pickaxeId);
   const { getGemRank } = useGemRank();
 
@@ -29,14 +29,23 @@ export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
   }
 
   useEffect(() => {
+    console.log('test 7')
     console.log(pickaxeMiningStatus)
+    if (pickaxeMiningStatus == 'loading') {
+      setGemRank(undefined)
+    }
     setMiningStatus(pickaxeMiningStatus)
   }, [pickaxeMiningStatus])
 
   
   useEffect(() => {
-    if (!gemId) return;
-    getGemRank(gemId).then((rank) => setGemRank(rank))
+    console.log('test 8')
+    if (gemId == undefined) return;
+    console.log(gemId, miningStatus)
+    getGemRank(gemId).then((rank) => {
+      console.log('RANK', rank)
+      setGemRank(rank)
+    })
   }, [gemId])
 
   return (<>
