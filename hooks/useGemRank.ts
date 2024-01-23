@@ -14,7 +14,8 @@ export function useGemRank() {
       functionName: 'tokenURI',
       args: [BigInt(tokenId)],
     })) as string;
-    const rank = parseInt(metaURI.split('/').at(-1) as string);
+    const rank = parseInt(metaURI.split('/').at(-1) as string) - 1;
+    console.log('getGemRank', rank)
     return rank;
   };
 

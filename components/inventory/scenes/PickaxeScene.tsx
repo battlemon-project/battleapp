@@ -40,12 +40,9 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
     scene.environmentTexture.level = 1;
   }
 
-  useEffect(() => {
-    if (!pickaxeType) return;
-  }, [pickaxeType])
-
   return (
     <>
+      {gemRank}
       {mounted && <Engine antialias canvasId="box-canvas">
         <Scene onSceneMount={onSceneMount}>
           <arcRotateCamera

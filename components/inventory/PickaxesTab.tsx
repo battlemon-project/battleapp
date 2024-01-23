@@ -5,13 +5,31 @@ import PickaxeStart from './stages/PickaxeStart';
 import { usePickaxeBalance } from 'hooks/usePickaxeBalance';
 import useWindowSize from 'hooks/useWindowSize';
 import PickaxeScene from './scenes/PickaxeScene';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PickaxeProps from './layout/PickaxeProps';
+import { useSharpnessOf } from 'hooks/useSharpnessOf';
 
 export default function PickaxesTab() {
-  const { selectedPickaxe, stage } = usePickaxeStore()
+  const { selectedPickaxe, stage, miningStatus } = usePickaxeStore()
+  const [ sharpness, setSharpness ] = useState<number | undefined>()
   const size = useWindowSize()
+  const { getSharpnessOf } = useSharpnessOf()
   const { balance } = usePickaxeBalance()
+
+  useEffect(() => {
+    if (selectedPickaxe?.tokenId == undefined) return
+    getSharpnessOf(selectedPickaxe.tokenId).then((sharp: number) => {
+      setSharpness(sharp)
+    })
+  }, [selectedPickaxe?.tokenId])
+
+  useEffect(() => {
+    console.log('test 5')
+    if (selectedPickaxe?.tokenId == undefined || miningStatus !== 'success') return
+    getSharpnessOf(selectedPickaxe.tokenId).then((sharp: number) => {
+      setSharpness(sharp)
+    })
+  }, [miningStatus])
 
   return (<div className="row">
     {size.width > 992 && <div className="col-5">
@@ -24,7 +42,7 @@ export default function PickaxesTab() {
     </div>}
 
     <div className={cn('col-lg-7 col-12 position-relative mx-0', styles.inventoryContainer)}>
-      {selectedPickaxe && <PickaxeProps sharpness={100} />}
+      {sharpness && <PickaxeProps sharpness={sharpness} />}
       {stage == 'Start' && <PickaxeStart balance={balance} />}
     </div>
   </div>)
