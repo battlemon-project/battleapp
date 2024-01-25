@@ -10,7 +10,7 @@ interface PickaxeMiningProps {
 }
 
 export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
-  const { setMiningStatus, setGemRank, miningStatus } = usePickaxeStore()
+  const { setMiningStatus, setGemRank } = usePickaxeStore()
   const { pickaxeMining, pickaxeMiningStatus, estimateGas, gemId } = usePickaxeMining(pickaxeId);
   const { getGemRank } = useGemRank();
 

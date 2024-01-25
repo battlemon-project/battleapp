@@ -9,9 +9,11 @@ interface PickaxeModelProps {
   miningStatus: StatusType
   selectedPickaxe: NftMetaData | undefined
   gemRank: number | undefined
+  setGemRank: (gemRank: number | undefined) => void
+  repairStatus: StatusType
 }
 
-export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, gemRank }: PickaxeModelProps) {
+export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, gemRank, setGemRank, repairStatus }: PickaxeModelProps) {
   const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/mining/';
   const [ pickaxes, setPickaxes ] = useState<TransformNode[]>()
   const [ gems, setGems ] = useState<Mesh[]>()
@@ -103,11 +105,12 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
 
   useEffect(() => {
     console.log('test 1')
-    if (miningStatus == 'success') {
-      if (gemRank !== undefined && gemRank >= 0) showGem(gemRank);
+    if (miningStatus == 'success' && gemRank !== undefined) {
+      if (gemRank >= 0) showGem(gemRank);
       scene?.stopAllAnimations();
       gemAppearAnimation?.start(false, 1);
       happyLemonAnimation?.start(true, 1);
+      setGemRank(undefined);
     }
   }, [gemRank])
 
@@ -116,6 +119,24 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
     idleAnimation?.start(true, 1);
     showGem(-1)
   }, [selectedPickaxe?.tokenId])
+
+  
+  useEffect(() => {
+    scene?.stopAllAnimations();
+    idleAnimation?.start(true, 1);
+    showGem(-1)
+  }, [selectedPickaxe?.tokenId])
+
+  useEffect(() => {
+    if (repairStatus == 'process') {
+      scene?.stopAllAnimations();
+      sharpingAnimation?.start(true, 1);
+    }
+    if (repairStatus == 'success') {
+      scene?.stopAllAnimations();
+      idleAnimation?.start(true, 1);
+    }
+  }, [repairStatus])
 
   return (
     <Model

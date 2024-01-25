@@ -21,7 +21,7 @@ const PickaxeTypes: {[key: string]: string} = {
 }
 
 export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
-  const { miningStatus, selectedPickaxe, gemRank } = usePickaxeStore()
+  const { miningStatus, selectedPickaxe, gemRank, setGemRank, repairStatus } = usePickaxeStore()
   const mounted = useIsMounted()
 
   const onSceneMount = ({ scene }: {scene: BabylonScene}) => {
@@ -65,7 +65,7 @@ export default function BoxScene({ pickaxeType, debug }: ItemSceneProps) {
           />
           
           <Suspense>
-            <BoxModel pickaxeType={pickaxeType} miningStatus={miningStatus} selectedPickaxe={selectedPickaxe} gemRank={gemRank} />
+            <BoxModel pickaxeType={pickaxeType} miningStatus={miningStatus} selectedPickaxe={selectedPickaxe} gemRank={gemRank} setGemRank={setGemRank} repairStatus={repairStatus} />
           </Suspense>
 
           {debug && <DebugLayer />}
