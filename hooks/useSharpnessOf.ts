@@ -1,6 +1,3 @@
-
-
-
 import { pickAxeABI } from './generated';
 import {  usePublicClient } from 'wagmi';
 

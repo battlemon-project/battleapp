@@ -10,7 +10,7 @@ import PickaxeProps from './layout/PickaxeProps';
 import { useSharpnessOf } from 'hooks/useSharpnessOf';
 
 export default function PickaxesTab() {
-  const { selectedPickaxe, stage, miningStatus } = usePickaxeStore()
+  const { selectedPickaxe, stage, miningStatus, repairStatus } = usePickaxeStore()
   const [ sharpness, setSharpness ] = useState<number | undefined>()
   const size = useWindowSize()
   const { getSharpnessOf } = useSharpnessOf()
@@ -25,11 +25,19 @@ export default function PickaxesTab() {
 
   useEffect(() => {
     console.log('test 5')
-    if (selectedPickaxe?.tokenId == undefined || miningStatus !== 'success') return
+    if (selectedPickaxe?.tokenId == undefined || (miningStatus !== 'success' && miningStatus !== 'error')) return
     getSharpnessOf(selectedPickaxe.tokenId).then((sharp: number) => {
       setSharpness(sharp)
     })
   }, [miningStatus])
+
+  
+  useEffect(() => {
+    if (selectedPickaxe?.tokenId == undefined || repairStatus !== 'success') return
+    getSharpnessOf(selectedPickaxe.tokenId).then((sharp: number) => {
+      setSharpness(sharp)
+    })
+  }, [repairStatus])
 
   return (<div className="row">
     {size.width > 992 && <div className="col-5">

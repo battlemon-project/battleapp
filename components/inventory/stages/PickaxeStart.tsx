@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import { pickaxesFetcher } from "utils/fetcher";
 import PickaxeMiningButton from "../buttons/PickaxeMiningButton";
+import PickaxeRepairButton from "../buttons/PickaxeRepairButton";
 
 interface PickaxeStartProps {
   balance: number
@@ -44,7 +45,10 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_PICKAXES}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Repair</button>
+          {selectedPickaxe && <PickaxeRepairButton pickaxeId={selectedPickaxe.tokenId} pickaxeType={ Number(selectedPickaxe.image.split('/').pop()?.split('.')[0]) } />}
+          {!selectedPickaxe && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
+            Repair
+          </button>}
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
           <PickaxeMiningButton pickaxeId={selectedPickaxe ? selectedPickaxe.tokenId : -1} />
