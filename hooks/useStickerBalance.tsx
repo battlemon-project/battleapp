@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { usePickAxeBalanceOf } from './generated';
+import { useStickerBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
 
-export function usePickaxeBalance() {
+export function useStickerBalance() {
   const { address }  = useAccount();
 
-  const balance = address && usePickAxeBalanceOf({
-    address: process.env.NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
+  const balance = address && useStickerBalanceOf({
+    address: process.env.NEXT_PUBLIC_CONTRACT_STICKERS as '0x',
     args: [address]
   })
 

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePickaxeStore } from "../store/pickaxeStore";
 import { useEffect } from "react";
 import useSWR from "swr";
-import { pickaxesFetcher } from "utils/fetcher";
+import { simpleFetcher } from "utils/fetcher";
 import PickaxeMiningButton from "../buttons/PickaxeMiningButton";
 import PickaxeRepairButton from "../buttons/PickaxeRepairButton";
 
@@ -19,7 +19,7 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
 
   const { data, mutate, isValidating } = useSWR(
     process.env.NEXT_PUBLIC_CONTRACT_PICKAXES, 
-    pickaxesFetcher({ pageSize: 100 })
+    simpleFetcher({ pageSize: 100 })
   )
 
   useEffect(() => {

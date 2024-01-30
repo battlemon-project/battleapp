@@ -10,7 +10,7 @@ const config = {
   revalidateOnReconnect: false
 }
 
-export default function HubItemsPage() {
+export default function HubPickaxesPage() {
   const { isSignedIn, isSupportedChain } = useAuth();
 
   return (<div className="container">

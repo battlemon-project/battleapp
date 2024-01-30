@@ -61,7 +61,7 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
   }
 }
  
-export const pickaxesFetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+export const simpleFetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
   const providerUrl = `/api/provider/tokens?contract=${contract}`
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&withMetadata=true`);
   const providerData: ProviderData = await providerResponse.json();

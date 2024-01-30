@@ -2,7 +2,7 @@
 
 
 import { useGemMerge as generatedUseGemMerge, gemABI } from './generated';
-import { decodeEventLog } from 'viem'
+import { decodeEventLog, parseEther } from 'viem'
 import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
@@ -22,6 +22,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
       abi: gemABI,
       functionName: 'merge',
       account: address as '0x',
+      value: parseEther('0.0005'),
       args: [BigInt(gem0 || 0), BigInt(gem1 || 1)],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
@@ -33,6 +34,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
 
   const gemMerge = address && generatedUseGemMerge({
     address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
+    value: parseEther('0.0005'),
     args: [BigInt(gem0 || 0), BigInt(gem1 || 1)],
     onError: (error) => {
       let message = error.message;
