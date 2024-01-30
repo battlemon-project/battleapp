@@ -15,7 +15,8 @@ export default async function handler (req: NextRequest) {
     process.env.NEXT_PUBLIC_CONTRACT_LEMONS!,
     process.env.NEXT_PUBLIC_CONTRACT_PICKAXES!,
     process.env.NEXT_PUBLIC_CONTRACT_GEMS!,
-    process.env.NEXT_PUBLIC_CONTRACT_POINTS!
+    process.env.NEXT_PUBLIC_CONTRACT_POINTS!,
+    process.env.NEXT_PUBLIC_CONTRACT_STICKERS!
   ]
   const siwe = req.cookies.get('siwe')?.value
   const { address }  = await unsealData(siwe || '', ironOptions)

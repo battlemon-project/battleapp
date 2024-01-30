@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { usePickAxeBalanceOf } from './generated';
+import { useGemBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
 
-export function usePickaxeBalance() {
+export function useGemBalance() {
   const { address }  = useAccount();
 
-  const balance = address && usePickAxeBalanceOf({
-    address: process.env.NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
+  const balance = address && useGemBalanceOf({
+    address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
     args: [address]
   })
 
