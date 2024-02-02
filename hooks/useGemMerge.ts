@@ -15,7 +15,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
   const fee = useFeeData()
-   
+
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
       address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
@@ -23,7 +23,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
       functionName: 'merge',
       account: address as '0x',
       value: parseEther('0.0005'),
-      args: [BigInt(gem0 || 0), BigInt(gem1 || 1)],
+      args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -35,7 +35,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
   const gemMerge = address && generatedUseGemMerge({
     address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
     value: parseEther('0.0005'),
-    args: [BigInt(gem0 || 0), BigInt(gem1 || 1)],
+    args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
@@ -56,54 +56,40 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
     };
     if (gemMerge?.status === 'error') {
       setStatus('error');
-      router.push(router.pathname + `?buy=error`)
+      router.push(router.pathname + `?merge=error`)
     };
   }, [gemMerge?.status])
 
-  
+ 
   useEffect(() => {
     if (!gemMergeResult.isSuccess) return;
-
-    gemMergeResult.data?.logs.forEach(log => {
-      if (log.address.toLowerCase() !== process.env.NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()) return;
-      try {
-        console.log(log)
-        const decoded = decodeEventLog({
-          abi: gemABI,
-          topics: log.topics,
-          strict: false
-        })
-  
-        console.log(decoded.args)
-        let { tokenId } = decoded.args as { tokenId: number; }
-        tokenId = Number(tokenId);
-        console.log('new gem id', tokenId)
-      } catch (error) {
-        let message = (error as Error).message;
-        console.log(error)
-        toast.error(message)
+    if (gemMergeResult.data?.logs.length) {
+      const logLength = gemMergeResult.data?.logs.filter(log => log.address.toLowerCase() == process.env.NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()).length
+      console.log('logLength', logLength)
+      if (logLength > 1) {
+        setStatus('success');
+        router.push(router.pathname + `?merge=success`)
+        return
+      } else {
+        setStatus('error');
+        router.push(router.pathname + `?merge=error`)
+        return
       }
-    })
-
-    setStatus('success')
-    router.push(router.pathname + `?mining=success`)
+    }
+    setStatus('error');
+    router.push(router.pathname + `?merge=error`)
   }, [gemMergeResult.isSuccess])
 
-  const getGemRank = async (tokenId: number): Promise<number> => {
-    const metaURI = (await publicClient.readContract({
-      address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
-      abi: gemABI,
-      functionName: 'tokenURI',
-      args: [BigInt(tokenId)],
-    })) as string;
-    const rank = parseInt(metaURI.split('/').at(-1) as string);
-    return rank;
-  };
+
+  useEffect(() => {
+    if (!gemMergeResult.isError) return
+    setStatus('error');
+    toast.error(gemMergeResult.error?.message)
+  }, [gemMergeResult.isError])
 
   return {
     estimateGas: estimateGas,
     gemMerge: gemMerge?.write || (() => {}),
-    gemMergeStatus: status,
-    getGemRank,
+    gemMergeStatus: status
   };
 }

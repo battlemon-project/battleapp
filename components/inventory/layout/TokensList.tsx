@@ -38,7 +38,6 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
           {tokens.map((token, idx)=> {
             return <Fragment key={idx}>
               <div className='col-auto mb-2' style={{width: colWidth + '%'}}>
-                {token.tokenId}
                 {withGenerator ? 
                   <TokenLinkGenerator token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} />
                 : 
