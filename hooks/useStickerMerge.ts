@@ -28,7 +28,7 @@ export function useStickerMerge(sticker0: number, sticker1: number, sticker2: nu
   }
 
   const stickerMerge = address && useStickerCraftItem({
-    address: process.env.NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
+    address: process.env.NEXT_PUBLIC_CONTRACT_STICKERS as '0x',
     args: [[BigInt(sticker0), BigInt(sticker1), BigInt(sticker2), BigInt(sticker3)]],
     onError: (error) => {
       let message = error.message;

@@ -14,7 +14,7 @@ interface StickerStartProps {
 }
 
 export default function StickerStart({ balance }: StickerStartProps) {
-  const { selectedStickers, selectSticker } = useStickerStore();
+  const { selectedStickers, selectSticker, mergeStatus } = useStickerStore();
 
   const { data, mutate, isValidating } = useSWR(
     process.env.NEXT_PUBLIC_CONTRACT_STICKERS, 
@@ -25,6 +25,11 @@ export default function StickerStart({ balance }: StickerStartProps) {
     if (!balance) return
     mutate();
   }, [balance])
+  
+  useEffect(() => {
+    if (mergeStatus !== 'success' && mergeStatus !== 'error') return
+    mutate();
+  }, [mergeStatus])
 
   return (<>
     <TabsLayout>

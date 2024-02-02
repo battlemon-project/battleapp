@@ -15,6 +15,8 @@ interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectSticker: (sticker: NftMetaData) => void
   setMergeStatus: (mergeStatus: StatusType) => void
+  mergeSuccessResult: () => void
+  mergeErrorResult: () => void
 }
 
 export type StoreType = ReturnType<typeof initializeStore>
@@ -46,11 +48,22 @@ export function initializeStore(
     ...getDefaultInitialState(),
     ...preloadedState,
     changeStage: (stage) => set((state) => ({ ...state, stage })),
-    selectSticker: (selectedSticker) => set((state) => ({ 
-      ...state, 
-      selectedStickers: [selectedSticker, ...(state.selectedStickers || []) ]
-    })),
-    setMergeStatus: (miningStatus) => set((state) => ({ ...state, miningStatus }))
+    selectSticker: (selectedSticker) => set((state) => {
+      if (state.selectedStickers.map(g => g.tokenId).includes(selectedSticker.tokenId)) {
+        return {
+          ...state, 
+          selectedStickers: state.selectedStickers.filter(g => g.tokenId !== selectedSticker.tokenId)
+        }
+      } else {
+        return {
+          ...state, 
+          selectedStickers: [ selectedSticker, ...(state.selectedStickers?.slice(-3) || []) ]
+        }
+      }
+    }),
+    setMergeStatus: (mergeStatus) => set((state) => ({ ...state, mergeStatus })),
+    mergeSuccessResult: () => set((state) => ({ ...state, selectedStickers: [] })),
+    mergeErrorResult: () => set((state) => ({ ...state, selectedStickers: [] })) 
   }))
 }
 
