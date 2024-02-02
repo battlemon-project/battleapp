@@ -4,17 +4,21 @@ import styles from '../inventory.module.css'
 import cn from 'classnames';
 import Link from "next/link";
 import { useGemStore } from "../store/gemStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { simpleFetcher } from "utils/fetcher";
 import GemMergeButton from "../buttons/GemMergeButton";
+import { NftMetaData } from "lemon";
+import { useGemRank } from "hooks/useGemRank";
 
 interface GemStartProps {
   balance: number
 }
 
 export default function GemStart({ balance }: GemStartProps) {
-  const { selectedGems, selectGem } = useGemStore();
+  const { selectedGems, selectGem, mergeStatus } = useGemStore();
+  const { getGemRank } = useGemRank();
+  const [ tokensWithRank, setTokensWithRank ] = useState<NftMetaData[]>([])
 
   const { data, mutate, isValidating } = useSWR(
     process.env.NEXT_PUBLIC_CONTRACT_GEMS, 
@@ -26,9 +30,30 @@ export default function GemStart({ balance }: GemStartProps) {
     mutate();
   }, [balance])
 
+  useEffect(() => {
+    if (mergeStatus !== 'success' && mergeStatus !== 'error') return
+    mutate();
+  }, [mergeStatus])
+
+
+  async function setRanksToGems(tokens: NftMetaData[]) {
+    await Promise.all(tokens.map(async(token) => {
+      const rank = await getGemRank(token.tokenId)
+      token.image = `https://storage.battlemon.com/v1/gems/${rank + 1}.png`;
+    })).catch(err => {
+      throw new Error(err);
+    });
+    setTokensWithRank(tokens)
+  }
+
+  useEffect(() => {
+    if (!data?.tokens?.length) return
+    setRanksToGems(data.tokens)
+  }, [data])
+
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedGems} onClick={selectGem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_GEMS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={tokensWithRank} colWidth={20} height={410} selectedTokens={selectedGems} onClick={selectGem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_GEMS} isNextPage={!!data?.pageKey} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>

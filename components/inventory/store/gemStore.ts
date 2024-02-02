@@ -15,6 +15,8 @@ interface StoreInterface extends DefaultStoreInterface {
   changeStage: (stage: StageType) => void
   selectGem: (sticker: NftMetaData) => void
   setMergeStatus: (mergeStatus: StatusType) => void
+  mergeSuccessResult: () => void
+  mergeErrorResult: () => void
 }
 
 export type StoreType = ReturnType<typeof initializeStore>
@@ -46,11 +48,28 @@ export function initializeStore(
     ...getDefaultInitialState(),
     ...preloadedState,
     changeStage: (stage) => set((state) => ({ ...state, stage })),
-    selectGem: (selectedGem) => set((state) => ({ 
-      ...state, 
-      selectedGems: [selectedGem, ...(state.selectedGems || []) ]
-    })),
-    setMergeStatus: (miningStatus) => set((state) => ({ ...state, miningStatus }))
+    selectGem: (selectedGem) => set((state) => {
+      if (!state.selectedGems.map(g => g.image).includes(selectedGem.image)) {
+        return {
+          ...state, 
+          selectedGems: [selectedGem]
+        }
+      }
+      if (state.selectedGems.map(g => g.tokenId).includes(selectedGem.tokenId)) {
+        return {
+          ...state, 
+          selectedGems: state.selectedGems.filter(g => g.tokenId !== selectedGem.tokenId)
+        }
+      } else {
+        return {
+          ...state, 
+          selectedGems: [ selectedGem, ...(state.selectedGems?.slice(-1) || []) ]
+        }
+      }
+    }),
+    setMergeStatus: (mergeStatus) => set((state) => ({ ...state, mergeStatus })),
+    mergeSuccessResult: () => set((state) => ({ ...state, selectedGems: [] })),
+    mergeErrorResult: () => set((state) => ({ ...state, selectedGems: [] })) 
   }))
 }
 

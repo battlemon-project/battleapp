@@ -31,7 +31,7 @@ export default async function handler (req: NextRequest) {
     }
 
     const options = {method: 'GET', headers: {accept: 'application/json'}};
-    let url = `${process.env.PROVIDER_URL}/getNFTsForOwner?owner=${address}&contractAddresses[]=${contract}&withMetadata=${withMetadata}&pageSize=${pageSize}`;
+    let url = `${process.env.PROVIDER_URL}/getNFTsForOwner?owner=${address}&contractAddresses[]=${contract}&withMetadata=${withMetadata}&pageSize=${pageSize}`; // &refreshCache=true
     if (pageKey?.length) {
       url += '&pageKey=' + pageKey
     }
