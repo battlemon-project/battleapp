@@ -1,9 +1,6 @@
 // This example is based on the wagmi SIWE tutorial
 // https://wagmi.sh/examples/sign-in-with-ethereum
-import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/global.css';
-import 'react-toastify/dist/ReactToastify.css';
-import '@rainbow-me/rainbowkit/styles.css';
 import type { AppProps } from 'next/app';
 import {
   RainbowKitProvider,
