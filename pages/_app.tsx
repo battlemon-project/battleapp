@@ -25,7 +25,9 @@ import {
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import {
   polygon,
-  polygonMumbai
+  polygonMumbai,
+  linea,
+  lineaTestnet
 } from 'wagmi/chains';
 //import { RoninConnector, ronin, saigon } from 'ronin-connector'
 import { publicProvider } from 'wagmi/providers/public';
@@ -35,7 +37,12 @@ import { AuthProvider } from 'context/AuthContext';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 
-const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [polygonMumbai] : [polygon]
+const lineaIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAJFBMVEUSEhISEhIBAQH///+dnZ3i4uLX19dnZ2eFhYU4ODi0tLT+/v4sSrrFAAAAAXRSTlP9g+pWxwAAAGhJREFUKJHN0MESgCAIRVF5YKL9//9mpTWJtGnTXXqGYSQECk4VyO8nCMBFSBSM2AagzKx4IjSW/QmloowoHA/MzGt2kECJxp0XUqc52n9+xNYU01k256vYKxZ16ak9PO7Mzlk/xBcNG58yBE9ktPjgAAAAAElFTkSuQmCC';
+const _linetTestnet = { 
+  ...lineaTestnet, 
+  iconUrl: lineaIcon
+}
+const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [polygonMumbai, _linetTestnet] : [polygon, { ...linea, iconUrl: lineaIcon }]
 //const roninChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [saigon] : [ronin]
 //const chainList = [...evmChains, ...roninChains];
 const chainList = [...evmChains];

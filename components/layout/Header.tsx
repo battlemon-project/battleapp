@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { RainboxConnectButton } from './RainbowConnectButton';
 
 export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boolean, hideDesktopMenu?: boolean }) {
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
         </Link>
         
         <div className="order-lg-2 navbar-connectbutton">
-          <ConnectButton accountStatus={'address'} showBalance={false}/>
+          <RainboxConnectButton  />
         </div>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
