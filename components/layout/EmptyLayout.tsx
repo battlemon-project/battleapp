@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.css';
 import { PropsWithChildren } from "react";
 import { useIsMounted } from "hooks/useIsMounted";
 import cn from "classnames"
