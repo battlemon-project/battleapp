@@ -107,14 +107,17 @@ body {
 }
 
 .navbar-connectbutton button[data-testid="rk-connect-button"],
-.navbar-connectbutton button[data-testid="rk-connect-button"] div ,
+.navbar-connectbutton button[data-testid="rk-connect-button"] > div ,
 .navbar-connectbutton button[data-testid="rk-account-button"], 
-.navbar-connectbutton button[data-testid="rk-account-button"] div {
+.navbar-connectbutton button[data-testid="rk-account-button"] > div,
+.navbar-connectbutton button[data-testid="rk-chain-button"], 
+.navbar-connectbutton button[data-testid="rk-chain-button"] > div  {
   border: none;
   background: transparent;
 }
 .navbar-connectbutton button[data-testid="rk-account-button"],
-.navbar-connectbutton button[data-testid="rk-connect-button"] {
+.navbar-connectbutton button[data-testid="rk-connect-button"],
+.navbar-connectbutton button[data-testid="rk-chain-button"]  {
   border: 1px solid #fff;
 }
 

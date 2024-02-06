@@ -25,7 +25,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
       value: parseEther('0.0005'),
       args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     })
-    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
+    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(5) : undefined
     return {
       gas,
       gasPrice
