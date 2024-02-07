@@ -45,7 +45,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Raid</button>
+          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link href="/shop/lemon" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
@@ -54,7 +54,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>Rent</button>
+          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>Brigde</button>
         </div>
       </div>
     </div>}

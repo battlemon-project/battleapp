@@ -1,6 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'react-toastify/dist/ReactToastify.css';
-import '@rainbow-me/rainbowkit/styles.css';
 import { PropsWithChildren } from "react";
 import { useIsMounted } from "hooks/useIsMounted";
 import { Roboto } from 'next/font/google'
