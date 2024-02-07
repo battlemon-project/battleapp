@@ -87,16 +87,13 @@ const Home: NextPage = () => {
                     <div className="menu__box">
                       <ul className="menu__list">
                         <li className="menu__item">
-                          <a href="#" className="menu__link">Partners</a>
+                          <a href="/hub/lemons" className="menu__link">NFT Hub</a>
                         </li>
                         <li className="menu__item">
-                          <a href="#" className="menu__link">Marketplaces</a>
+                          <a href="/shop" className="menu__link">Shop</a>
                         </li>
                         <li className="menu__item">
-                          <a href="#" className="menu__link">Mechanics</a>
-                        </li>
-                        <li className="menu__item">
-                          <a href="#" className="menu__link">Mystery Box</a>
+                          <a href="/claim" className="menu__link">Claim</a>
                         </li>
                       </ul>
                       <div className="menu__bottom">
@@ -113,16 +110,16 @@ const Home: NextPage = () => {
               </div>
               <div className="header__right">
                 <div className="header__actions">
-                  <a href="#" className="header__profile">
-                    <div className="header__profile-icon">
+                  <div className="header__profile">
+                    <div className="header__profile-icon d-none">
                       <svg>
                         <use xlinkHref="#user"></use>
                       </svg>
                     </div>
-                    <div className="btn btn-outline-white btn-small">
-                      Connect
-                    </div>
-                  </a>
+                    <a href="/hub/lemons" className="btn btn-outline-white btn-small">
+                      App
+                    </a>
+                  </div>
                   <div className="header__menu-icon">
                     <div className="icon-menu js-menu__btn">
                       <span></span>
@@ -199,7 +196,7 @@ const Home: NextPage = () => {
                       To the last drop of juice
                     </div>
                     <div className="offer__buttons">
-                      <a href="#" className="btn btn-yellow">
+                      <a href="/shop/lemon" className="btn btn-yellow">
                         Buy Lemon
                         <svg>
                           <use xlinkHref="#basket"></use>
@@ -722,16 +719,13 @@ const Home: NextPage = () => {
               <div className="footer__center">
                 <ul className="footer-menu">
                   <li>
-                    <a href="#">Partners</a>
+                    <a href="/hub/lemons" className="menu__link">NFT Hub</a>
                   </li>
                   <li>
-                    <a href="#">Marketplaces</a>
+                    <a href="/shop" className="menu__link">Shop</a>
                   </li>
                   <li>
-                    <a href="#">Mechanics</a>
-                  </li>
-                  <li>
-                    <a href="#">Mystery Box</a>
+                    <a href="/claim" className="menu__link">Claim</a>
                   </li>
                 </ul>
               </div>

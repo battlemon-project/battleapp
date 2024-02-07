@@ -49,7 +49,7 @@ export default function ItemStart({ balance }: ItemStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})}>Sell</Link>
         </div>
         <div className="col-6 col-lg-3 mt-2 d-flex">
-          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Rent</button>
+          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Brigde</button>
         </div>
       </div>
     </div>}

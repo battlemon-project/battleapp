@@ -289,6 +289,7 @@ h2 span {
 }
 
 .btn.btn-yellow {
+  color: #000 !important;
   background: var(--color-yellow);
   -webkit-box-shadow: 0px 4px 0px 0px #d43b2e;
           box-shadow: 0px 4px 0px 0px #d43b2e;

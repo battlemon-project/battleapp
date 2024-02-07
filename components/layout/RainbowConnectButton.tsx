@@ -35,14 +35,14 @@ export const RainboxConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <button className="btn btn-outline-light" onClick={openConnectModal} type="button">
+                  <button className="btn btn-lg py-2 btn-outline-light" onClick={openConnectModal} type="button">
                     Connect
                   </button>
                 );
               }
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button">
+                  <button className="btn btn-lg py-2 btn-outline-light" onClick={openChainModal} type="button">
                     Wrong network
                   </button>
                 );
