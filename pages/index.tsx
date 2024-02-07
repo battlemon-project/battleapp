@@ -1,6 +1,7 @@
 import Layout from 'components/layout/IndexLayout';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import Script from 'next/script';
 
 const Home: NextPage = () => {
@@ -87,13 +88,13 @@ const Home: NextPage = () => {
                     <div className="menu__box">
                       <ul className="menu__list">
                         <li className="menu__item">
-                          <a href="/hub/lemons" className="menu__link">NFT Hub</a>
+                          <Link href="/hub/lemons" className="menu__link">NFT Hub</Link>
                         </li>
                         <li className="menu__item">
-                          <a href="/shop" className="menu__link">Shop</a>
+                          <Link href="/shop" className="menu__link">Shop</Link>
                         </li>
                         <li className="menu__item">
-                          <a href="/claim" className="menu__link">Claim</a>
+                          <Link href="/claim" className="menu__link">Claim</Link>
                         </li>
                       </ul>
                       <div className="menu__bottom">
@@ -116,9 +117,9 @@ const Home: NextPage = () => {
                         <use xlinkHref="#user"></use>
                       </svg>
                     </div>
-                    <a href="/hub/lemons" className="btn btn-outline-white btn-small">
+                    <Link href="/hub/lemons" className="btn btn-outline-white btn-small">
                       App
-                    </a>
+                    </Link>
                   </div>
                   <div className="header__menu-icon">
                     <div className="icon-menu js-menu__btn">
@@ -196,12 +197,12 @@ const Home: NextPage = () => {
                       To the last drop of juice
                     </div>
                     <div className="offer__buttons">
-                      <a href="/shop/lemon" className="btn btn-yellow">
+                      <Link href="/shop/lemon" className="btn btn-yellow">
                         Buy Lemon
                         <svg>
                           <use xlinkHref="#basket"></use>
                         </svg>
-                      </a>
+                      </Link>
                       <a href="#" className="btn btn-yellow">
                         Steam
                         <svg>
@@ -719,13 +720,13 @@ const Home: NextPage = () => {
               <div className="footer__center">
                 <ul className="footer-menu">
                   <li>
-                    <a href="/hub/lemons" className="menu__link">NFT Hub</a>
+                    <Link href="/hub/lemons" className="menu__link">NFT Hub</Link>
                   </li>
                   <li>
-                    <a href="/shop" className="menu__link">Shop</a>
+                    <Link href="/shop" className="menu__link">Shop</Link>
                   </li>
                   <li>
-                    <a href="/claim" className="menu__link">Claim</a>
+                    <Link href="/claim" className="menu__link">Claim</Link>
                   </li>
                 </ul>
               </div>
