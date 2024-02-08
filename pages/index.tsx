@@ -50,18 +50,17 @@ const Home: NextPage = () => {
 
       <div className="wrapper">
         <div className="main-social">
-          <a href="#" className="main-social__item" target="_blank">
-            <svg>
-              <use xlinkHref="#discord"></use>
-            </svg>
-          </a>
-          <a href="#" className="main-social__item" target="_blank">
+          <a href="https://twitter.com/BATTLEM0N" className="main-social__item" target="_blank">
             <svg>
               <use xlinkHref="#twitter"></use>
             </svg>
           </a>
-
-          <a href="#" className="main-social__item" target="_blank">
+          <a href="https://discord.gg/vsrKEqZc7D" className="main-social__item" target="_blank">
+            <svg>
+              <use xlinkHref="#discord"></use>
+            </svg>
+          </a>
+          <a href="https://t.me/Battlemon" className="main-social__item" target="_blank">
             <svg>
               <use xlinkHref="#telegram"></use>
             </svg>
@@ -98,7 +97,7 @@ const Home: NextPage = () => {
                         </li>
                       </ul>
                       <div className="menu__bottom">
-                        <a href="#" className="btn btn-outline-white btn-small">
+                        <a href="https://store.steampowered.com/app/2206160/Battlemon/" target='_blank' className="btn btn-outline-white btn-small">
                           Steam
                           <svg>
                             <use xlinkHref="#steam"></use>
@@ -203,7 +202,7 @@ const Home: NextPage = () => {
                           <use xlinkHref="#basket"></use>
                         </svg>
                       </Link>
-                      <a href="#" className="btn btn-yellow">
+                      <a href="https://store.steampowered.com/app/2206160/Battlemon/" target='_blank' className="btn btn-yellow">
                         Steam
                         <svg>
                           <use xlinkHref="#steam"></use>
@@ -534,29 +533,6 @@ const Home: NextPage = () => {
                       <div className="item-marketplaces">
                         <div className="item-marketplaces__top">
                           <div className="item-marketplaces__icon">
-                            <img src="img/marketplaces-icon-1.svg" alt="#" />
-                          </div>
-                        </div>
-                        <div className="item-marketplaces__title">
-                          Dew.gg
-                        </div>
-                        <div className="item-marketplaces__links">
-                          <a href="#" className="item-marketplaces__link">
-                            Boxes
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
-                            Zombies
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
-                            Potions
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="marketplaces__col">
-                      <div className="item-marketplaces">
-                        <div className="item-marketplaces__top">
-                          <div className="item-marketplaces__icon">
                             <img src="img/marketplaces-icon-2.svg" alt="#" />
                           </div>
                         </div>
@@ -565,13 +541,54 @@ const Home: NextPage = () => {
                         </div>
                         <div className="item-marketplaces__links">
                           <a href="#" className="item-marketplaces__link">
-                            Boxes
+                            Lemons
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Items
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Stickers
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Gems
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Pickaxes
                           </a>
                           <a href="#" className="item-marketplaces__link disabled">
-                            Zombies
+                            Keys
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="marketplaces__col">
+                      <div className="item-marketplaces">
+                        <div className="item-marketplaces__top">
+                          <div className="item-marketplaces__icon">
+                            <img src="img/marketplaces-icon-1.svg" alt="#" />
+                          </div>
+                        </div>
+                        <div className="item-marketplaces__title">
+                          Dew.gg
+                        </div>
+                        <div className="item-marketplaces__links">
+                          <a href="#" className="item-marketplaces__link">
+                            Lemons
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Items
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Stickers
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Gems
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Pickaxes
                           </a>
                           <a href="#" className="item-marketplaces__link disabled">
-                            Potions
+                            Keys
                           </a>
                         </div>
                       </div>
@@ -584,17 +601,26 @@ const Home: NextPage = () => {
                           </div>
                         </div>
                         <div className="item-marketplaces__title">
-                          RARIBLE
+                          TOFU
                         </div>
                         <div className="item-marketplaces__links">
                           <a href="#" className="item-marketplaces__link">
-                            Boxes
+                            Lemons
                           </a>
                           <a href="#" className="item-marketplaces__link">
-                            Zombies
+                            Items
                           </a>
                           <a href="#" className="item-marketplaces__link">
-                            Potions
+                            Stickers
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Gems
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Pickaxes
+                          </a>
+                          <a href="#" className="item-marketplaces__link disabled">
+                            Keys
                           </a>
                         </div>
                       </div>
@@ -611,13 +637,22 @@ const Home: NextPage = () => {
                         </div>
                         <div className="item-marketplaces__links">
                           <a href="#" className="item-marketplaces__link">
-                            Boxes
+                            Lemons
                           </a>
                           <a href="#" className="item-marketplaces__link">
-                            Zombies
+                            Items
                           </a>
                           <a href="#" className="item-marketplaces__link">
-                            Potions
+                            Stickers
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Gems
+                          </a>
+                          <a href="#" className="item-marketplaces__link">
+                            Pickaxes
+                          </a>
+                          <a href="#" className="item-marketplaces__link disabled">
+                            Keys
                           </a>
                         </div>
                       </div>
@@ -731,7 +766,7 @@ const Home: NextPage = () => {
                 </ul>
               </div>
               <div className="footer__right">
-                <a href="#" className="btn btn-outline-white btn-small">
+                <a href="https://store.steampowered.com/app/2206160/Battlemon/" target='_blank' className="btn btn-outline-white btn-small">
                   Steam
                   <svg>
                     <use xlinkHref="#steam"></use>
@@ -740,17 +775,17 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="social-block">
-              <a href="#" className="social-block__item" target="_blank">
+              <a href="https://twitter.com/BATTLEM0N" className="social-block__item" target="_blank">
                 <svg>
                   <use xlinkHref="#twitter"></use>
                 </svg>
               </a>
-              <a href="#" className="social-block__item" target="_blank">
+              <a href="https://discord.gg/vsrKEqZc7D" className="social-block__item" target="_blank">
                 <svg>
                   <use xlinkHref="#discord"></use>
                 </svg>
               </a>
-              <a href="#" className="social-block__item" target="_blank">
+              <a href="https://t.me/Battlemon" className="social-block__item" target="_blank">
                 <svg>
                   <use xlinkHref="#telegram"></use>
                 </svg>
