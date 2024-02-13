@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react'
 import { addItemsToArray, dressedItemsToNftMetaData, removeItemsFromArray } from 'utils/properties'
 import { createStore, useStore as useZustandStore } from 'zustand'
 
-type StageType = 'Start' | 'AllItems' | 'EquipedItems' | 'Gems'
+type StageType = 'Start' | 'AllItems' | 'EquipedItems' | 'Gems' | 'Bridge'
 
 interface DefaultStoreInterface {
   stage: StageType

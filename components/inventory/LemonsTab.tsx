@@ -6,6 +6,7 @@ import { ghostProperties } from "utils/properties";
 import LemonStart from "./stages/LemonStart";
 import { useLemonStore } from "./store/lemonStore";
 import LemonAllItems from "./stages/LemonAllItems";
+import LemonBridge from "./stages/LemonBridge";
 import { useLemonBalance } from "hooks/useLemonBalance";
 import { useItemBalance } from 'hooks/useItemBalance';
 import { PropertiesType } from 'lemon';
@@ -41,6 +42,10 @@ export default function LemonsTab() {
       {stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
         <LemonEquipedItems />
       </div>}
+      {stage == 'Bridge' && <div className={cn({'d-none': stage !== 'Bridge'})}>
+        <LemonBridge />
+      </div>}
+      
     </div>
   </div>)
 }

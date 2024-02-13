@@ -2,6 +2,7 @@ import styles from './inventory.module.css'
 import cn from "classnames";
 import { useItemStore } from './store/itemStore';
 import ItemStart from './stages/ItemStart';
+import ItemBridge from './stages/ItemBridge';
 import { useItemBalance } from 'hooks/useItemBalance';
 import useWindowSize from 'hooks/useWindowSize';
 import ItemScene from 'components/babylon/ItemScene';
@@ -29,7 +30,10 @@ export default function ItemsTab() {
 
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
       {selectedItems[0] && <NftProps token={selectedItems[0]} />}
-      {stage == 'Start' && <ItemStart balance={balance} />}
+      {stage == 'Start' && <div className={cn({'d-none': stage !== 'Start'})}>
+        <ItemStart balance={balance} />
+      </div>}
+      {stage == 'Bridge' && <ItemBridge />}
     </div>
   </div>)
 }
