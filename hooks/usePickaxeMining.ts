@@ -22,9 +22,9 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
       account: address as '0x',
       args: [BigInt(pickaxeId || 0)],
     })
-    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(5) : undefined
+    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
-      gas,
+      gas: gas * BigInt(3),
       gasPrice
     }
   }

@@ -22,7 +22,7 @@ export function useStickerMerge(sticker0: number, sticker1: number, sticker2: nu
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
-      gas,
+      gas: gas * BigInt(3),
       gasPrice
     }
   }

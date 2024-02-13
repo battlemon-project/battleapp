@@ -25,7 +25,7 @@ export function useLemonMint(count: number) {
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
-      gas,
+      gas: gas * BigInt(3),
       gasPrice
     }
   }

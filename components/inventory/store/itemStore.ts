@@ -2,7 +2,7 @@ import { NftMetaData } from 'lemon'
 import { createContext, useContext } from 'react'
 import { createStore, useStore as useZustandStore } from 'zustand'
 
-type StageType = 'Start' | 'Gems'
+type StageType = 'Start' | 'Gems' | 'Bridge'
 
 interface DefaultStoreInterface {
   stage: StageType

@@ -54,7 +54,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>Brigde</button>
+          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})} onClick={() => changeStage('Bridge')}>Bridge</button>
         </div>
       </div>
     </div>}
