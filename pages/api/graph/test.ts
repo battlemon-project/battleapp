@@ -27,6 +27,8 @@ export default async function handler (req: NextRequest) {
             }) {
               nodes {
                 id
+                tokenId
+                tokenUri
                 contract
                 network
                 owner {
