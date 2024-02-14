@@ -3,12 +3,12 @@ import { NftMetaData } from 'lemon';
 const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dummyImage: string }} = {
   [process.env.NEXT_PUBLIC_CONTRACT_ITEMS!]: {
     storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_URL}/v1/items/`,
-    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}`,
+    providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_ITEMS}`,
     dummyImage: '/images/hub/empty-item.png'
   },
   [process.env.NEXT_PUBLIC_CONTRACT_LEMONS!]: {
     storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_URL}/v1/lemons/`,
-    providerUrl: `/api/provider/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`,
+    providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`,
     dummyImage: '/images/hub/empty-lemon.png'
   }
 }
@@ -62,7 +62,7 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
 }
  
 export const simpleFetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
-  const providerUrl = `/api/provider/tokens?contract=${contract}`
+  const providerUrl = `/api/graph/tokens?contract=${contract}`
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&withMetadata=true`);
   const providerData: ProviderData = await providerResponse.json();
   console.log(providerData)
