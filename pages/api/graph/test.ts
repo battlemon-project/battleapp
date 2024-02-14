@@ -26,7 +26,6 @@ export default async function handler (req: NextRequest) {
               owner: {id: {equalTo: "${address}"}}
             }) {
               nodes {
-                id
                 tokenId
                 tokenUri
                 contract
