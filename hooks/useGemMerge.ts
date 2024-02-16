@@ -22,7 +22,6 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
       abi: gemABI,
       functionName: 'merge',
       account: address as '0x',
-      value: parseEther('0.0005'),
       args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
@@ -34,7 +33,6 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
 
   const gemMerge = address && generatedUseGemMerge({
     address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
-    value: parseEther('0.0005'),
     args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     onError: (error) => {
       let message = error.message;

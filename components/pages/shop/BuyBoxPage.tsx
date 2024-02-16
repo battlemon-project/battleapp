@@ -47,27 +47,27 @@ export default function BuyBoxPage() {
           return <div className='row'>
             <div className='col-4'>
               <br />
-              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Cheap)} value={prizeTypes?.[BoxType.Cheap] || -1}>
+              <select className="d-none form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Cheap)} value={prizeTypes?.[BoxType.Cheap] || -1}>
                 <option value={-1}>none</option>
                 {Object.keys(prizesChance.Cheap).map(k => 
                   <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
                 )}
               </select>
-              <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} disabled={!prizeTypes?.[BoxType.Cheap] || prizeTypes?.[BoxType.Cheap] < 0} />
-              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Good)} value={prizeTypes?.[BoxType.Good] || -1}>
+              <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} />
+              <select className="d-none form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Good)} value={prizeTypes?.[BoxType.Good] || -1}>
                 <option value={-1}>none</option>
                 {Object.keys(prizesChance.Good).map(k =>
                   <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
                 )}
               </select>
-              <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} disabled={!prizeTypes?.[BoxType.Good] || prizeTypes?.[BoxType.Good] < 0} />
-              <select className="form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Great)} value={prizeTypes?.[BoxType.Great] || -1}>
+              <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} />
+              <select className="d-none form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Great)} value={prizeTypes?.[BoxType.Great] || -1}>
                 <option value={-1}>none</option>
                 {Object.keys(prizesChance.Great).map(k =>
                   <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
                 )}
               </select>
-              <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} disabled={!prizeTypes?.[BoxType.Great] || prizeTypes?.[BoxType.Great] < 0} />
+              <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} />
             </div>
             <div className='col-8'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>
