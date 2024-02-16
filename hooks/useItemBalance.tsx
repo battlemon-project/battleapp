@@ -1,29 +1,35 @@
 import { useEffect } from 'react';
-import { useLemonBalanceOf } from './generated';
-import { useAccount } from 'wagmi';
-
+import { useItemBalanceOf } from './generated';
+import { useAccount, useNetwork } from 'wagmi';
+import { useContract } from './useContract';
 
 export function useItemBalance() {
+  const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const { address }  = useAccount();
+  
+  const balance = useItemBalanceOf( address && NEXT_PUBLIC_CONTRACT_ITEMS ? {
+    address: NEXT_PUBLIC_CONTRACT_ITEMS,
+    args: [address],
+    onError: (error) => {
+      console.log(error ? 'balance error when switch' : undefined)
+    }
+  } : undefined)
 
-  const balance = address && useLemonBalanceOf({
-    address: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
-    args: [address]
-  })
-
-  const onFocus = () => {
-    balance?.refetch()
-  };
+  const refreshBalance = () => {
+    if (address && NEXT_PUBLIC_CONTRACT_ITEMS) {
+      balance?.refetch()
+    }
+  }
 
   useEffect(() => {
-    window.addEventListener("focus", onFocus);
+    window.addEventListener("focus", refreshBalance);
     return () => {
-      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("focus", refreshBalance);
     };
   }, []);
   
   return {
     balance: Number(balance?.data),
-    refreshBalance: balance?.refetch
+    refreshBalance
   };
 }

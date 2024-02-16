@@ -3,8 +3,9 @@ import styles from '../shop.module.css'
 import { useEffect, useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
 import { toast } from 'react-toastify';
-import { BoxType, PrizeType, boxPrices, useBuyBox } from 'hooks/useBuyBox';
+import { BoxType, useBuyBox } from 'hooks/useBuyBox';
 import { useBoxStore } from '../store/boxStore';
+import { useBoxPrices } from 'hooks/useBoxPrices';
 
 interface BuyBoxProps {
   boxType: BoxType
@@ -13,6 +14,7 @@ interface BuyBoxProps {
 }
 
 export default function BuyBox({ boxType, prizeType, disabled }: BuyBoxProps) {
+  const boxPrices = useBoxPrices()
   const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType, prizeType);
   const { setStatus, setBox, setPrize } = useBoxStore()
 

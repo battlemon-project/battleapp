@@ -11,6 +11,7 @@ import Referral from '../evm-contracts/artifacts/contracts/Referral.sol/Referral
 import Cap from '../evm-contracts/artifacts/contracts/merch/Cap.sol/Cap.json'
 import Shirt from '../evm-contracts/artifacts/contracts/merch/Shirt.sol/Shirt.json'
 import Hoodie from '../evm-contracts/artifacts/contracts/merch/Hoodie.sol/Hoodie.json'
+import Raids from '../evm-contracts/artifacts/contracts/Raids.sol/Raids.json'
 import { Abi } from 'viem'
 
 export default defineConfig({
@@ -59,6 +60,10 @@ export default defineConfig({
     {
       name: 'Hoodie',
       abi: Hoodie.abi as Abi,
+    },
+    {
+      name: 'Raids',
+      abi: Raids.abi as Abi,
     }
   ],
   plugins: [
