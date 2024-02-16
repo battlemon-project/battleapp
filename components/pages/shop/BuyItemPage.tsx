@@ -6,8 +6,10 @@ import PolSymbol from 'components/layout/PolSymbol';
 import MintItem from './buttons/MintItem';
 import useAuth from 'context/AuthContext';
 import { SignInButton } from './buttons/SignInButton';
+import { useContract } from 'hooks/useContract';
 
 export default function BuyItemPage() {
+  const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const { isSignedIn, isSupportedChain } = useAuth();
 
   return (
@@ -29,7 +31,7 @@ export default function BuyItemPage() {
             <p className="mb-3">The items are boost for the character. Each item has luck, agility, and speed, which affect the results of the raid. The more items you wear into the raid, the better your results will be.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_ITEMS!, 8)}</div>
+              <div>{truncate(NEXT_PUBLIC_CONTRACT_ITEMS, 8)}</div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>
@@ -45,7 +47,7 @@ export default function BuyItemPage() {
             if (!isSignedIn || !isSupportedChain) {
               return <SignInButton />
             } else {
-              return <MintItem />
+              return NEXT_PUBLIC_CONTRACT_ITEMS && <MintItem />
             }
           })()}
           

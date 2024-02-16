@@ -4,19 +4,22 @@ import { parseEther } from 'viem';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useItemPrice } from './useItemPrice';
+import { useContract } from './useContract';
 
 export function useItemMint(count: number) {
   const router = useRouter()
+  const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
+  const NEXT_PUBLIC_MINT_ITEMS_PRICE = useItemPrice()
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
   const fee = useFeeData()
  
-  const batchPrice = (Number(process.env.NEXT_PUBLIC_MINT_ITEMS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")
-  
+  const batchPrice = (Number(NEXT_PUBLIC_MINT_ITEMS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"");
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
+      address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
       abi: itemABI,
       functionName: 'mint',
       value: parseEther(batchPrice),
@@ -31,7 +34,7 @@ export function useItemMint(count: number) {
   }
 
   const itemMint = address && generatedUseItemMint({
-    address: process.env.NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
     args: [count || 1],
     value: parseEther(batchPrice),
     onError: (error) => {

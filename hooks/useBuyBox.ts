@@ -5,6 +5,8 @@ import { parseEther } from 'viem';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { useContract } from './useContract';
+import { useBoxPrices } from './useBoxPrices';
 
 export enum BoxType {
   Cheap = 'Cheap',
@@ -31,12 +33,6 @@ export enum PrizeType {
   GreatPickaxe = 'Great Pickaxe',
   Item = 'Item',
   Lemon = 'Lemon'
-}
-
-export const boxPrices = {
-  Cheap: process.env.NEXT_PUBLIC_MINT_CHEAP_BOX_PRICE!,
-  Good: process.env.NEXT_PUBLIC_MINT_GOOD_BOX_PRICE!,
-  Great: process.env.NEXT_PUBLIC_MINT_GREAT_BOX_PRICE!
 }
 
 export const prizes: {[key: number]: PrizeType} = {
@@ -109,11 +105,12 @@ export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
 export function useBuyBox(type: BoxType, itemType: number) {
   const router = useRouter()
   const publicClient = usePublicClient()
+  const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES')
+  const boxPrices = useBoxPrices();
   const [ status, setStatus ] = useState<StatusType>('idle')
   const [ prize, setPrize ] = useState<PrizeType>()
   const { address }  = useAccount();
-  const fee = useFeeData()
-   
+  const fee = useFeeData();
   const funcNames: {[key: string]: 'buyCheapBox' | 'buyGoodBox' | 'buyGreatBox'} = {
     Cheap: 'buyCheapBox',
     Good: 'buyGoodBox',
@@ -122,12 +119,12 @@ export function useBuyBox(type: BoxType, itemType: number) {
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_BOXES as '0x',
+      address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
       abi: boxABI,
       functionName: funcNames[type],
       value: parseEther(boxPrices[type]),
       account: address as '0x',
-      args: [BigInt(prizesChance[type][itemType] || -1)],
+      //args: [BigInt(prizesChance[type][itemType] || -1)],
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -143,9 +140,9 @@ export function useBuyBox(type: BoxType, itemType: number) {
   }
 
   const buyBox = address && methodsNames[type]({
-    address: process.env.NEXT_PUBLIC_CONTRACT_BOXES as '0x',
+    address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
     value: parseEther(boxPrices[type]),
-    args: [BigInt(prizesChance[type][itemType] || -1)],
+    //args: [BigInt(prizesChance[type][itemType] || -1)],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
@@ -175,7 +172,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
     if (!buyBoxResult.isSuccess) return;
 
     buyBoxResult.data?.logs.forEach(log => {
-      if (log.address.toLowerCase() !== process.env.NEXT_PUBLIC_CONTRACT_BOXES!.toLowerCase()) return;
+      if (log.address.toLowerCase() !== NEXT_PUBLIC_CONTRACT_BOXES!.toLowerCase()) return;
       console.log(log)
       try {
         const decoded = decodeEventLog({

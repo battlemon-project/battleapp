@@ -102,23 +102,69 @@ export const boxABI = [
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: '_buyCheapBox2',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: '_buyGoodBox2',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: '_buyGreatBox2',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'airnodeAddress',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'airnodeRrp',
+    outputs: [
+      { name: '', internalType: 'contract IAirnodeRrpV0', type: 'address' },
+    ],
+  },
+  {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [{ name: 'r', internalType: 'uint256', type: 'uint256' }],
+    inputs: [],
     name: 'buyCheapBox',
     outputs: [],
   },
   {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [{ name: 'r', internalType: 'uint256', type: 'uint256' }],
+    inputs: [],
     name: 'buyGoodBox',
     outputs: [],
   },
   {
     stateMutability: 'payable',
     type: 'function',
-    inputs: [{ name: 'r', internalType: 'uint256', type: 'uint256' }],
+    inputs: [],
     name: 'buyGreatBox',
     outputs: [],
   },
@@ -133,13 +179,20 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'endpointIdUint256',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'hoodie',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: '_airnodeRrp', internalType: 'address', type: 'address' }],
     name: 'initialize',
     outputs: [],
   },
@@ -228,6 +281,16 @@ export const boxABI = [
     outputs: [],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'requests',
+    outputs: [
+      { name: 'sender', internalType: 'address', type: 'address' },
+      { name: 'pending', internalType: 'bool', type: 'bool' },
+    ],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [{ name: '_cap', internalType: 'address', type: 'address' }],
@@ -279,6 +342,17 @@ export const boxABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [
+      { name: '_airnode', internalType: 'address', type: 'address' },
+      { name: '_endpointIdUint256', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_sponsorWallet', internalType: 'address', type: 'address' },
+    ],
+    name: 'setRequestParameters',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_shirt', internalType: 'address', type: 'address' }],
     name: 'setShirtAddress',
     outputs: [],
@@ -308,6 +382,13 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'sponsorWallet',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'stickers',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
@@ -316,6 +397,20 @@ export const boxABI = [
     type: 'function',
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'tresuary',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'withdraw',
     outputs: [],
   },
   { stateMutability: 'payable', type: 'receive' },
@@ -571,6 +666,7 @@ export const gemABI = [
     ],
     name: 'ApprovalForAll',
   },
+  { type: 'event', anonymous: false, inputs: [], name: 'EIP712DomainChanged' },
   {
     type: 'event',
     anonymous: false,
@@ -722,16 +818,24 @@ export const gemABI = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'getApproved',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    inputs: [],
+    name: 'eip712Domain',
+    outputs: [
+      { name: 'fields', internalType: 'bytes1', type: 'bytes1' },
+      { name: 'name', internalType: 'string', type: 'string' },
+      { name: 'version', internalType: 'string', type: 'string' },
+      { name: 'chainId', internalType: 'uint256', type: 'uint256' },
+      { name: 'verifyingContract', internalType: 'address', type: 'address' },
+      { name: 'salt', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'extensions', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'from', internalType: 'address', type: 'address' }],
-    name: 'getNonce',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -768,7 +872,7 @@ export const gemABI = [
     outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
   },
   {
-    stateMutability: 'payable',
+    stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
       { name: 'firstTokenId', internalType: 'uint256', type: 'uint256' },
@@ -1340,6 +1444,13 @@ export const itemABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'addToWhiteList',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [
       { name: 'to', internalType: 'address', type: 'address' },
       { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
@@ -1374,13 +1485,6 @@ export const itemABI = [
     inputs: [],
     name: 'boxAddress',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [{ name: 'to', internalType: 'address', type: 'address' }],
-    name: 'boxMint',
-    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -1539,6 +1643,16 @@ export const itemABI = [
     type: 'function',
     inputs: [],
     name: 'renounceOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'amount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'rewardMint',
     outputs: [],
   },
   {
@@ -1833,6 +1947,7 @@ export const lemonABI = [
     ],
     name: 'Create',
   },
+  { type: 'event', anonymous: false, inputs: [], name: 'EIP712DomainChanged' },
   {
     type: 'event',
     anonymous: false,
@@ -2056,6 +2171,21 @@ export const lemonABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [],
+    name: 'eip712Domain',
+    outputs: [
+      { name: 'fields', internalType: 'bytes1', type: 'bytes1' },
+      { name: 'name', internalType: 'string', type: 'string' },
+      { name: 'version', internalType: 'string', type: 'string' },
+      { name: 'chainId', internalType: 'uint256', type: 'uint256' },
+      { name: 'verifyingContract', internalType: 'address', type: 'address' },
+      { name: 'salt', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'extensions', internalType: 'uint256[]', type: 'uint256[]' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [
       { name: '', internalType: 'uint256', type: 'uint256' },
       { name: '', internalType: 'uint256', type: 'uint256' },
@@ -2065,13 +2195,6 @@ export const lemonABI = [
       { name: 'itemId', internalType: 'uint256', type: 'uint256' },
       { name: 'equipped', internalType: 'bool', type: 'bool' },
     ],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'eventSigner',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -2219,6 +2342,13 @@ export const lemonABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'raids',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'referrals',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
@@ -2256,6 +2386,16 @@ export const lemonABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
+      { name: 'lemonId', internalType: 'uint256', type: 'uint256' },
+      { name: 'caller', internalType: 'address', type: 'address' },
+    ],
+    name: 'sendLemonToRaid',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
       { name: 'operator', internalType: 'address', type: 'address' },
       { name: 'approved', internalType: 'bool', type: 'bool' },
     ],
@@ -2279,13 +2419,6 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [{ name: 'newSigner', internalType: 'address', type: 'address' }],
-    name: 'setEventSigner',
-    outputs: [],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
     inputs: [{ name: '_gems', internalType: 'address', type: 'address' }],
     name: 'setGemsAddress',
     outputs: [],
@@ -2295,6 +2428,13 @@ export const lemonABI = [
     type: 'function',
     inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
     name: 'setItemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'raids_', internalType: 'address', type: 'address' }],
+    name: 'setRaidsAddress',
     outputs: [],
   },
   {
@@ -2997,7 +3137,7 @@ export const pointABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
-      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'recipient', internalType: 'address', type: 'address' },
       { name: 'amount', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'transfer',
@@ -3007,13 +3147,359 @@ export const pointABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
-      { name: 'from', internalType: 'address', type: 'address' },
-      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'sender', internalType: 'address', type: 'address' },
+      { name: 'recipient', internalType: 'address', type: 'address' },
       { name: 'amount', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'transferFrom',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Raids
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const raidsABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'id', internalType: 'uint256', type: 'uint256', indexed: false },
+      {
+        name: 'raider',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'lemonid',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'pointsAmount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'stickerDrop',
+        internalType: 'bool',
+        type: 'bool',
+        indexed: false,
+      },
+      { name: 'itemDrop', internalType: 'bool', type: 'bool', indexed: false },
+      {
+        name: 'valueAmount',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'RaidFinished',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: '_returnLemon2',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'airnodeAddress',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'airnodeRrp',
+    outputs: [
+      { name: '', internalType: 'contract IAirnodeRrpV0', type: 'address' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'basePointsAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'baseValueAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endpointIdUint256',
+    outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'raidDurations_', internalType: 'uint256[]', type: 'uint256[]' },
+      {
+        name: 'requiredLemonLevels_',
+        internalType: 'uint256[]',
+        type: 'uint256[]',
+      },
+      { name: 'requiredValue_', internalType: 'uint256[]', type: 'uint256[]' },
+      { name: 'tresuary_', internalType: 'address', type: 'address' },
+      { name: '_airnodeRrp', internalType: 'address', type: 'address' },
+    ],
+    name: 'initialize',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'itemDropChance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'items',
+    outputs: [{ name: '', internalType: 'contract IItems', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'lemons',
+    outputs: [{ name: '', internalType: 'contract Lemons', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'nextRaidId',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'points',
+    outputs: [{ name: '', internalType: 'contract Points', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'raidDurations',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'raids',
+    outputs: [
+      { name: 'startTimestamp', internalType: 'uint256', type: 'uint256' },
+      { name: 'finishTimestamp', internalType: 'uint256', type: 'uint256' },
+      { name: 'lemonId', internalType: 'uint256', type: 'uint256' },
+      { name: 'agility', internalType: 'uint256', type: 'uint256' },
+      { name: 'speed', internalType: 'uint256', type: 'uint256' },
+      { name: 'luck', internalType: 'uint256', type: 'uint256' },
+      { name: 'raider', internalType: 'address', type: 'address' },
+      { name: 'raidType', internalType: 'uint8', type: 'uint8' },
+      { name: 'isRandomRequested', internalType: 'bool', type: 'bool' },
+      { name: 'isFinished', internalType: 'bool', type: 'bool' },
+    ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
+    name: 'requests',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'requiredLemonLevels',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'requiredValue',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'raidId', internalType: 'uint8', type: 'uint8' }],
+    name: 'returnLemon',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: '_lemonId', internalType: 'uint256', type: 'uint256' },
+      { name: '_raidType', internalType: 'uint8', type: 'uint8' },
+    ],
+    name: 'sendToRaid',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
+    name: 'setItemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_lemons', internalType: 'address', type: 'address' }],
+    name: 'setLemonAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_points', internalType: 'address', type: 'address' }],
+    name: 'setPointsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_airnode', internalType: 'address', type: 'address' },
+      { name: '_endpointIdUint256', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_sponsorWallet', internalType: 'address', type: 'address' },
+    ],
+    name: 'setRequestParameters',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_stickers', internalType: 'address', type: 'address' }],
+    name: 'setStickersAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'sponsorWallet',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [{ name: 'x', internalType: 'uint256', type: 'uint256' }],
+    name: 'sqrt',
+    outputs: [{ name: 'y', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'stickerDropChance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'stickers',
+    outputs: [{ name: '', internalType: 'contract Stickers', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'tresuary',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'valueDropChance',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'withdraw',
+    outputs: [],
+  },
+  { stateMutability: 'payable', type: 'receive' },
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3683,6 +4169,44 @@ export function useBoxMaxLemonsAmount<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"airnodeAddress"`.
+ */
+export function useBoxAirnodeAddress<
+  TFunctionName extends 'airnodeAddress',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'airnodeAddress',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"airnodeRrp"`.
+ */
+export function useBoxAirnodeRrp<
+  TFunctionName extends 'airnodeRrp',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'airnodeRrp',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"cap"`.
  */
 export function useBoxCap<
@@ -3697,6 +4221,25 @@ export function useBoxCap<
   return useContractRead({
     abi: boxABI,
     functionName: 'cap',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"endpointIdUint256"`.
+ */
+export function useBoxEndpointIdUint256<
+  TFunctionName extends 'endpointIdUint256',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'endpointIdUint256',
     ...config,
   } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
 }
@@ -3930,6 +4473,25 @@ export function useBoxReferrals<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"requests"`.
+ */
+export function useBoxRequests<
+  TFunctionName extends 'requests',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'requests',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"shirt"`.
  */
 export function useBoxShirt<
@@ -3968,6 +4530,25 @@ export function useBoxSmallAmount<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"sponsorWallet"`.
+ */
+export function useBoxSponsorWallet<
+  TFunctionName extends 'sponsorWallet',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'sponsorWallet',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"stickers"`.
  */
 export function useBoxStickers<
@@ -3982,6 +4563,25 @@ export function useBoxStickers<
   return useContractRead({
     abi: boxABI,
     functionName: 'stickers',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"tresuary"`.
+ */
+export function useBoxTresuary<
+  TFunctionName extends 'tresuary',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'tresuary',
     ...config,
   } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
 }
@@ -4005,6 +4605,81 @@ export function useBoxWrite<
 ) {
   return useContractWrite<typeof boxABI, TFunctionName, TMode>({
     abi: boxABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBox2"`.
+ */
+export function useBoxBuyCheapBox2<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          '_buyCheapBox2'
+        >['request']['abi'],
+        '_buyCheapBox2',
+        TMode
+      > & { functionName?: '_buyCheapBox2' }
+    : UseContractWriteConfig<typeof boxABI, '_buyCheapBox2', TMode> & {
+        abi?: never
+        functionName?: '_buyCheapBox2'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, '_buyCheapBox2', TMode>({
+    abi: boxABI,
+    functionName: '_buyCheapBox2',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGoodBox2"`.
+ */
+export function useBoxBuyGoodBox2<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          '_buyGoodBox2'
+        >['request']['abi'],
+        '_buyGoodBox2',
+        TMode
+      > & { functionName?: '_buyGoodBox2' }
+    : UseContractWriteConfig<typeof boxABI, '_buyGoodBox2', TMode> & {
+        abi?: never
+        functionName?: '_buyGoodBox2'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, '_buyGoodBox2', TMode>({
+    abi: boxABI,
+    functionName: '_buyGoodBox2',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGreatBox2"`.
+ */
+export function useBoxBuyGreatBox2<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          '_buyGreatBox2'
+        >['request']['abi'],
+        '_buyGreatBox2',
+        TMode
+      > & { functionName?: '_buyGreatBox2' }
+    : UseContractWriteConfig<typeof boxABI, '_buyGreatBox2', TMode> & {
+        abi?: never
+        functionName?: '_buyGreatBox2'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, '_buyGreatBox2', TMode>({
+    abi: boxABI,
+    functionName: '_buyGreatBox2',
     ...config,
   } as any)
 }
@@ -4326,6 +5001,33 @@ export function useBoxSetReferallAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setRequestParameters"`.
+ */
+export function useBoxSetRequestParameters<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'setRequestParameters'
+        >['request']['abi'],
+        'setRequestParameters',
+        TMode
+      > & { functionName?: 'setRequestParameters' }
+    : UseContractWriteConfig<typeof boxABI, 'setRequestParameters', TMode> & {
+        abi?: never
+        functionName?: 'setRequestParameters'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'setRequestParameters', TMode>({
+    abi: boxABI,
+    functionName: 'setRequestParameters',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setShirtAddress"`.
  */
 export function useBoxSetShirtAddress<
@@ -4407,6 +5109,28 @@ export function useBoxTransferOwnership<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"withdraw"`.
+ */
+export function useBoxWithdraw<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof boxABI, 'withdraw'>['request']['abi'],
+        'withdraw',
+        TMode
+      > & { functionName?: 'withdraw' }
+    : UseContractWriteConfig<typeof boxABI, 'withdraw', TMode> & {
+        abi?: never
+        functionName?: 'withdraw'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'withdraw', TMode>({
+    abi: boxABI,
+    functionName: 'withdraw',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__.
  */
 export function usePrepareBoxWrite<TFunctionName extends string>(
@@ -4419,6 +5143,54 @@ export function usePrepareBoxWrite<TFunctionName extends string>(
     abi: boxABI,
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBox2"`.
+ */
+export function usePrepareBoxBuyCheapBox2(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyCheapBox2'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: '_buyCheapBox2',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyCheapBox2'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGoodBox2"`.
+ */
+export function usePrepareBoxBuyGoodBox2(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyGoodBox2'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: '_buyGoodBox2',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGoodBox2'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGreatBox2"`.
+ */
+export function usePrepareBoxBuyGreatBox2(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBox2'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: '_buyGreatBox2',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBox2'>)
 }
 
 /**
@@ -4614,6 +5386,22 @@ export function usePrepareBoxSetReferallAddress(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setRequestParameters"`.
+ */
+export function usePrepareBoxSetRequestParameters(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'setRequestParameters'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'setRequestParameters',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'setRequestParameters'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setShirtAddress"`.
  */
 export function usePrepareBoxSetShirtAddress(
@@ -4659,6 +5447,22 @@ export function usePrepareBoxTransferOwnership(
     functionName: 'transferOwnership',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, 'transferOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"withdraw"`.
+ */
+export function usePrepareBoxWithdraw(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'withdraw'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'withdraw',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'withdraw'>)
 }
 
 /**
@@ -5428,6 +6232,25 @@ export function useGemCheckOwnerOf<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"eip712Domain"`.
+ */
+export function useGemEip712Domain<
+  TFunctionName extends 'eip712Domain',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'eip712Domain',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"getApproved"`.
  */
 export function useGemGetApproved<
@@ -5442,25 +6265,6 @@ export function useGemGetApproved<
   return useContractRead({
     abi: gemABI,
     functionName: 'getApproved',
-    ...config,
-  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"getNonce"`.
- */
-export function useGemGetNonce<
-  TFunctionName extends 'getNonce',
-  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: gemABI,
-    functionName: 'getNonce',
     ...config,
   } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
 }
@@ -6366,6 +7170,22 @@ export function useGemApprovalForAllEvent(
     eventName: 'ApprovalForAll',
     ...config,
   } as UseContractEventConfig<typeof gemABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link gemABI}__ and `eventName` set to `"EIP712DomainChanged"`.
+ */
+export function useGemEip712DomainChangedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof gemABI, 'EIP712DomainChanged'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: gemABI,
+    eventName: 'EIP712DomainChanged',
+    ...config,
+  } as UseContractEventConfig<typeof gemABI, 'EIP712DomainChanged'>)
 }
 
 /**
@@ -7471,6 +8291,33 @@ export function useItemWrite<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"addToWhiteList"`.
+ */
+export function useItemAddToWhiteList<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'addToWhiteList'
+        >['request']['abi'],
+        'addToWhiteList',
+        TMode
+      > & { functionName?: 'addToWhiteList' }
+    : UseContractWriteConfig<typeof itemABI, 'addToWhiteList', TMode> & {
+        abi?: never
+        functionName?: 'addToWhiteList'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'addToWhiteList', TMode>({
+    abi: itemABI,
+    functionName: 'addToWhiteList',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"approve"`.
  */
 export function useItemApprove<TMode extends WriteContractMode = undefined>(
@@ -7488,28 +8335,6 @@ export function useItemApprove<TMode extends WriteContractMode = undefined>(
   return useContractWrite<typeof itemABI, 'approve', TMode>({
     abi: itemABI,
     functionName: 'approve',
-    ...config,
-  } as any)
-}
-
-/**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"boxMint"`.
- */
-export function useItemBoxMint<TMode extends WriteContractMode = undefined>(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<typeof itemABI, 'boxMint'>['request']['abi'],
-        'boxMint',
-        TMode
-      > & { functionName?: 'boxMint' }
-    : UseContractWriteConfig<typeof itemABI, 'boxMint', TMode> & {
-        abi?: never
-        functionName?: 'boxMint'
-      } = {} as any,
-) {
-  return useContractWrite<typeof itemABI, 'boxMint', TMode>({
-    abi: itemABI,
-    functionName: 'boxMint',
     ...config,
   } as any)
 }
@@ -7708,6 +8533,31 @@ export function useItemRenounceOwnership<
   return useContractWrite<typeof itemABI, 'renounceOwnership', TMode>({
     abi: itemABI,
     functionName: 'renounceOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"rewardMint"`.
+ */
+export function useItemRewardMint<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'rewardMint'
+        >['request']['abi'],
+        'rewardMint',
+        TMode
+      > & { functionName?: 'rewardMint' }
+    : UseContractWriteConfig<typeof itemABI, 'rewardMint', TMode> & {
+        abi?: never
+        functionName?: 'rewardMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'rewardMint', TMode>({
+    abi: itemABI,
+    functionName: 'rewardMint',
     ...config,
   } as any)
 }
@@ -8127,6 +8977,22 @@ export function usePrepareItemWrite<TFunctionName extends string>(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"addToWhiteList"`.
+ */
+export function usePrepareItemAddToWhiteList(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'addToWhiteList'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'addToWhiteList',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'addToWhiteList'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"approve"`.
  */
 export function usePrepareItemApprove(
@@ -8140,22 +9006,6 @@ export function usePrepareItemApprove(
     functionName: 'approve',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'approve'>)
-}
-
-/**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"boxMint"`.
- */
-export function usePrepareItemBoxMint(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof itemABI, 'boxMint'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: itemABI,
-    functionName: 'boxMint',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof itemABI, 'boxMint'>)
 }
 
 /**
@@ -8284,6 +9134,22 @@ export function usePrepareItemRenounceOwnership(
     functionName: 'renounceOwnership',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'renounceOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"rewardMint"`.
+ */
+export function usePrepareItemRewardMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'rewardMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'rewardMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'rewardMint'>)
 }
 
 /**
@@ -8841,6 +9707,25 @@ export function useLemonBoxAddress<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"eip712Domain"`.
+ */
+export function useLemonEip712Domain<
+  TFunctionName extends 'eip712Domain',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'eip712Domain',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"equipment"`.
  */
 export function useLemonEquipment<
@@ -8855,25 +9740,6 @@ export function useLemonEquipment<
   return useContractRead({
     abi: lemonABI,
     functionName: 'equipment',
-    ...config,
-  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"eventSigner"`.
- */
-export function useLemonEventSigner<
-  TFunctionName extends 'eventSigner',
-  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: lemonABI,
-    functionName: 'eventSigner',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -9140,6 +10006,25 @@ export function useLemonPublicMintOpenTime<
   return useContractRead({
     abi: lemonABI,
     functionName: 'publicMintOpenTime',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"raids"`.
+ */
+export function useLemonRaids<
+  TFunctionName extends 'raids',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'raids',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -9688,6 +10573,33 @@ export function useLemonSafeTransferFrom<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"sendLemonToRaid"`.
+ */
+export function useLemonSendLemonToRaid<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'sendLemonToRaid'
+        >['request']['abi'],
+        'sendLemonToRaid',
+        TMode
+      > & { functionName?: 'sendLemonToRaid' }
+    : UseContractWriteConfig<typeof lemonABI, 'sendLemonToRaid', TMode> & {
+        abi?: never
+        functionName?: 'sendLemonToRaid'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'sendLemonToRaid', TMode>({
+    abi: lemonABI,
+    functionName: 'sendLemonToRaid',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setApprovalForAll"`.
  */
 export function useLemonSetApprovalForAll<
@@ -9767,33 +10679,6 @@ export function useLemonSetBoxAddress<
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setEventSigner"`.
- */
-export function useLemonSetEventSigner<
-  TMode extends WriteContractMode = undefined,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof lemonABI,
-          'setEventSigner'
-        >['request']['abi'],
-        'setEventSigner',
-        TMode
-      > & { functionName?: 'setEventSigner' }
-    : UseContractWriteConfig<typeof lemonABI, 'setEventSigner', TMode> & {
-        abi?: never
-        functionName?: 'setEventSigner'
-      } = {} as any,
-) {
-  return useContractWrite<typeof lemonABI, 'setEventSigner', TMode>({
-    abi: lemonABI,
-    functionName: 'setEventSigner',
-    ...config,
-  } as any)
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function useLemonSetGemsAddress<
@@ -9843,6 +10728,33 @@ export function useLemonSetItemsAddress<
   return useContractWrite<typeof lemonABI, 'setItemsAddress', TMode>({
     abi: lemonABI,
     functionName: 'setItemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setRaidsAddress"`.
+ */
+export function useLemonSetRaidsAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'setRaidsAddress'
+        >['request']['abi'],
+        'setRaidsAddress',
+        TMode
+      > & { functionName?: 'setRaidsAddress' }
+    : UseContractWriteConfig<typeof lemonABI, 'setRaidsAddress', TMode> & {
+        abi?: never
+        functionName?: 'setRaidsAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'setRaidsAddress', TMode>({
+    abi: lemonABI,
+    functionName: 'setRaidsAddress',
     ...config,
   } as any)
 }
@@ -10161,6 +11073,22 @@ export function usePrepareLemonSafeTransferFrom(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"sendLemonToRaid"`.
+ */
+export function usePrepareLemonSendLemonToRaid(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'sendLemonToRaid'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'sendLemonToRaid',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'sendLemonToRaid'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setApprovalForAll"`.
  */
 export function usePrepareLemonSetApprovalForAll(
@@ -10209,22 +11137,6 @@ export function usePrepareLemonSetBoxAddress(
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setEventSigner"`.
- */
-export function usePrepareLemonSetEventSigner(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof lemonABI, 'setEventSigner'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: lemonABI,
-    functionName: 'setEventSigner',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setEventSigner'>)
-}
-
-/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function usePrepareLemonSetGemsAddress(
@@ -10254,6 +11166,22 @@ export function usePrepareLemonSetItemsAddress(
     functionName: 'setItemsAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'setItemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setRaidsAddress"`.
+ */
+export function usePrepareLemonSetRaidsAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'setRaidsAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'setRaidsAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setRaidsAddress'>)
 }
 
 /**
@@ -10381,6 +11309,22 @@ export function useLemonCreateEvent(
     eventName: 'Create',
     ...config,
   } as UseContractEventConfig<typeof lemonABI, 'Create'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"EIP712DomainChanged"`.
+ */
+export function useLemonEip712DomainChangedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lemonABI, 'EIP712DomainChanged'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lemonABI,
+    eventName: 'EIP712DomainChanged',
+    ...config,
+  } as UseContractEventConfig<typeof lemonABI, 'EIP712DomainChanged'>)
 }
 
 /**
@@ -12305,6 +13249,1054 @@ export function usePointTransferEvent(
     eventName: 'Transfer',
     ...config,
   } as UseContractEventConfig<typeof pointABI, 'Transfer'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__.
+ */
+export function useRaidsRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({ abi: raidsABI, ...config } as UseContractReadConfig<
+    typeof raidsABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"airnodeAddress"`.
+ */
+export function useRaidsAirnodeAddress<
+  TFunctionName extends 'airnodeAddress',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'airnodeAddress',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"airnodeRrp"`.
+ */
+export function useRaidsAirnodeRrp<
+  TFunctionName extends 'airnodeRrp',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'airnodeRrp',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"basePointsAmount"`.
+ */
+export function useRaidsBasePointsAmount<
+  TFunctionName extends 'basePointsAmount',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'basePointsAmount',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"baseValueAmount"`.
+ */
+export function useRaidsBaseValueAmount<
+  TFunctionName extends 'baseValueAmount',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'baseValueAmount',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"endpointIdUint256"`.
+ */
+export function useRaidsEndpointIdUint256<
+  TFunctionName extends 'endpointIdUint256',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'endpointIdUint256',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"itemDropChance"`.
+ */
+export function useRaidsItemDropChance<
+  TFunctionName extends 'itemDropChance',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'itemDropChance',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"items"`.
+ */
+export function useRaidsItems<
+  TFunctionName extends 'items',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'items',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"lemons"`.
+ */
+export function useRaidsLemons<
+  TFunctionName extends 'lemons',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'lemons',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"nextRaidId"`.
+ */
+export function useRaidsNextRaidId<
+  TFunctionName extends 'nextRaidId',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'nextRaidId',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"owner"`.
+ */
+export function useRaidsOwner<
+  TFunctionName extends 'owner',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'owner',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"points"`.
+ */
+export function useRaidsPoints<
+  TFunctionName extends 'points',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'points',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"raidDurations"`.
+ */
+export function useRaidsRaidDurations<
+  TFunctionName extends 'raidDurations',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'raidDurations',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"raids"`.
+ */
+export function useRaidsRaids<
+  TFunctionName extends 'raids',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'raids',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"requests"`.
+ */
+export function useRaidsRequests<
+  TFunctionName extends 'requests',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'requests',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"requiredLemonLevels"`.
+ */
+export function useRaidsRequiredLemonLevels<
+  TFunctionName extends 'requiredLemonLevels',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'requiredLemonLevels',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"requiredValue"`.
+ */
+export function useRaidsRequiredValue<
+  TFunctionName extends 'requiredValue',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'requiredValue',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"sponsorWallet"`.
+ */
+export function useRaidsSponsorWallet<
+  TFunctionName extends 'sponsorWallet',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'sponsorWallet',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"sqrt"`.
+ */
+export function useRaidsSqrt<
+  TFunctionName extends 'sqrt',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'sqrt',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"stickerDropChance"`.
+ */
+export function useRaidsStickerDropChance<
+  TFunctionName extends 'stickerDropChance',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'stickerDropChance',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"stickers"`.
+ */
+export function useRaidsStickers<
+  TFunctionName extends 'stickers',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'stickers',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"tresuary"`.
+ */
+export function useRaidsTresuary<
+  TFunctionName extends 'tresuary',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'tresuary',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"valueDropChance"`.
+ */
+export function useRaidsValueDropChance<
+  TFunctionName extends 'valueDropChance',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'valueDropChance',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__.
+ */
+export function useRaidsWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof raidsABI, string>['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof raidsABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, TFunctionName, TMode>({
+    abi: raidsABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"_returnLemon2"`.
+ */
+export function useRaidsReturnLemon2<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          '_returnLemon2'
+        >['request']['abi'],
+        '_returnLemon2',
+        TMode
+      > & { functionName?: '_returnLemon2' }
+    : UseContractWriteConfig<typeof raidsABI, '_returnLemon2', TMode> & {
+        abi?: never
+        functionName?: '_returnLemon2'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, '_returnLemon2', TMode>({
+    abi: raidsABI,
+    functionName: '_returnLemon2',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useRaidsInitialize<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'initialize'
+        >['request']['abi'],
+        'initialize',
+        TMode
+      > & { functionName?: 'initialize' }
+    : UseContractWriteConfig<typeof raidsABI, 'initialize', TMode> & {
+        abi?: never
+        functionName?: 'initialize'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'initialize', TMode>({
+    abi: raidsABI,
+    functionName: 'initialize',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"renounceOwnership"`.
+ */
+export function useRaidsRenounceOwnership<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'renounceOwnership'
+        >['request']['abi'],
+        'renounceOwnership',
+        TMode
+      > & { functionName?: 'renounceOwnership' }
+    : UseContractWriteConfig<typeof raidsABI, 'renounceOwnership', TMode> & {
+        abi?: never
+        functionName?: 'renounceOwnership'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'renounceOwnership', TMode>({
+    abi: raidsABI,
+    functionName: 'renounceOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"returnLemon"`.
+ */
+export function useRaidsReturnLemon<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'returnLemon'
+        >['request']['abi'],
+        'returnLemon',
+        TMode
+      > & { functionName?: 'returnLemon' }
+    : UseContractWriteConfig<typeof raidsABI, 'returnLemon', TMode> & {
+        abi?: never
+        functionName?: 'returnLemon'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'returnLemon', TMode>({
+    abi: raidsABI,
+    functionName: 'returnLemon',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"sendToRaid"`.
+ */
+export function useRaidsSendToRaid<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'sendToRaid'
+        >['request']['abi'],
+        'sendToRaid',
+        TMode
+      > & { functionName?: 'sendToRaid' }
+    : UseContractWriteConfig<typeof raidsABI, 'sendToRaid', TMode> & {
+        abi?: never
+        functionName?: 'sendToRaid'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'sendToRaid', TMode>({
+    abi: raidsABI,
+    functionName: 'sendToRaid',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setItemsAddress"`.
+ */
+export function useRaidsSetItemsAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'setItemsAddress'
+        >['request']['abi'],
+        'setItemsAddress',
+        TMode
+      > & { functionName?: 'setItemsAddress' }
+    : UseContractWriteConfig<typeof raidsABI, 'setItemsAddress', TMode> & {
+        abi?: never
+        functionName?: 'setItemsAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'setItemsAddress', TMode>({
+    abi: raidsABI,
+    functionName: 'setItemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setLemonAddress"`.
+ */
+export function useRaidsSetLemonAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'setLemonAddress'
+        >['request']['abi'],
+        'setLemonAddress',
+        TMode
+      > & { functionName?: 'setLemonAddress' }
+    : UseContractWriteConfig<typeof raidsABI, 'setLemonAddress', TMode> & {
+        abi?: never
+        functionName?: 'setLemonAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'setLemonAddress', TMode>({
+    abi: raidsABI,
+    functionName: 'setLemonAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setPointsAddress"`.
+ */
+export function useRaidsSetPointsAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'setPointsAddress'
+        >['request']['abi'],
+        'setPointsAddress',
+        TMode
+      > & { functionName?: 'setPointsAddress' }
+    : UseContractWriteConfig<typeof raidsABI, 'setPointsAddress', TMode> & {
+        abi?: never
+        functionName?: 'setPointsAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'setPointsAddress', TMode>({
+    abi: raidsABI,
+    functionName: 'setPointsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setRequestParameters"`.
+ */
+export function useRaidsSetRequestParameters<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'setRequestParameters'
+        >['request']['abi'],
+        'setRequestParameters',
+        TMode
+      > & { functionName?: 'setRequestParameters' }
+    : UseContractWriteConfig<typeof raidsABI, 'setRequestParameters', TMode> & {
+        abi?: never
+        functionName?: 'setRequestParameters'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'setRequestParameters', TMode>({
+    abi: raidsABI,
+    functionName: 'setRequestParameters',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setStickersAddress"`.
+ */
+export function useRaidsSetStickersAddress<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'setStickersAddress'
+        >['request']['abi'],
+        'setStickersAddress',
+        TMode
+      > & { functionName?: 'setStickersAddress' }
+    : UseContractWriteConfig<typeof raidsABI, 'setStickersAddress', TMode> & {
+        abi?: never
+        functionName?: 'setStickersAddress'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'setStickersAddress', TMode>({
+    abi: raidsABI,
+    functionName: 'setStickersAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"transferOwnership"`.
+ */
+export function useRaidsTransferOwnership<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'transferOwnership'
+        >['request']['abi'],
+        'transferOwnership',
+        TMode
+      > & { functionName?: 'transferOwnership' }
+    : UseContractWriteConfig<typeof raidsABI, 'transferOwnership', TMode> & {
+        abi?: never
+        functionName?: 'transferOwnership'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'transferOwnership', TMode>({
+    abi: raidsABI,
+    functionName: 'transferOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"withdraw"`.
+ */
+export function useRaidsWithdraw<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'withdraw'
+        >['request']['abi'],
+        'withdraw',
+        TMode
+      > & { functionName?: 'withdraw' }
+    : UseContractWriteConfig<typeof raidsABI, 'withdraw', TMode> & {
+        abi?: never
+        functionName?: 'withdraw'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'withdraw', TMode>({
+    abi: raidsABI,
+    functionName: 'withdraw',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__.
+ */
+export function usePrepareRaidsWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"_returnLemon2"`.
+ */
+export function usePrepareRaidsReturnLemon2(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, '_returnLemon2'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: '_returnLemon2',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, '_returnLemon2'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareRaidsInitialize(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'initialize'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'initialize',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'initialize'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"renounceOwnership"`.
+ */
+export function usePrepareRaidsRenounceOwnership(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'renounceOwnership'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'renounceOwnership',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'renounceOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"returnLemon"`.
+ */
+export function usePrepareRaidsReturnLemon(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'returnLemon'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'returnLemon',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'returnLemon'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"sendToRaid"`.
+ */
+export function usePrepareRaidsSendToRaid(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'sendToRaid'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'sendToRaid',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'sendToRaid'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setItemsAddress"`.
+ */
+export function usePrepareRaidsSetItemsAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'setItemsAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'setItemsAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'setItemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setLemonAddress"`.
+ */
+export function usePrepareRaidsSetLemonAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'setLemonAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'setLemonAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'setLemonAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setPointsAddress"`.
+ */
+export function usePrepareRaidsSetPointsAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'setPointsAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'setPointsAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'setPointsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setRequestParameters"`.
+ */
+export function usePrepareRaidsSetRequestParameters(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'setRequestParameters'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'setRequestParameters',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'setRequestParameters'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setStickersAddress"`.
+ */
+export function usePrepareRaidsSetStickersAddress(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'setStickersAddress'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'setStickersAddress',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'setStickersAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"transferOwnership"`.
+ */
+export function usePrepareRaidsTransferOwnership(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'transferOwnership'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'transferOwnership',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'transferOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"withdraw"`.
+ */
+export function usePrepareRaidsWithdraw(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'withdraw'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'withdraw',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'withdraw'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link raidsABI}__.
+ */
+export function useRaidsEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof raidsABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: raidsABI,
+    ...config,
+  } as UseContractEventConfig<typeof raidsABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link raidsABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useRaidsInitializedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof raidsABI, 'Initialized'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: raidsABI,
+    eventName: 'Initialized',
+    ...config,
+  } as UseContractEventConfig<typeof raidsABI, 'Initialized'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link raidsABI}__ and `eventName` set to `"OwnershipTransferred"`.
+ */
+export function useRaidsOwnershipTransferredEvent(
+  config: Omit<
+    UseContractEventConfig<typeof raidsABI, 'OwnershipTransferred'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: raidsABI,
+    eventName: 'OwnershipTransferred',
+    ...config,
+  } as UseContractEventConfig<typeof raidsABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link raidsABI}__ and `eventName` set to `"RaidFinished"`.
+ */
+export function useRaidsRaidFinishedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof raidsABI, 'RaidFinished'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: raidsABI,
+    eventName: 'RaidFinished',
+    ...config,
+  } as UseContractEventConfig<typeof raidsABI, 'RaidFinished'>)
 }
 
 /**
