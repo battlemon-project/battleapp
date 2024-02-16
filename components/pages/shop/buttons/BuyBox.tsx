@@ -10,10 +10,9 @@ import { useBoxPrices } from 'hooks/useBoxPrices';
 interface BuyBoxProps {
   boxType: BoxType
   prizeType: number
-  disabled: boolean
 }
 
-export default function BuyBox({ boxType, prizeType, disabled }: BuyBoxProps) {
+export default function BuyBox({ boxType, prizeType }: BuyBoxProps) {
   const boxPrices = useBoxPrices()
   const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType, prizeType);
   const { setStatus, setBox, setPrize } = useBoxStore()
@@ -45,7 +44,7 @@ export default function BuyBox({ boxType, prizeType, disabled }: BuyBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.disabled]: disabled, [styles.process]: buyBoxStatus == 'loading' || buyBoxStatus == 'process' })} onClick={handleBuyBox}>
+      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.process]: buyBoxStatus == 'loading' || buyBoxStatus == 'process' })} onClick={handleBuyBox}>
         { buyBoxStatus == 'loading' || buyBoxStatus == 'process' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
