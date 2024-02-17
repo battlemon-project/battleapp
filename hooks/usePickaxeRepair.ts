@@ -2,7 +2,6 @@ import { usePickAxeSharp, pickAxeABI } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { StatusType } from './useBuyBox';
 import { parseEther } from 'viem';
 
@@ -17,7 +16,7 @@ const repairPrices: {[key: number]: bigint} = {
 }
 
 export function usePickaxeRepair(pickaxeId: number | undefined, pickaxeType: number) {
-  const router = useRouter()
+  console.log('render usePickaxeRepair')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
@@ -67,7 +66,6 @@ export function usePickaxeRepair(pickaxeId: number | undefined, pickaxeType: num
     };
     if (pickaxeRepair?.status === 'error') {
       setStatus('error');
-      router.push(router.pathname + `?buy=error`)
       return;
     };
   }, [pickaxeRepair?.status]);

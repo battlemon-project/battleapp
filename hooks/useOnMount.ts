@@ -2,6 +2,7 @@ import type { EffectCallback } from "react"
 import { useEffect, useRef } from "react"
 
 export function useOnMount(effect: EffectCallback) {
+  console.log('render useOnMount')
   const initialized = useRef(false)
 
   useEffect(() => {

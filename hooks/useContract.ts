@@ -16,6 +16,7 @@ const dictionary = {
 }
 
 export function useContract(name: 'BOXES' | 'POINTS' | 'ITEMS') {
+  console.log('render useContract')
   const { chain } = useNetwork()
   const [ contract, setContract ] = useState<`0x${string}`>()
   

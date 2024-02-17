@@ -4,6 +4,7 @@ import { useAccount, useWaitForTransaction, usePublicClient, useFeeData } from '
 import { toast } from 'react-toastify';
 
 export function useLemonEquipment(lemonId: number, items: number[]) {
+  console.log('render useLemonEquipment')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle' | 'process'>('idle')
   const { address }  = useAccount();

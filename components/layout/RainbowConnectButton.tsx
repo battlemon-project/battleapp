@@ -1,6 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import LemonPoints from './LemonPoints';
-export const RainboxConnectButton = () => {
+export const RainbowConnectButton = () => {
   return (
     <ConnectButton.Custom>
       {({

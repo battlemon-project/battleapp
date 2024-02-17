@@ -2,6 +2,7 @@ import { pickAxeABI } from './generated';
 import {  usePublicClient } from 'wagmi';
 
 export function useSharpnessOf() {
+  console.log('render useSharpnessOf')
   const publicClient = usePublicClient()
 
   const getSharpnessOf = async (tokenId: number): Promise<number> => {

@@ -81,7 +81,7 @@ export default async function handler (req: NextRequest) {
           status: 500
         })
       }
-  
+      console.log(query)
       console.log(result.data.nfts.nodes)
       const ownedNfts = result.data.nfts.nodes.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
         return { tokenId, tokenUri }
