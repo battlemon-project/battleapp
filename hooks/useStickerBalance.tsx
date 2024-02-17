@@ -3,6 +3,7 @@ import { useStickerBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
 
 export function useStickerBalance() {
+  console.log('render useStickerBalance')
   const { address }  = useAccount();
 
   const balance = address && useStickerBalanceOf({

@@ -6,11 +6,10 @@ import { decodeEventLog, parseEther } from 'viem'
 import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { StatusType } from './useBuyBox';
 
 export function useGemMerge(gem0: number | undefined, gem1: number | undefined) {
-  const router = useRouter()
+  console.log('render useGemMerge')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
@@ -54,7 +53,6 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
     };
     if (gemMerge?.status === 'error') {
       setStatus('error');
-      router.push(router.pathname + `?merge=error`)
     };
   }, [gemMerge?.status])
 
@@ -66,16 +64,13 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
       console.log('logLength', logLength)
       if (logLength > 1) {
         setStatus('success');
-        router.push(router.pathname + `?merge=success`)
         return
       } else {
         setStatus('error');
-        router.push(router.pathname + `?merge=error`)
         return
       }
     }
     setStatus('error');
-    router.push(router.pathname + `?merge=error`)
   }, [gemMergeResult.isSuccess])
 
 

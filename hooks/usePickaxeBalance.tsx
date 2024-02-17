@@ -3,6 +3,7 @@ import { usePickAxeBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
 
 export function usePickaxeBalance() {
+  console.log('render usePickaxeBalance')
   const { address }  = useAccount();
 
   const balance = address && usePickAxeBalanceOf({

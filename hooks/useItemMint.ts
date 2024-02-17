@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { useItemPrice } from './useItemPrice';
 import { useContract } from './useContract';
 
 export function useItemMint(count: number) {
-  const router = useRouter()
+  console.log('render useItemMint')
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const NEXT_PUBLIC_MINT_ITEMS_PRICE = useItemPrice()
   const publicClient = usePublicClient()
@@ -54,14 +53,12 @@ export function useItemMint(count: number) {
     };
     if (itemMint?.status === 'error') {
       setStatus('error');
-      router.push(router.pathname + `?buy=error`)
     };
   }, [itemMint?.status])
 
   useEffect(() => {
     if (!itemMintResult.isSuccess) return;
     setStatus('success')
-    router.push(router.pathname + `?buy=success`)
   }, [itemMintResult])
 
   return {

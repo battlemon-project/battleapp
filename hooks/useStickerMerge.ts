@@ -2,11 +2,10 @@ import { useStickerCraftItem, stickerABI } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { StatusType } from './useBuyBox';
 
 export function useStickerMerge(sticker0: number, sticker1: number, sticker2: number, sticker3: number) {
-  const router = useRouter()
+  console.log('render useStickerMerge')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
@@ -54,7 +53,6 @@ export function useStickerMerge(sticker0: number, sticker1: number, sticker2: nu
     };
     if (stickerMerge?.status === 'error') {
       setStatus('error');
-      router.push(router.pathname + `?buy=error`)
       return;
     };
   }, [stickerMerge?.status]);

@@ -4,6 +4,7 @@ import { useAccount } from 'wagmi';
 
 
 export function useLemonBalance() {
+  console.log('render useLemonBalance')
   const { address }  = useAccount();
 
   const balance = address && useLemonBalanceOf({

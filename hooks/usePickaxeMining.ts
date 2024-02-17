@@ -3,11 +3,10 @@ import { decodeEventLog } from 'viem'
 import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { StatusType } from './useBuyBox';
 
 export function usePickaxeMining(pickaxeId: number | undefined) {
-  const router = useRouter()
+  console.log('render usePickaxeMining')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const [ gemId, setGemId ] = useState<number | undefined>(undefined)
@@ -57,7 +56,6 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
     if (pickaxeMining?.status === 'error') {
       console.log('error 0')
       setStatus('error');
-      router.push(router.pathname + `?buy=error`)
       return;
     };
   }, [pickaxeMining?.status]);
@@ -96,7 +94,6 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
         setGemId(tokenId)
         console.log('success 1', tokenId)
         setStatus('success');
-        router.push(router.pathname + `?mining=success`);
         return;
       } catch (error) {
         let message = (error as Error).message;

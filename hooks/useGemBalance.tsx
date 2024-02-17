@@ -3,6 +3,7 @@ import { useGemBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
 
 export function useGemBalance() {
+  console.log('render useGemBalance')
   const { address }  = useAccount();
 
   const balance = address && useGemBalanceOf({

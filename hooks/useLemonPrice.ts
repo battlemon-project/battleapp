@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNetwork } from 'wagmi';
 
 export function useLemonPrice() {
+  console.log('render useLemonPrice')
   const { chain } = useNetwork()
   const [ price, setPrice ] = useState<string>(process.env.NEXT_PUBLIC_MINT_POLYGON_LEMONS_PRICE!)
   

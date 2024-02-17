@@ -5,6 +5,7 @@ import { gemABI } from './generated';
 import {  usePublicClient } from 'wagmi';
 
 export function useGemRank() {
+  console.log('render useGemRank')
   const publicClient = usePublicClient()
 
   const getGemRank = async (tokenId: number): Promise<number> => {

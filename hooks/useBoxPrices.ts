@@ -9,6 +9,7 @@ interface PricesType {
 }
 
 export function useBoxPrices() {
+  console.log('render useBoxPrices')
   const { chain } = useNetwork()
   const [ prices, setPrices ] = useState<PricesType>({
     Cheap: process.env.NEXT_PUBLIC_MINT_POLYGON_CHEAP_BOX_PRICE!,

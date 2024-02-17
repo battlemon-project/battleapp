@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
 import { useContract } from './useContract';
 import { useBoxPrices } from './useBoxPrices';
 
@@ -103,7 +102,7 @@ export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
 }
 
 export function useBuyBox(type: BoxType, itemType: number) {
-  const router = useRouter()
+  console.log('render useBuyBox')
   const publicClient = usePublicClient()
   const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES')
   const boxPrices = useBoxPrices();
@@ -163,7 +162,6 @@ export function useBuyBox(type: BoxType, itemType: number) {
     };
     if (buyBox?.status === 'error') {
       setStatus('error');
-      router.push(router.pathname + `?buy=${type}_error`)
     };
   }, [buyBox?.status])
 
@@ -193,7 +191,6 @@ export function useBuyBox(type: BoxType, itemType: number) {
     })
 
     setStatus('success')
-    router.push(router.pathname + `?buy=${type}_success`)
   }, [buyBoxResult.isSuccess])
 
   return {

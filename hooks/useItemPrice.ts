@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNetwork } from 'wagmi';
 
 export function useItemPrice() {
+  console.log('render useItemPrice')
   const { chain } = useNetwork()
   const [ price, setPrice ] = useState<bigint>(BigInt(process.env.NEXT_PUBLIC_MINT_POLYGON_ITEMS_PRICE!))
   

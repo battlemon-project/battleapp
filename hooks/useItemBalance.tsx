@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useItemBalanceOf } from './generated';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { useContract } from './useContract';
 
 export function useItemBalance() {
+  console.log('render useItemBalance')
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const { address }  = useAccount();
   

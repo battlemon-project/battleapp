@@ -1,8 +1,13 @@
 import { usePointsBalance } from "hooks/usePointsBalance";
+import React from "react";
 
-export default function LemonPoints() {
+const LemonPoints = React.memo(() => {
   const { balance } = usePointsBalance()
   return (
     <span>{(balance || 0) / 1000000000000000000} LP</span>
   );
-}
+});
+
+LemonPoints.displayName = 'LemonPoints';
+
+export default LemonPoints;
