@@ -172,9 +172,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
     if (!buyBoxResult.isSuccess) return;
 
     buyBoxResult.data?.logs.forEach(log => {
-      console.log('Event1')
-      console.log(log)
-      if (log.address.toLowerCase() !== NEXT_PUBLIC_CONTRACT_BOXES!.toLowerCase()) return;
+      return;
       try {
         const decoded = decodeEventLog({
           abi: parseAbi(['event Prize(address, uint256)']),

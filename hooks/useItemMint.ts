@@ -22,7 +22,7 @@ export function useItemMint(count: number) {
       address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
       abi: itemABI,
       functionName: 'mint',
-      value: parseEther(batchPrice),
+      value: BigInt(batchPrice),
       args: [count || 1],
       account: address as '0x',
     })
@@ -36,7 +36,7 @@ export function useItemMint(count: number) {
   const itemMint = address && generatedUseItemMint({
     address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
     args: [count || 1],
-    value: parseEther(batchPrice),
+    value: BigInt(batchPrice),
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
