@@ -7,16 +7,18 @@ import { useItemStore } from "../store/itemStore";
 import { useEffect } from "react";
 import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
+import { useContract } from "hooks/useContract";
 
 interface ItemStartProps {
   balance: number
 }
 
 export default function ItemStart({ balance }: ItemStartProps) {
+  const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const { selectedItems, selectItem, changeStage } = useItemStore();
 
   const { data, mutate, isValidating } = useSWR(
-    process.env.NEXT_PUBLIC_CONTRACT_ITEMS, 
+    NEXT_PUBLIC_CONTRACT_ITEMS, 
     fetcher({ pageSize: 100 })
   )
 

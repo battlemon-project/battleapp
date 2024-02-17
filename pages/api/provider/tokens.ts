@@ -11,12 +11,26 @@ export default async function handler (req: NextRequest) {
   const pageKey = nextUrl.searchParams.get("pageKey");
   const withMetadata = nextUrl.searchParams.get("withMetadata") || 'false';
   const contracts: string[] = [
-    process.env.NEXT_PUBLIC_CONTRACT_ITEMS!,
-    process.env.NEXT_PUBLIC_CONTRACT_LEMONS!,
-    process.env.NEXT_PUBLIC_CONTRACT_PICKAXES!,
-    process.env.NEXT_PUBLIC_CONTRACT_GEMS!,
-    process.env.NEXT_PUBLIC_CONTRACT_POINTS!,
-    process.env.NEXT_PUBLIC_CONTRACT_STICKERS!
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_POINTS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_REFERRAL!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_HOODIE!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_SHIRT!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_CAP!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_GEMS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_STICKERS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_POINTS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_PICKAXES!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_REFERRAL!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_HOODIE!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_SHIRT!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_CAP!
   ]
   const siwe = req.cookies.get('siwe')?.value
   const { address }  = await unsealData(siwe || '', ironOptions)
