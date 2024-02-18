@@ -45,7 +45,7 @@ export default async function handler (req: NextRequest) {
 
     const query = `
       query GetNfts {
-        nfts(first: 10, filter: {
+        nfts(filter: {
           contract: {equalTo: "${contract}"},
           owner: {id: {equalTo: "${address}"}}
         }) {
@@ -89,7 +89,7 @@ export default async function handler (req: NextRequest) {
       
       const data: ProviderData = {
         ownedNfts,
-        pageKey: undefined,
+        pageKey: address as string,
         totalCount: ownedNfts.length
       }
 
