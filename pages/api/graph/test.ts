@@ -21,7 +21,7 @@ export default async function handler (req: NextRequest) {
       body: JSON.stringify({
         query: `
           query GetNfts {
-            nfts(first: 10, filter: {
+            nfts(filter: {
               contract: {equalTo: "${process.env.NEXT_PUBLIC_CONTRACT_GEMS}"},
               owner: {id: {equalTo: "${address}"}}
             }) {
