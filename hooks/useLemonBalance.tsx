@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useLemonBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
+import { useContract } from 'hooks/useContract';
 
 
 export function useLemonBalance() {
   console.log('render useLemonBalance')
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
   const { address }  = useAccount();
 
   const balance = address && useLemonBalanceOf({
-    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [address]
   })
 

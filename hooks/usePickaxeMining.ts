@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { StatusType } from './useBuyBox';
+import { useContract } from "hooks/useContract";
 
 export function usePickaxeMining(pickaxeId: number | undefined) {
   console.log('render usePickaxeMining')
+  const NEXT_PUBLIC_CONTRACT_PICKAXES = useContract('PICKAXES')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const [ gemId, setGemId ] = useState<number | undefined>(undefined)
@@ -15,7 +17,7 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
    
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
+      address: NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
       abi: pickAxeABI,
       functionName: 'chipOff',
       account: address as '0x',
@@ -29,7 +31,7 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
   }
 
   const pickaxeMining = address && usePickAxeChipOff({
-    address: process.env.NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
+    address: NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
     args: [BigInt(pickaxeId || 0)],
     onError: (error) => {
       let message = error.message;

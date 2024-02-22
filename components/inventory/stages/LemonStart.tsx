@@ -7,16 +7,18 @@ import { useLemonStore } from "../store/lemonStore";
 import { useEffect } from "react";
 import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
+import { useContract } from "hooks/useContract";
 
 interface LemonStartProps {
   balance: number
 }
 
 export default function LemonStart({ balance }: LemonStartProps) {
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
   const { selectedLemons, selectLemon, changeStage } = useLemonStore();
 
   const { data, mutate, isValidating } = useSWR(
-    process.env.NEXT_PUBLIC_CONTRACT_LEMONS, 
+    NEXT_PUBLIC_CONTRACT_LEMONS, 
     fetcher({ pageSize: 100 })
   )
 
@@ -27,7 +29,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_LEMONS} isNextPage={!!data?.pageKey} withGenerator={true} />
+      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_LEMONS} isNextPage={!!data?.pageKey} withGenerator={true} />
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
@@ -51,7 +53,7 @@ export default function LemonStart({ balance }: LemonStartProps) {
           <Link href="/shop/lemon" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_LEMONS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
+          <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_LEMONS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})} onClick={() => changeStage('Bridge')}>Bridge</button>

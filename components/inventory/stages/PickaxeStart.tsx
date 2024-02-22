@@ -9,16 +9,18 @@ import useSWR from "swr";
 import { simpleFetcher } from "utils/fetcher";
 import PickaxeMiningButton from "../buttons/PickaxeMiningButton";
 import PickaxeRepairButton from "../buttons/PickaxeRepairButton";
+import { useContract } from "hooks/useContract";
 
 interface PickaxeStartProps {
   balance: number
 }
 
 export default function PickaxeStart({ balance }: PickaxeStartProps) {
+  const NEXT_PUBLIC_CONTRACT_PICKAXES = useContract('PICKAXES')
   const { selectedPickaxe, selectPickaxe } = usePickaxeStore();
-
+  
   const { data, mutate, isValidating } = useSWR(
-    process.env.NEXT_PUBLIC_CONTRACT_PICKAXES, 
+    NEXT_PUBLIC_CONTRACT_PICKAXES, 
     simpleFetcher({ pageSize: 100 })
   )
 
@@ -29,7 +31,7 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={[selectedPickaxe]} onClick={selectPickaxe} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_PICKAXES} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={[selectedPickaxe]} onClick={selectPickaxe} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_PICKAXES} isNextPage={!!data?.pageKey} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>
@@ -42,7 +44,7 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_PICKAXES}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
+          <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_PICKAXES}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
           {selectedPickaxe && <PickaxeRepairButton pickaxeId={selectedPickaxe.tokenId} pickaxeType={ Number(selectedPickaxe.image.split('/').pop()?.split('.')[0]) } />}

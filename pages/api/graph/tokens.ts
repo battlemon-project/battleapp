@@ -89,7 +89,7 @@ export default async function handler (req: NextRequest) {
       
       const data: ProviderData = {
         ownedNfts,
-        pageKey: address as string,
+        pageKey: undefined,
         totalCount: ownedNfts.length
       }
 

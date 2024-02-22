@@ -6,8 +6,12 @@ import PolSymbol from 'components/layout/PolSymbol';
 import MintLemon from './buttons/MintLemon';
 import { SignInButton } from './buttons/SignInButton';
 import useAuth from 'context/AuthContext';
+import { useNetwork } from 'wagmi';
+import { useContract } from "hooks/useContract";
 
 export default function BuyLemonPage() {
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
+  const { chain } = useNetwork();
   const { isSignedIn, isSupportedChain } = useAuth();
 
   return (
@@ -32,16 +36,16 @@ export default function BuyLemonPage() {
             <p className="mb-3">Dynamic NFT with a unique 3D view, where you can build your own setup, level up on smart contracts in the blockchain, unlocking increasingly unique content, as well as sending your hero on an exciting adventure for valuable prizes, where commissions from mechanics and royalties will be distributed.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!, 8)}</div>
+              <div>{truncate(NEXT_PUBLIC_CONTRACT_LEMONS!, 8)}</div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>
               <div>ERC721</div>
             </div>
-            <div className="d-flex justify-content-between">
+            {chain && <div className="d-flex justify-content-between">
               <b>Network</b>
-              <div className='fs-16'><PolSymbol>Polygon</PolSymbol></div>
-            </div>
+              <div className='fs-16'><PolSymbol>{chain.name}</PolSymbol></div>
+            </div>}
           </div>
 
           {(() => {

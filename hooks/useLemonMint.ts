@@ -3,22 +3,26 @@ import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
 import { useAccount, useWaitForTransaction, usePublicClient, useFeeData } from 'wagmi';
 import { toast } from 'react-toastify';
+import { useContract } from 'hooks/useContract';
+import { useLemonPrice } from './useLemonPrice';
 
 export function useLemonMint(count: number) {
   console.log('render useLemonMint')
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
+  const NEXT_PUBLIC_MINT_LEMONS_PRICE = useLemonPrice()
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle'>('idle')
   const { address }  = useAccount();
   const fee = useFeeData()
 
-  const batchPrice = (Number(process.env.NEXT_PUBLIC_MINT_LEMONS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")
+  const batchPrice = (Number(NEXT_PUBLIC_MINT_LEMONS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+      address: NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
       abi: lemonABI,
       functionName: 'mint',
-      value: parseEther(batchPrice),
+      value: BigInt(batchPrice),
       args: [count || 1],
       account: address as '0x',
     })
@@ -30,9 +34,9 @@ export function useLemonMint(count: number) {
   }
 
   const lemonMint = address && generatedUseLemonMint({
-    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [count || 1],
-    value: parseEther(batchPrice),
+    value: BigInt(batchPrice),
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];

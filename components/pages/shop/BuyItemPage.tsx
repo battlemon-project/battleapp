@@ -7,9 +7,11 @@ import MintItem from './buttons/MintItem';
 import useAuth from 'context/AuthContext';
 import { SignInButton } from './buttons/SignInButton';
 import { useContract } from 'hooks/useContract';
+import { useNetwork } from 'wagmi';
 
 export default function BuyItemPage() {
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
+  const { chain } = useNetwork();
   const { isSignedIn, isSupportedChain } = useAuth();
 
   return (
@@ -37,10 +39,10 @@ export default function BuyItemPage() {
               <b>Token Standard</b>
               <div>ERC721</div>
             </div>
-            <div className="d-flex justify-content-between ">
+            {chain && <div className="d-flex justify-content-between ">
               <b>Network</b>
-              <div className='fs-16'><PolSymbol>Polygon</PolSymbol></div>
-            </div>
+              <div className='fs-16'><PolSymbol>{chain.name}</PolSymbol></div>
+            </div>}
           </div>
 
           {(() => {
