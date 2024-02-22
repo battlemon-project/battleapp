@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { StatusType } from './useBuyBox';
+import { useContract } from './useContract';
 
 export function useGemMerge(gem0: number | undefined, gem1: number | undefined) {
   console.log('render useGemMerge')
+  const NEXT_PUBLIC_CONTRACT_GEMS = useContract('GEMS')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
@@ -17,7 +19,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
+      address: NEXT_PUBLIC_CONTRACT_GEMS as '0x',
       abi: gemABI,
       functionName: 'merge',
       account: address as '0x',
@@ -31,7 +33,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
   }
 
   const gemMerge = address && generatedUseGemMerge({
-    address: process.env.NEXT_PUBLIC_CONTRACT_GEMS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_GEMS as '0x',
     args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     onError: (error) => {
       let message = error.message;
@@ -60,7 +62,7 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
   useEffect(() => {
     if (!gemMergeResult.isSuccess) return;
     if (gemMergeResult.data?.logs.length) {
-      const logLength = gemMergeResult.data?.logs.filter(log => log.address.toLowerCase() == process.env.NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()).length
+      const logLength = gemMergeResult.data?.logs.filter(log => log.address.toLowerCase() == NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()).length
       console.log('logLength', logLength)
       if (logLength > 1) {
         setStatus('success');

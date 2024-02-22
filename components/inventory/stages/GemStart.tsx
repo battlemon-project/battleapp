@@ -10,18 +10,20 @@ import { simpleFetcher } from "utils/fetcher";
 import GemMergeButton from "../buttons/GemMergeButton";
 import { NftMetaData } from "lemon";
 import { useGemRank } from "hooks/useGemRank";
+import { useContract } from "hooks/useContract";
 
 interface GemStartProps {
   balance: number
 }
 
 export default function GemStart({ balance }: GemStartProps) {
+  const NEXT_PUBLIC_CONTRACT_GEMS = useContract('GEMS')
   const { selectedGems, selectGem, mergeStatus } = useGemStore();
   const { getGemRank } = useGemRank();
   const [ tokensWithRank, setTokensWithRank ] = useState<NftMetaData[]>([])
 
   const { data, mutate, isValidating } = useSWR(
-    process.env.NEXT_PUBLIC_CONTRACT_GEMS, 
+    NEXT_PUBLIC_CONTRACT_GEMS, 
     simpleFetcher({ pageSize: 100 })
   )
 
@@ -53,7 +55,7 @@ export default function GemStart({ balance }: GemStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokensWithRank} colWidth={20} height={410} selectedTokens={selectedGems} onClick={selectGem} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_GEMS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={tokensWithRank} colWidth={20} height={410} selectedTokens={selectedGems} onClick={selectGem} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_GEMS} isNextPage={!!data?.pageKey} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>
@@ -66,7 +68,7 @@ export default function GemStart({ balance }: GemStartProps) {
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_GEMS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
+          <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_GEMS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
           {selectedGems.length >= 2 && <GemMergeButton selectedGems={selectedGems} />}

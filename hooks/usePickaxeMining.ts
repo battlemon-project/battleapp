@@ -9,6 +9,7 @@ import { useContract } from "hooks/useContract";
 export function usePickaxeMining(pickaxeId: number | undefined) {
   console.log('render usePickaxeMining')
   const NEXT_PUBLIC_CONTRACT_PICKAXES = useContract('PICKAXES')
+  const NEXT_PUBLIC_CONTRACT_GEMS = useContract('GEMS')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const [ gemId, setGemId ] = useState<number | undefined>(undefined)
@@ -76,7 +77,7 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
       return;
     }
     pickaxeMiningResult.data?.logs.forEach(log => {
-      if (log.address.toLowerCase() !== process.env.NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()) return;
+      if (log.address.toLowerCase() !== NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase()) return;
       try {
         console.log(log)
         const decoded = decodeEventLog({
