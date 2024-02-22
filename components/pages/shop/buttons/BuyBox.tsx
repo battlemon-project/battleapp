@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { BoxType, useBuyBox } from 'hooks/useBuyBox';
 import { useBoxStore } from '../store/boxStore';
 import { useBoxPrices } from 'hooks/useBoxPrices';
+import { useNetwork } from 'wagmi';
 
 interface BuyBoxProps {
   boxType: BoxType
@@ -13,6 +14,7 @@ interface BuyBoxProps {
 }
 
 export default function BuyBox({ boxType, prizeType }: BuyBoxProps) {
+  const { chain } = useNetwork();
   const boxPrices = useBoxPrices()
   const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType, prizeType);
   const { setStatus, setBox, setPrize } = useBoxStore()
@@ -49,7 +51,7 @@ export default function BuyBox({ boxType, prizeType }: BuyBoxProps) {
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
             <span className='fs-17 fst-italic pe-2'>{boxType} Box </span>
-            <span className='fs-15'><PolSymbol>{boxPrices[boxType]} MATIC</PolSymbol></span>
+            <span className='fs-15'><PolSymbol>{boxPrices[boxType]} {chain?.nativeCurrency.symbol}</PolSymbol></span>
           </div>
         }
       </button>

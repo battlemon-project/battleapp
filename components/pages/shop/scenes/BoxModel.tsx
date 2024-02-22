@@ -12,9 +12,9 @@ interface BoxModelProps {
 
 const framesByPrize: {[key in PrizeType]?: number} = {
   [PrizeType.Sticker]: 74,
-  [PrizeType.SmallMatic]: 90,
-  [PrizeType.MediumMatic]: 90,
-  [PrizeType.LargeMatic]: 90,
+  [PrizeType.SmallTokens]: 90,
+  [PrizeType.MediumTokens]: 90,
+  [PrizeType.LargeTokens]: 90,
   [PrizeType.SmallPoints]: 90,
   [PrizeType.MediumPoints]: 90,
   [PrizeType.PointsItem]: 90,

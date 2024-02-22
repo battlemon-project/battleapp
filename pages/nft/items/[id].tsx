@@ -3,12 +3,14 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { getFromStorage } from 'utils/fetcher';
+import { useContract } from "hooks/useContract";
 
 export default function NftItem() {
+  const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const router = useRouter();
   const { id } = router.query;
   const { data } = useSWR({
-    contract: process.env.NEXT_PUBLIC_CONTRACT_ITEMS!,
+    contract: NEXT_PUBLIC_CONTRACT_ITEMS!,
     tokenId: id 
   }, getFromStorage, {
     revalidateOnFocus: false,

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import useSWR, { SWRResponse, useSWRConfig } from 'swr';
 import { UseFetcherResult, getFromStorage } from 'utils/fetcher';
 import { useLemonStore } from '../store/lemonStore';
+import { useContract } from "hooks/useContract";
 
 interface NextTokenProps {
   onClick: (token: NftMetaData) => void
@@ -13,6 +14,7 @@ interface NextTokenProps {
 }
 
 export default function TokenLinkGenerator({ onClick, token: defaultToken, isSelected }: NextTokenProps) {
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
   const { cache, mutate } = useSWRConfig()
   const { stage, selectLemon } = useLemonStore()
   const [ loader, setLoader ] = useState(false)
@@ -40,7 +42,7 @@ export default function TokenLinkGenerator({ onClick, token: defaultToken, isSel
   // }
 
   const { data } = useSWR(() => checkShadowLemon(token) ? {
-    contract: process.env.NEXT_PUBLIC_CONTRACT_LEMONS!,
+    contract: NEXT_PUBLIC_CONTRACT_LEMONS!,
     tokenId: token.tokenId 
   } : null, getFromStorage, {
     revalidateOnFocus: true,
@@ -80,7 +82,7 @@ export default function TokenLinkGenerator({ onClick, token: defaultToken, isSel
 
   useEffect(() => {
     if (!isSelected) return;
-    refetchLemonData(process.env.NEXT_PUBLIC_CONTRACT_LEMONS!, token)
+    refetchLemonData(NEXT_PUBLIC_CONTRACT_LEMONS!, token)
   }, [stage, isSelected])
 
   const handleClick = (token: NftMetaData) => (e: React.MouseEvent) => {

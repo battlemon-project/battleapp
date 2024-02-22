@@ -17,9 +17,9 @@ export type StatusType = 'error' | 'success' | 'loading' | 'idle' | 'process'
 
 export enum PrizeType {
   Sticker = 'Sticker',
-  SmallMatic = 'Small Matic',
-  MediumMatic = 'Medium Matic', 
-  LargeMatic = 'Large Matic',
+  SmallTokens = 'Small Tokens',
+  MediumTokens = 'Medium Tokens', 
+  LargeTokens = 'Large Tokens',
   SmallPoints = 'Small Points',
   MediumPoints = 'Medium Points',
   PointsLemon = 'Points for Lemon',
@@ -36,9 +36,9 @@ export enum PrizeType {
 
 export const prizes: {[key: number]: PrizeType} = {
   0: PrizeType.Sticker,
-  100: PrizeType.SmallMatic,
-  101: PrizeType.MediumMatic,
-  102: PrizeType.LargeMatic,
+  100: PrizeType.SmallTokens,
+  101: PrizeType.MediumTokens,
+  102: PrizeType.LargeTokens,
   200: PrizeType.SmallPoints,
   201: PrizeType.MediumPoints,
   210: PrizeType.PointsLemon,
@@ -57,9 +57,9 @@ export const prizes: {[key: number]: PrizeType} = {
 export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
   [BoxType.Cheap]: {
     0: 30, // Sticker
-    100: 35, // Small Matic
-    101: 38, // Medium Matic
-    102: 39, // Large Matic
+    100: 35, // Small Tokens
+    101: 38, // Medium Tokens
+    102: 39, // Large Tokens
     200: 59, // Small Points
     201: 69, // Medium Points
     300: 71, // Hoodie
@@ -69,9 +69,9 @@ export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
   },
   [BoxType.Good]: {
     0: 30, // Sticker
-    100: 47, // Small Matic
-    101: 53, // Medium Matic
-    102: 56, // Large Matic
+    100: 47, // Small Tokens
+    101: 53, // Medium Tokens
+    102: 56, // Large Tokens
     200: 71, // Small Points
     201: 79, // Medium Points
     300: 81, // Hoodie
@@ -83,9 +83,9 @@ export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
     211: 38, // Points for Item
   },
   [BoxType.Great]: {
-    100: 44, // Small Matic
-    101: 52, // Medium Matic
-    102: 58, // Large Matic
+    100: 44, // Small Tokens
+    101: 52, // Medium Tokens
+    102: 58, // Large Tokens
     200: 68, // Small Points
     201: 73, // Medium Points
     300: 77, // Hoodie

@@ -3,12 +3,14 @@ import Head from 'next/head';
 import { useLemonAddToWhitelist } from 'hooks/generated'
 import { useAccount } from 'wagmi';
 import { useState } from 'react';
+import { useContract } from 'hooks/useContract';
 
 export default function Whitelist() {
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
   const [addresses, setAddresses] = useState<`0x${string}`[]>(['0x']);
 
   const addToWhitelist = useLemonAddToWhitelist({
-    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [addresses]
   })
 

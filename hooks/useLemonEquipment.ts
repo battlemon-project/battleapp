@@ -2,9 +2,11 @@ import { useLemonChangeEquipmentBatch, lemonABI } from './generated';
 import { useEffect, useState } from 'react';
 import { useAccount, useWaitForTransaction, usePublicClient, useFeeData } from 'wagmi';
 import { toast } from 'react-toastify';
+import { useContract } from 'hooks/useContract';
 
 export function useLemonEquipment(lemonId: number, items: number[]) {
   console.log('render useLemonEquipment')
+  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<'error' | 'success' | 'loading' | 'idle' | 'process'>('idle')
   const { address }  = useAccount();
@@ -12,7 +14,7 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+      address: NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
       abi: lemonABI,
       functionName: 'changeEquipmentBatch',
       args: [
@@ -33,7 +35,7 @@ export function useLemonEquipment(lemonId: number, items: number[]) {
   }
 
   const changeEquipment = address && useLemonChangeEquipmentBatch({
-    address: process.env.NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_LEMONS as '0x',
     args: [
       BigInt(lemonId),
       items.map(i => BigInt(i))

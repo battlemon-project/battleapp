@@ -7,9 +7,11 @@ import { useEffect, useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
 import { toast } from 'react-toastify';
 import { useItemPrice } from 'hooks/useItemPrice';
+import { useNetwork } from 'wagmi';
 
 export default function MintItem() {
   const [ count, setCount ] = useState<number>(1)
+  const { chain } = useNetwork();
   const NEXT_PUBLIC_MINT_ITEMS_PRICE = useItemPrice()
   const { itemMint, itemMintStatus, estimateGas } = useItemMint(count);
   const { balance, refreshBalance } = useItemBalance();
@@ -42,7 +44,7 @@ export default function MintItem() {
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
             <span className='fs-17 fst-italic pe-2'>Buy {count} Item{count > 1 ? 's' : ''} for </span>
-            <span className='fs-15'><PolSymbol>{(Number(NEXT_PUBLIC_MINT_ITEMS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")} MATIC</PolSymbol></span>
+            <span className='fs-15'><PolSymbol>{(Number(NEXT_PUBLIC_MINT_ITEMS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")} {chain?.nativeCurrency.symbol}</PolSymbol></span>
           </div>
         }
       </button>
