@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { StatusType } from './useBuyBox';
+import { useContract } from './useContract';
 
 export function useStickerMerge(sticker0: number, sticker1: number, sticker2: number, sticker3: number) {
   console.log('render useStickerMerge')
+  const NEXT_PUBLIC_CONTRACT_STICKERS = useContract('STICKERS')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
@@ -13,7 +15,7 @@ export function useStickerMerge(sticker0: number, sticker1: number, sticker2: nu
    
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_STICKERS as '0x',
+      address: NEXT_PUBLIC_CONTRACT_STICKERS as '0x',
       abi: stickerABI,
       functionName: 'craftItem',
       account: address as '0x',
@@ -27,7 +29,7 @@ export function useStickerMerge(sticker0: number, sticker1: number, sticker2: nu
   }
 
   const stickerMerge = address && useStickerCraftItem({
-    address: process.env.NEXT_PUBLIC_CONTRACT_STICKERS as '0x',
+    address: NEXT_PUBLIC_CONTRACT_STICKERS as '0x',
     args: [[BigInt(sticker0), BigInt(sticker1), BigInt(sticker2), BigInt(sticker3)]],
     onError: (error) => {
       let message = error.message;

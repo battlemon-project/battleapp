@@ -8,16 +8,18 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import { simpleFetcher } from "utils/fetcher";
 import StickerMergeButton from "../buttons/StickerMergeButton";
+import { useContract } from "hooks/useContract";
 
 interface StickerStartProps {
   balance: number
 }
 
 export default function StickerStart({ balance }: StickerStartProps) {
+  const NEXT_PUBLIC_CONTRACT_STICKERS = useContract('STICKERS')
   const { selectedStickers, selectSticker, mergeStatus } = useStickerStore();
 
   const { data, mutate, isValidating } = useSWR(
-    process.env.NEXT_PUBLIC_CONTRACT_STICKERS, 
+    NEXT_PUBLIC_CONTRACT_STICKERS, 
     simpleFetcher({ pageSize: 100 })
   )
 
@@ -33,7 +35,7 @@ export default function StickerStart({ balance }: StickerStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedStickers} onClick={selectSticker} isValidating={isValidating} contract={process.env.NEXT_PUBLIC_CONTRACT_STICKERS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedStickers} onClick={selectSticker} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_STICKERS} isNextPage={!!data?.pageKey} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>
@@ -46,7 +48,7 @@ export default function StickerStart({ balance }: StickerStartProps) {
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_STICKERS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
+          <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_STICKERS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
           {selectedStickers.length >= 4 && <StickerMergeButton selectedStickers={selectedStickers} />}

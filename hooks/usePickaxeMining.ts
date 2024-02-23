@@ -71,7 +71,7 @@ export function usePickaxeMining(pickaxeId: number | undefined) {
   
   useEffect(() => {
     if (!pickaxeMiningResult.isSuccess) return;
-    if (pickaxeMiningResult.data?.logs.length && pickaxeMiningResult.data?.logs.length < 2) {
+    if (pickaxeMiningResult.data?.logs.length && !pickaxeMiningResult.data?.logs.find(log => log.address.toLowerCase() == NEXT_PUBLIC_CONTRACT_GEMS!.toLowerCase())) {
       console.log('error 5')
       setStatus('error');
       return;

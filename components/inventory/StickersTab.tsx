@@ -25,8 +25,8 @@ export default function StickersTab() {
   return (<div className="row">
   {size.width > 992 && <div className="col-5">
     <div className="position-relative">
-      {!selectedStickers?.length && mergeStatus == 'success' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px;'}}>Congrats!<br />You received the item.</div>}
-      {!selectedStickers?.length && mergeStatus == 'error' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px;'}}>Sorry...<br />We catch some error...</div>}
+      {!selectedStickers?.length && mergeStatus == 'success' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px'}}>Congrats!<br />You received the item.</div>}
+      {!selectedStickers?.length && mergeStatus == 'error' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px'}}>Sorry...<br />We catch some error...</div>}
       <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
       {selectedStickers[0] && <img style={{position: 'absolute', left: '10%', top: '35%', marginTop: '-128px'}} src={selectedStickers[0].image} /> }
       {selectedStickers[1] && <img style={{position: 'absolute', right: '10%', top: '35%', marginTop: '-128px'}} src={selectedStickers[1].image} /> }

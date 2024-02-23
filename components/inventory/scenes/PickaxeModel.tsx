@@ -13,7 +13,7 @@ interface PickaxeModelProps {
   repairStatus: StatusType
 }
 
-export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, gemRank, setGemRank, repairStatus }: PickaxeModelProps) {
+export default function PickaxeModel({ pickaxeType, miningStatus, selectedPickaxe, gemRank, setGemRank, repairStatus }: PickaxeModelProps) {
   const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/mining/';
   const [ pickaxes, setPickaxes ] = useState<TransformNode[]>()
   const [ gems, setGems ] = useState<Mesh[]>()
@@ -40,16 +40,16 @@ export default function BoxModel({ pickaxeType, miningStatus, selectedPickaxe, g
     setPickaxes(_pickaxes);
 
     const _gems: Mesh[] = [
-      scene.getMeshByName('Gem_01') as Mesh,
-      scene.getMeshByName('Gem_02') as Mesh,
-      scene.getMeshByName('Gem_03') as Mesh,
-      scene.getMeshByName('Gem_04') as Mesh,
-      scene.getMeshByName('Gem_05') as Mesh,
-      scene.getMeshByName('Gem_06') as Mesh,
-      scene.getMeshByName('Gem_07') as Mesh,
-      scene.getMeshByName('Gem_08') as Mesh,
-      scene.getMeshByName('Gem_09') as Mesh,
-      scene.getMeshByName('Gem_10') as Mesh,
+      scene.getNodeByName('Gem_01') as Mesh,
+      scene.getNodeByName('Gem_02') as Mesh,
+      scene.getNodeByName('Gem_03') as Mesh,
+      scene.getNodeByName('Gem_04') as Mesh,
+      scene.getNodeByName('Gem_05') as Mesh,
+      scene.getNodeByName('Gem_06') as Mesh,
+      scene.getNodeByName('Gem_07') as Mesh,
+      scene.getNodeByName('Gem_08') as Mesh,
+      scene.getNodeByName('Gem_09') as Mesh,
+      scene.getNodeByName('Gem_10') as Mesh,
     ];
     _gems.forEach(gem => gem.setEnabled(false))
     setGems(_gems);

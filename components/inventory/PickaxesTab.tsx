@@ -44,7 +44,7 @@ export default function PickaxesTab() {
       <div className="position-relative">
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         <div className={styles.miningContainer}>
-          <PickaxeScene pickaxeType={ Number(selectedPickaxe?.image.split('/').pop()?.split('.')[0])} />
+          <PickaxeScene pickaxeType={ Number(selectedPickaxe?.image.split('/').pop()?.split('.')[0])} debug={false} />
         </div>
       </div>
     </div>}

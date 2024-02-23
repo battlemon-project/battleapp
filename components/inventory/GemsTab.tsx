@@ -25,8 +25,8 @@ export default function GemsTab() {
   return (<div className="row">
     {size.width > 992 && <div className="col-5">
       <div className="position-relative">
-        {!selectedGems?.length && mergeStatus == 'success' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px;'}}>Congrats!<br />You are successfull!</div>}
-        {!selectedGems?.length && mergeStatus == 'error' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px;'}}>Sorry...<br />Your gem is lost...</div>}
+        {!selectedGems?.length && mergeStatus == 'success' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px'}}>Congrats!<br />You are successfull!</div>}
+        {!selectedGems?.length && mergeStatus == 'error' && <div className="text-center pt-5 mt-5 px-3 position-absolute w-100" style={{fontSize: '25px', lineHeight: '40px'}}>Sorry...<br />Your gem is lost...</div>}
         <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
         {selectedGems[0] && <img style={{position: 'absolute', left: '15%', top: '50%', marginTop: '-128px'}} src={selectedGems[0].image} /> }
         {selectedGems[1] && <img style={{position: 'absolute', right: '15%', top: '50%', marginTop: '-128px'}} src={selectedGems[1].image} /> }

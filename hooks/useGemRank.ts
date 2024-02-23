@@ -6,8 +6,8 @@ import {  usePublicClient } from 'wagmi';
 import { useContract } from './useContract';
 
 export function useGemRank() {
-  const NEXT_PUBLIC_CONTRACT_GEMS = useContract('GEMS')
   console.log('render useGemRank')
+  const NEXT_PUBLIC_CONTRACT_GEMS = useContract('GEMS')
   const publicClient = usePublicClient()
 
   const getGemRank = async (tokenId: number): Promise<number> => {
@@ -17,6 +17,7 @@ export function useGemRank() {
       functionName: 'tokenURI',
       args: [BigInt(tokenId)],
     })) as string;
+    console.log(metaURI)
     const rank = parseInt(metaURI.split('/').at(-1) as string) - 1;
     return rank;
   };

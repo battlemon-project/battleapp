@@ -43,7 +43,8 @@ export default function GemStart({ balance }: GemStartProps) {
       const rank = await getGemRank(token.tokenId)
       token.image = `https://storage.battlemon.com/v1/gems/${rank + 1}.png`;
     })).catch(err => {
-      throw new Error(err);
+      console.log('gem is burned')
+      //throw new Error(err);
     });
     setTokensWithRank(tokens)
   }
