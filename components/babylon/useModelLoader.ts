@@ -56,16 +56,16 @@ export function useModelLoader() {
       setProperties?.(properties);
       await new Promise(resolve => setTimeout(resolve, 50));
     };
-    (window as any).save = async function (properties: PropertiesType | undefined, lemonId: number) {
+    (window as any).save = async function (properties: PropertiesType | undefined, lemonId: number, prefix?: string) {
       if (!properties) return;
       sceneRef.current?.render();
       await new Promise(resolve => setTimeout(resolve, 50));
-      await putPic(lemonId, properties);
+      await putPic(lemonId, properties, prefix);
       //await Promise.all([putPic(lemonId, properties), putFile(lemonId, properties)])
     };
   }
 
-  const putPic = async (id: number, properties: PropertiesType) => {
+  const putPic = async (id: number, properties: PropertiesType, prefix?: string) => {
     if (!engineRef.current || !sceneRef.current?.activeCamera) return
     sceneRef.current.render();
     await new Promise((resolve) => {
@@ -75,7 +75,7 @@ export function useModelLoader() {
         const type = data.split(';')[0].split('/')[1];
         const params = {
           Bucket: bucket || '',
-          Key: `${folderLemons}/${id}.png`,
+          Key: `${prefix ? prefix : folderLemons}/${id}.png`,
           Body: base64Data,
           ContentEncoding: 'base64',
           ContentType: `image/${type}`,
@@ -92,11 +92,11 @@ export function useModelLoader() {
     });
   }
 
-  const putFile = async (id: number, properties: PropertiesType) => {
+  const putFile = async (id: number, properties: PropertiesType, prefix?: string) => {
     const obj = {
       name: `Lemon #${id}`,
       description: "Brutal.. savage.. yellow. Don't even try to squeeze him!",
-      image: `https://${storageLink}/${folderLemons}/${id}.png`,
+      image: `https://${storageLink}/${prefix ? prefix : folderLemons}/${id}.png`,
       properties
     };
 
@@ -104,7 +104,7 @@ export function useModelLoader() {
     
     const params = {
         Bucket: bucket || '',
-        Key: `${folderLemons}/${id}`,
+        Key: `${prefix ? prefix : folderLemons}/${id}`,
         Body: buf,
         ContentEncoding: 'base64',
         ContentType: 'application/json',
