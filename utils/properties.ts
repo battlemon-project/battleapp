@@ -293,7 +293,7 @@ export const dressedItemsToNftMetaData = (data: DressedItemData | undefined): Nf
   Object.entries(data).forEach(([type, data]) => {
     tokens.push({
       tokenId: data.tokenId,
-      image: `${process.env.NEXT_PUBLIC_ASSETS_URL}/v1/nft/${data.itemName}.png`,
+      image: `${process.env.NEXT_PUBLIC_ASSETS}/v1/nft/${data.itemName}.png`,
       properties: {
         dna: data.dna,
         type: type,

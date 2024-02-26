@@ -8,18 +8,17 @@ import { useEffect } from "react";
 import ConfirmEquipment from "../layout/ConfirmEquipment";
 import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
-import { useContract } from "hooks/useContract";
 
 interface LemonAllItemsProps {
   balance: number
+  contract: string
 }
 
-export default function LemonAllItems({ balance }: LemonAllItemsProps) {
-  const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
+export default function LemonAllItems({ balance, contract }: LemonAllItemsProps) {
   const { selectItem, selectedItems, changeStage, selectedLemons } = useLemonStore()
 
   const { data, mutate, isValidating } = useSWR(
-    NEXT_PUBLIC_CONTRACT_ITEMS, 
+    contract, 
     fetcher({ pageSize: 100 })
   )
 
@@ -34,7 +33,7 @@ export default function LemonAllItems({ balance }: LemonAllItemsProps) {
   
   return (<>
     <TabsLemonItems>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_ITEMS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} />
       {/* <TokensFilter /> */}
     </TabsLemonItems>
     <div className={styles.inventoryButtonsRow}>

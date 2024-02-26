@@ -8,20 +8,19 @@ import { NftMetaData } from 'lemon';
 import { dressedItemsToNftMetaData } from 'utils/properties';
 import { useEffect, useState } from 'react';
 import { getFromStorage } from 'utils/fetcher';
-import { useContract } from "hooks/useContract";
 
-interface LemonAllItemsProps {
+interface LemonEquipedItemsProps {
+  contract: string
 }
 
-export default function LemonAllItems({}: LemonAllItemsProps) {
-  const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
+export default function LemonEquipedItems({ contract }: LemonEquipedItemsProps) {
   const [ refresh, refreshItems ] = useState<number>()
   const [ tokens, setTokens ] = useState<NftMetaData[] | undefined>()
   const { selectItem, selectedItems, changeStage, selectedLemons, updateStore } = useLemonStore()
 
   useEffect(() => {
     getFromStorage({ 
-      contract: NEXT_PUBLIC_CONTRACT_LEMONS!, 
+      contract, 
       tokenId: selectedLemons[0].tokenId 
     }).then(data => {
       const _tokens = dressedItemsToNftMetaData(data.properties.itemsData);

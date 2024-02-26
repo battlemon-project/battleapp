@@ -31,7 +31,6 @@ export function useContract(name: 'BOXES' | 'POINTS' | 'ITEMS' | 'LEMONS' | 'PIC
   useEffect(() => {
     if (!chain?.name) return;
     
-    console.log(chain.name)
     if (chain.name.includes('Polygon')) {
       setContract(dictionary.POLYGON[name])
       return;

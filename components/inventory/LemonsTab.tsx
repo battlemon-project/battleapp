@@ -13,8 +13,11 @@ import { PropertiesType } from 'lemon';
 import LemonEquipedItems from './stages/LemonEquipedItems';
 import useWindowSize from 'hooks/useWindowSize';
 import NftProps from './layout/NftProps';
+import { useContract } from 'hooks/useContract';
 
 export default function LemonsTab() {
+  const lemonsContract = useContract('LEMONS')
+  const itemsContract = useContract('ITEMS')
   const size = useWindowSize()
   const { selectedLemons, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
@@ -34,13 +37,13 @@ export default function LemonsTab() {
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
       {selectedLemons[0] && <NftProps token={selectedLemons[0]} />}
       <div className={cn({'d-none': stage !== 'Start'})}>
-        <LemonStart balance={lemonBalance} />
+        <LemonStart balance={lemonBalance} contract={lemonsContract!} />
       </div>
       {stage == 'AllItems' && <div className={cn({'d-none': stage !== 'AllItems'})}>
-        <LemonAllItems balance={itemBalance} />
+        <LemonAllItems balance={itemBalance} contract={itemsContract!} />
       </div>}
       {stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
-        <LemonEquipedItems />
+        <LemonEquipedItems contract={lemonsContract!} />
       </div>}
       {stage == 'Bridge' && <div className={cn({'d-none': stage !== 'Bridge'})}>
         <LemonBridge />
