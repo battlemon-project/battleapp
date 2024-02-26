@@ -8,8 +8,10 @@ import useWindowSize from 'hooks/useWindowSize';
 import ItemScene from 'components/babylon/ItemScene';
 import { useState } from 'react';
 import NftProps from './layout/NftProps';
+import { useContract } from 'hooks/useContract';
 
 export default function ItemsTab() {
+  const lemonsContract = useContract('ITEMS')
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { selectedItems, stage } = useItemStore()
   const size = useWindowSize()
@@ -31,7 +33,7 @@ export default function ItemsTab() {
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
       {selectedItems[0] && <NftProps token={selectedItems[0]} />}
       {stage == 'Start' && <div className={cn({'d-none': stage !== 'Start'})}>
-        <ItemStart balance={balance} />
+        <ItemStart balance={balance} contract={lemonsContract!} />
       </div>}
       {stage == 'Bridge' && <ItemBridge />}
     </div>
