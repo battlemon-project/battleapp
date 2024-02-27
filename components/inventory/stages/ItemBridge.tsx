@@ -5,7 +5,11 @@ import { useItemStore } from "../store/itemStore";
 import TabsLayout from '../layout/TabsLayout';
 import { NftMetaData } from 'lemon';
 
-export default function ItemBridge() {
+interface ItemBridgeProps {
+  chainId: number
+}
+
+export default function ItemBridge({ chainId }: ItemBridgeProps) {
   const { changeStage } = useItemStore()
 
   const handleSelect = (token: NftMetaData) => {
@@ -32,7 +36,7 @@ export default function ItemBridge() {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={brands} colWidth={20} height={410} selectedTokens={brands.slice(0,1)} onClick={handleSelect} isValidating={false} contract={undefined} isNextPage={false} />
+      <TokensList tokens={brands} colWidth={20} height={410} selectedTokens={brands.slice(0,1)} onClick={handleSelect} isValidating={false} contract={undefined} isNextPage={false} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     <div className={styles.inventoryButtonsRow}>

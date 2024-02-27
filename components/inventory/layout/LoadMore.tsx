@@ -2,16 +2,17 @@ import { SWRResponse, useSWRConfig } from 'swr'
 import { UseFetcherResult, fetcher } from 'utils/fetcher'
 
 interface LoadMoreProps {
-  contract: string
+  contract: string,
+  chainId: number
 }
 
-export default function LoadMore({ contract }: LoadMoreProps) {
+export default function LoadMore({ contract, chainId }: LoadMoreProps) {
   const { cache, mutate } = useSWRConfig()
   
   const loadMore = async () => {
     const { data } = cache.get(contract) as SWRResponse<UseFetcherResult>
     if (!data?.pageKey) return;
-    const nextData = await fetcher({ pageSize: 100, pageKey: data?.pageKey })(contract)
+    const nextData = await fetcher({ pageSize: 100, pageKey: data?.pageKey, chainId })(contract)
     mutate(contract, {
       tokens: [
         ...(data?.tokens || []),

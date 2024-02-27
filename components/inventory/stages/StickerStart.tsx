@@ -12,15 +12,16 @@ import { useContract } from "hooks/useContract";
 
 interface StickerStartProps {
   balance: number
+  chainId: number
 }
 
-export default function StickerStart({ balance }: StickerStartProps) {
+export default function StickerStart({ balance, chainId }: StickerStartProps) {
   const NEXT_PUBLIC_CONTRACT_STICKERS = useContract('STICKERS')
   const { selectedStickers, selectSticker, mergeStatus } = useStickerStore();
 
   const { data, mutate, isValidating } = useSWR(
     NEXT_PUBLIC_CONTRACT_STICKERS, 
-    simpleFetcher({ pageSize: 100 })
+    simpleFetcher({ pageSize: 100, chainId })
   )
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function StickerStart({ balance }: StickerStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedStickers} onClick={selectSticker} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_STICKERS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedStickers} onClick={selectSticker} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_STICKERS} isNextPage={!!data?.pageKey} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>

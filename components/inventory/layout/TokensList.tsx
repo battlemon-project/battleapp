@@ -15,10 +15,11 @@ interface TokensListProps {
   isNextPage?: boolean
   contract?: string
   withGenerator?: boolean
+  chainId: number,
   onClick: (token: NftMetaData) => void
 }
 
-export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, isNextPage, contract, withGenerator, onClick }: TokensListProps) {
+export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, isNextPage, contract, withGenerator, onClick, chainId }: TokensListProps) {
   if (isValidating) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <div className="spinner-border text-light mx-auto" style={{ width: '3rem', height: '3rem' }} />
@@ -49,7 +50,7 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
           })}
         </div>
         <div>
-          {isNextPage && contract && <LoadMore contract={contract} />}
+          {isNextPage && contract && <LoadMore contract={contract} chainId={chainId} />}
         </div>
       </div>
     </div>

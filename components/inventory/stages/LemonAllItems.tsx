@@ -12,14 +12,15 @@ import { fetcher } from "utils/fetcher";
 interface LemonAllItemsProps {
   balance: number
   contract: string
+  chainId: number
 }
 
-export default function LemonAllItems({ balance, contract }: LemonAllItemsProps) {
+export default function LemonAllItems({ balance, contract, chainId }: LemonAllItemsProps) {
   const { selectItem, selectedItems, changeStage, selectedLemons } = useLemonStore()
 
   const { data, mutate, isValidating } = useSWR(
     contract, 
-    fetcher({ pageSize: 100 })
+    fetcher({ pageSize: 100, chainId })
   )
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function LemonAllItems({ balance, contract }: LemonAllItemsProps)
   
   return (<>
     <TabsLemonItems>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLemonItems>
     <div className={styles.inventoryButtonsRow}>

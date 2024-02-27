@@ -11,9 +11,10 @@ import { getFromStorage } from 'utils/fetcher';
 
 interface LemonEquipedItemsProps {
   contract: string
+  chainId: number
 }
 
-export default function LemonEquipedItems({ contract }: LemonEquipedItemsProps) {
+export default function LemonEquipedItems({ contract, chainId }: LemonEquipedItemsProps) {
   const [ refresh, refreshItems ] = useState<number>()
   const [ tokens, setTokens ] = useState<NftMetaData[] | undefined>()
   const { selectItem, selectedItems, changeStage, selectedLemons, updateStore } = useLemonStore()
@@ -33,7 +34,7 @@ export default function LemonEquipedItems({ contract }: LemonEquipedItemsProps) 
 
   return (<>
     <TabsLemonItems>
-      <TokensList tokens={tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={tokens == undefined} />
+      <TokensList tokens={tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={tokens == undefined} chainId={chainId} />
     </TabsLemonItems>
     <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>

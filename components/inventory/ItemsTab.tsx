@@ -9,8 +9,10 @@ import ItemScene from 'components/babylon/ItemScene';
 import { useState } from 'react';
 import NftProps from './layout/NftProps';
 import { useContract } from 'hooks/useContract';
+import { useNetwork } from 'wagmi';
 
 export default function ItemsTab() {
+  const { chain } = useNetwork()
   const lemonsContract = useContract('ITEMS')
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { selectedItems, stage } = useItemStore()
@@ -32,10 +34,10 @@ export default function ItemsTab() {
 
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
       {selectedItems[0] && <NftProps token={selectedItems[0]} />}
-      {stage == 'Start' && <div className={cn({'d-none': stage !== 'Start'})}>
-        <ItemStart balance={balance} contract={lemonsContract!} />
+      {chain && stage == 'Start' && <div className={cn({'d-none': stage !== 'Start'})}>
+        <ItemStart balance={balance} contract={lemonsContract!} chainId={chain.id} />
       </div>}
-      {stage == 'Bridge' && <ItemBridge />}
+      {chain && stage == 'Bridge' && <ItemBridge chainId={chain.id} />}
     </div>
   </div>)
 }

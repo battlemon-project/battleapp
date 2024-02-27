@@ -5,8 +5,10 @@ import GemStart from './stages/GemStart';
 import { useGemBalance } from 'hooks/useGemBalance';
 import useWindowSize from 'hooks/useWindowSize';
 import { useEffect, useState } from 'react';
+import { useNetwork } from 'wagmi';
 
 export default function GemsTab() {
+  const { chain } = useNetwork()
   const { selectedGems, stage, mergeStatus, mergeSuccessResult, mergeErrorResult } = useGemStore()
   const size = useWindowSize()
   const { balance } = useGemBalance()
@@ -34,7 +36,7 @@ export default function GemsTab() {
     </div>}
 
     <div className={cn('col-lg-7 col-12 position-relative mx-0', styles.inventoryContainer)}>
-      {stage == 'Start' && <GemStart balance={balance} />}
+      {chain && stage == 'Start' && <GemStart balance={balance} chainId={chain.id} />}
     </div>
   </div>)
 }

@@ -14,8 +14,10 @@ import LemonEquipedItems from './stages/LemonEquipedItems';
 import useWindowSize from 'hooks/useWindowSize';
 import NftProps from './layout/NftProps';
 import { useContract } from 'hooks/useContract';
+import { useNetwork } from 'wagmi';
 
 export default function LemonsTab() {
+  const { chain } = useNetwork()
   const lemonsContract = useContract('LEMONS')
   const itemsContract = useContract('ITEMS')
   const size = useWindowSize()
@@ -36,17 +38,17 @@ export default function LemonsTab() {
     </div>}
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>
       {selectedLemons[0] && <NftProps token={selectedLemons[0]} />}
-      <div className={cn({'d-none': stage !== 'Start'})}>
-        <LemonStart balance={lemonBalance} contract={lemonsContract!} />
-      </div>
-      {stage == 'AllItems' && <div className={cn({'d-none': stage !== 'AllItems'})}>
-        <LemonAllItems balance={itemBalance} contract={itemsContract!} />
+      {chain && <div className={cn({'d-none': stage !== 'Start'})}>
+        <LemonStart balance={lemonBalance} contract={lemonsContract!} chainId={chain.id} />
       </div>}
-      {stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
-        <LemonEquipedItems contract={lemonsContract!} />
+      {chain && stage == 'AllItems' && <div className={cn({'d-none': stage !== 'AllItems'})}>
+        <LemonAllItems balance={itemBalance} contract={itemsContract!} chainId={chain.id} />
       </div>}
-      {stage == 'Bridge' && <div className={cn({'d-none': stage !== 'Bridge'})}>
-        <LemonBridge />
+      {chain && stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
+        <LemonEquipedItems contract={lemonsContract!} chainId={chain.id} />
+      </div>}
+      {chain && stage == 'Bridge' && <div className={cn({'d-none': stage !== 'Bridge'})}>
+        <LemonBridge chainId={chain.id} />
       </div>}
       
     </div>

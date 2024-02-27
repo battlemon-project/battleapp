@@ -10,15 +10,16 @@ import { fetcher } from "utils/fetcher";
 
 interface LemonStartProps {
   balance: number
-  contract: string
+  contract: string,
+  chainId: number
 }
 
-export default function LemonStart({ balance, contract }: LemonStartProps) {
+export default function LemonStart({ balance, contract, chainId }: LemonStartProps) {
   const { selectedLemons, selectLemon, changeStage } = useLemonStore();
 
   const { data, mutate, isValidating } = useSWR(
     contract, 
-    fetcher({ pageSize: 100 })
+    fetcher({ pageSize: 100, chainId })
   )
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function LemonStart({ balance, contract }: LemonStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} withGenerator={true} />
+      <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} withGenerator={true} chainId={chainId} />
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">

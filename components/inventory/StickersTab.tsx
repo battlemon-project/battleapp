@@ -5,8 +5,10 @@ import StickerStart from './stages/StickerStart';
 import { useStickerBalance } from 'hooks/useStickerBalance';
 import useWindowSize from 'hooks/useWindowSize';
 import { useEffect, useState } from 'react';
+import { useNetwork } from 'wagmi';
 
 export default function StickersTab() {
+  const { chain } = useNetwork()
   const { selectedStickers, stage, mergeStatus, mergeSuccessResult, mergeErrorResult } = useStickerStore()
   const size = useWindowSize()
   const { balance } = useStickerBalance()
@@ -36,7 +38,7 @@ export default function StickersTab() {
   </div>}
 
     <div className={cn('col-lg-7 col-12 position-relative mx-0', styles.inventoryContainer)}>
-      {stage == 'Start' && <StickerStart balance={balance} />}
+      {chain && stage == 'Start' && <StickerStart balance={balance} chainId={chain?.id} />}
     </div>
   </div>)
 }

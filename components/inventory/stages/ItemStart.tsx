@@ -10,15 +10,16 @@ import { fetcher } from "utils/fetcher";
 
 interface ItemStartProps {
   balance: number
-  contract: string
+  contract: string,
+  chainId: number
 }
 
-export default function ItemStart({ balance, contract }: ItemStartProps) {
+export default function ItemStart({ balance, contract, chainId }: ItemStartProps) {
   const { selectedItems, selectItem, changeStage } = useItemStore();
 
   const { data, mutate, isValidating } = useSWR(
     contract, 
-    fetcher({ pageSize: 100 })
+    fetcher({ pageSize: 100, chainId })
   )
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function ItemStart({ balance, contract }: ItemStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>

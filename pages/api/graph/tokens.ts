@@ -7,6 +7,7 @@ import { ironOptions } from 'utils/iron';
 export default async function handler (req: NextRequest) {
   const { method, nextUrl } = req;
   const contract = nextUrl.searchParams.get("contract");
+  const chainId = nextUrl.searchParams.get("chainId");
   const pageSize = nextUrl.searchParams.get("pageSize");
   const pageKey = nextUrl.searchParams.get("pageKey");
   const contracts: string[] = [
@@ -46,6 +47,7 @@ export default async function handler (req: NextRequest) {
     const query = `
       query GetNfts {
         nfts(filter: {
+          chainId: {equalTo: "${chainId}"}
           contract: {equalTo: "${contract}"},
           owner: {id: {equalTo: "${address}"}}
         }) {
@@ -53,7 +55,7 @@ export default async function handler (req: NextRequest) {
             tokenId
             tokenUri
             contract
-            network
+            chainId
             owner {
               id
             }

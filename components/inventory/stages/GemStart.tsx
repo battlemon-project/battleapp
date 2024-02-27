@@ -14,9 +14,10 @@ import { useContract } from "hooks/useContract";
 
 interface GemStartProps {
   balance: number
+  chainId: number
 }
 
-export default function GemStart({ balance }: GemStartProps) {
+export default function GemStart({ balance, chainId }: GemStartProps) {
   const NEXT_PUBLIC_CONTRACT_GEMS = useContract('GEMS')
   const { selectedGems, selectGem, mergeStatus } = useGemStore();
   const { getGemRank } = useGemRank();
@@ -24,7 +25,7 @@ export default function GemStart({ balance }: GemStartProps) {
 
   const { data, mutate, isValidating } = useSWR(
     NEXT_PUBLIC_CONTRACT_GEMS, 
-    simpleFetcher({ pageSize: 100 })
+    simpleFetcher({ pageSize: 100, chainId })
   )
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function GemStart({ balance }: GemStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={tokensWithRank} colWidth={20} height={410} selectedTokens={selectedGems} onClick={selectGem} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_GEMS} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={tokensWithRank} colWidth={20} height={410} selectedTokens={selectedGems} onClick={selectGem} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_GEMS} isNextPage={!!data?.pageKey} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>

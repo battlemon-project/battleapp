@@ -8,8 +8,10 @@ import PickaxeScene from './scenes/PickaxeScene';
 import { useEffect, useState } from 'react';
 import PickaxeProps from './layout/PickaxeProps';
 import { useSharpnessOf } from 'hooks/useSharpnessOf';
+import { useNetwork } from 'wagmi';
 
 export default function PickaxesTab() {
+  const { chain } = useNetwork()
   const { selectedPickaxe, stage, miningStatus, repairStatus } = usePickaxeStore()
   const [ sharpness, setSharpness ] = useState<number | undefined>()
   const size = useWindowSize()
@@ -50,8 +52,8 @@ export default function PickaxesTab() {
     </div>}
 
     <div className={cn('col-lg-7 col-12 position-relative mx-0', styles.inventoryContainer)}>
-      {sharpness !== undefined && <PickaxeProps sharpness={sharpness} />}
-      {stage == 'Start' && <PickaxeStart balance={balance} />}
+      {chain && sharpness !== undefined && <PickaxeProps sharpness={sharpness} />}
+      {chain && stage == 'Start' && <PickaxeStart balance={balance} chainId={chain.id} />}
     </div>
   </div>)
 }

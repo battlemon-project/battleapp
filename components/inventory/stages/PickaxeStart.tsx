@@ -12,16 +12,17 @@ import PickaxeRepairButton from "../buttons/PickaxeRepairButton";
 import { useContract } from "hooks/useContract";
 
 interface PickaxeStartProps {
-  balance: number
+  balance: number,
+  chainId: number
 }
 
-export default function PickaxeStart({ balance }: PickaxeStartProps) {
+export default function PickaxeStart({ balance, chainId }: PickaxeStartProps) {
   const NEXT_PUBLIC_CONTRACT_PICKAXES = useContract('PICKAXES')
   const { selectedPickaxe, selectPickaxe } = usePickaxeStore();
   
   const { data, mutate, isValidating } = useSWR(
     NEXT_PUBLIC_CONTRACT_PICKAXES, 
-    simpleFetcher({ pageSize: 100 })
+    simpleFetcher({ pageSize: 100, chainId })
   )
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function PickaxeStart({ balance }: PickaxeStartProps) {
 
   return (<>
     <TabsLayout>
-      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={[selectedPickaxe]} onClick={selectPickaxe} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_PICKAXES} isNextPage={!!data?.pageKey} />
+      <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={[selectedPickaxe]} onClick={selectPickaxe} isValidating={isValidating} contract={NEXT_PUBLIC_CONTRACT_PICKAXES} isNextPage={!!data?.pageKey} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLayout>
     {!balance && <>

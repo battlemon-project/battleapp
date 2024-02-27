@@ -37,6 +37,7 @@ export interface UseFetcherResult {
 export interface UseFetcherProps {
   pageSize: number
   pageKey?: string
+  chainId: number
 }
 
 export const getFromStorage = async ({ contract, tokenId }: { contract: string, tokenId: number }) => {
@@ -47,9 +48,9 @@ export const getFromStorage = async ({ contract, tokenId }: { contract: string, 
   return json;
 }
 
-export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+export const fetcher = ({ pageSize, pageKey, chainId }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
   const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
-  const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}`);
+  const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&chainId=${chainId}`);
   const providerData: ProviderData = await providerResponse.json();
 
   const f = async (tokenId: number) => {
@@ -71,9 +72,9 @@ export const fetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contra
   }
 }
  
-export const simpleFetcher = ({ pageSize, pageKey }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
-  const providerUrl = `/api/graph/tokens?contract=${contract}`
-  const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&withMetadata=true`);
+export const simpleFetcher = ({ pageSize, pageKey, chainId }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+  const providerUrl = `/api/graph/tokens?contract=${contract}`;
+  const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&chainId=${chainId}&withMetadata=true`);
   const providerData: ProviderData = await providerResponse.json();
   console.log(providerData)
   const tokens: NftMetaData[] = providerData.ownedNfts.map(nft => ({ tokenId: nft.tokenId, image: nft.tokenUri + '.png' })) as NftMetaData[]
