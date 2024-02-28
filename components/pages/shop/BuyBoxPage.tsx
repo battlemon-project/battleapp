@@ -17,14 +17,6 @@ export default function BuyBoxPage() {
     [BoxType.Great]: -1
   })
 
-  const changePrizeType = (boxType: BoxType) => (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setPrizeTypes({
-      ...prizeTypes,
-      [boxType]: value
-    })
-  }
-
   return (<>
     <div className="container py-3 mb-auto">
       <Link href="/shop">
@@ -45,34 +37,23 @@ export default function BuyBoxPage() {
           </div>
         } else {
           return <div className='row'>
-            <div className='col-4'>
-              <br />
-              <select className="d-none form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Cheap)} value={prizeTypes?.[BoxType.Cheap] || -1}>
-                <option value={-1}>none</option>
-                {Object.keys(prizesChance.Cheap).map(k => 
-                  <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
-                )}
-              </select>
-              <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} />
-              <select className="d-none form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Good)} value={prizeTypes?.[BoxType.Good] || -1}>
-                <option value={-1}>none</option>
-                {Object.keys(prizesChance.Good).map(k =>
-                  <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
-                )}
-              </select>
-              <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} />
-              <select className="d-none form-select form-select-sm mb-1" onChange={changePrizeType(BoxType.Great)} value={prizeTypes?.[BoxType.Great] || -1}>
-                <option value={-1}>none</option>
-                {Object.keys(prizesChance.Great).map(k =>
-                  <option value={Number(k)} key={k}>{prizes[Number(k)]}</option>
-                )}
-              </select>
-              <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} />
-            </div>
-            <div className='col-8'>
+            <div className='col-4 text-center'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <BoxScene name='Basket_Chests_LP_oneReward' debug={false} />
+                <BoxScene name='Basket1' debug={false} />
               </div>
+              <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} />
+            </div>
+            <div className='col-4 text-center'>
+              <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                <BoxScene name='Basket2' debug={false} />
+              </div>
+              <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} />
+            </div>
+            <div className='col-4 text-center'>
+              <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                <BoxScene name='Basket3' debug={false} />
+              </div>
+              <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} />
             </div>
           </div>
         }
