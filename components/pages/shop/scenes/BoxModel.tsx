@@ -1,7 +1,7 @@
-import { AnimationGroup, Nullable } from '@babylonjs/core';
+import { AnimationGroup, CreateScreenshot, IScreenshotSize, Nullable } from '@babylonjs/core';
 import { BoxType, PrizeType, StatusType } from 'hooks/useBuyBox';
 import { useEffect, useState } from 'react';
-import { ILoadedModel, Model, useScene } from 'react-babylonjs'
+import { ILoadedModel, Model, useEngine, useScene } from 'react-babylonjs'
 
 interface BoxModelProps { 
   name: string,
@@ -35,9 +35,20 @@ export default function BoxModel({ name, box, status, prize }: BoxModelProps) {
   const [ openAnimation, setOpenAnimation ] = useState<Nullable<AnimationGroup>>()
   const [ rollAnimation, setRollAnimation ] = useState<Nullable<AnimationGroup>>()
   const scene = useScene();
+  const engine = useEngine();
 
+
+  
   const onBoxLoaded = (model: ILoadedModel): void => {
-    if (!scene) return;
+    if (!scene || !engine) return;
+
+    // scene.onReadyObservable.add(() => {
+    //   CreateScreenshot(engine, scene.activeCamera!, {
+    //     height: 500,
+    //     width: 360
+    //   } as IScreenshotSize);
+    // });
+
     const _openAnimation = scene.getAnimationGroupByName('open');
     setOpenAnimation(_openAnimation)
     const _rollAnimation = scene.getAnimationGroupByName('roll_01');

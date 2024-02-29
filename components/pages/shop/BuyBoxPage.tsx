@@ -45,13 +45,15 @@ export default function BuyBoxPage() {
             </div>
             <div className='col-4 text-center'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <BoxScene name='Basket2' debug={false} />
+                <img src="/images/shop/box2.png" className='img-fluid' />
+                {/* <BoxScene name='Basket2' debug={false} /> */}
               </div>
               <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} />
             </div>
             <div className='col-4 text-center'>
               <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <BoxScene name='Basket3' debug={false} />
+                <img src="/images/shop/box3.png" className='img-fluid' />
+                {/* <BoxScene name='Basket3' debug={false} /> */}
               </div>
               <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} />
             </div>
