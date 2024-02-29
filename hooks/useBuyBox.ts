@@ -101,7 +101,7 @@ export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
   }
 }
 
-export function useBuyBox(type: BoxType, itemType: number) {
+export function useBuyBox(type: BoxType) {
   console.log('render useBuyBox')
   const publicClient = usePublicClient()
   const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES')

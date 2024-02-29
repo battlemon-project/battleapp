@@ -10,17 +10,17 @@ import { useNetwork } from 'wagmi';
 
 interface BuyBoxProps {
   boxType: BoxType
-  prizeType: number
 }
 
-export default function BuyBox({ boxType, prizeType }: BuyBoxProps) {
+export default function BuyBox({ boxType }: BuyBoxProps) {
   const { chain } = useNetwork();
   const boxPrices = useBoxPrices()
-  const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType, prizeType);
+  const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType);
   const { setStatus, setBox, setPrize } = useBoxStore()
 
   const handleBuyBox = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
+      setBox(boxType)
       setStatus('loading')
       buyBox({ gas, gasPrice })
     }).catch(e => {
@@ -35,7 +35,6 @@ export default function BuyBox({ boxType, prizeType }: BuyBoxProps) {
 
   useEffect(() => {
     setStatus(buyBoxStatus)
-    setBox(boxType)
   }, [buyBoxStatus])
 
   

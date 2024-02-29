@@ -8,14 +8,16 @@ import { BoxType, PrizeType, prizes, prizesChance } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
 import BoxScene from './scenes/BoxScene';
 import { useState } from 'react';
+import { useBoxStore } from './store/boxStore';
 
 export default function BuyBoxPage() {
   const { isSignedIn, isSupportedChain } = useAuth();
-  const [ prizeTypes, setPrizeTypes ] = useState<{ [key in BoxType]?: number }>({
-    [BoxType.Cheap]: -1,
-    [BoxType.Good]: -1,
-    [BoxType.Great]: -1
-  })
+  const { box } = useBoxStore()
+  // const [ prizeTypes, setPrizeTypes ] = useState<{ [key in BoxType]?: number }>({
+  //   [BoxType.Cheap]: -1,
+  //   [BoxType.Good]: -1,
+  //   [BoxType.Great]: -1
+  // })
 
   return (<>
     <div className="container py-3 mb-auto">
@@ -36,28 +38,40 @@ export default function BuyBoxPage() {
             </div>
           </div>
         } else {
-          return <div className='row'>
-            <div className='col-4 text-center'>
-              <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <BoxScene name='Basket1' debug={false} />
+          return <>
+            {JSON.stringify(box)}
+            {<div className={cn('row', { 'd-none': box })}>
+              <div className='col-4 text-center'>
+                <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                <img src="/images/shop/box1.png" className='img-fluid' />
+                  {/* <BoxScene name='Basket1' debug={false} /> */}
+                </div>
+                <BuyBox boxType={BoxType.Cheap} />
               </div>
-              <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} />
-            </div>
-            <div className='col-4 text-center'>
-              <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <img src="/images/shop/box2.png" className='img-fluid' />
-                {/* <BoxScene name='Basket2' debug={false} /> */}
+              <div className='col-4 text-center'>
+                <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                  <img src="/images/shop/box2.png" className='img-fluid' />
+                  {/* <BoxScene name='Basket2' debug={false} /> */}
+                </div>
+                <BuyBox boxType={BoxType.Good} />
               </div>
-              <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} />
-            </div>
-            <div className='col-4 text-center'>
-              <div style={{width: '360px', height: '500px'}} className='m-auto'>
-                <img src="/images/shop/box3.png" className='img-fluid' />
-                {/* <BoxScene name='Basket3' debug={false} /> */}
+              <div className='col-4 text-center'>
+                <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                  <img src="/images/shop/box3.png" className='img-fluid' />
+                  {/* <BoxScene name='Basket3' debug={false} /> */}
+                </div>
+                <BuyBox boxType={BoxType.Great} />
               </div>
-              <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} />
+            </div>}
+            <div className={cn('row', { 'd-none': !box })}>
+              <div className='col-4 text-center mx-auto'>
+                <div style={{width: '360px', height: '500px'}} className='m-auto'>
+                  <BoxScene name='Basket1' debug={false} />
+                </div>
+                <BuyBox boxType={BoxType.Cheap} />
+              </div>
             </div>
-          </div>
+          </>
         }
       })()}
 
