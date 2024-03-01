@@ -11,24 +11,33 @@ interface BoxModelProps {
   position: Vector3
 }
 
-const framesByPrize: {[key in PrizeType]?: number} = {
-  [PrizeType.Sticker]: 74,
-  [PrizeType.SmallTokens]: 90,
-  [PrizeType.MediumTokens]: 90,
-  [PrizeType.LargeTokens]: 90,
-  [PrizeType.SmallPoints]: 90,
-  [PrizeType.MediumPoints]: 90,
-  [PrizeType.PointsItem]: 90,
-  [PrizeType.PointsLemon]: 90,
-  [PrizeType.Hoodie]: 170,
-  [PrizeType.Shirt]: 170,
-  [PrizeType.Cap]: 170,
-  [PrizeType.CheapPickaxe]: 128,
-  [PrizeType.GoodPickaxe]: 128,
-  [PrizeType.GreatPickaxe]: 128,
-  [PrizeType.Item]: 10,
-  [PrizeType.Lemon]: 10
+export const framesByPrize: {[key in BoxType]: {[key in PrizeType]?: number}} = {
+  [BoxType.Cheap]: {
+    [PrizeType.Sticker]: 10,
+    [PrizeType.SmallEthers]: 193,
+    [PrizeType.SmallPoints]: 72,
+    [PrizeType.CheapPickaxe]: 170,
+  },
+  [BoxType.Good]: {
+    [PrizeType.Sticker]: 10,
+    [PrizeType.SmallEthers]: 72,
+    [PrizeType.MediumEthers]: 170,
+    [PrizeType.SmallPoints]: 228,
+    [PrizeType.MediumPoints]: 253,
+    [PrizeType.GoodPickaxe]: 350,
+    [PrizeType.Item]: 370,
+  },
+  [BoxType.Great]: {
+    [PrizeType.Sticker]: 10,
+    [PrizeType.MediumEthers]: 72,
+    [PrizeType.MediumPoints]: 170,
+    [PrizeType.LargePoints]: 191,
+    [PrizeType.GreatPickaxe]: 285,
+    [PrizeType.Item]: 310,
+    [PrizeType.Lemon]: 372,
+  }
 }
+
 
 export default function BoxModel({ name, box, status, prize, position }: BoxModelProps) {
   // Надо переписать всю логику анимаций, и выташить их в родительский компонент, т.к. этот компонент циклично ререндерится. Надо использовать useState в компоненте выше, проверять что этот компонент загружен и проверять статусы.
@@ -39,38 +48,54 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
 
   const onBoxLoaded = (model: ILoadedModel): void => {
     if (!scene) return;
-    const _openAnimation = scene.getAnimationGroupByName('open');
+    const _openAnimation = model.animationGroups!.find(x => x.name === 'open');
     setOpenAnimation(_openAnimation)
-    const _rollAnimation = scene.getAnimationGroupByName('roll_01');
+    const _rollAnimation = model.animationGroups!.find(x => x.name === 'roll');
     setRollAnimation(_rollAnimation)
   }
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | undefined = undefined;
+    if (box == BoxType.Cheap && name !== 'Basket1') {
+      openAnimation?.reset().stop();
+      rollAnimation?.reset().stop();
+      return
+    };
+    if (box == BoxType.Good && name !== 'Basket2') {
+      openAnimation?.reset().stop();
+      rollAnimation?.reset().stop();
+      return
+    };
+    if (box == BoxType.Great && name !== 'Basket3') {
+      openAnimation?.reset().stop();
+      rollAnimation?.reset().stop();
+      return
+    };
 
     if (status == 'loading') {
       openAnimation?.reset();
       rollAnimation?.reset();
     }
   
-    if (status == 'process') {
-      rollAnimation?.reset();
-      openAnimation?.start(false, 1);
-      timeout = setTimeout(() => {
-        rollAnimation?.start(true, 1);
-      }, 6800)
-    }
-  
-    if (status == 'success') {
-      openAnimation?.goToFrame(408);
-      clearTimeout(timeout)
-      rollAnimation?.stop()
-      rollAnimation?.start(false, 1, framesByPrize[prize!], framesByPrize[prize!]) 
+    const time = {
+      [BoxType.Cheap]: 12300,
+      [BoxType.Good]: 14800,
+      [BoxType.Great]: 14800,
     }
 
-    return () => {
-      clearTimeout(timeout)
+    if (status == 'process') {
+      rollAnimation?.reset();
+      openAnimation?.start(false, 1.2);
+      timeout = setTimeout(() => {
+        rollAnimation?.start(true, 1.2);
+        console.log(rollAnimation)
+      }, box ? time[box] : undefined)
     }
+  
+    // if (status == 'success') {
+    //   rollAnimation?.stop()
+    //   rollAnimation?.start(false, 1, framesByPrize[box!][prize!], framesByPrize[box!][prize!])
+    // }
   }, [status])
 
   return (

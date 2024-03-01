@@ -17,11 +17,12 @@ export type StatusType = 'error' | 'success' | 'loading' | 'idle' | 'process'
 
 export enum PrizeType {
   Sticker = 'Sticker',
-  SmallTokens = 'Small Tokens',
-  MediumTokens = 'Medium Tokens', 
-  LargeTokens = 'Large Tokens',
+  SmallEthers = 'Small Ethers',
+  MediumEthers = 'Medium Ethers', 
+  LargeEthers = 'Large Ethers',
   SmallPoints = 'Small Points',
   MediumPoints = 'Medium Points',
+  LargePoints = 'Large Points',
   PointsLemon = 'Points for Lemon',
   PointsItem = 'Points for Item',
   Hoodie = 'Hoodie',
@@ -36,11 +37,12 @@ export enum PrizeType {
 
 export const prizes: {[key: number]: PrizeType} = {
   0: PrizeType.Sticker,
-  100: PrizeType.SmallTokens,
-  101: PrizeType.MediumTokens,
-  102: PrizeType.LargeTokens,
+  100: PrizeType.SmallEthers,
+  101: PrizeType.MediumEthers,
+  102: PrizeType.LargeEthers,
   200: PrizeType.SmallPoints,
   201: PrizeType.MediumPoints,
+  202: PrizeType.LargePoints,
   210: PrizeType.PointsLemon,
   211: PrizeType.PointsItem,
   300: PrizeType.Hoodie,
@@ -53,51 +55,33 @@ export const prizes: {[key: number]: PrizeType} = {
   600: PrizeType.Lemon
 }
 
-
 export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
   [BoxType.Cheap]: {
     0: 30, // Sticker
-    100: 35, // Small Tokens
-    101: 38, // Medium Tokens
-    102: 39, // Large Tokens
+    100: 35, // Small Ethers
     200: 59, // Small Points
-    201: 69, // Medium Points
-    300: 71, // Hoodie
-    301: 73, // Shirt
-    302: 75, // Cap
     400: 76, // Cheap Pickaxe
   },
   [BoxType.Good]: {
     0: 30, // Sticker
-    100: 47, // Small Tokens
-    101: 53, // Medium Tokens
-    102: 56, // Large Tokens
+    100: 47, // Small Ethers
+    101: 53, // Medium Ethers
     200: 71, // Small Points
     201: 79, // Medium Points
-    300: 81, // Hoodie
-    301: 83, // Shirt
-    302: 85, // Cap
-    400: 95, // Cheap Pickaxe
     401: 96, // Good Pickaxe
     500: 38, // Item
-    211: 38, // Points for Item
+    211: 38, // Ethers for Item
   },
   [BoxType.Great]: {
-    100: 44, // Small Tokens
-    101: 52, // Medium Tokens
-    102: 58, // Large Tokens
-    200: 68, // Small Points
+    0: 30, // Sticker
+    101: 52, // Medium Ethers
     201: 73, // Medium Points
-    300: 77, // Hoodie
-    301: 81, // Shirt
-    302: 85, // Cap
-    400: 90, // Cheap Pickaxe
-    401: 95, // Good Pickaxe
+    202: 75, // Large Points
     402: 96, // Great Pickaxe
     500: 32, // Item
     600: 20, // Lemon
-    211: 32, // Points for Item
-    210: 20, // Points for Lemon
+    211: 32, // Ethers for Item
+    210: 20, // Ethers for Lemon
   }
 }
 
