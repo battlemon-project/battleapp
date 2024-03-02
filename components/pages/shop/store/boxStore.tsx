@@ -11,7 +11,7 @@ interface DefaultStoreInterface {
 interface StoreInterface extends DefaultStoreInterface {
   setBox: (box: BoxType) => void
   setStatus: (status: StatusType) => void
-  setPrize: (prize: PrizeType) => void
+  setPrize: (prize: PrizeType | undefined) => void
 }
 
 export type StoreType = ReturnType<typeof initializeStore>

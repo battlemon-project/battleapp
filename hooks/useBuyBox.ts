@@ -55,37 +55,7 @@ export const prizes: {[key: number]: PrizeType} = {
   600: PrizeType.Lemon
 }
 
-export const prizesChance: {[key in BoxType]: { [key: number]: number }} = {
-  [BoxType.Cheap]: {
-    0: 30, // Sticker
-    100: 35, // Small Ethers
-    200: 59, // Small Points
-    400: 76, // Cheap Pickaxe
-  },
-  [BoxType.Good]: {
-    0: 30, // Sticker
-    100: 47, // Small Ethers
-    101: 53, // Medium Ethers
-    200: 71, // Small Points
-    201: 79, // Medium Points
-    401: 96, // Good Pickaxe
-    500: 38, // Item
-    211: 38, // Ethers for Item
-  },
-  [BoxType.Great]: {
-    0: 30, // Sticker
-    101: 52, // Medium Ethers
-    201: 73, // Medium Points
-    202: 75, // Large Points
-    402: 96, // Great Pickaxe
-    500: 32, // Item
-    600: 20, // Lemon
-    211: 32, // Ethers for Item
-    210: 20, // Ethers for Lemon
-  }
-}
-
-export function useBuyBox(type: BoxType, itemType: number) {
+export function useBuyBox(type: BoxType) {
   console.log('render useBuyBox')
   const publicClient = usePublicClient()
   const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES')
@@ -106,8 +76,7 @@ export function useBuyBox(type: BoxType, itemType: number) {
       abi: boxABI,
       functionName: funcNames[type],
       value: parseEther(boxPrices[type]),
-      account: address as '0x',
-      //args: [BigInt(prizesChance[type][itemType] || -1)],
+      account: address as '0x'
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -125,7 +94,6 @@ export function useBuyBox(type: BoxType, itemType: number) {
   const buyBox = address && methodsNames[type]({
     address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
     value: parseEther(boxPrices[type]),
-    //args: [BigInt(prizesChance[type][itemType] || -1)],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];

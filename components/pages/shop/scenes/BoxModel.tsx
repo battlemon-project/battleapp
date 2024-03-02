@@ -91,12 +91,18 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
         console.log(rollAnimation)
       }, box ? time[box] : undefined)
     }
-  
-    // if (status == 'success') {
-    //   rollAnimation?.stop()
-    //   rollAnimation?.start(false, 1, framesByPrize[box!][prize!], framesByPrize[box!][prize!])
-    // }
   }, [status])
+
+  useEffect(() => {
+    if (!prize) return
+    console.log(prize, box, name)
+    if (box == BoxType.Cheap && name !== 'Basket1') return
+    if (box == BoxType.Good && name !== 'Basket2') return
+    if (box == BoxType.Great && name !== 'Basket3') return
+
+    rollAnimation?.stop()
+    rollAnimation?.start(false, 1, framesByPrize[box!][prize], framesByPrize[box!][prize])
+  }, [prize])
 
   return (
     <Model

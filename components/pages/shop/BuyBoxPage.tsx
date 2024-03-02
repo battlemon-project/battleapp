@@ -4,26 +4,64 @@ import Link from 'next/link';
 import BuyBox from './buttons/BuyBox';
 import useAuth from 'context/AuthContext';
 import { truncate } from 'utils/misc';
-import { BoxType, PrizeType, prizes, prizesChance } from 'hooks/useBuyBox';
+import { BoxType, PrizeType, prizes } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
 import BoxScene from './scenes/BoxScene';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAccount, useNetwork } from 'wagmi';
+import { decodeEventLog, parseAbi } from 'viem';
+import { useBoxStore } from './store/boxStore';
 
 export default function BuyBoxPage() {
+  const { address }  = useAccount();
+  const { chain } = useNetwork();
+  const { setPrize } = useBoxStore()
   const { isSignedIn, isSupportedChain } = useAuth();
-  const [ prizeTypes, setPrizeTypes ] = useState<{ [key in BoxType]?: number }>({
-    [BoxType.Cheap]: -1,
-    [BoxType.Good]: -1,
-    [BoxType.Great]: -1
-  })
 
-  const changePrizeType = (boxType: BoxType) => (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setPrizeTypes({
-      ...prizeTypes,
-      [boxType]: value
-    })
-  }
+  useEffect(() => {
+    if (!chain || !address) return;
+
+    const query = `
+      subscription {
+        eventUsers(
+          id:"${address}_${chain.id}_box",
+        ) {
+          id,
+          _entity
+        }
+      }
+    `
+    
+    const webSocket = new WebSocket(`ws://${process.env.NEXT_PUBLIC_SUBQUERY_IP!}`, "graphql-ws");
+  
+    webSocket.onopen = event => {
+      webSocket.send(JSON.stringify({
+        type: 'start',
+        id: 1,
+        payload: { query }
+      }))
+    }
+
+    webSocket.onmessage = event => {
+      const data = JSON.parse(event.data as string)
+      if (data.type !== 'data') return
+      const { data: logData, topics } = data.payload.data.eventUsers._entity
+
+      const decoded = decodeEventLog({
+        abi: parseAbi(['event Prize(bytes32, address, uint)']),
+        data: logData,
+        topics: topics
+      })
+      console.log(decoded)
+      const prize = prizes[Number(decoded.args[2])]
+      setPrize(prize)
+    }
+    
+    return () => {
+      webSocket.close();
+    }
+  }, [chain, address])
+
 
   return (<>
     <div className="container py-3 mb-auto">
@@ -50,13 +88,13 @@ export default function BuyBoxPage() {
             </div>
             <div className='row'>
               <div className='col-md-4 col-12'>
-                <BuyBox boxType={BoxType.Cheap} prizeType={prizeTypes?.[BoxType.Cheap] || -1} />
+                <BuyBox boxType={BoxType.Cheap} />
               </div>
               <div className='col-md-4 col-12'>
-                <BuyBox boxType={BoxType.Good} prizeType={prizeTypes?.[BoxType.Good] || -1} />
+                <BuyBox boxType={BoxType.Good} />
               </div>
               <div className='col-md-4 col-12'>
-                <BuyBox boxType={BoxType.Great} prizeType={prizeTypes?.[BoxType.Great] || -1} />
+                <BuyBox boxType={BoxType.Great} />
               </div>
             </div>
           </>}
