@@ -32,7 +32,7 @@ export default function BuyBoxPage() {
       }
     `
     
-    const webSocket = new WebSocket(`ws://${process.env.NEXT_PUBLIC_SUBQUERY_IP!}`, "graphql-ws");
+    const webSocket = new WebSocket(process.env.NEXT_PUBLIC_SUBQUERY_IP!, "graphql-ws");
   
     webSocket.onopen = event => {
       webSocket.send(JSON.stringify({
