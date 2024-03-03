@@ -3,6 +3,7 @@ import styles from './shop.module.css'
 import Link from 'next/link';
 import BuyBox from './buttons/BuyBox';
 import useAuth from 'context/AuthContext';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 import { truncate } from 'utils/misc';
 import { BoxType, PrizeType, prizes } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
@@ -32,7 +33,7 @@ export default function BuyBoxPage() {
       }
     `
     
-    const webSocket = new WebSocket(process.env.NEXT_PUBLIC_SUBQUERY_IP!, "graphql-ws");
+    const webSocket = new ReconnectingWebSocket(process.env.NEXT_PUBLIC_SUBQUERY_IP!, "graphql-ws");
   
     webSocket.onopen = event => {
       webSocket.send(JSON.stringify({
