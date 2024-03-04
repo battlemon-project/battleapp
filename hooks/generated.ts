@@ -33,6 +33,31 @@ export const boxABI = [
     anonymous: false,
     inputs: [
       {
+        name: 'buyer',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'boxType',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'requestId',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'NewPurchase',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
         name: 'previousOwner',
         internalType: 'address',
         type: 'address',
@@ -51,6 +76,18 @@ export const boxABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      {
+        name: 'boxType',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'requestId',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
       {
         name: 'winner',
         internalType: 'address',
@@ -108,7 +145,7 @@ export const boxABI = [
       { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
       { name: 'data', internalType: 'bytes', type: 'bytes' },
     ],
-    name: '_buyCheapBox2',
+    name: '_buyCheapBoxCallback',
     outputs: [],
   },
   {
@@ -118,7 +155,7 @@ export const boxABI = [
       { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
       { name: 'data', internalType: 'bytes', type: 'bytes' },
     ],
-    name: '_buyGoodBox2',
+    name: '_buyGoodBoxCallback',
     outputs: [],
   },
   {
@@ -128,7 +165,7 @@ export const boxABI = [
       { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
       { name: 'data', internalType: 'bytes', type: 'bytes' },
     ],
-    name: '_buyGreatBox2',
+    name: '_buyGreatBoxCallback',
     outputs: [],
   },
   {
@@ -409,7 +446,7 @@ export const boxABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [{ name: 'value', internalType: 'uint256', type: 'uint256' }],
     name: 'withdraw',
     outputs: [],
   },
@@ -424,7 +461,10 @@ export const capABI = [
   {
     stateMutability: 'nonpayable',
     type: 'constructor',
-    inputs: [{ name: 'box_', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'box_', internalType: 'address', type: 'address' },
+      { name: 'uri_', internalType: 'string', type: 'string' },
+    ],
   },
   {
     type: 'event',
@@ -502,6 +542,13 @@ export const capABI = [
     inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'baseURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -621,6 +668,32 @@ export const capABI = [
 
 export const gemABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  { type: 'error', inputs: [], name: 'InvalidDelegate' },
+  { type: 'error', inputs: [], name: 'InvalidEndpointCall' },
+  { type: 'error', inputs: [], name: 'LzTokenUnavailable' },
+  {
+    type: 'error',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'NoPeer',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'msgValue', internalType: 'uint256', type: 'uint256' }],
+    name: 'NotEnoughNative',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'addr', internalType: 'address', type: 'address' }],
+    name: 'OnlyEndpoint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32' },
+      { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'OnlyPeer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -666,7 +739,26 @@ export const gemABI = [
     ],
     name: 'ApprovalForAll',
   },
-  { type: 'event', anonymous: false, inputs: [], name: 'EIP712DomainChanged' },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'level', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'CrosschainTransfer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -702,6 +794,20 @@ export const gemABI = [
       },
     ],
     name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32', indexed: false },
+      {
+        name: 'peer',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'PeerSet',
   },
   {
     type: 'event',
@@ -775,6 +881,24 @@ export const gemABI = [
     outputs: [],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      {
+        name: 'origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+    ],
+    name: 'allowInitializePath',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -819,15 +943,20 @@ export const gemABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'eip712Domain',
+    name: 'composeMsgSender',
+    outputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endpoint',
     outputs: [
-      { name: 'fields', internalType: 'bytes1', type: 'bytes1' },
-      { name: 'name', internalType: 'string', type: 'string' },
-      { name: 'version', internalType: 'string', type: 'string' },
-      { name: 'chainId', internalType: 'uint256', type: 'uint256' },
-      { name: 'verifyingContract', internalType: 'address', type: 'address' },
-      { name: 'salt', internalType: 'bytes32', type: 'bytes32' },
-      { name: 'extensions', internalType: 'uint256[]', type: 'uint256[]' },
+      {
+        name: '',
+        internalType: 'contract ILayerZeroEndpointV2',
+        type: 'address',
+      },
     ],
   },
   {
@@ -843,6 +972,8 @@ export const gemABI = [
     inputs: [
       { name: 'pricePerMerge_', internalType: 'uint256', type: 'uint256' },
       { name: 'treasuryAddress_', internalType: 'address', type: 'address' },
+      { name: '_endpoint', internalType: 'address', type: 'address' },
+      { name: 'startTokenId', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'initialize',
     outputs: [],
@@ -870,6 +1001,58 @@ export const gemABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'levelOf',
     outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      {
+        name: '_origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+      { name: '_guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_message', internalType: 'bytes', type: 'bytes' },
+      { name: '_executor', internalType: 'address', type: 'address' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzReceive',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzSend',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct MessagingReceipt',
+        type: 'tuple',
+        components: [
+          { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+          {
+            name: 'fee',
+            internalType: 'struct MessagingFee',
+            type: 'tuple',
+            components: [
+              { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+              { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -908,6 +1091,26 @@ export const gemABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint32', type: 'uint32' },
+      { name: '', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'nextNonce',
+    outputs: [{ name: 'nonce', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'oAppVersion',
+    outputs: [
+      { name: 'senderVersion', internalType: 'uint64', type: 'uint64' },
+      { name: 'receiverVersion', internalType: 'uint64', type: 'uint64' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [],
     name: 'owner',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -918,6 +1121,35 @@ export const gemABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'peers',
+    outputs: [{ name: 'peer', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: '_message', internalType: 'string', type: 'string' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+      { name: '_payInLzToken', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'quote',
+    outputs: [
+      {
+        name: 'fee',
+        internalType: 'struct MessagingFee',
+        type: 'tuple',
+        components: [
+          { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -969,6 +1201,13 @@ export const gemABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: '_delegate', internalType: 'address', type: 'address' }],
+    name: 'setDelegate',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
     name: 'setItemsAddress',
     outputs: [],
@@ -978,6 +1217,16 @@ export const gemABI = [
     type: 'function',
     inputs: [{ name: '_lemons', internalType: 'address', type: 'address' }],
     name: 'setLemonsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_eid', internalType: 'uint32', type: 'uint32' },
+      { name: '_peer', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'setPeer',
     outputs: [],
   },
   {
@@ -1029,7 +1278,10 @@ export const hoodieABI = [
   {
     stateMutability: 'nonpayable',
     type: 'constructor',
-    inputs: [{ name: 'box_', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'box_', internalType: 'address', type: 'address' },
+      { name: 'uri_', internalType: 'string', type: 'string' },
+    ],
   },
   {
     type: 'event',
@@ -1107,6 +1359,13 @@ export const hoodieABI = [
     inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'baseURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -1226,6 +1485,32 @@ export const hoodieABI = [
 
 export const itemABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  { type: 'error', inputs: [], name: 'InvalidDelegate' },
+  { type: 'error', inputs: [], name: 'InvalidEndpointCall' },
+  { type: 'error', inputs: [], name: 'LzTokenUnavailable' },
+  {
+    type: 'error',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'NoPeer',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'msgValue', internalType: 'uint256', type: 'uint256' }],
+    name: 'NotEnoughNative',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'addr', internalType: 'address', type: 'address' }],
+    name: 'OnlyEndpoint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32' },
+      { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'OnlyPeer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -1320,6 +1605,51 @@ export const itemABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'to', internalType: 'address', type: 'address', indexed: false },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'itemType',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
+      {
+        name: 'agility',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'speed',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'luck',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
+      {
+        name: 'level',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'CrosschainTransfer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
     ],
     name: 'Initialized',
@@ -1409,6 +1739,20 @@ export const itemABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32', indexed: false },
+      {
+        name: 'peer',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'PeerSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'from', internalType: 'address', type: 'address', indexed: true },
       { name: 'to', internalType: 'address', type: 'address', indexed: true },
       {
@@ -1447,6 +1791,24 @@ export const itemABI = [
     inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
     name: 'addToWhiteList',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      {
+        name: 'origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+    ],
+    name: 'allowInitializePath',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -1492,6 +1854,26 @@ export const itemABI = [
     inputs: [{ name: 'newPrefix', internalType: 'uint8', type: 'uint8' }],
     name: 'changeBasePrefix',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'composeMsgSender',
+    outputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endpoint',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract ILayerZeroEndpointV2',
+        type: 'address',
+      },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -1547,6 +1929,9 @@ export const itemABI = [
       { name: 'name', internalType: 'string', type: 'string' },
       { name: 'symbol', internalType: 'string', type: 'string' },
       { name: 'tresuary_', internalType: 'address', type: 'address' },
+      { name: 'uri_', internalType: 'string', type: 'string' },
+      { name: '_endpoint', internalType: 'address', type: 'address' },
+      { name: 'startTokenId', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'initialize',
     outputs: [],
@@ -1599,6 +1984,58 @@ export const itemABI = [
   {
     stateMutability: 'payable',
     type: 'function',
+    inputs: [
+      {
+        name: '_origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+      { name: '_guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_message', internalType: 'bytes', type: 'bytes' },
+      { name: '_executor', internalType: 'address', type: 'address' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzReceive',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzSend',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct MessagingReceipt',
+        type: 'tuple',
+        components: [
+          { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+          {
+            name: 'fee',
+            internalType: 'struct MessagingFee',
+            type: 'tuple',
+            components: [
+              { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+              { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
     inputs: [{ name: 'amount', internalType: 'uint16', type: 'uint16' }],
     name: 'mint',
     outputs: [],
@@ -1620,6 +2057,26 @@ export const itemABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint32', type: 'uint32' },
+      { name: '', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'nextNonce',
+    outputs: [{ name: 'nonce', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'oAppVersion',
+    outputs: [
+      { name: 'senderVersion', internalType: 'uint64', type: 'uint64' },
+      { name: 'receiverVersion', internalType: 'uint64', type: 'uint64' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [],
     name: 'owner',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -1630,6 +2087,35 @@ export const itemABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'peers',
+    outputs: [{ name: 'peer', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: '_message', internalType: 'string', type: 'string' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+      { name: '_payInLzToken', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'quote',
+    outputs: [
+      {
+        name: 'fee',
+        internalType: 'struct MessagingFee',
+        type: 'tuple',
+        components: [
+          { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'view',
@@ -1705,6 +2191,13 @@ export const itemABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: '_delegate', internalType: 'address', type: 'address' }],
+    name: 'setDelegate',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: 'gems', internalType: 'address', type: 'address' }],
     name: 'setGemsAddress',
     outputs: [],
@@ -1730,6 +2223,16 @@ export const itemABI = [
     type: 'function',
     inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
     name: 'setMaxItemTypes',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_eid', internalType: 'uint32', type: 'uint32' },
+      { name: '_peer', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'setPeer',
     outputs: [],
   },
   {
@@ -1857,6 +2360,32 @@ export const itemABI = [
 
 export const lemonABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  { type: 'error', inputs: [], name: 'InvalidDelegate' },
+  { type: 'error', inputs: [], name: 'InvalidEndpointCall' },
+  { type: 'error', inputs: [], name: 'LzTokenUnavailable' },
+  {
+    type: 'error',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'NoPeer',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'msgValue', internalType: 'uint256', type: 'uint256' }],
+    name: 'NotEnoughNative',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'addr', internalType: 'address', type: 'address' }],
+    name: 'OnlyEndpoint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32' },
+      { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'OnlyPeer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -1947,7 +2476,51 @@ export const lemonABI = [
     ],
     name: 'Create',
   },
-  { type: 'event', anonymous: false, inputs: [], name: 'EIP712DomainChanged' },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'lemonType',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: true,
+      },
+      {
+        name: 'agility',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'speed',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'luck',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
+      {
+        name: 'level',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'CrosschainTransfer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -2053,6 +2626,20 @@ export const lemonABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32', indexed: false },
+      {
+        name: 'peer',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'PeerSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'from', internalType: 'address', type: 'address', indexed: true },
       { name: 'to', internalType: 'address', type: 'address', indexed: true },
       {
@@ -2105,6 +2692,24 @@ export const lemonABI = [
     inputs: [{ name: 'users', internalType: 'address[]', type: 'address[]' }],
     name: 'addToWhitelist',
     outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      {
+        name: 'origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+    ],
+    name: 'allowInitializePath',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
     stateMutability: 'view',
@@ -2172,15 +2777,20 @@ export const lemonABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: 'eip712Domain',
+    name: 'composeMsgSender',
+    outputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endpoint',
     outputs: [
-      { name: 'fields', internalType: 'bytes1', type: 'bytes1' },
-      { name: 'name', internalType: 'string', type: 'string' },
-      { name: 'version', internalType: 'string', type: 'string' },
-      { name: 'chainId', internalType: 'uint256', type: 'uint256' },
-      { name: 'verifyingContract', internalType: 'address', type: 'address' },
-      { name: 'salt', internalType: 'bytes32', type: 'bytes32' },
-      { name: 'extensions', internalType: 'uint256[]', type: 'uint256[]' },
+      {
+        name: '',
+        internalType: 'contract ILayerZeroEndpointV2',
+        type: 'address',
+      },
     ],
   },
   {
@@ -2195,13 +2805,6 @@ export const lemonABI = [
       { name: 'itemId', internalType: 'uint256', type: 'uint256' },
       { name: 'equipped', internalType: 'bool', type: 'bool' },
     ],
-  },
-  {
-    stateMutability: 'nonpayable',
-    type: 'function',
-    inputs: [{ name: 'gemId', internalType: 'uint256', type: 'uint256' }],
-    name: 'exchangeGem10',
-    outputs: [],
   },
   {
     stateMutability: 'view',
@@ -2237,7 +2840,12 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [{ name: 'tresuary_', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'tresuary_', internalType: 'address', type: 'address' },
+      { name: 'uri', internalType: 'string', type: 'string' },
+      { name: '_endpoint', internalType: 'address', type: 'address' },
+      { name: 'startTokenId', internalType: 'uint256', type: 'uint256' },
+    ],
     name: 'initialize',
     outputs: [],
   },
@@ -2299,6 +2907,58 @@ export const lemonABI = [
   {
     stateMutability: 'payable',
     type: 'function',
+    inputs: [
+      {
+        name: '_origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+      { name: '_guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_message', internalType: 'bytes', type: 'bytes' },
+      { name: '_executor', internalType: 'address', type: 'address' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzReceive',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzSend',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct MessagingReceipt',
+        type: 'tuple',
+        components: [
+          { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+          {
+            name: 'fee',
+            internalType: 'struct MessagingFee',
+            type: 'tuple',
+            components: [
+              { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+              { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
     inputs: [{ name: 'amount', internalType: 'uint16', type: 'uint16' }],
     name: 'mint',
     outputs: [],
@@ -2309,6 +2969,26 @@ export const lemonABI = [
     inputs: [],
     name: 'name',
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint32', type: 'uint32' },
+      { name: '', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'nextNonce',
+    outputs: [{ name: 'nonce', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'oAppVersion',
+    outputs: [
+      { name: 'senderVersion', internalType: 'uint64', type: 'uint64' },
+      { name: 'receiverVersion', internalType: 'uint64', type: 'uint64' },
+    ],
   },
   {
     stateMutability: 'view',
@@ -2334,9 +3014,38 @@ export const lemonABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'peers',
+    outputs: [{ name: 'peer', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [],
     name: 'publicMintOpenTime',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: '_message', internalType: 'string', type: 'string' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+      { name: '_payInLzToken', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'quote',
+    outputs: [
+      {
+        name: 'fee',
+        internalType: 'struct MessagingFee',
+        type: 'tuple',
+        components: [
+          { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'view',
@@ -2419,6 +3128,13 @@ export const lemonABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: '_delegate', internalType: 'address', type: 'address' }],
+    name: 'setDelegate',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_gems', internalType: 'address', type: 'address' }],
     name: 'setGemsAddress',
     outputs: [],
@@ -2428,6 +3144,16 @@ export const lemonABI = [
     type: 'function',
     inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
     name: 'setItemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_eid', internalType: 'uint32', type: 'uint32' },
+      { name: '_peer', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'setPeer',
     outputs: [],
   },
   {
@@ -2553,6 +3279,32 @@ export const lemonABI = [
 
 export const pickAxeABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  { type: 'error', inputs: [], name: 'InvalidDelegate' },
+  { type: 'error', inputs: [], name: 'InvalidEndpointCall' },
+  { type: 'error', inputs: [], name: 'LzTokenUnavailable' },
+  {
+    type: 'error',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'NoPeer',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'msgValue', internalType: 'uint256', type: 'uint256' }],
+    name: 'NotEnoughNative',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'addr', internalType: 'address', type: 'address' }],
+    name: 'OnlyEndpoint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32' },
+      { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'OnlyPeer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -2602,6 +3354,37 @@ export const pickAxeABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'rank',
+        internalType: 'enum Pickaxe.Rank',
+        type: 'uint8',
+        indexed: false,
+      },
+      {
+        name: 'sharpness',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
+    ],
+    name: 'CrosschainTransfer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
     ],
     name: 'Initialized',
@@ -2624,6 +3407,20 @@ export const pickAxeABI = [
       },
     ],
     name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32', indexed: false },
+      {
+        name: 'peer',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'PeerSet',
   },
   {
     type: 'event',
@@ -2749,15 +3546,26 @@ export const pickAxeABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
-    name: '_tokenIdCounter',
-    outputs: [{ name: '_value', internalType: 'uint256', type: 'uint256' }],
+    name: '_treasuryAddress',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [],
-    name: '_treasuryAddress',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+    inputs: [
+      {
+        name: 'origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+    ],
+    name: 'allowInitializePath',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -2796,6 +3604,26 @@ export const pickAxeABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [],
+    name: 'composeMsgSender',
+    outputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endpoint',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract ILayerZeroEndpointV2',
+        type: 'address',
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'getApproved',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -2811,6 +3639,9 @@ export const pickAxeABI = [
       { name: 'goodSharpPrice_', internalType: 'uint256', type: 'uint256' },
       { name: 'greatSharpPrice_', internalType: 'uint256', type: 'uint256' },
       { name: 'treasuryAddress_', internalType: 'address', type: 'address' },
+      { name: 'uri_', internalType: 'string', type: 'string' },
+      { name: '_endpoint', internalType: 'address', type: 'address' },
+      { name: 'startTokenId', internalType: 'uint256', type: 'uint256' },
     ],
     name: 'initialize',
     outputs: [],
@@ -2824,6 +3655,58 @@ export const pickAxeABI = [
     ],
     name: 'isApprovedForAll',
     outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      {
+        name: '_origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+      { name: '_guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_message', internalType: 'bytes', type: 'bytes' },
+      { name: '_executor', internalType: 'address', type: 'address' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzReceive',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzSend',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct MessagingReceipt',
+        type: 'tuple',
+        components: [
+          { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+          {
+            name: 'fee',
+            internalType: 'struct MessagingFee',
+            type: 'tuple',
+            components: [
+              { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+              { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'payable',
@@ -2845,6 +3728,26 @@ export const pickAxeABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint32', type: 'uint32' },
+      { name: '', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'nextNonce',
+    outputs: [{ name: 'nonce', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'oAppVersion',
+    outputs: [
+      { name: 'senderVersion', internalType: 'uint64', type: 'uint64' },
+      { name: 'receiverVersion', internalType: 'uint64', type: 'uint64' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [],
     name: 'owner',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -2855,6 +3758,35 @@ export const pickAxeABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'peers',
+    outputs: [{ name: 'peer', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: '_message', internalType: 'string', type: 'string' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+      { name: '_payInLzToken', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'quote',
+    outputs: [
+      {
+        name: 'fee',
+        internalType: 'struct MessagingFee',
+        type: 'tuple',
+        components: [
+          { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'view',
@@ -2906,6 +3838,13 @@ export const pickAxeABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newURI', internalType: 'string', type: 'string' }],
+    name: 'setBaseURI',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: 'box', internalType: 'address', type: 'address' }],
     name: 'setBoxAddress',
     outputs: [],
@@ -2913,8 +3852,25 @@ export const pickAxeABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: '_delegate', internalType: 'address', type: 'address' }],
+    name: 'setDelegate',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_gems', internalType: 'address', type: 'address' }],
     name: 'setGemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_eid', internalType: 'uint32', type: 'uint32' },
+      { name: '_peer', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'setPeer',
     outputs: [],
   },
   {
@@ -3235,7 +4191,7 @@ export const raidsABI = [
       { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
       { name: 'data', internalType: 'bytes', type: 'bytes' },
     ],
-    name: '_returnLemon2',
+    name: '_returnLemonCallback',
     outputs: [],
   },
   {
@@ -3560,7 +4516,10 @@ export const shirtABI = [
   {
     stateMutability: 'nonpayable',
     type: 'constructor',
-    inputs: [{ name: 'box_', internalType: 'address', type: 'address' }],
+    inputs: [
+      { name: 'box_', internalType: 'address', type: 'address' },
+      { name: 'uri_', internalType: 'string', type: 'string' },
+    ],
   },
   {
     type: 'event',
@@ -3638,6 +4597,13 @@ export const shirtABI = [
     inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'baseURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -3757,6 +4723,32 @@ export const shirtABI = [
 
 export const stickerABI = [
   { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  { type: 'error', inputs: [], name: 'InvalidDelegate' },
+  { type: 'error', inputs: [], name: 'InvalidEndpointCall' },
+  { type: 'error', inputs: [], name: 'LzTokenUnavailable' },
+  {
+    type: 'error',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'NoPeer',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'msgValue', internalType: 'uint256', type: 'uint256' }],
+    name: 'NotEnoughNative',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'addr', internalType: 'address', type: 'address' }],
+    name: 'OnlyEndpoint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32' },
+      { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'OnlyPeer',
+  },
   {
     type: 'event',
     anonymous: false,
@@ -3806,6 +4798,25 @@ export const stickerABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'CrosschainTransfer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
     ],
     name: 'Initialized',
@@ -3833,6 +4844,20 @@ export const stickerABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32', indexed: false },
+      {
+        name: 'peer',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'PeerSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       { name: 'from', internalType: 'address', type: 'address', indexed: true },
       { name: 'to', internalType: 'address', type: 'address', indexed: true },
       {
@@ -3852,6 +4877,24 @@ export const stickerABI = [
     outputs: [],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      {
+        name: 'origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+    ],
+    name: 'allowInitializePath',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -3869,6 +4912,13 @@ export const stickerABI = [
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'composeMsgSender',
+    outputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -3880,6 +4930,19 @@ export const stickerABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [],
+    name: 'endpoint',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract ILayerZeroEndpointV2',
+        type: 'address',
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'getApproved',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -3887,7 +4950,11 @@ export const stickerABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
-    inputs: [],
+    inputs: [
+      { name: 'uri_', internalType: 'string', type: 'string' },
+      { name: '_endpoint', internalType: 'address', type: 'address' },
+      { name: 'startTokenId', internalType: 'uint256', type: 'uint256' },
+    ],
     name: 'initialize',
     outputs: [],
   },
@@ -3916,6 +4983,58 @@ export const stickerABI = [
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      {
+        name: '_origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+      { name: '_guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_message', internalType: 'bytes', type: 'bytes' },
+      { name: '_executor', internalType: 'address', type: 'address' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzReceive',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzSend',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct MessagingReceipt',
+        type: 'tuple',
+        components: [
+          { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+          {
+            name: 'fee',
+            internalType: 'struct MessagingFee',
+            type: 'tuple',
+            components: [
+              { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+              { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -3935,6 +5054,26 @@ export const stickerABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint32', type: 'uint32' },
+      { name: '', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'nextNonce',
+    outputs: [{ name: 'nonce', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'oAppVersion',
+    outputs: [
+      { name: 'senderVersion', internalType: 'uint64', type: 'uint64' },
+      { name: 'receiverVersion', internalType: 'uint64', type: 'uint64' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [],
     name: 'owner',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
@@ -3945,6 +5084,35 @@ export const stickerABI = [
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'peers',
+    outputs: [{ name: 'peer', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: '_message', internalType: 'string', type: 'string' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+      { name: '_payInLzToken', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'quote',
+    outputs: [
+      {
+        name: 'fee',
+        internalType: 'struct MessagingFee',
+        type: 'tuple',
+        components: [
+          { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -3989,8 +5157,32 @@ export const stickerABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newURI', internalType: 'string', type: 'string' }],
+    name: 'setBaseURI',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_delegate', internalType: 'address', type: 'address' }],
+    name: 'setDelegate',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [{ name: '_items', internalType: 'address', type: 'address' }],
     name: 'setItemsAddress',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_eid', internalType: 'uint32', type: 'uint32' },
+      { name: '_peer', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'setPeer',
     outputs: [],
   },
   {
@@ -4610,76 +5802,82 @@ export function useBoxWrite<
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBox2"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBoxCallback"`.
  */
-export function useBoxBuyCheapBox2<TMode extends WriteContractMode = undefined>(
+export function useBoxBuyCheapBoxCallback<
+  TMode extends WriteContractMode = undefined,
+>(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
           typeof boxABI,
-          '_buyCheapBox2'
+          '_buyCheapBoxCallback'
         >['request']['abi'],
-        '_buyCheapBox2',
+        '_buyCheapBoxCallback',
         TMode
-      > & { functionName?: '_buyCheapBox2' }
-    : UseContractWriteConfig<typeof boxABI, '_buyCheapBox2', TMode> & {
+      > & { functionName?: '_buyCheapBoxCallback' }
+    : UseContractWriteConfig<typeof boxABI, '_buyCheapBoxCallback', TMode> & {
         abi?: never
-        functionName?: '_buyCheapBox2'
+        functionName?: '_buyCheapBoxCallback'
       } = {} as any,
 ) {
-  return useContractWrite<typeof boxABI, '_buyCheapBox2', TMode>({
+  return useContractWrite<typeof boxABI, '_buyCheapBoxCallback', TMode>({
     abi: boxABI,
-    functionName: '_buyCheapBox2',
+    functionName: '_buyCheapBoxCallback',
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGoodBox2"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGoodBoxCallback"`.
  */
-export function useBoxBuyGoodBox2<TMode extends WriteContractMode = undefined>(
+export function useBoxBuyGoodBoxCallback<
+  TMode extends WriteContractMode = undefined,
+>(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
           typeof boxABI,
-          '_buyGoodBox2'
+          '_buyGoodBoxCallback'
         >['request']['abi'],
-        '_buyGoodBox2',
+        '_buyGoodBoxCallback',
         TMode
-      > & { functionName?: '_buyGoodBox2' }
-    : UseContractWriteConfig<typeof boxABI, '_buyGoodBox2', TMode> & {
+      > & { functionName?: '_buyGoodBoxCallback' }
+    : UseContractWriteConfig<typeof boxABI, '_buyGoodBoxCallback', TMode> & {
         abi?: never
-        functionName?: '_buyGoodBox2'
+        functionName?: '_buyGoodBoxCallback'
       } = {} as any,
 ) {
-  return useContractWrite<typeof boxABI, '_buyGoodBox2', TMode>({
+  return useContractWrite<typeof boxABI, '_buyGoodBoxCallback', TMode>({
     abi: boxABI,
-    functionName: '_buyGoodBox2',
+    functionName: '_buyGoodBoxCallback',
     ...config,
   } as any)
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGreatBox2"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGreatBoxCallback"`.
  */
-export function useBoxBuyGreatBox2<TMode extends WriteContractMode = undefined>(
+export function useBoxBuyGreatBoxCallback<
+  TMode extends WriteContractMode = undefined,
+>(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
           typeof boxABI,
-          '_buyGreatBox2'
+          '_buyGreatBoxCallback'
         >['request']['abi'],
-        '_buyGreatBox2',
+        '_buyGreatBoxCallback',
         TMode
-      > & { functionName?: '_buyGreatBox2' }
-    : UseContractWriteConfig<typeof boxABI, '_buyGreatBox2', TMode> & {
+      > & { functionName?: '_buyGreatBoxCallback' }
+    : UseContractWriteConfig<typeof boxABI, '_buyGreatBoxCallback', TMode> & {
         abi?: never
-        functionName?: '_buyGreatBox2'
+        functionName?: '_buyGreatBoxCallback'
       } = {} as any,
 ) {
-  return useContractWrite<typeof boxABI, '_buyGreatBox2', TMode>({
+  return useContractWrite<typeof boxABI, '_buyGreatBoxCallback', TMode>({
     abi: boxABI,
-    functionName: '_buyGreatBox2',
+    functionName: '_buyGreatBoxCallback',
     ...config,
   } as any)
 }
@@ -5146,51 +6344,51 @@ export function usePrepareBoxWrite<TFunctionName extends string>(
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBox2"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBoxCallback"`.
  */
-export function usePrepareBoxBuyCheapBox2(
+export function usePrepareBoxBuyCheapBoxCallback(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof boxABI, '_buyCheapBox2'>,
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyCheapBoxCallback'>,
     'abi' | 'functionName'
   > = {} as any,
 ) {
   return usePrepareContractWrite({
     abi: boxABI,
-    functionName: '_buyCheapBox2',
+    functionName: '_buyCheapBoxCallback',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyCheapBox2'>)
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyCheapBoxCallback'>)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGoodBox2"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGoodBoxCallback"`.
  */
-export function usePrepareBoxBuyGoodBox2(
+export function usePrepareBoxBuyGoodBoxCallback(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof boxABI, '_buyGoodBox2'>,
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyGoodBoxCallback'>,
     'abi' | 'functionName'
   > = {} as any,
 ) {
   return usePrepareContractWrite({
     abi: boxABI,
-    functionName: '_buyGoodBox2',
+    functionName: '_buyGoodBoxCallback',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGoodBox2'>)
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGoodBoxCallback'>)
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGreatBox2"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyGreatBoxCallback"`.
  */
-export function usePrepareBoxBuyGreatBox2(
+export function usePrepareBoxBuyGreatBoxCallback(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBox2'>,
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBoxCallback'>,
     'abi' | 'functionName'
   > = {} as any,
 ) {
   return usePrepareContractWrite({
     abi: boxABI,
-    functionName: '_buyGreatBox2',
+    functionName: '_buyGreatBoxCallback',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBox2'>)
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBoxCallback'>)
 }
 
 /**
@@ -5497,6 +6695,22 @@ export function useBoxInitializedEvent(
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link boxABI}__ and `eventName` set to `"NewPurchase"`.
+ */
+export function useBoxNewPurchaseEvent(
+  config: Omit<
+    UseContractEventConfig<typeof boxABI, 'NewPurchase'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: boxABI,
+    eventName: 'NewPurchase',
+    ...config,
+  } as UseContractEventConfig<typeof boxABI, 'NewPurchase'>)
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link boxABI}__ and `eventName` set to `"OwnershipTransferred"`.
  */
 export function useBoxOwnershipTransferredEvent(
@@ -5562,6 +6776,25 @@ export function useCapBalanceOf<
   return useContractRead({
     abi: capABI,
     functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link capABI}__ and `functionName` set to `"baseURI"`.
+ */
+export function useCapBaseUri<
+  TFunctionName extends 'baseURI',
+  TSelectData = ReadContractResult<typeof capABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: capABI,
+    functionName: 'baseURI',
     ...config,
   } as UseContractReadConfig<typeof capABI, TFunctionName, TSelectData>)
 }
@@ -6194,6 +7427,25 @@ export function useGemTreasuryAddress<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"allowInitializePath"`.
+ */
+export function useGemAllowInitializePath<
+  TFunctionName extends 'allowInitializePath',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'allowInitializePath',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"balanceOf"`.
  */
 export function useGemBalanceOf<
@@ -6232,10 +7484,10 @@ export function useGemCheckOwnerOf<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"eip712Domain"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"composeMsgSender"`.
  */
-export function useGemEip712Domain<
-  TFunctionName extends 'eip712Domain',
+export function useGemComposeMsgSender<
+  TFunctionName extends 'composeMsgSender',
   TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
 >(
   config: Omit<
@@ -6245,7 +7497,26 @@ export function useGemEip712Domain<
 ) {
   return useContractRead({
     abi: gemABI,
-    functionName: 'eip712Domain',
+    functionName: 'composeMsgSender',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"endpoint"`.
+ */
+export function useGemEndpoint<
+  TFunctionName extends 'endpoint',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'endpoint',
     ...config,
   } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
 }
@@ -6365,6 +7636,44 @@ export function useGemName<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"nextNonce"`.
+ */
+export function useGemNextNonce<
+  TFunctionName extends 'nextNonce',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'nextNonce',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"oAppVersion"`.
+ */
+export function useGemOAppVersion<
+  TFunctionName extends 'oAppVersion',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'oAppVersion',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"owner"`.
  */
 export function useGemOwner<
@@ -6398,6 +7707,44 @@ export function useGemOwnerOf<
   return useContractRead({
     abi: gemABI,
     functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"peers"`.
+ */
+export function useGemPeers<
+  TFunctionName extends 'peers',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'peers',
+    ...config,
+  } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"quote"`.
+ */
+export function useGemQuote<
+  TFunctionName extends 'quote',
+  TSelectData = ReadContractResult<typeof gemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: gemABI,
+    functionName: 'quote',
     ...config,
   } as UseContractReadConfig<typeof gemABI, TFunctionName, TSelectData>)
 }
@@ -6606,6 +7953,53 @@ export function useGemInitialize<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function useGemLzReceive<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof gemABI,
+          'lzReceive'
+        >['request']['abi'],
+        'lzReceive',
+        TMode
+      > & { functionName?: 'lzReceive' }
+    : UseContractWriteConfig<typeof gemABI, 'lzReceive', TMode> & {
+        abi?: never
+        functionName?: 'lzReceive'
+      } = {} as any,
+) {
+  return useContractWrite<typeof gemABI, 'lzReceive', TMode>({
+    abi: gemABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function useGemLzSend<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof gemABI, 'lzSend'>['request']['abi'],
+        'lzSend',
+        TMode
+      > & { functionName?: 'lzSend' }
+    : UseContractWriteConfig<typeof gemABI, 'lzSend', TMode> & {
+        abi?: never
+        functionName?: 'lzSend'
+      } = {} as any,
+) {
+  return useContractWrite<typeof gemABI, 'lzSend', TMode>({
+    abi: gemABI,
+    functionName: 'lzSend',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"merge"`.
  */
 export function useGemMerge<TMode extends WriteContractMode = undefined>(
@@ -6762,6 +8156,31 @@ export function useGemSetApprovalForAll<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function useGemSetDelegate<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof gemABI,
+          'setDelegate'
+        >['request']['abi'],
+        'setDelegate',
+        TMode
+      > & { functionName?: 'setDelegate' }
+    : UseContractWriteConfig<typeof gemABI, 'setDelegate', TMode> & {
+        abi?: never
+        functionName?: 'setDelegate'
+      } = {} as any,
+) {
+  return useContractWrite<typeof gemABI, 'setDelegate', TMode>({
+    abi: gemABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"setItemsAddress"`.
  */
 export function useGemSetItemsAddress<
@@ -6811,6 +8230,28 @@ export function useGemSetLemonsAddress<
   return useContractWrite<typeof gemABI, 'setLemonsAddress', TMode>({
     abi: gemABI,
     functionName: 'setLemonsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function useGemSetPeer<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof gemABI, 'setPeer'>['request']['abi'],
+        'setPeer',
+        TMode
+      > & { functionName?: 'setPeer' }
+    : UseContractWriteConfig<typeof gemABI, 'setPeer', TMode> & {
+        abi?: never
+        functionName?: 'setPeer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof gemABI, 'setPeer', TMode>({
+    abi: gemABI,
+    functionName: 'setPeer',
     ...config,
   } as any)
 }
@@ -6963,6 +8404,38 @@ export function usePrepareGemInitialize(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePrepareGemLzReceive(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof gemABI, 'lzReceive'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: gemABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof gemABI, 'lzReceive'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePrepareGemLzSend(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof gemABI, 'lzSend'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: gemABI,
+    functionName: 'lzSend',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof gemABI, 'lzSend'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"merge"`.
  */
 export function usePrepareGemMerge(
@@ -7062,6 +8535,22 @@ export function usePrepareGemSetApprovalForAll(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePrepareGemSetDelegate(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof gemABI, 'setDelegate'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: gemABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof gemABI, 'setDelegate'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"setItemsAddress"`.
  */
 export function usePrepareGemSetItemsAddress(
@@ -7091,6 +8580,22 @@ export function usePrepareGemSetLemonsAddress(
     functionName: 'setLemonsAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof gemABI, 'setLemonsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePrepareGemSetPeer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof gemABI, 'setPeer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: gemABI,
+    functionName: 'setPeer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof gemABI, 'setPeer'>)
 }
 
 /**
@@ -7173,19 +8678,19 @@ export function useGemApprovalForAllEvent(
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link gemABI}__ and `eventName` set to `"EIP712DomainChanged"`.
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link gemABI}__ and `eventName` set to `"CrosschainTransfer"`.
  */
-export function useGemEip712DomainChangedEvent(
+export function useGemCrosschainTransferEvent(
   config: Omit<
-    UseContractEventConfig<typeof gemABI, 'EIP712DomainChanged'>,
+    UseContractEventConfig<typeof gemABI, 'CrosschainTransfer'>,
     'abi' | 'eventName'
   > = {} as any,
 ) {
   return useContractEvent({
     abi: gemABI,
-    eventName: 'EIP712DomainChanged',
+    eventName: 'CrosschainTransfer',
     ...config,
-  } as UseContractEventConfig<typeof gemABI, 'EIP712DomainChanged'>)
+  } as UseContractEventConfig<typeof gemABI, 'CrosschainTransfer'>)
 }
 
 /**
@@ -7234,6 +8739,22 @@ export function useGemOwnershipTransferredEvent(
     eventName: 'OwnershipTransferred',
     ...config,
   } as UseContractEventConfig<typeof gemABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link gemABI}__ and `eventName` set to `"PeerSet"`.
+ */
+export function useGemPeerSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof gemABI, 'PeerSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: gemABI,
+    eventName: 'PeerSet',
+    ...config,
+  } as UseContractEventConfig<typeof gemABI, 'PeerSet'>)
 }
 
 /**
@@ -7286,6 +8807,25 @@ export function useHoodieBalanceOf<
   return useContractRead({
     abi: hoodieABI,
     functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link hoodieABI}__ and `functionName` set to `"baseURI"`.
+ */
+export function useHoodieBaseUri<
+  TFunctionName extends 'baseURI',
+  TSelectData = ReadContractResult<typeof hoodieABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: hoodieABI,
+    functionName: 'baseURI',
     ...config,
   } as UseContractReadConfig<typeof hoodieABI, TFunctionName, TSelectData>)
 }
@@ -7850,6 +9390,25 @@ export function useItemMaxBuySupply<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"allowInitializePath"`.
+ */
+export function useItemAllowInitializePath<
+  TFunctionName extends 'allowInitializePath',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'allowInitializePath',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"balanceOf"`.
  */
 export function useItemBalanceOf<
@@ -7921,6 +9480,44 @@ export function useItemBoxAddress<
   return useContractRead({
     abi: itemABI,
     functionName: 'boxAddress',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"composeMsgSender"`.
+ */
+export function useItemComposeMsgSender<
+  TFunctionName extends 'composeMsgSender',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'composeMsgSender',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"endpoint"`.
+ */
+export function useItemEndpoint<
+  TFunctionName extends 'endpoint',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'endpoint',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -8059,6 +9656,44 @@ export function useItemName<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"nextNonce"`.
+ */
+export function useItemNextNonce<
+  TFunctionName extends 'nextNonce',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'nextNonce',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"oAppVersion"`.
+ */
+export function useItemOAppVersion<
+  TFunctionName extends 'oAppVersion',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'oAppVersion',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"owner"`.
  */
 export function useItemOwner<
@@ -8092,6 +9727,44 @@ export function useItemOwnerOf<
   return useContractRead({
     abi: itemABI,
     functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"peers"`.
+ */
+export function useItemPeers<
+  TFunctionName extends 'peers',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'peers',
+    ...config,
+  } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"quote"`.
+ */
+export function useItemQuote<
+  TFunctionName extends 'quote',
+  TSelectData = ReadContractResult<typeof itemABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: itemABI,
+    functionName: 'quote',
     ...config,
   } as UseContractReadConfig<typeof itemABI, TFunctionName, TSelectData>)
 }
@@ -8464,6 +10137,53 @@ export function useItemLevelUpFree<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function useItemLzReceive<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'lzReceive'
+        >['request']['abi'],
+        'lzReceive',
+        TMode
+      > & { functionName?: 'lzReceive' }
+    : UseContractWriteConfig<typeof itemABI, 'lzReceive', TMode> & {
+        abi?: never
+        functionName?: 'lzReceive'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'lzReceive', TMode>({
+    abi: itemABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function useItemLzSend<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof itemABI, 'lzSend'>['request']['abi'],
+        'lzSend',
+        TMode
+      > & { functionName?: 'lzSend' }
+    : UseContractWriteConfig<typeof itemABI, 'lzSend', TMode> & {
+        abi?: never
+        functionName?: 'lzSend'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'lzSend', TMode>({
+    abi: itemABI,
+    functionName: 'lzSend',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"mint"`.
  */
 export function useItemMint<TMode extends WriteContractMode = undefined>(
@@ -8669,6 +10389,31 @@ export function useItemSetBoxAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function useItemSetDelegate<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof itemABI,
+          'setDelegate'
+        >['request']['abi'],
+        'setDelegate',
+        TMode
+      > & { functionName?: 'setDelegate' }
+    : UseContractWriteConfig<typeof itemABI, 'setDelegate', TMode> & {
+        abi?: never
+        functionName?: 'setDelegate'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'setDelegate', TMode>({
+    abi: itemABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function useItemSetGemsAddress<
@@ -8772,6 +10517,28 @@ export function useItemSetMaxItemTypes<
   return useContractWrite<typeof itemABI, 'setMaxItemTypes', TMode>({
     abi: itemABI,
     functionName: 'setMaxItemTypes',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function useItemSetPeer<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof itemABI, 'setPeer'>['request']['abi'],
+        'setPeer',
+        TMode
+      > & { functionName?: 'setPeer' }
+    : UseContractWriteConfig<typeof itemABI, 'setPeer', TMode> & {
+        abi?: never
+        functionName?: 'setPeer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'setPeer', TMode>({
+    abi: itemABI,
+    functionName: 'setPeer',
     ...config,
   } as any)
 }
@@ -9089,6 +10856,38 @@ export function usePrepareItemLevelUpFree(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePrepareItemLzReceive(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'lzReceive'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'lzReceive'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePrepareItemLzSend(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'lzSend'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'lzSend',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'lzSend'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"mint"`.
  */
 export function usePrepareItemMint(
@@ -9217,6 +11016,22 @@ export function usePrepareItemSetBoxAddress(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePrepareItemSetDelegate(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'setDelegate'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'setDelegate'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function usePrepareItemSetGemsAddress(
@@ -9278,6 +11093,22 @@ export function usePrepareItemSetMaxItemTypes(
     functionName: 'setMaxItemTypes',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'setMaxItemTypes'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePrepareItemSetPeer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'setPeer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'setPeer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'setPeer'>)
 }
 
 /**
@@ -9456,6 +11287,22 @@ export function useItemCreateEvent(
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link itemABI}__ and `eventName` set to `"CrosschainTransfer"`.
+ */
+export function useItemCrosschainTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof itemABI, 'CrosschainTransfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: itemABI,
+    eventName: 'CrosschainTransfer',
+    ...config,
+  } as UseContractEventConfig<typeof itemABI, 'CrosschainTransfer'>)
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link itemABI}__ and `eventName` set to `"Initialized"`.
  */
 export function useItemInitializedEvent(
@@ -9517,6 +11364,22 @@ export function useItemOwnershipTransferredEvent(
     eventName: 'OwnershipTransferred',
     ...config,
   } as UseContractEventConfig<typeof itemABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link itemABI}__ and `eventName` set to `"PeerSet"`.
+ */
+export function useItemPeerSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof itemABI, 'PeerSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: itemABI,
+    eventName: 'PeerSet',
+    ...config,
+  } as UseContractEventConfig<typeof itemABI, 'PeerSet'>)
 }
 
 /**
@@ -9650,6 +11513,25 @@ export function useLemonNextTokenId<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"allowInitializePath"`.
+ */
+export function useLemonAllowInitializePath<
+  TFunctionName extends 'allowInitializePath',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'allowInitializePath',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"alphaPrefix"`.
  */
 export function useLemonAlphaPrefix<
@@ -9707,10 +11589,10 @@ export function useLemonBoxAddress<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"eip712Domain"`.
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"composeMsgSender"`.
  */
-export function useLemonEip712Domain<
-  TFunctionName extends 'eip712Domain',
+export function useLemonComposeMsgSender<
+  TFunctionName extends 'composeMsgSender',
   TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
 >(
   config: Omit<
@@ -9720,7 +11602,26 @@ export function useLemonEip712Domain<
 ) {
   return useContractRead({
     abi: lemonABI,
-    functionName: 'eip712Domain',
+    functionName: 'composeMsgSender',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"endpoint"`.
+ */
+export function useLemonEndpoint<
+  TFunctionName extends 'endpoint',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'endpoint',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -9935,6 +11836,44 @@ export function useLemonName<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"nextNonce"`.
+ */
+export function useLemonNextNonce<
+  TFunctionName extends 'nextNonce',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'nextNonce',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"oAppVersion"`.
+ */
+export function useLemonOAppVersion<
+  TFunctionName extends 'oAppVersion',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'oAppVersion',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"omegaPrefix"`.
  */
 export function useLemonOmegaPrefix<
@@ -9992,6 +11931,25 @@ export function useLemonOwnerOf<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"peers"`.
+ */
+export function useLemonPeers<
+  TFunctionName extends 'peers',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'peers',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"publicMintOpenTime"`.
  */
 export function useLemonPublicMintOpenTime<
@@ -10006,6 +11964,25 @@ export function useLemonPublicMintOpenTime<
   return useContractRead({
     abi: lemonABI,
     functionName: 'publicMintOpenTime',
+    ...config,
+  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"quote"`.
+ */
+export function useLemonQuote<
+  TFunctionName extends 'quote',
+  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lemonABI,
+    functionName: 'quote',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
@@ -10420,33 +12397,6 @@ export function useLemonChangeOmegaPrefix<
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"exchangeGem10"`.
- */
-export function useLemonExchangeGem10<
-  TMode extends WriteContractMode = undefined,
->(
-  config: TMode extends 'prepared'
-    ? UseContractWriteConfig<
-        PrepareWriteContractResult<
-          typeof lemonABI,
-          'exchangeGem10'
-        >['request']['abi'],
-        'exchangeGem10',
-        TMode
-      > & { functionName?: 'exchangeGem10' }
-    : UseContractWriteConfig<typeof lemonABI, 'exchangeGem10', TMode> & {
-        abi?: never
-        functionName?: 'exchangeGem10'
-      } = {} as any,
-) {
-  return useContractWrite<typeof lemonABI, 'exchangeGem10', TMode>({
-    abi: lemonABI,
-    functionName: 'exchangeGem10',
-    ...config,
-  } as any)
-}
-
-/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"initialize"`.
  */
 export function useLemonInitialize<TMode extends WriteContractMode = undefined>(
@@ -10492,6 +12442,53 @@ export function useLemonLevelUp<TMode extends WriteContractMode = undefined>(
   return useContractWrite<typeof lemonABI, 'levelUp', TMode>({
     abi: lemonABI,
     functionName: 'levelUp',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function useLemonLzReceive<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'lzReceive'
+        >['request']['abi'],
+        'lzReceive',
+        TMode
+      > & { functionName?: 'lzReceive' }
+    : UseContractWriteConfig<typeof lemonABI, 'lzReceive', TMode> & {
+        abi?: never
+        functionName?: 'lzReceive'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'lzReceive', TMode>({
+    abi: lemonABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function useLemonLzSend<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof lemonABI, 'lzSend'>['request']['abi'],
+        'lzSend',
+        TMode
+      > & { functionName?: 'lzSend' }
+    : UseContractWriteConfig<typeof lemonABI, 'lzSend', TMode> & {
+        abi?: never
+        functionName?: 'lzSend'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'lzSend', TMode>({
+    abi: lemonABI,
+    functionName: 'lzSend',
     ...config,
   } as any)
 }
@@ -10679,6 +12676,33 @@ export function useLemonSetBoxAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function useLemonSetDelegate<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'setDelegate'
+        >['request']['abi'],
+        'setDelegate',
+        TMode
+      > & { functionName?: 'setDelegate' }
+    : UseContractWriteConfig<typeof lemonABI, 'setDelegate', TMode> & {
+        abi?: never
+        functionName?: 'setDelegate'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'setDelegate', TMode>({
+    abi: lemonABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function useLemonSetGemsAddress<
@@ -10728,6 +12752,31 @@ export function useLemonSetItemsAddress<
   return useContractWrite<typeof lemonABI, 'setItemsAddress', TMode>({
     abi: lemonABI,
     functionName: 'setItemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function useLemonSetPeer<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'setPeer'
+        >['request']['abi'],
+        'setPeer',
+        TMode
+      > & { functionName?: 'setPeer' }
+    : UseContractWriteConfig<typeof lemonABI, 'setPeer', TMode> & {
+        abi?: never
+        functionName?: 'setPeer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'setPeer', TMode>({
+    abi: lemonABI,
+    functionName: 'setPeer',
     ...config,
   } as any)
 }
@@ -10977,22 +13026,6 @@ export function usePrepareLemonChangeOmegaPrefix(
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"exchangeGem10"`.
- */
-export function usePrepareLemonExchangeGem10(
-  config: Omit<
-    UsePrepareContractWriteConfig<typeof lemonABI, 'exchangeGem10'>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return usePrepareContractWrite({
-    abi: lemonABI,
-    functionName: 'exchangeGem10',
-    ...config,
-  } as UsePrepareContractWriteConfig<typeof lemonABI, 'exchangeGem10'>)
-}
-
-/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"initialize"`.
  */
 export function usePrepareLemonInitialize(
@@ -11022,6 +13055,38 @@ export function usePrepareLemonLevelUp(
     functionName: 'levelUp',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'levelUp'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePrepareLemonLzReceive(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'lzReceive'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'lzReceive'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePrepareLemonLzSend(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'lzSend'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'lzSend',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'lzSend'>)
 }
 
 /**
@@ -11137,6 +13202,22 @@ export function usePrepareLemonSetBoxAddress(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePrepareLemonSetDelegate(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'setDelegate'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setDelegate'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function usePrepareLemonSetGemsAddress(
@@ -11166,6 +13247,22 @@ export function usePrepareLemonSetItemsAddress(
     functionName: 'setItemsAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'setItemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePrepareLemonSetPeer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'setPeer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'setPeer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'setPeer'>)
 }
 
 /**
@@ -11312,19 +13409,19 @@ export function useLemonCreateEvent(
 }
 
 /**
- * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"EIP712DomainChanged"`.
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"CrosschainTransfer"`.
  */
-export function useLemonEip712DomainChangedEvent(
+export function useLemonCrosschainTransferEvent(
   config: Omit<
-    UseContractEventConfig<typeof lemonABI, 'EIP712DomainChanged'>,
+    UseContractEventConfig<typeof lemonABI, 'CrosschainTransfer'>,
     'abi' | 'eventName'
   > = {} as any,
 ) {
   return useContractEvent({
     abi: lemonABI,
-    eventName: 'EIP712DomainChanged',
+    eventName: 'CrosschainTransfer',
     ...config,
-  } as UseContractEventConfig<typeof lemonABI, 'EIP712DomainChanged'>)
+  } as UseContractEventConfig<typeof lemonABI, 'CrosschainTransfer'>)
 }
 
 /**
@@ -11389,6 +13486,22 @@ export function useLemonOwnershipTransferredEvent(
     eventName: 'OwnershipTransferred',
     ...config,
   } as UseContractEventConfig<typeof lemonABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lemonABI}__ and `eventName` set to `"PeerSet"`.
+ */
+export function useLemonPeerSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lemonABI, 'PeerSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lemonABI,
+    eventName: 'PeerSet',
+    ...config,
+  } as UseContractEventConfig<typeof lemonABI, 'PeerSet'>)
 }
 
 /**
@@ -11711,25 +13824,6 @@ export function usePickAxeSupply<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"_tokenIdCounter"`.
- */
-export function usePickAxeTokenIdCounter<
-  TFunctionName extends '_tokenIdCounter',
-  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: pickAxeABI,
-    functionName: '_tokenIdCounter',
-    ...config,
-  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"_treasuryAddress"`.
  */
 export function usePickAxeTreasuryAddress<
@@ -11749,6 +13843,25 @@ export function usePickAxeTreasuryAddress<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"allowInitializePath"`.
+ */
+export function usePickAxeAllowInitializePath<
+  TFunctionName extends 'allowInitializePath',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'allowInitializePath',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"balanceOf"`.
  */
 export function usePickAxeBalanceOf<
@@ -11763,6 +13876,44 @@ export function usePickAxeBalanceOf<
   return useContractRead({
     abi: pickAxeABI,
     functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"composeMsgSender"`.
+ */
+export function usePickAxeComposeMsgSender<
+  TFunctionName extends 'composeMsgSender',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'composeMsgSender',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"endpoint"`.
+ */
+export function usePickAxeEndpoint<
+  TFunctionName extends 'endpoint',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'endpoint',
     ...config,
   } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
 }
@@ -11825,6 +13976,44 @@ export function usePickAxeName<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"nextNonce"`.
+ */
+export function usePickAxeNextNonce<
+  TFunctionName extends 'nextNonce',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'nextNonce',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"oAppVersion"`.
+ */
+export function usePickAxeOAppVersion<
+  TFunctionName extends 'oAppVersion',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'oAppVersion',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"owner"`.
  */
 export function usePickAxeOwner<
@@ -11858,6 +14047,44 @@ export function usePickAxeOwnerOf<
   return useContractRead({
     abi: pickAxeABI,
     functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"peers"`.
+ */
+export function usePickAxePeers<
+  TFunctionName extends 'peers',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'peers',
+    ...config,
+  } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"quote"`.
+ */
+export function usePickAxeQuote<
+  TFunctionName extends 'quote',
+  TSelectData = ReadContractResult<typeof pickAxeABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: pickAxeABI,
+    functionName: 'quote',
     ...config,
   } as UseContractReadConfig<typeof pickAxeABI, TFunctionName, TSelectData>)
 }
@@ -12102,6 +14329,58 @@ export function usePickAxeInitialize<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePickAxeLzReceive<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pickAxeABI,
+          'lzReceive'
+        >['request']['abi'],
+        'lzReceive',
+        TMode
+      > & { functionName?: 'lzReceive' }
+    : UseContractWriteConfig<typeof pickAxeABI, 'lzReceive', TMode> & {
+        abi?: never
+        functionName?: 'lzReceive'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pickAxeABI, 'lzReceive', TMode>({
+    abi: pickAxeABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePickAxeLzSend<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pickAxeABI,
+          'lzSend'
+        >['request']['abi'],
+        'lzSend',
+        TMode
+      > & { functionName?: 'lzSend' }
+    : UseContractWriteConfig<typeof pickAxeABI, 'lzSend', TMode> & {
+        abi?: never
+        functionName?: 'lzSend'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pickAxeABI, 'lzSend', TMode>({
+    abi: pickAxeABI,
+    functionName: 'lzSend',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"mint"`.
  */
 export function usePickAxeMint<TMode extends WriteContractMode = undefined>(
@@ -12205,6 +14484,33 @@ export function usePickAxeSetApprovalForAll<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function usePickAxeSetBaseUri<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pickAxeABI,
+          'setBaseURI'
+        >['request']['abi'],
+        'setBaseURI',
+        TMode
+      > & { functionName?: 'setBaseURI' }
+    : UseContractWriteConfig<typeof pickAxeABI, 'setBaseURI', TMode> & {
+        abi?: never
+        functionName?: 'setBaseURI'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pickAxeABI, 'setBaseURI', TMode>({
+    abi: pickAxeABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setBoxAddress"`.
  */
 export function usePickAxeSetBoxAddress<
@@ -12232,6 +14538,33 @@ export function usePickAxeSetBoxAddress<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePickAxeSetDelegate<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pickAxeABI,
+          'setDelegate'
+        >['request']['abi'],
+        'setDelegate',
+        TMode
+      > & { functionName?: 'setDelegate' }
+    : UseContractWriteConfig<typeof pickAxeABI, 'setDelegate', TMode> & {
+        abi?: never
+        functionName?: 'setDelegate'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pickAxeABI, 'setDelegate', TMode>({
+    abi: pickAxeABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function usePickAxeSetGemsAddress<
@@ -12254,6 +14587,31 @@ export function usePickAxeSetGemsAddress<
   return useContractWrite<typeof pickAxeABI, 'setGemsAddress', TMode>({
     abi: pickAxeABI,
     functionName: 'setGemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePickAxeSetPeer<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pickAxeABI,
+          'setPeer'
+        >['request']['abi'],
+        'setPeer',
+        TMode
+      > & { functionName?: 'setPeer' }
+    : UseContractWriteConfig<typeof pickAxeABI, 'setPeer', TMode> & {
+        abi?: never
+        functionName?: 'setPeer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pickAxeABI, 'setPeer', TMode>({
+    abi: pickAxeABI,
+    functionName: 'setPeer',
     ...config,
   } as any)
 }
@@ -12444,6 +14802,38 @@ export function usePreparePickAxeInitialize(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePreparePickAxeLzReceive(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pickAxeABI, 'lzReceive'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pickAxeABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'lzReceive'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePreparePickAxeLzSend(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pickAxeABI, 'lzSend'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pickAxeABI,
+    functionName: 'lzSend',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'lzSend'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"mint"`.
  */
 export function usePreparePickAxeMint(
@@ -12508,6 +14898,22 @@ export function usePreparePickAxeSetApprovalForAll(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function usePreparePickAxeSetBaseUri(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pickAxeABI, 'setBaseURI'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pickAxeABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'setBaseURI'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setBoxAddress"`.
  */
 export function usePreparePickAxeSetBoxAddress(
@@ -12524,6 +14930,22 @@ export function usePreparePickAxeSetBoxAddress(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePreparePickAxeSetDelegate(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pickAxeABI, 'setDelegate'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pickAxeABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'setDelegate'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setGemsAddress"`.
  */
 export function usePreparePickAxeSetGemsAddress(
@@ -12537,6 +14959,22 @@ export function usePreparePickAxeSetGemsAddress(
     functionName: 'setGemsAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'setGemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePreparePickAxeSetPeer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pickAxeABI, 'setPeer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pickAxeABI,
+    functionName: 'setPeer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'setPeer'>)
 }
 
 /**
@@ -12651,6 +15089,22 @@ export function usePickAxeApprovalForAllEvent(
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pickAxeABI}__ and `eventName` set to `"CrosschainTransfer"`.
+ */
+export function usePickAxeCrosschainTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof pickAxeABI, 'CrosschainTransfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: pickAxeABI,
+    eventName: 'CrosschainTransfer',
+    ...config,
+  } as UseContractEventConfig<typeof pickAxeABI, 'CrosschainTransfer'>)
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pickAxeABI}__ and `eventName` set to `"Initialized"`.
  */
 export function usePickAxeInitializedEvent(
@@ -12680,6 +15134,22 @@ export function usePickAxeOwnershipTransferredEvent(
     eventName: 'OwnershipTransferred',
     ...config,
   } as UseContractEventConfig<typeof pickAxeABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link pickAxeABI}__ and `eventName` set to `"PeerSet"`.
+ */
+export function usePickAxePeerSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof pickAxeABI, 'PeerSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: pickAxeABI,
+    eventName: 'PeerSet',
+    ...config,
+  } as UseContractEventConfig<typeof pickAxeABI, 'PeerSet'>)
 }
 
 /**
@@ -13712,28 +16182,28 @@ export function useRaidsWrite<
 }
 
 /**
- * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"_returnLemon2"`.
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"_returnLemonCallback"`.
  */
-export function useRaidsReturnLemon2<
+export function useRaidsReturnLemonCallback<
   TMode extends WriteContractMode = undefined,
 >(
   config: TMode extends 'prepared'
     ? UseContractWriteConfig<
         PrepareWriteContractResult<
           typeof raidsABI,
-          '_returnLemon2'
+          '_returnLemonCallback'
         >['request']['abi'],
-        '_returnLemon2',
+        '_returnLemonCallback',
         TMode
-      > & { functionName?: '_returnLemon2' }
-    : UseContractWriteConfig<typeof raidsABI, '_returnLemon2', TMode> & {
+      > & { functionName?: '_returnLemonCallback' }
+    : UseContractWriteConfig<typeof raidsABI, '_returnLemonCallback', TMode> & {
         abi?: never
-        functionName?: '_returnLemon2'
+        functionName?: '_returnLemonCallback'
       } = {} as any,
 ) {
-  return useContractWrite<typeof raidsABI, '_returnLemon2', TMode>({
+  return useContractWrite<typeof raidsABI, '_returnLemonCallback', TMode>({
     abi: raidsABI,
-    functionName: '_returnLemon2',
+    functionName: '_returnLemonCallback',
     ...config,
   } as any)
 }
@@ -14045,19 +16515,19 @@ export function usePrepareRaidsWrite<TFunctionName extends string>(
 }
 
 /**
- * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"_returnLemon2"`.
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"_returnLemonCallback"`.
  */
-export function usePrepareRaidsReturnLemon2(
+export function usePrepareRaidsReturnLemonCallback(
   config: Omit<
-    UsePrepareContractWriteConfig<typeof raidsABI, '_returnLemon2'>,
+    UsePrepareContractWriteConfig<typeof raidsABI, '_returnLemonCallback'>,
     'abi' | 'functionName'
   > = {} as any,
 ) {
   return usePrepareContractWrite({
     abi: raidsABI,
-    functionName: '_returnLemon2',
+    functionName: '_returnLemonCallback',
     ...config,
-  } as UsePrepareContractWriteConfig<typeof raidsABI, '_returnLemon2'>)
+  } as UsePrepareContractWriteConfig<typeof raidsABI, '_returnLemonCallback'>)
 }
 
 /**
@@ -14523,6 +16993,25 @@ export function useShirtBalanceOf<
   return useContractRead({
     abi: shirtABI,
     functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link shirtABI}__ and `functionName` set to `"baseURI"`.
+ */
+export function useShirtBaseUri<
+  TFunctionName extends 'baseURI',
+  TSelectData = ReadContractResult<typeof shirtABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: shirtABI,
+    functionName: 'baseURI',
     ...config,
   } as UseContractReadConfig<typeof shirtABI, TFunctionName, TSelectData>)
 }
@@ -15029,6 +17518,25 @@ export function useStickerRead<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"allowInitializePath"`.
+ */
+export function useStickerAllowInitializePath<
+  TFunctionName extends 'allowInitializePath',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'allowInitializePath',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"balanceOf"`.
  */
 export function useStickerBalanceOf<
@@ -15043,6 +17551,44 @@ export function useStickerBalanceOf<
   return useContractRead({
     abi: stickerABI,
     functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"composeMsgSender"`.
+ */
+export function useStickerComposeMsgSender<
+  TFunctionName extends 'composeMsgSender',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'composeMsgSender',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"endpoint"`.
+ */
+export function useStickerEndpoint<
+  TFunctionName extends 'endpoint',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'endpoint',
     ...config,
   } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
 }
@@ -15143,6 +17689,44 @@ export function useStickerName<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"nextNonce"`.
+ */
+export function useStickerNextNonce<
+  TFunctionName extends 'nextNonce',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'nextNonce',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"oAppVersion"`.
+ */
+export function useStickerOAppVersion<
+  TFunctionName extends 'oAppVersion',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'oAppVersion',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"owner"`.
  */
 export function useStickerOwner<
@@ -15176,6 +17760,44 @@ export function useStickerOwnerOf<
   return useContractRead({
     abi: stickerABI,
     functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"peers"`.
+ */
+export function useStickerPeers<
+  TFunctionName extends 'peers',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'peers',
+    ...config,
+  } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"quote"`.
+ */
+export function useStickerQuote<
+  TFunctionName extends 'quote',
+  TSelectData = ReadContractResult<typeof stickerABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: stickerABI,
+    functionName: 'quote',
     ...config,
   } as UseContractReadConfig<typeof stickerABI, TFunctionName, TSelectData>)
 }
@@ -15390,6 +18012,58 @@ export function useStickerInitialize<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function useStickerLzReceive<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'lzReceive'
+        >['request']['abi'],
+        'lzReceive',
+        TMode
+      > & { functionName?: 'lzReceive' }
+    : UseContractWriteConfig<typeof stickerABI, 'lzReceive', TMode> & {
+        abi?: never
+        functionName?: 'lzReceive'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'lzReceive', TMode>({
+    abi: stickerABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function useStickerLzSend<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'lzSend'
+        >['request']['abi'],
+        'lzSend',
+        TMode
+      > & { functionName?: 'lzSend' }
+    : UseContractWriteConfig<typeof stickerABI, 'lzSend', TMode> & {
+        abi?: never
+        functionName?: 'lzSend'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'lzSend', TMode>({
+    abi: stickerABI,
+    functionName: 'lzSend',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"mint"`.
  */
 export function useStickerMint<TMode extends WriteContractMode = undefined>(
@@ -15493,6 +18167,60 @@ export function useStickerSetApprovalForAll<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function useStickerSetBaseUri<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'setBaseURI'
+        >['request']['abi'],
+        'setBaseURI',
+        TMode
+      > & { functionName?: 'setBaseURI' }
+    : UseContractWriteConfig<typeof stickerABI, 'setBaseURI', TMode> & {
+        abi?: never
+        functionName?: 'setBaseURI'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'setBaseURI', TMode>({
+    abi: stickerABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function useStickerSetDelegate<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'setDelegate'
+        >['request']['abi'],
+        'setDelegate',
+        TMode
+      > & { functionName?: 'setDelegate' }
+    : UseContractWriteConfig<typeof stickerABI, 'setDelegate', TMode> & {
+        abi?: never
+        functionName?: 'setDelegate'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'setDelegate', TMode>({
+    abi: stickerABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setItemsAddress"`.
  */
 export function useStickerSetItemsAddress<
@@ -15515,6 +18243,31 @@ export function useStickerSetItemsAddress<
   return useContractWrite<typeof stickerABI, 'setItemsAddress', TMode>({
     abi: stickerABI,
     functionName: 'setItemsAddress',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function useStickerSetPeer<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof stickerABI,
+          'setPeer'
+        >['request']['abi'],
+        'setPeer',
+        TMode
+      > & { functionName?: 'setPeer' }
+    : UseContractWriteConfig<typeof stickerABI, 'setPeer', TMode> & {
+        abi?: never
+        functionName?: 'setPeer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof stickerABI, 'setPeer', TMode>({
+    abi: stickerABI,
+    functionName: 'setPeer',
     ...config,
   } as any)
 }
@@ -15683,6 +18436,38 @@ export function usePrepareStickerInitialize(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePrepareStickerLzReceive(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'lzReceive'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'lzReceive'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePrepareStickerLzSend(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'lzSend'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'lzSend',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'lzSend'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"mint"`.
  */
 export function usePrepareStickerMint(
@@ -15747,6 +18532,38 @@ export function usePrepareStickerSetApprovalForAll(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function usePrepareStickerSetBaseUri(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'setBaseURI'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'setBaseURI'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePrepareStickerSetDelegate(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'setDelegate'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'setDelegate'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setItemsAddress"`.
  */
 export function usePrepareStickerSetItemsAddress(
@@ -15760,6 +18577,22 @@ export function usePrepareStickerSetItemsAddress(
     functionName: 'setItemsAddress',
     ...config,
   } as UsePrepareContractWriteConfig<typeof stickerABI, 'setItemsAddress'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link stickerABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePrepareStickerSetPeer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof stickerABI, 'setPeer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: stickerABI,
+    functionName: 'setPeer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof stickerABI, 'setPeer'>)
 }
 
 /**
@@ -15858,6 +18691,22 @@ export function useStickerApprovalForAllEvent(
 }
 
 /**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"CrosschainTransfer"`.
+ */
+export function useStickerCrosschainTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'CrosschainTransfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'CrosschainTransfer',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'CrosschainTransfer'>)
+}
+
+/**
  * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"Initialized"`.
  */
 export function useStickerInitializedEvent(
@@ -15887,6 +18736,22 @@ export function useStickerOwnershipTransferredEvent(
     eventName: 'OwnershipTransferred',
     ...config,
   } as UseContractEventConfig<typeof stickerABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link stickerABI}__ and `eventName` set to `"PeerSet"`.
+ */
+export function useStickerPeerSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof stickerABI, 'PeerSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: stickerABI,
+    eventName: 'PeerSet',
+    ...config,
+  } as UseContractEventConfig<typeof stickerABI, 'PeerSet'>)
 }
 
 /**
