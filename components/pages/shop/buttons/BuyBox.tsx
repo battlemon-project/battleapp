@@ -50,7 +50,6 @@ export default function BuyBox({ boxType }: BuyBoxProps) {
         { buyBoxStatus == 'loading' || buyBoxStatus == 'process' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
-            <span className='fs-17 fst-italic pe-2'>{boxType} Box </span>
             <span className='fs-15'><PolSymbol>{boxPrices[boxType]} {chain?.nativeCurrency.symbol}</PolSymbol></span>
           </div>
         }

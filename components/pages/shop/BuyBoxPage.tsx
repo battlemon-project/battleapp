@@ -49,12 +49,12 @@ export default function BuyBoxPage() {
       const { data: logData, topics } = data.payload.data.eventUsers._entity
 
       const decoded = decodeEventLog({
-        abi: parseAbi(['event Prize(bytes32, address, uint)']),
+        abi: parseAbi(['event Prize(uint, bytes32, address, uint)']),
         data: logData,
         topics: topics
       })
       console.log(decoded)
-      const prize = prizes[Number(decoded.args[2])]
+      const prize = prizes[Number(decoded.args[3])]
       setPrize(prize)
     }
     
