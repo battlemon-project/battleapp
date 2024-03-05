@@ -7,6 +7,7 @@ import { useLemonStore } from "../store/lemonStore";
 import { useEffect } from "react";
 import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
+import LemonDungeonButton from "../buttons/LemonDungeonButton";
 
 interface LemonStartProps {
   balance: number
@@ -47,7 +48,8 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>
+          {selectedLemons[0] && <LemonDungeonButton lemonId={selectedLemons[0].tokenId}/>}
+          {!selectedLemons[0] && <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>}
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link href="/shop/lemon" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
