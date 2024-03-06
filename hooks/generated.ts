@@ -881,6 +881,16 @@ export const gemABI = [
     outputs: [],
   },
   {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'level', internalType: 'uint8', type: 'uint8' },
+    ],
+    name: 'airdrop',
+    outputs: [],
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [
@@ -1793,6 +1803,18 @@ export const itemABI = [
     outputs: [],
   },
   {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'randomType', internalType: 'uint8', type: 'uint8' },
+      { name: 'stats', internalType: 'uint8[3]', type: 'uint8[3]' },
+      { name: 'dna', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'airdrop',
+    outputs: [],
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [
@@ -1907,7 +1929,7 @@ export const itemABI = [
     outputs: [
       {
         name: '',
-        internalType: 'struct IItems.Metadata',
+        internalType: 'struct IBattlemonItems.Metadata',
         type: 'tuple',
         components: [
           { name: 'isEquipped', internalType: 'bool', type: 'bool' },
@@ -2539,7 +2561,7 @@ export const lemonABI = [
       },
       {
         name: 'lemonData',
-        internalType: 'struct Lemons.Metadata',
+        internalType: 'struct Battlemon.Metadata',
         type: 'tuple',
         components: [
           { name: 'level', internalType: 'uint8', type: 'uint8' },
@@ -2559,7 +2581,7 @@ export const lemonABI = [
       },
       {
         name: 'itemsMetadata',
-        internalType: 'struct IItems.Metadata[10]',
+        internalType: 'struct IBattlemonItems.Metadata[10]',
         type: 'tuple[10]',
         components: [
           { name: 'isEquipped', internalType: 'bool', type: 'bool' },
@@ -2691,6 +2713,16 @@ export const lemonABI = [
     type: 'function',
     inputs: [{ name: 'users', internalType: 'address[]', type: 'address[]' }],
     name: 'addToWhitelist',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'dna', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'airdrop',
     outputs: [],
   },
   {
@@ -3368,7 +3400,7 @@ export const pickAxeABI = [
       },
       {
         name: 'rank',
-        internalType: 'enum Pickaxe.Rank',
+        internalType: 'enum BattlemonPickaxe.Rank',
         type: 'uint8',
         indexed: false,
       },
@@ -3519,7 +3551,9 @@ export const pickAxeABI = [
     type: 'function',
     inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     name: '_ranks',
-    outputs: [{ name: '', internalType: 'enum Pickaxe.Rank', type: 'uint8' }],
+    outputs: [
+      { name: '', internalType: 'enum BattlemonPickaxe.Rank', type: 'uint8' },
+    ],
   },
   {
     stateMutability: 'view',
@@ -3538,7 +3572,9 @@ export const pickAxeABI = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: '', internalType: 'enum Pickaxe.Rank', type: 'uint8' }],
+    inputs: [
+      { name: '', internalType: 'enum BattlemonPickaxe.Rank', type: 'uint8' },
+    ],
     name: '_supply',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
@@ -3548,6 +3584,20 @@ export const pickAxeABI = [
     inputs: [],
     name: '_treasuryAddress',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      {
+        name: '_type',
+        internalType: 'enum BattlemonPickaxe.Rank',
+        type: 'uint8',
+      },
+    ],
+    name: 'airdrop',
+    outputs: [],
   },
   {
     stateMutability: 'view',
@@ -3713,7 +3763,11 @@ export const pickAxeABI = [
     type: 'function',
     inputs: [
       { name: 'to', internalType: 'address', type: 'address' },
-      { name: 'rank', internalType: 'enum Pickaxe.Rank', type: 'uint8' },
+      {
+        name: 'rank',
+        internalType: 'enum BattlemonPickaxe.Rank',
+        type: 'uint8',
+      },
     ],
     name: 'mint',
     outputs: [],
@@ -3793,7 +3847,9 @@ export const pickAxeABI = [
     type: 'function',
     inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
     name: 'rankOf',
-    outputs: [{ name: '', internalType: 'enum Pickaxe.Rank', type: 'uint8' }],
+    outputs: [
+      { name: '', internalType: 'enum BattlemonPickaxe.Rank', type: 'uint8' },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -3898,7 +3954,11 @@ export const pickAxeABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [
-      { name: 'rank', internalType: 'enum Pickaxe.Rank', type: 'uint8' },
+      {
+        name: 'rank',
+        internalType: 'enum BattlemonPickaxe.Rank',
+        type: 'uint8',
+      },
     ],
     name: 'supplyOf',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
@@ -4131,6 +4191,49 @@ export const raidsABI = [
     anonymous: false,
     inputs: [
       {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'lemonId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'raidType',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
+      {
+        name: 'raidId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'startTimestamp',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'finishTimestamp',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'NewRaid',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
         name: 'previousOwner',
         internalType: 'address',
         type: 'address',
@@ -4150,6 +4253,12 @@ export const raidsABI = [
     anonymous: false,
     inputs: [
       { name: 'id', internalType: 'uint256', type: 'uint256', indexed: false },
+      {
+        name: 'raidType',
+        internalType: 'uint8',
+        type: 'uint8',
+        indexed: false,
+      },
       {
         name: 'raider',
         internalType: 'address',
@@ -4232,6 +4341,31 @@ export const raidsABI = [
     outputs: [{ name: '', internalType: 'bytes32', type: 'bytes32' }],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'lemonId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getRaidByLemonId',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct BattlemonRaids.Raid',
+        type: 'tuple',
+        components: [
+          { name: 'startTimestamp', internalType: 'uint256', type: 'uint256' },
+          { name: 'finishTimestamp', internalType: 'uint256', type: 'uint256' },
+          { name: 'lemonId', internalType: 'uint256', type: 'uint256' },
+          { name: 'agility', internalType: 'uint256', type: 'uint256' },
+          { name: 'speed', internalType: 'uint256', type: 'uint256' },
+          { name: 'luck', internalType: 'uint256', type: 'uint256' },
+          { name: 'raider', internalType: 'address', type: 'address' },
+          { name: 'raidType', internalType: 'uint8', type: 'uint8' },
+          { name: 'isRandomRequested', internalType: 'bool', type: 'bool' },
+          { name: 'isFinished', internalType: 'bool', type: 'bool' },
+        ],
+      },
+    ],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
@@ -4260,14 +4394,25 @@ export const raidsABI = [
     type: 'function',
     inputs: [],
     name: 'items',
-    outputs: [{ name: '', internalType: 'contract IItems', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract IBattlemonItems', type: 'address' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'lemonIdToRaidId',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
     stateMutability: 'view',
     type: 'function',
     inputs: [],
     name: 'lemons',
-    outputs: [{ name: '', internalType: 'contract Lemons', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract Battlemon', type: 'address' },
+    ],
   },
   {
     stateMutability: 'view',
@@ -4288,7 +4433,9 @@ export const raidsABI = [
     type: 'function',
     inputs: [],
     name: 'points',
-    outputs: [{ name: '', internalType: 'contract Points', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract BattlemonPoints', type: 'address' },
+    ],
   },
   {
     stateMutability: 'view',
@@ -4425,7 +4572,9 @@ export const raidsABI = [
     type: 'function',
     inputs: [],
     name: 'stickers',
-    outputs: [{ name: '', internalType: 'contract Stickers', type: 'address' }],
+    outputs: [
+      { name: '', internalType: 'contract BattlemonStickers', type: 'address' },
+    ],
   },
   {
     stateMutability: 'nonpayable',
@@ -7857,6 +8006,28 @@ export function useGemAddSenderToWhitelist<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function useGemAirdrop<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof gemABI, 'airdrop'>['request']['abi'],
+        'airdrop',
+        TMode
+      > & { functionName?: 'airdrop' }
+    : UseContractWriteConfig<typeof gemABI, 'airdrop', TMode> & {
+        abi?: never
+        functionName?: 'airdrop'
+      } = {} as any,
+) {
+  return useContractWrite<typeof gemABI, 'airdrop', TMode>({
+    abi: gemABI,
+    functionName: 'airdrop',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"approve"`.
  */
 export function useGemApprove<TMode extends WriteContractMode = undefined>(
@@ -8337,6 +8508,22 @@ export function usePrepareGemAddSenderToWhitelist(
     functionName: 'addSenderToWhitelist',
     ...config,
   } as UsePrepareContractWriteConfig<typeof gemABI, 'addSenderToWhitelist'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link gemABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function usePrepareGemAirdrop(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof gemABI, 'airdrop'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: gemABI,
+    functionName: 'airdrop',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof gemABI, 'airdrop'>)
 }
 
 /**
@@ -9991,6 +10178,28 @@ export function useItemAddToWhiteList<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function useItemAirdrop<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<typeof itemABI, 'airdrop'>['request']['abi'],
+        'airdrop',
+        TMode
+      > & { functionName?: 'airdrop' }
+    : UseContractWriteConfig<typeof itemABI, 'airdrop', TMode> & {
+        abi?: never
+        functionName?: 'airdrop'
+      } = {} as any,
+) {
+  return useContractWrite<typeof itemABI, 'airdrop', TMode>({
+    abi: itemABI,
+    functionName: 'airdrop',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"approve"`.
  */
 export function useItemApprove<TMode extends WriteContractMode = undefined>(
@@ -10757,6 +10966,22 @@ export function usePrepareItemAddToWhiteList(
     functionName: 'addToWhiteList',
     ...config,
   } as UsePrepareContractWriteConfig<typeof itemABI, 'addToWhiteList'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link itemABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function usePrepareItemAirdrop(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof itemABI, 'airdrop'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: itemABI,
+    functionName: 'airdrop',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof itemABI, 'airdrop'>)
 }
 
 /**
@@ -12266,6 +12491,31 @@ export function useLemonAddToWhitelist<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function useLemonAirdrop<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lemonABI,
+          'airdrop'
+        >['request']['abi'],
+        'airdrop',
+        TMode
+      > & { functionName?: 'airdrop' }
+    : UseContractWriteConfig<typeof lemonABI, 'airdrop', TMode> & {
+        abi?: never
+        functionName?: 'airdrop'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lemonABI, 'airdrop', TMode>({
+    abi: lemonABI,
+    functionName: 'airdrop',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"approve"`.
  */
 export function useLemonApprove<TMode extends WriteContractMode = undefined>(
@@ -12943,6 +13193,22 @@ export function usePrepareLemonAddToWhitelist(
     functionName: 'addToWhitelist',
     ...config,
   } as UsePrepareContractWriteConfig<typeof lemonABI, 'addToWhitelist'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function usePrepareLemonAirdrop(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lemonABI, 'airdrop'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lemonABI,
+    functionName: 'airdrop',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lemonABI, 'airdrop'>)
 }
 
 /**
@@ -14227,6 +14493,31 @@ export function usePickAxeWrite<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function usePickAxeAirdrop<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof pickAxeABI,
+          'airdrop'
+        >['request']['abi'],
+        'airdrop',
+        TMode
+      > & { functionName?: 'airdrop' }
+    : UseContractWriteConfig<typeof pickAxeABI, 'airdrop', TMode> & {
+        abi?: never
+        functionName?: 'airdrop'
+      } = {} as any,
+) {
+  return useContractWrite<typeof pickAxeABI, 'airdrop', TMode>({
+    abi: pickAxeABI,
+    functionName: 'airdrop',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"approve"`.
  */
 export function usePickAxeApprove<TMode extends WriteContractMode = undefined>(
@@ -14735,6 +15026,22 @@ export function usePreparePickAxeWrite<TFunctionName extends string>(
     abi: pickAxeABI,
     ...config,
   } as UsePrepareContractWriteConfig<typeof pickAxeABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link pickAxeABI}__ and `functionName` set to `"airdrop"`.
+ */
+export function usePreparePickAxeAirdrop(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof pickAxeABI, 'airdrop'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: pickAxeABI,
+    functionName: 'airdrop',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof pickAxeABI, 'airdrop'>)
 }
 
 /**
@@ -15836,6 +16143,25 @@ export function useRaidsEndpointIdUint256<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"getRaidByLemonId"`.
+ */
+export function useRaidsGetRaidByLemonId<
+  TFunctionName extends 'getRaidByLemonId',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'getRaidByLemonId',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"itemDropChance"`.
  */
 export function useRaidsItemDropChance<
@@ -15869,6 +16195,25 @@ export function useRaidsItems<
   return useContractRead({
     abi: raidsABI,
     functionName: 'items',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"lemonIdToRaidId"`.
+ */
+export function useRaidsLemonIdToRaidId<
+  TFunctionName extends 'lemonIdToRaidId',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'lemonIdToRaidId',
     ...config,
   } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
 }
@@ -16735,6 +17080,22 @@ export function useRaidsInitializedEvent(
     eventName: 'Initialized',
     ...config,
   } as UseContractEventConfig<typeof raidsABI, 'Initialized'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link raidsABI}__ and `eventName` set to `"NewRaid"`.
+ */
+export function useRaidsNewRaidEvent(
+  config: Omit<
+    UseContractEventConfig<typeof raidsABI, 'NewRaid'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: raidsABI,
+    eventName: 'NewRaid',
+    ...config,
+  } as UseContractEventConfig<typeof raidsABI, 'NewRaid'>)
 }
 
 /**

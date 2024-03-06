@@ -2,22 +2,22 @@ import { NftMetaData } from 'lemon';
 
 const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dummyImage: string }} = {
   [process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_POLYGON_STORAGE_URL}/v1/items/`,
+    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL}/v1/items/`,
     providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS}`,
     dummyImage: '/images/hub/empty-item.png'
   },
   [process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_POLYGON_STORAGE_URL}/v1/lemons/`,
+    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL}/v1/lemons/`,
     providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS}`,
     dummyImage: '/images/hub/empty-lemon.png'
   },
   [process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_LINEA_STORAGE_URL}/v1/items/`,
+    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_LINEA_URL}/v1/items/`,
     providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS}`,
     dummyImage: '/images/hub/empty-item.png'
   },
   [process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_LINEA_STORAGE_URL}/v1/lemons/`,
+    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_LINEA_URL}/v1/lemons/`,
     providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS}`,
     dummyImage: '/images/hub/empty-lemon.png'
   }

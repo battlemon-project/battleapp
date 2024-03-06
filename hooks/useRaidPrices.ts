@@ -8,9 +8,9 @@ export function useRaidPrices() {
   console.log('render useRaidPrices')
   const { chain } = useNetwork()
   const [ prices, setPrices ] = useState<PricesType>([
-    process.env.NEXT_PUBLIC_RAID_POLYGON_PRICE!,
-    process.env.NEXT_PUBLIC_RAID_POLYGON_PRICE!,
-    process.env.NEXT_PUBLIC_RAID_POLYGON_PRICE!
+    process.env.NEXT_PUBLIC_PRICE_POLYGON_RAID!,
+    process.env.NEXT_PUBLIC_PRICE_POLYGON_RAID!,
+    process.env.NEXT_PUBLIC_PRICE_POLYGON_RAID!
   ])
   
   useEffect(() => {
@@ -18,17 +18,17 @@ export function useRaidPrices() {
 
     if (chain.name.includes('Polygon')) {
       setPrices([
-        process.env.NEXT_PUBLIC_RAID_POLYGON_PRICE!,
-        process.env.NEXT_PUBLIC_RAID_POLYGON_PRICE!,
-        process.env.NEXT_PUBLIC_RAID_POLYGON_PRICE!
+        process.env.NEXT_PUBLIC_PRICE_POLYGON_RAID!,
+        process.env.NEXT_PUBLIC_PRICE_POLYGON_RAID!,
+        process.env.NEXT_PUBLIC_PRICE_POLYGON_RAID!
       ])
     }
     
     if (chain.name.includes('Linea')) {
       setPrices([
-        process.env.NEXT_PUBLIC_RAID_LINEA_PRICE!,
-        process.env.NEXT_PUBLIC_RAID_LINEA_PRICE!,
-        process.env.NEXT_PUBLIC_RAID_LINEA_PRICE!
+        process.env.NEXT_PUBLIC_PRICE_LINEA_RAID!,
+        process.env.NEXT_PUBLIC_PRICE_LINEA_RAID!,
+        process.env.NEXT_PUBLIC_PRICE_LINEA_RAID!
       ])
     }
 
