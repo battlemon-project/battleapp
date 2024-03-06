@@ -293,3 +293,8 @@ canvas {
 .fw-semi, .fw-semibold {
   font-weight: 500;
 }
+
+.token-link-list .disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

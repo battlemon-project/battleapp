@@ -12,6 +12,7 @@ interface TokensListProps {
   height: number
   colWidth?: number
   selectedTokens: (NftMetaData | undefined)[]
+  disabledTokens?: (NftMetaData | undefined)[]
   isNextPage?: boolean
   contract?: string
   withGenerator?: boolean
@@ -19,7 +20,7 @@ interface TokensListProps {
   onClick: (token: NftMetaData) => void
 }
 
-export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, isNextPage, contract, withGenerator, onClick, chainId }: TokensListProps) {
+export default function TokensList({ tokens, isValidating, colWidth = 20, height, selectedTokens, isNextPage, contract, withGenerator, onClick, chainId, disabledTokens }: TokensListProps) {
   if (isValidating) {
     return <div className='d-flex flex-column justify-content-center' style={{height}}>
       <div className="spinner-border text-light mx-auto" style={{ width: '3rem', height: '3rem' }} />
@@ -38,11 +39,11 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
         <div className="row gx-2">
           {tokens.map((token, idx)=> {
             return <Fragment key={idx}>
-              <div className='col-auto mb-2' style={{width: colWidth + '%'}}>
+              <div className='col-auto mb-2 token-link-list' style={{width: colWidth + '%'}}>
                 {withGenerator ? 
-                  <TokenLinkGenerator token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} />
+                  <TokenLinkGenerator token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} isDisabled={disabledTokens?.map(t => t?.tokenId).includes(token.tokenId)} />
                 : 
-                  <TokenLink token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} />
+                  <TokenLink token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} isDisabled={disabledTokens?.map(t => t?.tokenId).includes(token.tokenId)} />
                 }
                 
               </div>

@@ -11,9 +11,10 @@ interface NextTokenProps {
   onClick: (token: NftMetaData) => void
   token: NftMetaData
   isSelected: boolean
+  isDisabled: boolean | undefined
 }
 
-export default function TokenLinkGenerator({ onClick, token: defaultToken, isSelected }: NextTokenProps) {
+export default function TokenLinkGenerator({ onClick, token: defaultToken, isSelected, isDisabled }: NextTokenProps) {
   const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
   const { cache, mutate } = useSWRConfig()
   const { stage, selectLemon } = useLemonStore()
@@ -91,7 +92,7 @@ export default function TokenLinkGenerator({ onClick, token: defaultToken, isSel
   }
 
   return (<>
-    <div className={cn('rounded-4 position-relative', styles.itemBg, { [styles.itemBgActive]: isSelected })} onClick={handleClick(token)}>
+    <div className={cn('rounded-4 position-relative', styles.itemBg, { [styles.itemBgActive]: isSelected, 'disabled': isDisabled })} onClick={handleClick(token)}>
       <img src={token.image} className="img-fluid" height="512" width="512" />
       {loader && <div className="spinner-border spinner-border-md position-absolute" role="status" style={{margin: '-17px 0 0 -15px', left: '50%', top: '50%'}}></div>}
     </div>

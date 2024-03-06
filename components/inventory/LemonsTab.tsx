@@ -14,12 +14,13 @@ import LemonEquipedItems from './stages/LemonEquipedItems';
 import useWindowSize from 'hooks/useWindowSize';
 import NftProps from './layout/NftProps';
 import { useContract } from 'hooks/useContract';
-import { useNetwork } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 
 export default function LemonsTab() {
   const { chain } = useNetwork()
   const lemonsContract = useContract('LEMONS')
   const itemsContract = useContract('ITEMS')
+  const { address }  = useAccount();
   const size = useWindowSize()
   const { selectedLemons, stage } = useLemonStore()
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
@@ -47,8 +48,8 @@ export default function LemonsTab() {
       {chain && stage == 'EquipedItems' && <div className={cn({'d-none': stage !== 'EquipedItems'})}>
         <LemonEquipedItems contract={lemonsContract!} chainId={chain.id} />
       </div>}
-      {chain && stage == 'Bridge' && <div className={cn({'d-none': stage !== 'Bridge'})}>
-        <LemonBridge chainId={chain.id} />
+      {chain && stage == 'Bridge' && selectedLemons[0] && address && <div className={cn({'d-none': stage !== 'Bridge'})}>
+        <LemonBridge chainId={chain.id} token={selectedLemons[0]} address={address} />
       </div>}
       
     </div>
