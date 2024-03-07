@@ -8,6 +8,7 @@ import { useState } from 'react';
 import ItemBridgeButton from '../buttons/ItemBridgeButton';
 import { BridgeItemArray } from 'hooks/useLayerZeroQuoteItem';
 import { bridgeChains } from 'hooks/useLayerZeroQuoteLemon';
+import { versionItemsPlaces } from 'utils/properties';
 
 interface ItemBridgeProps {
   chainId: number,
@@ -19,14 +20,15 @@ export default function ItemBridge({ chainId, token, address }: ItemBridgeProps)
   const { changeStage } = useItemStore()
   const dataArray: BridgeItemArray = [
     address, 
-    BigInt(token.tokenId), 
-    token.properties.type.includes('lfa') ? 0 : 1, 
+    BigInt(token.tokenId),
+    versionItemsPlaces['0xc2'].indexOf(token.properties.type), 
     token.properties.level,
     BigInt(token.properties.agility), 
     BigInt(token.properties.speed), 
     BigInt(token.properties.luck),
     token.properties.dna as `0x${string}`
   ]
+  console.log(dataArray)
   const [ selectedChain, setSelectedChain ] = useState<NftMetaData>()
 
   const handleSelect = (token: NftMetaData) => {
