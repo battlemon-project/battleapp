@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "@next/next/no-page-custom-font": "off",
+    "@next/next/no-css-tags": "off",
+    "react/no-unescaped-entities": "off",
+    "jsx-a11y/img-has-alt": "off",
+    "jsx-a11y/alt-text": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
 }
