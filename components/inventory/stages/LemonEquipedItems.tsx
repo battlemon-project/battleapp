@@ -20,7 +20,8 @@ export default function LemonEquipedItems({ contract, chainId }: LemonEquipedIte
   const { selectItem, selectedItems, changeStage, selectedLemons, updateStore } = useLemonStore()
 
   useEffect(() => {
-    getFromStorage({ 
+    getFromStorage({
+      type: 'lemon',
       contract, 
       tokenId: selectedLemons[0].tokenId 
     }).then(data => {

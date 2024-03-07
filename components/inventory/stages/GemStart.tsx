@@ -25,7 +25,7 @@ export default function GemStart({ balance, chainId }: GemStartProps) {
 
   const { data, mutate, isValidating } = useSWR(
     NEXT_PUBLIC_CONTRACT_GEMS, 
-    simpleFetcher({ pageSize: 100, chainId })
+    simpleFetcher({ type: 'gem', pageSize: 100, chainId })
   )
 
   useEffect(() => {

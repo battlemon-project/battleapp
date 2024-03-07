@@ -51,7 +51,7 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
           })}
         </div>
         <div>
-          {isNextPage && contract && <LoadMore contract={contract} chainId={chainId} />}
+          {isNextPage && contract && <LoadMore contract={contract} chainId={chainId} type='lemon' />}
         </div>
       </div>
     </div>

@@ -1,25 +1,29 @@
 import { NftMetaData } from 'lemon';
 
-const tokenTypes: {[key: string]: { storageUrl: string, providerUrl: string, dummyImage: string }} = {
-  [process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL}/v1/items/`,
-    providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS}`,
-    dummyImage: '/images/hub/empty-item.png'
-  },
-  [process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL}/v1/lemons/`,
-    providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS}`,
-    dummyImage: '/images/hub/empty-lemon.png'
-  },
-  [process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_LINEA_URL}/v1/items/`,
-    providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS}`,
-    dummyImage: '/images/hub/empty-item.png'
-  },
-  [process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS!]: {
-    storageUrl: `${process.env.NEXT_PUBLIC_STORAGE_LINEA_URL}/v1/lemons/`,
-    providerUrl: `/api/graph/tokens?contract=${process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS}`,
-    dummyImage: '/images/hub/empty-lemon.png'
+export type FetcherTypes = 'lemon' | 'item' | 'gem' | 'pickaxe' | 'sticker'
+
+
+function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string, providerUrl: string, dummyImage: string }) {
+  let provider: string | undefined;
+  let storage: string | undefined;
+  if ([
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS, 
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS
+  ].includes(contract)) {
+    provider = 'provider'
+    storage = process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL;
+  } else if ([
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS
+  ].includes(contract)) {
+    provider = 'graph'
+    storage = process.env.NEXT_PUBLIC_STORAGE_LINEA_URL;
+  }
+  
+  return {
+    storageUrl: `${storage}/v1/${type}s/`,
+    providerUrl: `/api/${provider}/tokens?contract=${contract}`,
+    dummyImage: `/images/hub/empty-${type}.png`
   }
 }
 
@@ -38,24 +42,25 @@ export interface UseFetcherProps {
   pageSize: number
   pageKey?: string
   chainId: number
+  type: FetcherTypes
 }
 
-export const getFromStorage = async ({ contract, tokenId }: { contract: string, tokenId: number }) => {
-  const { storageUrl } = tokenTypes[contract];
+export const getFromStorage = async ({ type, contract, tokenId }: { type: FetcherTypes, contract: string, tokenId: number }) => {
+  const { storageUrl } = tokenTypes(type, contract);
   const res = await fetch(storageUrl + tokenId)
   const json: NftMetaData = await res.json()
   json.tokenId = tokenId;
   return json;
 }
 
-export const fetcher = ({ pageSize, pageKey, chainId }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
-  const { providerUrl, storageUrl, dummyImage } = tokenTypes[contract];
+export const fetcher = ({ type, pageSize, pageKey, chainId }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+  const { providerUrl, dummyImage } = tokenTypes(type, contract);
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&chainId=${chainId}`);
   const providerData: ProviderData = await providerResponse.json();
 
   const f = async (tokenId: number) => {
     try {
-      return await getFromStorage({ contract, tokenId });
+      return await getFromStorage({ type, contract, tokenId });
     } catch(e) {
       const empty: NftMetaData = {
         tokenId: -1*tokenId,
@@ -72,8 +77,8 @@ export const fetcher = ({ pageSize, pageKey, chainId }: UseFetcherProps) => asyn
   }
 }
  
-export const simpleFetcher = ({ pageSize, pageKey, chainId }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
-  const providerUrl = `/api/graph/tokens?contract=${contract}`;
+export const simpleFetcher = ({ type, pageSize, pageKey, chainId }: UseFetcherProps) => async (contract: string): Promise<UseFetcherResult> => {
+  const { providerUrl } = tokenTypes(type, contract);
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&chainId=${chainId}&withMetadata=true`);
   const providerData: ProviderData = await providerResponse.json();
   console.log(providerData)

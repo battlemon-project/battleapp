@@ -15,17 +15,18 @@ interface ItemStartProps {
 }
 
 export default function ItemStart({ balance, contract, chainId }: ItemStartProps) {
-  const { selectedItems, selectItem, changeStage } = useItemStore();
+  const { selectedItems, selectItem, changeStage, stage } = useItemStore();
 
   const { data, mutate, isValidating } = useSWR(
     contract, 
-    fetcher({ pageSize: 100, chainId })
+    fetcher({ type: 'item', pageSize: 100, chainId })
   )
 
   useEffect(() => {
-    if (!balance) return
+    if (!balance) return;
+    if (stage !== 'Start') return;
     mutate();
-  }, [balance])
+  }, [balance, stage])
 
   return (<>
     <TabsLayout>

@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 import { useLayerZeroBridgeLemon } from 'hooks/useLayerZeroBridgeLemon';
-import type { BridgeLemonArray } from 'hooks/useLayerZeroQuoteLemon'
+import type { BridgeLemonArray } from 'hooks/useLayerZeroQuoteLemon';
+import { useLemonStore } from '../store/lemonStore';
 
 interface LemonBridgeProps {
   tokenId: number,
@@ -11,6 +11,7 @@ interface LemonBridgeProps {
 }
 
 export default function LemonBridgeButton({ tokenId, dataArray, chainId }: LemonBridgeProps) {
+  const { updateStore } = useLemonStore();
   const { lemonBridge, lemonBridgeStatus } = useLayerZeroBridgeLemon({
     tokenId,
     dataArray,
@@ -22,7 +23,8 @@ export default function LemonBridgeButton({ tokenId, dataArray, chainId }: Lemon
   }
 
   useEffect(() => {
-    console.log('bridge status', lemonBridgeStatus)
+    if (lemonBridgeStatus !== 'success') return;
+    updateStore({ selectedLemons: [], stage: 'Start' })
   }, [lemonBridgeStatus])
 
 

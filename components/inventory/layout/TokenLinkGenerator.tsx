@@ -66,12 +66,13 @@ export default function TokenLinkGenerator({ onClick, token: defaultToken, isSel
   }, [token.image])
   
   const refetchLemonData = async (contract: string, lemon: NftMetaData) => {
-    const { data } = cache.get(contract) as SWRResponse<UseFetcherResult>
+    if (!contract) return;
+    const { data } = cache?.get(contract) as SWRResponse<UseFetcherResult>
     if (!data) return
     const index = data?.tokens.findIndex(token => {
       return token.tokenId == lemon.tokenId
     })
-    const _lemon = await getFromStorage({ contract, tokenId: lemon.tokenId })
+    const _lemon = await getFromStorage({ type: 'lemon', contract, tokenId: lemon.tokenId })
     data.tokens[index] = _lemon
     await mutate(contract, {
       ...data

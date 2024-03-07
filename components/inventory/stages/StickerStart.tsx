@@ -21,7 +21,7 @@ export default function StickerStart({ balance, chainId }: StickerStartProps) {
 
   const { data, mutate, isValidating } = useSWR(
     NEXT_PUBLIC_CONTRACT_STICKERS, 
-    simpleFetcher({ pageSize: 100, chainId })
+    simpleFetcher({ type: 'sticker' ,pageSize: 100, chainId })
   )
 
   useEffect(() => {

@@ -20,7 +20,7 @@ export default function LemonAllItems({ balance, contract, chainId }: LemonAllIt
 
   const { data, mutate, isValidating } = useSWR(
     contract, 
-    fetcher({ pageSize: 100, chainId })
+    fetcher({ type: 'item', pageSize: 100, chainId })
   )
 
   useEffect(() => {

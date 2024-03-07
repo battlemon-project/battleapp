@@ -16,17 +16,18 @@ interface LemonStartProps {
 }
 
 export default function LemonStart({ balance, contract, chainId }: LemonStartProps) {
-  const { selectedLemons, selectLemon, changeStage } = useLemonStore();
+  const { selectedLemons, selectLemon, changeStage, stage } = useLemonStore();
 
   const { data, mutate, isValidating } = useSWR(
     contract, 
-    fetcher({ pageSize: 100, chainId })
+    fetcher({ type: 'lemon', pageSize: 100, chainId })
   )
 
   useEffect(() => {
-    if (!balance) return
+    if (!balance) return;
+    if (stage !== 'Start') return;
     mutate();
-  }, [balance])
+  }, [balance, stage])
 
   return (<>
     <TabsLayout>

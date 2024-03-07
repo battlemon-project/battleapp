@@ -22,7 +22,7 @@ export default function PickaxeStart({ balance, chainId }: PickaxeStartProps) {
   
   const { data, mutate, isValidating } = useSWR(
     NEXT_PUBLIC_CONTRACT_PICKAXES, 
-    simpleFetcher({ pageSize: 100, chainId })
+    simpleFetcher({ type: 'pickaxe', pageSize: 100, chainId })
   )
 
   useEffect(() => {
