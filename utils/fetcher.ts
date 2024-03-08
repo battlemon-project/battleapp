@@ -33,7 +33,7 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
 }
 
 export interface ProviderData {
-  ownedNfts: { tokenId: number, tokenUri: string, inDungeon?: boolean }[]
+  ownedNfts: { tokenId: number, tokenUri: string, dungeonSenderId?: string }[]
   pageKey: string | undefined
   totalCount: number
 }
@@ -63,22 +63,22 @@ export const fetcher = ({ type, pageSize, pageKey, chainId }: UseFetcherProps) =
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&chainId=${chainId}`);
   const providerData: ProviderData = await providerResponse.json();
 
-  const f = async (tokenId: number, inDungeon?: boolean) => {
+  const f = async (tokenId: number, dungeonSenderId?: string) => {
     try {
       const nft = await getFromStorage({ type, contract, tokenId });
-      nft.inDungeon = inDungeon;
+      nft.inDungeon = !!dungeonSenderId;
       return nft;
     } catch(e) {
       const empty: NftMetaData = {
         tokenId: -1*tokenId,
         image: dummyImage,
-        inDungeon: inDungeon,
+        inDungeon: !!dungeonSenderId,
         properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [], agility: 3, speed: 3, luck: 3, level: 1 }
       }
       return empty;
     }
   }
-  const tokens: NftMetaData[] = await Promise.all(providerData.ownedNfts.map(({ tokenId, inDungeon }) => f(tokenId, inDungeon)))
+  const tokens: NftMetaData[] = await Promise.all(providerData.ownedNfts.map(({ tokenId, dungeonSenderId }) => f(tokenId, dungeonSenderId)))
   return {
     tokens,
     pageKey: providerData.pageKey

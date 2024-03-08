@@ -39,13 +39,14 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
         <div className="row gx-2">
           {tokens.map((token, idx)=> {
             return <Fragment key={idx}>
-              <div className='col-auto mb-2 token-link-list' style={{width: colWidth + '%'}}>
+              <div className='col-auto mb-2 token-link-list position-relative' style={{width: colWidth + '%'}}>
                 {withGenerator ? 
                   <TokenLinkGenerator token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} isDisabled={disabledTokens?.map(t => t?.tokenId).includes(token.tokenId)} />
                 : 
                   <TokenLink token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} isDisabled={disabledTokens?.map(t => t?.tokenId).includes(token.tokenId)} />
                 }
                 
+                {token.inDungeon && <div className="position-absolute text-center" style={{bottom: '-2px', width: '100%'}}>In dungeon</div>}
               </div>
             </Fragment>
           })}

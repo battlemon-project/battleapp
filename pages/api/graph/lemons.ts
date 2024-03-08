@@ -28,39 +28,28 @@ export default async function handler (req: NextRequest) {
 
     const query = `
       query GetNfts {
-        users(filter: {
-          id: {equalTo: "${address}"}
-          nfts: {
-            every: {
-              chainId: { equalTo: "${chainId}" }
-              contract: { equalTo: "${contract}" }
-            }
-          }
+        nfts(filter: {
+          contract: {equalTo: "${contract}"},
+          chainId: { equalTo: "${chainId}" }
+          or: [
+            { ownerId: { equalTo: "${address}" }}
+            { dungeonSenderId: {equalTo: "${address}"}}
+          ]
         }) {
           nodes {
-            id
-            nfts {
-              nodes {
-                id
-                tokenId
-                contract
-                chainId
-                tokenUri
-              }
-            }
-            inDungeon {
-              nodes {
-                id
-                tokenId
-                contract
-                chainId
-                tokenUri
-              }
+            tokenId
+            dungeonSenderId
+            tokenUri
+            contract
+            chainId
+            owner {
+              id
             }
           }
         }
       }
     `
+
     try {
       const response = await fetch(process.env.THEGRAPH!, {
         method: 'POST',
@@ -72,7 +61,8 @@ export default async function handler (req: NextRequest) {
       }
       
       const result = await response.json();
-      if (!result?.data?.users?.nodes) {
+      
+      if (!result?.data?.nfts?.nodes) {
         return NextResponse.json({
           error: `Return undefined data`,
         }, {
@@ -80,19 +70,13 @@ export default async function handler (req: NextRequest) {
         })
       }
       console.log(query)
-      console.log(result.data.users.nodes)
-      const ownedNfts = result.data.users.nodes[0]?.nfts?.nodes?.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
-        return { tokenId, tokenUri }
-      }) || []
-      const dungeonNfts = result.data.users.nodes[0]?.inDungeon?.nodes?.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
-        return { tokenId, tokenUri, inDungeon: true }
-      }) || []
+      console.log(result.data.nfts.nodes)
+      const ownedNfts = result.data.nfts.nodes.map(({ tokenId, tokenUri, dungeonSenderId }: { tokenId: number, tokenUri: string, dungeonSenderId?: string }) => {
+        return { tokenId, tokenUri, dungeonSenderId }
+      })
       
       const data: ProviderData = {
-        ownedNfts: [
-          ...ownedNfts,
-          ...dungeonNfts
-        ],
+        ownedNfts,
         pageKey: undefined,
         totalCount: ownedNfts.length
       }
