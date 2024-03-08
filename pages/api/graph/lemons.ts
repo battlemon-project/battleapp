@@ -32,7 +32,7 @@ export default async function handler (req: NextRequest) {
           id: {equalTo: "${address}"}
           nfts: {
             every: {
-              chainId: { equalTo: ${chainId} }
+              chainId: { equalTo: "${chainId}" }
               contract: { equalTo: "${contract}" }
             }
           }
@@ -72,8 +72,7 @@ export default async function handler (req: NextRequest) {
       }
       
       const result = await response.json();
-      
-      if (!result?.data?.users?.nodes[0]) {
+      if (!result?.data?.users?.nodes) {
         return NextResponse.json({
           error: `Return undefined data`,
         }, {
@@ -81,13 +80,13 @@ export default async function handler (req: NextRequest) {
         })
       }
       console.log(query)
-      console.log(result.data.users.nodes[0])
-      const ownedNfts = result.data.users.nodes[0].nfts.nodes.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
+      console.log(result.data.users.nodes)
+      const ownedNfts = result.data.users.nodes[0]?.nfts?.nodes?.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
         return { tokenId, tokenUri }
-      })
-      const dungeonNfts = result.data.users.nodes[0].inDungeon.nodes.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
+      }) || []
+      const dungeonNfts = result.data.users.nodes[0]?.inDungeon?.nodes?.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
         return { tokenId, tokenUri, inDungeon: true }
-      })
+      }) || []
       
       const data: ProviderData = {
         ownedNfts: [
