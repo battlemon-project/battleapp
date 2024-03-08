@@ -2,33 +2,38 @@ import { NftMetaData } from 'lemon';
 
 export type FetcherTypes = 'lemon' | 'item' | 'gem' | 'pickaxe' | 'sticker'
 
-
 function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string, providerUrl: string, dummyImage: string }) {
-  let provider: string | undefined;
+  let providerUrl: string | undefined = '';
   let storage: string | undefined;
   if ([
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS, 
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS
   ].includes(contract)) {
-    provider = 'provider'
+    providerUrl = `/api/provider/tokens?contract=${contract}`
     storage = process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL;
   } else if ([
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS
   ].includes(contract)) {
-    provider = 'graph'
+    providerUrl = `/api/graph/tokens?contract=${contract}`
     storage = process.env.NEXT_PUBLIC_STORAGE_LINEA_URL;
+  } else {
+    providerUrl = `/api/graph/tokens?contract=${contract}`
   }
-  
+
+  if (type == 'lemon') {
+    providerUrl = `/api/graph/lemons?contract=${contract}`
+  }
+
   return {
     storageUrl: `${storage}/v1/${type}s/`,
-    providerUrl: `/api/${provider}/tokens?contract=${contract}`,
+    providerUrl,
     dummyImage: `/images/hub/empty-${type}.png`
   }
 }
 
 export interface ProviderData {
-  ownedNfts: { tokenId: number, tokenUri: string }[]
+  ownedNfts: { tokenId: number, tokenUri: string, inDungeon?: boolean }[]
   pageKey: string | undefined
   totalCount: number
 }
@@ -58,19 +63,22 @@ export const fetcher = ({ type, pageSize, pageKey, chainId }: UseFetcherProps) =
   const providerResponse = await fetch(`${providerUrl}&pageSize=${pageSize}&pageKey=${pageKey || ''}&chainId=${chainId}`);
   const providerData: ProviderData = await providerResponse.json();
 
-  const f = async (tokenId: number) => {
+  const f = async (tokenId: number, inDungeon?: boolean) => {
     try {
-      return await getFromStorage({ type, contract, tokenId });
+      const nft = await getFromStorage({ type, contract, tokenId });
+      nft.inDungeon = inDungeon;
+      return nft;
     } catch(e) {
       const empty: NftMetaData = {
         tokenId: -1*tokenId,
         image: dummyImage,
+        inDungeon: inDungeon,
         properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [], agility: 3, speed: 3, luck: 3, level: 1 }
       }
       return empty;
     }
   }
-  const tokens: NftMetaData[] = await Promise.all(providerData.ownedNfts.map(({ tokenId }) => f(tokenId)))
+  const tokens: NftMetaData[] = await Promise.all(providerData.ownedNfts.map(({ tokenId, inDungeon }) => f(tokenId, inDungeon)))
   return {
     tokens,
     pageKey: providerData.pageKey
