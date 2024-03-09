@@ -73,6 +73,7 @@ export default function TokenLinkGenerator({ onClick, token: defaultToken, isSel
       return token.tokenId == lemon.tokenId
     })
     const _lemon = await getFromStorage({ type: 'lemon', contract, tokenId: lemon.tokenId })
+    _lemon.dungeonSenderId = lemon.dungeonSenderId
     data.tokens[index] = _lemon
     await mutate(contract, {
       ...data

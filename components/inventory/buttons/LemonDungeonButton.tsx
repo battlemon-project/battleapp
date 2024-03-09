@@ -1,39 +1,35 @@
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useLemonDungeon } from 'hooks/useLemonDungeon';
+import { useRaidByLemonId } from 'hooks/useRaidByLemonId';
+import Timer from 'components/layout/Timer';
+import LemonReturnFromRaidButton from './LemonReturnFromRaidButton';
 
 interface LemonDungeonProps {
   lemonId: number
 }
 
 export default function LemonDungeonButton({ lemonId }: LemonDungeonProps) {
-  const { lemonRaid, lemonRaidStatus, estimateGas } = useLemonDungeon(lemonId, 0);
+  const { raid } = useRaidByLemonId(lemonId);
+  const [ isAvailableReturn, setIsAvailableReturn ] = useState<boolean>(false)
 
-  const handleLemonDungeon = async () => {
-    estimateGas().then(({ gas, gasPrice }) => {
-      lemonRaid({ gas, gasPrice })
-    }).catch(e => {
-      let message = (e as any).message;
-      message = message.split('Raw Call Arguments')[0];
-      message = message.split('Request Arguments')[0];
-      message = message.split('Contract Call')[0];
-      toast.error(message)
-    })
+  const finishCountdown = () => {
+    setIsAvailableReturn(true)
   }
 
   useEffect(() => {
-    console.log('raid status', lemonRaidStatus)
-  }, [lemonRaidStatus])
-
+    if (!raid) return;
+    if (((Number(raid?.finishTimestamp) + 60) * 1000 - Number(new Date())) < 0) {
+      finishCountdown();
+    }
+  }, [raid])
 
   return (<>
-    <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: lemonId < 0 })} onClick={handleLemonDungeon}>
-      { lemonRaidStatus == 'loading' || lemonRaidStatus == 'process' ? 
-        <div className="spinner-border spinner-border-sm" role="status"></div> :
-        <>Dungeon</>
-      }
-    </button>
+    {!raid && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>Return from Dungeon</button>}
+    {raid && !isAvailableReturn && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
+      <Timer deadline={(Number(raid.finishTimestamp) + 60) * 1000} key={raid.finishTimestamp} onFinished={finishCountdown} />
+    </button>}
+    {raid && isAvailableReturn && <LemonReturnFromRaidButton raidId={raid.lemonId} />}
   </>
   );
 };
