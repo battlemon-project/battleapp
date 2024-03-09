@@ -41,7 +41,7 @@ export default function StickerStart({ balance, chainId }: StickerStartProps) {
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
-        <Link href="/shop/box" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           You can get Sticker inside Box from Shop
         </Link>
       </div>

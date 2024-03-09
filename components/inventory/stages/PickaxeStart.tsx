@@ -37,7 +37,7 @@ export default function PickaxeStart({ balance, chainId }: PickaxeStartProps) {
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
-        <Link href="/shop/box" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           You can get Pickaxe inside Box from Shop
         </Link>
       </div>

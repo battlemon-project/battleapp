@@ -29,7 +29,7 @@ export default function LemonDungeonButton({ lemonId }: LemonDungeonProps) {
     {raid && !isAvailableReturn && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
       <Timer deadline={(Number(raid.finishTimestamp) + 60) * 1000} key={raid.finishTimestamp} onFinished={finishCountdown} />
     </button>}
-    {raid && isAvailableReturn && <LemonReturnFromRaidButton raidId={raid.lemonId} />}
+    {raid && isAvailableReturn && <LemonReturnFromRaidButton raidId={raid.raidId} />}
   </>
   );
 };

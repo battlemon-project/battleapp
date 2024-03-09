@@ -16,8 +16,8 @@ export default function UnauthLemonsTab({ children }: PropsWithChildren) {
         </div>
       </TabsLayout>
       <div className="col-12 mt-2">
-        <Link href="/shop/lemon" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          Buy lemon in the Shop
+        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+          Buy Box in the Shop
         </Link>
       </div>
     </div>

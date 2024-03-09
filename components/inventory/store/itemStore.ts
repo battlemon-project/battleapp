@@ -52,7 +52,17 @@ export function initializeStore(
       }
       return _state
     }),
-    changeStage: (stage) => set((state) => ({ ...state, stage })),
+    changeStage: (stage) => set((state) => {
+      const _state = { 
+        ...state, 
+        stage
+      }
+      if (stage == 'Start') {
+        _state.selectedItems = [];
+        _state.selectedGems = [];
+      }
+      return _state;
+    }),
     selectItem: (token) => set((state) => {
       return {
         ...state, 

@@ -20,7 +20,7 @@ export function useRaidReturnLemon(raidId: bigint | undefined) {
       abi: raidsABI,
       functionName: 'returnLemon',
       account: address as '0x',
-      args: [Number(raidId) || 0]
+      args: [raidId || BigInt(0)]
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -31,7 +31,7 @@ export function useRaidReturnLemon(raidId: bigint | undefined) {
 
   const returnLemonRaid = address && useRaidsReturnLemon({
     address: NEXT_PUBLIC_CONTRACT_RAIDS as '0x',
-    args: [Number(raidId) || 0],
+    args: [raidId || BigInt(0)],
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];

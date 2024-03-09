@@ -1,36 +1,37 @@
 import cn from 'classnames';
-import styles from '../shop.module.css';
-import { useLemonMint } from 'hooks/useLemonMint';
+//import styles from '../shop.module.css';
+//import { useLemonMint } from 'hooks/useLemonMint';
 import { useState } from 'react';
-import PolSymbol from 'components/layout/PolSymbol';
-import { toast } from 'react-toastify';
-import { useLemonPrice } from 'hooks/useLemonPrice';
-import { useNetwork } from 'wagmi';
+// import PolSymbol from 'components/layout/PolSymbol';
+// import { toast } from 'react-toastify';
+// import { useLemonPrice } from 'hooks/useLemonPrice';
+// import { useNetwork } from 'wagmi';
 
 export default function MintLemon() {
-  const NEXT_PUBLIC_MINT_LEMONS_PRICE = useLemonPrice()
   const [ count, setCount ] = useState<number>(1)
-  const { chain } = useNetwork();
-  const { lemonMint, lemonMintStatus, estimateGas } = useLemonMint(count);
 
-  const handleLemonMint = async () => {
-    estimateGas().then(({ gas, gasPrice }) => {
-      lemonMint({ gas, gasPrice })
-    }).catch(e => {
-      let message = (e as any).message;
-      message = message.split('Raw Call Arguments')[0];
-      message = message.split('Request Arguments')[0];
-      message = message.split('Contract Call')[0];
-      toast.error(message)
-    })
-  }
+  // const NEXT_PUBLIC_MINT_LEMONS_PRICE = useLemonPrice()
+  // const { chain } = useNetwork();
+  // const { lemonMint, lemonMintStatus, estimateGas } = useLemonMint(count);
+
+  // const handleLemonMint = async () => {
+  //   estimateGas().then(({ gas, gasPrice }) => {
+  //     lemonMint({ gas, gasPrice })
+  //   }).catch(e => {
+  //     let message = (e as any).message;
+  //     message = message.split('Raw Call Arguments')[0];
+  //     message = message.split('Request Arguments')[0];
+  //     message = message.split('Contract Call')[0];
+  //     toast.error(message)
+  //   })
+  // }
 
   return (<>
     <div className="d-flex mb-4">
       <button className={cn('btn btn-lg btn-outline-light py-1', { disabled: count < 2 })} onClick={() => setCount(count - 1)}>
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16"><path d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5"/></svg>
       </button>
-      <button className={cn('d-flex justify-content-center mx-2', styles.buyBtn)} onClick={handleLemonMint}>
+      {/* <button className={cn('d-flex justify-content-center mx-2', styles.buyBtn)} onClick={handleLemonMint}>
         { lemonMintStatus == 'loading' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
@@ -38,7 +39,7 @@ export default function MintLemon() {
             <span className='fs-15'><PolSymbol>{(Number(NEXT_PUBLIC_MINT_LEMONS_PRICE) * (count || 1)).toFixed(10).replace(/\.?0+$/,"")} {chain?.nativeCurrency.symbol}</PolSymbol></span>
           </div>
         }
-      </button>
+      </button> */}
       <button className={cn('btn btn-lg btn-outline-light py-1', { disabled: count > 9 })} onClick={() => setCount(count + 1)}>
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>
       </button>

@@ -44,8 +44,8 @@ export default function LemonAllItems({ balance, contract, chainId }: LemonAllIt
         </div>
         <div className="col-6 col-lg-7 mt-2 d-flex">
           {!!balance && <ConfirmEquipment lemon={selectedLemons[0]} items={selectedItems} disabled={!selectedItems?.filter(x => x).length} refresh={mutate} />}
-          {!balance && <Link href="/shop/item" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-            Buy item
+          {!balance && <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+            Buy Box
           </Link>}
         </div>
       </div>

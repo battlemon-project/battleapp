@@ -16,8 +16,8 @@ export default function UnauthItemsTab({ children }: PropsWithChildren) {
         </div>
       </TabsLayout>
       <div className="col-12 mt-2">
-        <Link href="/shop/item" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          Buy items in the Shop
+        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+          Buy Box in the Shop
         </Link>
       </div>
     </div>

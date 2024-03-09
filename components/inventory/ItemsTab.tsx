@@ -3,6 +3,7 @@ import cn from "classnames";
 import { useItemStore } from './store/itemStore';
 import ItemStart from './stages/ItemStart';
 import ItemBridge from './stages/ItemBridge';
+import ItemGems from './stages/ItemGems';
 import { useItemBalance } from 'hooks/useItemBalance';
 import useWindowSize from 'hooks/useWindowSize';
 import ItemScene from 'components/babylon/ItemScene';
@@ -10,15 +11,18 @@ import { useState } from 'react';
 import NftProps from './layout/NftProps';
 import { useContract } from 'hooks/useContract';
 import { useNetwork, useAccount } from 'wagmi';
+import { useGemBalance } from 'hooks/useGemBalance';
 
 export default function ItemsTab() {
   const { chain } = useNetwork()
   const lemonsContract = useContract('ITEMS')
+  const gemsContract = useContract('GEMS')
   const { address }  = useAccount();
   const [isModelLoading, setIsModelLoading ] = useState<boolean>(true)
   const { selectedItems, stage } = useItemStore()
   const size = useWindowSize()
   const { balance } = useItemBalance()
+  const { balance: gemBalance } = useGemBalance()
 
   return (<div className="row">
     {size.width > 992 && <div className="col-5">
@@ -38,6 +42,9 @@ export default function ItemsTab() {
       {chain && stage == 'Start' && <div className={cn({'d-none': stage !== 'Start'})}>
         <ItemStart balance={balance} contract={lemonsContract!} chainId={chain.id} />
       </div>}      
+      {chain && stage == 'Gems' && <div className={cn({'d-none': stage !== 'Gems'})}>
+        <ItemGems balance={gemBalance} contract={gemsContract!} chainId={chain.id} />
+      </div>}
       {chain && stage == 'Bridge' && selectedItems[0] && address && <div className={cn({'d-none': stage !== 'Bridge'})}>
         <ItemBridge chainId={chain.id} token={selectedItems[0]} address={address} />
       </div>}

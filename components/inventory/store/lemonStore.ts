@@ -64,6 +64,7 @@ export function initializeStore(
       }
       if (stage == 'Start') {
         _state.selectedItems = [];
+        _state.selectedGems = [];
       }
       if (stage == 'AllItems') {
         _state.selectedItems = [];

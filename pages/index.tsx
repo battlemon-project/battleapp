@@ -90,10 +90,10 @@ const Home: NextPage = () => {
                           <Link href="/hub/lemons" className="menu__link">NFT Hub</Link>
                         </li>
                         <li className="menu__item">
-                          <Link href="/shop" className="menu__link">Shop</Link>
+                          <Link href="/shop" className="menu__link">Game Hub</Link>
                         </li>
                         <li className="menu__item">
-                          <Link href="/claim" className="menu__link">Claim</Link>
+                          <Link href="/referral" className="menu__link">Referral</Link>
                         </li>
                       </ul>
                       <div className="menu__bottom">
@@ -196,8 +196,8 @@ const Home: NextPage = () => {
                       To the last drop of juice
                     </div>
                     <div className="offer__buttons">
-                      <Link href="/shop/lemon" className="btn btn-yellow">
-                        Buy Lemon
+                      <Link href="/shop" className="btn btn-yellow">
+                        Buy Box
                         <svg>
                           <use xlinkHref="#basket"></use>
                         </svg>
@@ -758,10 +758,10 @@ const Home: NextPage = () => {
                     <Link href="/hub/lemons" className="menu__link">NFT Hub</Link>
                   </li>
                   <li>
-                    <Link href="/shop" className="menu__link">Shop</Link>
+                    <Link href="/shop" className="menu__link">Game Hub</Link>
                   </li>
                   <li>
-                    <Link href="/claim" className="menu__link">Claim</Link>
+                    <Link href="/referral" className="menu__link">Referral</Link>
                   </li>
                 </ul>
               </div>

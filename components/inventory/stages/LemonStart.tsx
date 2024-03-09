@@ -36,18 +36,18 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
     </TabsLayout>
     {!data?.tokens?.length && <>
       <div className="col-12 mt-2">
-        <Link href="/shop/lemon" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          Buy lemon in the Shop
+        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+          Buy Box in the Shop
         </Link>
       </div>
     </>}
-    {data?.tokens?.length && <div className={styles.inventoryButtonsRow}>
+    {!!data?.tokens?.length && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('AllItems')}>Inventory</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>
+          <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('Gems')}>Level up</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId}/>}
@@ -55,7 +55,7 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
           {!selectedLemons[0] && <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>}
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <Link href="/shop/lemon" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
+          <Link href="/shop" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy Box</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link target="_blank" href={`https://dew.gg/sell?contract=${contract}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
