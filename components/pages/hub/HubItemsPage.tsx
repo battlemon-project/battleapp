@@ -6,7 +6,7 @@ import { SWRConfig } from 'swr'
 
 const config = {
   revalidateOnFocus: false,
-  revalidateOnMount: false,
+  revalidateOnMount: true,
   revalidateOnReconnect: false
 }
 

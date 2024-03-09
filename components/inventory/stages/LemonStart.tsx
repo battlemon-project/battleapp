@@ -26,23 +26,22 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
   )
 
   useEffect(() => {
-    if (!balance) return;
     if (stage !== 'Start') return;
     mutate();
-  }, [balance, stage])
-
+  }, [stage])
+  
   return (<>
     <TabsLayout>
       <TokensList tokens={data?.tokens} colWidth={25} height={410} selectedTokens={selectedLemons} onClick={selectLemon} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} withGenerator={true} chainId={chainId} />
     </TabsLayout>
-    {!balance && <>
+    {!data?.tokens?.length && <>
       <div className="col-12 mt-2">
         <Link href="/shop/lemon" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy lemon in the Shop
         </Link>
       </div>
     </>}
-    {!!balance && <div className={styles.inventoryButtonsRow}>
+    {data?.tokens?.length && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('AllItems')}>Inventory</button>

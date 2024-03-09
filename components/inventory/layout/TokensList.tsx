@@ -46,7 +46,7 @@ export default function TokensList({ tokens, isValidating, colWidth = 20, height
                   <TokenLink token={token} onClick={onClick} isSelected={selectedTokens.map(t => t?.tokenId).includes(token.tokenId)} isDisabled={disabledTokens?.map(t => t?.tokenId).includes(token.tokenId)} />
                 }
                 
-                {token.dungeonSenderId && <div className="position-absolute text-center" style={{bottom: '-2px', width: '100%'}}>In dungeon</div>}
+                {token.dungeonSenderId && <div className="position-absolute text-center" style={{bottom: '-2px', width: '100%', pointerEvents: 'none'}}>In dungeon</div>}
               </div>
             </Fragment>
           })}

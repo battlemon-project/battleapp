@@ -1,9 +1,7 @@
 import cn from 'classnames';
 import styles from '../shop.module.css'
-import Link from 'next/link';
 import { useItemMint } from 'hooks/useItemMint';
-import { useItemBalance } from 'hooks/useItemBalance';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PolSymbol from 'components/layout/PolSymbol';
 import { toast } from 'react-toastify';
 import { useItemPrice } from 'hooks/useItemPrice';
@@ -14,13 +12,6 @@ export default function MintItem() {
   const { chain } = useNetwork();
   const NEXT_PUBLIC_MINT_ITEMS_PRICE = useItemPrice()
   const { itemMint, itemMintStatus, estimateGas } = useItemMint(count);
-  const { balance, refreshBalance } = useItemBalance();
-
-  useEffect(() => {
-    if (itemMintStatus !== 'loading') {
-      refreshBalance?.();
-    }
-  }, [itemMintStatus])
 
   const handleItemMint = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
@@ -52,12 +43,6 @@ export default function MintItem() {
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/></svg>
       </button>
     </div>
-
-    {!!balance && <Link href="/hub/items">
-      <button className='btn btn-lg btn-outline-light w-100'>
-        <span className='ps-2'>Look at your {balance} item{balance !== 1 ? 's' : ''} in NFT Hub</span>
-      </button>
-    </Link>}  
   </>
   );
 };

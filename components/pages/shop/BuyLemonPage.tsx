@@ -25,6 +25,11 @@ export default function BuyLemonPage() {
             <span className='ps-2'>Back to Shop</span>
           </button>
         </Link>
+        <Link href="/hub/lemons">
+          <button className='btn btn-outline-light'>
+            Open Lemons Hub 
+          </button>
+        </Link>
       </div>
 
       <div className="row mt-3">

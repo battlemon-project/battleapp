@@ -23,24 +23,23 @@ export default function ItemStart({ balance, contract, chainId }: ItemStartProps
   )
 
   useEffect(() => {
-    if (!balance) return;
     if (stage !== 'Start') return;
     mutate();
-  }, [balance, stage])
+  }, [stage])
 
   return (<>
     <TabsLayout>
       <TokensList tokens={data?.tokens} colWidth={20} height={410} selectedTokens={selectedItems} onClick={selectItem} isValidating={isValidating} contract={contract} isNextPage={!!data?.pageKey} chainId={chainId} />
       {/* <TokensFilter /> */}
     </TabsLayout>
-    {!balance && <>
+    {!data?.tokens?.length && <>
       <div className="col-12 mt-2">
         <Link href="/shop/item" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy item in the Shop
         </Link>
       </div>
     </>}
-    {!!balance && <div className={styles.inventoryButtonsRow}>
+    {data?.tokens?.length && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-6 col-lg-3 mt-2 d-flex">
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Level up</button>
