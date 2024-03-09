@@ -1595,15 +1595,21 @@ export const itemABI = [
     anonymous: false,
     inputs: [
       {
-        name: 'itemId',
+        name: 'tokenId',
         internalType: 'uint256',
         type: 'uint256',
         indexed: false,
       },
       {
-        name: 'newLvl',
+        name: 'level',
         internalType: 'uint256',
         type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'itemType',
+        internalType: 'uint8',
+        type: 'uint8',
         indexed: false,
       },
       {
@@ -1624,6 +1630,7 @@ export const itemABI = [
         type: 'uint256',
         indexed: false,
       },
+      { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
     ],
     name: 'Lvlup',
   },
@@ -2498,17 +2505,42 @@ export const lemonABI = [
     anonymous: false,
     inputs: [
       {
-        name: 'lemonId',
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'lemonType',
         internalType: 'uint256',
         type: 'uint256',
         indexed: false,
       },
       {
-        name: 'newLvl',
+        name: 'level',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+      {
+        name: 'agility',
         internalType: 'uint256',
         type: 'uint256',
         indexed: false,
       },
+      {
+        name: 'speed',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'luck',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      { name: 'dna', internalType: 'bytes', type: 'bytes', indexed: false },
     ],
     name: 'Lvlup',
   },
@@ -4127,7 +4159,8 @@ export const raidsABI = [
         internalType: 'uint256[]',
         type: 'uint256[]',
       },
-      { name: 'requiredValue_', internalType: 'uint256', type: 'uint256' },
+      { name: 'baseValueAmount_', internalType: 'uint256', type: 'uint256' },
+      { name: 'price_', internalType: 'uint256', type: 'uint256' },
       { name: 'tresuary_', internalType: 'address', type: 'address' },
       { name: '_airnodeRrp', internalType: 'address', type: 'address' },
     ],
@@ -4192,6 +4225,13 @@ export const raidsABI = [
   {
     stateMutability: 'view',
     type: 'function',
+    inputs: [],
+    name: 'price',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
     inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     name: 'raidDurations',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
@@ -4237,13 +4277,6 @@ export const raidsABI = [
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
   {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [],
-    name: 'requiredValue',
-    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
-  },
-  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [{ name: 'raidId', internalType: 'uint256', type: 'uint256' }],
@@ -4270,6 +4303,19 @@ export const raidsABI = [
       { name: 'points_', internalType: 'address', type: 'address' },
     ],
     name: 'setAddresses',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_baseValueAmount', internalType: 'uint256', type: 'uint256' },
+      { name: '_basePointsAmount', internalType: 'uint256', type: 'uint256' },
+      { name: '_stickerDropChance', internalType: 'uint256', type: 'uint256' },
+      { name: '_itemDropChance', internalType: 'uint256', type: 'uint256' },
+      { name: '_valueDropChance', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setConfig',
     outputs: [],
   },
   {
@@ -14805,6 +14851,25 @@ export function useRaidsPoints<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"price"`.
+ */
+export function useRaidsPrice<
+  TFunctionName extends 'price',
+  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: raidsABI,
+    functionName: 'price',
+    ...config,
+  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"raidDurations"`.
  */
 export function useRaidsRaidDurations<
@@ -14876,25 +14941,6 @@ export function useRaidsRequiredLemonLevels<
   return useContractRead({
     abi: raidsABI,
     functionName: 'requiredLemonLevels',
-    ...config,
-  } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"requiredValue"`.
- */
-export function useRaidsRequiredValue<
-  TFunctionName extends 'requiredValue',
-  TSelectData = ReadContractResult<typeof raidsABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: raidsABI,
-    functionName: 'requiredValue',
     ...config,
   } as UseContractReadConfig<typeof raidsABI, TFunctionName, TSelectData>)
 }
@@ -15195,6 +15241,31 @@ export function useRaidsSetAddresses<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setConfig"`.
+ */
+export function useRaidsSetConfig<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof raidsABI,
+          'setConfig'
+        >['request']['abi'],
+        'setConfig',
+        TMode
+      > & { functionName?: 'setConfig' }
+    : UseContractWriteConfig<typeof raidsABI, 'setConfig', TMode> & {
+        abi?: never
+        functionName?: 'setConfig'
+      } = {} as any,
+) {
+  return useContractWrite<typeof raidsABI, 'setConfig', TMode>({
+    abi: raidsABI,
+    functionName: 'setConfig',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setRequestParameters"`.
  */
 export function useRaidsSetRequestParameters<
@@ -15382,6 +15453,22 @@ export function usePrepareRaidsSetAddresses(
     functionName: 'setAddresses',
     ...config,
   } as UsePrepareContractWriteConfig<typeof raidsABI, 'setAddresses'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link raidsABI}__ and `functionName` set to `"setConfig"`.
+ */
+export function usePrepareRaidsSetConfig(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof raidsABI, 'setConfig'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: raidsABI,
+    functionName: 'setConfig',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof raidsABI, 'setConfig'>)
 }
 
 /**
