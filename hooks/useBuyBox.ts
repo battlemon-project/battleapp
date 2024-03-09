@@ -1,11 +1,11 @@
 import { useBoxBuyCheapBox, useBoxBuyGoodBox, useBoxBuyGreatBox, boxABI } from './generated';
 import { decodeEventLog, parseAbi, toHex } from 'viem'
 import { useEffect, useState } from 'react';
-import { parseEther } from 'viem';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { useContract } from './useContract';
 import { useBoxPrices } from './useBoxPrices';
+import { parsePrice } from 'utils/misc';
 
 export enum BoxType {
   Cheap = 'Cheap',
@@ -75,7 +75,7 @@ export function useBuyBox(type: BoxType) {
       address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
       abi: boxABI,
       functionName: funcNames[type],
-      value: parseEther(boxPrices[type]),
+      value: parsePrice(boxPrices[type]),
       account: address as '0x'
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
@@ -93,7 +93,7 @@ export function useBuyBox(type: BoxType) {
 
   const buyBox = address && methodsNames[type]({
     address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
-    value: parseEther(boxPrices[type]),
+    value: parsePrice(boxPrices[type]),
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];

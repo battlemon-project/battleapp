@@ -3,21 +3,13 @@ import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { toast } from 'react-toastify';
 import { StatusType } from './useBuyBox';
-import { parseEther } from 'viem';
 import { useContract } from './useContract';
-
-const CHEAP_PICK_AXE_SHARP_PRICE = parseEther("0.001");
-const GOOD_PICK_AXE_SHARP_PRICE = parseEther("0.00022");
-const GREAT_PICK_AXE_SHARP_PRICE = parseEther("0.0001");
-
-const repairPrices: {[key: number]: bigint} = {
-  0: CHEAP_PICK_AXE_SHARP_PRICE,
-  1: GOOD_PICK_AXE_SHARP_PRICE,
-  2: GREAT_PICK_AXE_SHARP_PRICE,
-}
+import { useSharpPrices } from './useSharpPrices';
+import { parsePrice } from 'utils/misc';
 
 export function usePickaxeRepair(pickaxeId: number | undefined, pickaxeType: number) {
   console.log('render usePickaxeRepair')
+  const sharpPrices = useSharpPrices()
   const NEXT_PUBLIC_CONTRACT_PICKAXES = useContract('PICKAXES')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
@@ -29,7 +21,7 @@ export function usePickaxeRepair(pickaxeId: number | undefined, pickaxeType: num
       address: NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
       abi: pickAxeABI,
       functionName: 'sharp',
-      value: repairPrices[pickaxeType],
+      value: parsePrice(sharpPrices[pickaxeType]),
       account: address as '0x',
       args: [BigInt(pickaxeId || 0)],
     })
@@ -42,7 +34,7 @@ export function usePickaxeRepair(pickaxeId: number | undefined, pickaxeType: num
 
   const pickaxeRepair = address && usePickAxeSharp({
     address: NEXT_PUBLIC_CONTRACT_PICKAXES as '0x',
-    value: repairPrices[pickaxeType],
+    value: parsePrice(sharpPrices[pickaxeType]),
     args: [BigInt(pickaxeId || 0)],
     onError: (error) => {
       let message = error.message;

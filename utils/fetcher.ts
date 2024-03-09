@@ -8,7 +8,8 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
   if ([
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS,
-    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES
   ].includes(contract)) {
     providerUrl = `/api/provider/tokens?contract=${contract}`
     storage = process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL;

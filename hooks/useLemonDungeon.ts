@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { StatusType } from './useBuyBox';
 import { useContract } from "hooks/useContract";
 import { useRaidPrices } from './useRaidPrices';
-import { parseEther } from 'viem';
+import { parsePrice } from 'utils/misc';
 
 export function useLemonDungeon(lemonId: number | undefined, level: number) {
   console.log('render useLemonDungeon')
@@ -23,7 +23,7 @@ export function useLemonDungeon(lemonId: number | undefined, level: number) {
       functionName: 'sendToRaid',
       account: address as '0x',
       args: [BigInt(lemonId || 0), level],
-      value: parseEther(raidPrices[level])
+      value: parsePrice(raidPrices[level])
     })
     const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
     return {
@@ -35,7 +35,7 @@ export function useLemonDungeon(lemonId: number | undefined, level: number) {
   const lemonRaid = address && useRaidsSendToRaid({
     address: NEXT_PUBLIC_CONTRACT_RAIDS as '0x',
     args: [BigInt(lemonId || 0), 0],
-    value: parseEther(raidPrices[level]),
+    value: parsePrice(raidPrices[level]),
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
