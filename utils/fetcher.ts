@@ -66,13 +66,13 @@ export const fetcher = ({ type, pageSize, pageKey, chainId }: UseFetcherProps) =
   const f = async (tokenId: number, dungeonSenderId?: string) => {
     try {
       const nft = await getFromStorage({ type, contract, tokenId });
-      nft.inDungeon = !!dungeonSenderId;
+      nft.dungeonSenderId = dungeonSenderId;
       return nft;
     } catch(e) {
       const empty: NftMetaData = {
         tokenId: -1*tokenId,
         image: dummyImage,
-        inDungeon: !!dungeonSenderId,
+        dungeonSenderId: dungeonSenderId,
         properties: { dna: '', type: '', traits: {}, items: {}, name: '', dress: [], agility: 3, speed: 3, luck: 3, level: 1 }
       }
       return empty;

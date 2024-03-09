@@ -10,7 +10,7 @@ declare module 'lemon' {
     tokenId: number
     image: string
     properties: PropertiesType
-    inDungeon?: boolean
+    dungeonSenderId?: string
     original?: NftMetaData
   }
 
