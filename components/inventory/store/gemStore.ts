@@ -63,7 +63,7 @@ export function initializeStore(
       } else {
         return {
           ...state, 
-          selectedGems: [ selectedGem, ...(state.selectedGems?.slice(-1) || []) ]
+          selectedGems: [ selectedGem, ...(state.selectedGems?.slice(0,1) || []) ]
         }
       }
     }),
