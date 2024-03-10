@@ -2807,13 +2807,6 @@ export const lemonABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [{ name: 'id', internalType: 'uint256', type: 'uint256' }],
-    name: 'lemonLvl',
-    outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'id', internalType: 'uint256', type: 'uint256' }],
     name: 'levelOf',
     outputs: [{ name: '', internalType: 'uint8', type: 'uint8' }],
   },
@@ -11046,25 +11039,6 @@ export function useLemonLemonData<
   return useContractRead({
     abi: lemonABI,
     functionName: 'lemonData',
-    ...config,
-  } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
-}
-
-/**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link lemonABI}__ and `functionName` set to `"lemonLvl"`.
- */
-export function useLemonLemonLvl<
-  TFunctionName extends 'lemonLvl',
-  TSelectData = ReadContractResult<typeof lemonABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: lemonABI,
-    functionName: 'lemonLvl',
     ...config,
   } as UseContractReadConfig<typeof lemonABI, TFunctionName, TSelectData>)
 }
