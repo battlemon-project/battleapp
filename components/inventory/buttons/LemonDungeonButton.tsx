@@ -19,7 +19,7 @@ export default function LemonDungeonButton({ lemonId }: LemonDungeonProps) {
 
   useEffect(() => {
     if (!raid) return;
-    if (((Number(raid?.finishTimestamp) + 60) * 1000 - Number(new Date())) < 0) {
+    if ((Number(raid?.finishTimestamp) * 1000 - Number(new Date())) < 0) {
       finishCountdown();
     }
   }, [raid])
@@ -27,7 +27,7 @@ export default function LemonDungeonButton({ lemonId }: LemonDungeonProps) {
   return (<>
     {!raid && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>Return from Dungeon</button>}
     {raid && !isAvailableReturn && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
-      <Timer deadline={(Number(raid.finishTimestamp) + 60) * 1000} key={raid.finishTimestamp} onFinished={finishCountdown} />
+      <Timer deadline={Number(raid.finishTimestamp) * 1000} key={raid.finishTimestamp} onFinished={finishCountdown} />
     </button>}
     {raid && isAvailableReturn && <LemonReturnFromRaidButton raidId={raid.raidId} />}
   </>

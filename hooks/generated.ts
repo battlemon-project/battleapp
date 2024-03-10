@@ -230,6 +230,7 @@ export const boxABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
+      { name: '_tresuary', internalType: 'address', type: 'address' },
       { name: '_airnodeRrp', internalType: 'address', type: 'address' },
       { name: 'amounts', internalType: 'uint256[]', type: 'uint256[]' },
       { name: 'prices', internalType: 'uint256[]', type: 'uint256[]' },
@@ -1867,8 +1868,6 @@ export const itemABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
-      { name: 'name', internalType: 'string', type: 'string' },
-      { name: 'symbol', internalType: 'string', type: 'string' },
       { name: 'tresuary_', internalType: 'address', type: 'address' },
       { name: 'uri_', internalType: 'string', type: 'string' },
       { name: '_endpoint', internalType: 'address', type: 'address' },
