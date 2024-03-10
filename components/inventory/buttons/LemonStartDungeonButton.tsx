@@ -5,10 +5,11 @@ import { useLemonDungeon } from 'hooks/useLemonDungeon';
 
 interface LemonStartDungeonProps {
   lemonId: number
+  level: number
 }
 
-export default function LemonStartDungeonButton({ lemonId }: LemonStartDungeonProps) {
-  const { lemonRaid, lemonRaidStatus, estimateGas } = useLemonDungeon(lemonId, 0);
+export default function LemonStartDungeonButton({ lemonId, level }: LemonStartDungeonProps) {
+  const { lemonRaid, lemonRaidStatus, estimateGas } = useLemonDungeon(lemonId, level);
 
   const handleLemonDungeon = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
@@ -31,7 +32,7 @@ export default function LemonStartDungeonButton({ lemonId }: LemonStartDungeonPr
     <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: lemonId < 0 })} onClick={handleLemonDungeon}>
       { lemonRaidStatus == 'loading' || lemonRaidStatus == 'process' ? 
         <div className="spinner-border spinner-border-sm" role="status"></div> :
-        <>Dungeon</>
+        <>D {level + 1}</>
       }
     </button>
   </>
