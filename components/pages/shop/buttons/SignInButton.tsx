@@ -13,19 +13,19 @@ export const SignInButton = () => {
     <>
       {openConnectModal && (
         <button className='btn btn-lg btn-outline-light w-100' onClick={openConnectModal} type="button">
-          Sign In
+          Connect wallet
         </button>
       )}
 
       {openAccountModal && (
         <button className='btn btn-lg btn-outline-light w-100' onClick={openAccountModal} type="button">
-          Sign In
+          Connect wallet
         </button>
       )}
 
       {openChainModal && (
         <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
-          Sign In
+          Connect wallet
         </button>
       )}
     </>
