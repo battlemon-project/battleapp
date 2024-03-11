@@ -63,7 +63,7 @@ export default function GemStart({ balance, chainId }: GemStartProps) {
     {!balance && <>
       <div className="col-12 mt-2">
         <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          You can get Gem inside Box from Shop
+          Buy Box in the Shop
         </Link>
       </div>
     </>}

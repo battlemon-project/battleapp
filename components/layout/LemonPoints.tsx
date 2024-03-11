@@ -4,7 +4,7 @@ import React from "react";
 const LemonPoints = React.memo(() => {
   const { balance } = usePointsBalance()
   return (
-    <span>{(balance || 0) / 1000000000000000000} LP</span>
+    <span>{(balance || 0) / 1000000000000000000} BP</span>
   );
 });
 

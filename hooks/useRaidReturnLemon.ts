@@ -4,6 +4,7 @@ import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from '
 import { toast } from 'react-toastify';
 import { StatusType } from './useBuyBox';
 import { useContract } from "hooks/useContract";
+import { decodeEventLog } from 'viem';
 
 export function useRaidReturnLemon(raidId: bigint | undefined) {
   console.log('render useRaidReturnLemon')
@@ -63,12 +64,29 @@ export function useRaidReturnLemon(raidId: bigint | undefined) {
 
   useEffect(() => {
     if (!returnLemonRaidResult.isError) return;
-    console.log('error 1')
     setStatus('error');
   }, [returnLemonRaidResult.isError]);
   
   useEffect(() => {
     if (!returnLemonRaidResult.isSuccess) return;
+    returnLemonRaidResult.data?.logs.forEach(log => {
+      if (log.address.toLowerCase() !== NEXT_PUBLIC_CONTRACT_RAIDS!.toLowerCase()) return;
+      try {
+        const decoded = decodeEventLog({
+          abi: raidsABI,
+          eventName: 'RaidFinished',
+          data: log.data,
+          topics: log.topics
+        })
+  
+        console.log('RaidFinished', decoded?.args)
+      } catch (error) {
+        console.log(error)
+        //let message = (error as Error).message;
+        //toast.error(message)
+      }
+    })
+
     setStatus('success')
   }, [returnLemonRaidResult.isSuccess])
 
