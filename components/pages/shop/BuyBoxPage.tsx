@@ -16,8 +16,19 @@ import { useBoxStore } from './store/boxStore';
 export default function BuyBoxPage() {
   const { address }  = useAccount();
   const { chain } = useNetwork();
-  const { setPrize } = useBoxStore()
+  const [ warning, setWarning ] = useState<boolean>(false)
+  const { setPrize, status, prize } = useBoxStore()
   const { isSignedIn, isSupportedChain } = useAuth();
+
+
+  useEffect(() => {
+    if (['process', 'success'].includes(status) && !prize) {
+      setWarning(true)
+    } else {
+      setWarning(false)
+    }
+  }, [status, prize])
+
 
   useEffect(() => {
     if (!chain || !address) return;
@@ -74,7 +85,14 @@ export default function BuyBoxPage() {
           <span className='ps-2'>Back to Shop</span>
         </button>
       </Link> */}
-      <br /><br /><br />
+      
+      {warning ? <>
+        <div className="alert alert-danger text-center" role="alert">
+          Warning! API3 Oracle is running, wait until you will get your prize.
+        </div>
+      </> : <>
+        <br /><br /><br />
+      </>}
       {(() => {
         if (!isSignedIn || !isSupportedChain) {
           return <div className='row justify-content-center'>
