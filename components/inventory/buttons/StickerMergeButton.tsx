@@ -17,7 +17,7 @@ export default function StickerMergeButton({ selectedStickers, chainId }: Sticke
   const handleStickerMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       setMergeStatus('loading')
-      stickerMerge(chainId == 59144 ? { gas, gasPrice } : {})
+      stickerMerge(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       setMergeStatus('idle')
       let message = (e as any).message;

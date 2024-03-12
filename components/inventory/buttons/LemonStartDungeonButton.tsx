@@ -14,7 +14,7 @@ export default function LemonStartDungeonButton({ lemonId, level, chainId }: Lem
 
   const handleLemonDungeon = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
-      lemonRaid(chainId == 59144 ? { gas, gasPrice } : {})
+      lemonRaid(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       let message = (e as any).message;
       message = message.split('Raw Call Arguments')[0];

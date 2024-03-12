@@ -16,7 +16,7 @@ export default function ItemLevelupButton({ address, itemId, gemId, chainId }: I
   const handleStickerMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       //setLevelUpStatus('loading')
-      itemLevelup(chainId == 59144 ? { gas, gasPrice } : {})
+      itemLevelup(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       //setLevelUpStatus('idle')
       let message = (e as any).message;

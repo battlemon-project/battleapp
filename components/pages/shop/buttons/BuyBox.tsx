@@ -23,7 +23,7 @@ export default function BuyBox({ boxType, chainId }: BuyBoxProps) {
     setPrize(undefined)
     estimateGas().then(({ gas, gasPrice }) => {
       setStatus('loading')
-      buyBox(chainId == 59144 ? { gas, gasPrice } : {})
+      buyBox(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       setStatus('idle')
       let message = (e as any).message;

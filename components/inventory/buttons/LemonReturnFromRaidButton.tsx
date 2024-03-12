@@ -12,7 +12,7 @@ export default function LemonReturnFromRaidButton({ raidId, chainId }: LemonRetu
 
   const handleReturnLemon = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
-      returnLemonRaid(chainId == 59144 ? { gas, gasPrice } : {})
+      returnLemonRaid(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       let message = (e as any).message;
       message = message.split('Raw Call Arguments')[0];

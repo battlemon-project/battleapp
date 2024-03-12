@@ -19,7 +19,7 @@ export default function PickaxeMiningButton({ pickaxeId, chainId }: PickaxeMinin
     setGemRank(undefined);
     estimateGas().then(({ gas, gasPrice }) => {
       setMiningStatus('loading')
-      pickaxeMining(chainId == 59144 ? { gas, gasPrice } : {})
+      pickaxeMining(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       setMiningStatus('idle')
       let message = (e as any).message;

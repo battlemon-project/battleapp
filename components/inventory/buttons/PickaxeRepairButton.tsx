@@ -17,7 +17,7 @@ export default function PickaxeRepairButton({ pickaxeId, pickaxeType, chainId }:
   const handlePickaxeRepair = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       setRepairStatus('loading')
-      pickaxeRepair(chainId == 59144 ? { gas, gasPrice } : {})
+      pickaxeRepair(chainId == 59144 ? {} : { gas, gasPrice })
     }).catch(e => {
       setRepairStatus('idle')
       let message = (e as any).message;
