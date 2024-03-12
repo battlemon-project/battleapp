@@ -79,7 +79,7 @@ export default function BuyBoxPage() {
     <div className="container py-3 mb-auto">
       <h3 className='text-center'>Get your Prize</h3>
       
-      {true ? <>
+      {warning ? <>
         <div className="alert alert-primary text-center py-2" style={{fontSize: '18px', margin: '17px 0'}} role="alert">
           Please wait, API3 Oracle is running.
         </div>
