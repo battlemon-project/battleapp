@@ -731,9 +731,9 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="mystery-box__btn">
-                    <a href="#" className="btn btn-yellow btn-large">
+                    <Link href="/shop" className="btn btn-yellow btn-large">
                       Buy Now
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
