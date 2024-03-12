@@ -48,7 +48,7 @@ export default function ItemGems({ balance, contract, chainId }: ItemGemsProps) 
           {/* {(!address || !selectedItems[0] || !selectedGems[0]) ? <>
             <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')} onClick={() => {}}>Level Up</button>
           </> : <>
-            <ItemLevelupButton address={address} itemId={selectedItems[0].tokenId} gemId={selectedGems[0].tokenId} />
+            <ItemLevelupButton address={address} itemId={selectedItems[0].tokenId} gemId={selectedGems[0].tokenId} chainId={chainId} />
           </>} */}
         </div>}
         {!balance && <div className="col-6 col-lg-7 mt-2 d-flex">

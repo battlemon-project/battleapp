@@ -7,9 +7,10 @@ import { useGemRank } from 'hooks/useGemRank';
 
 interface PickaxeMiningProps {
   pickaxeId: number
+  chainId: number
 }
 
-export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
+export default function PickaxeMiningButton({ pickaxeId, chainId }: PickaxeMiningProps) {
   const { setMiningStatus, setGemRank } = usePickaxeStore()
   const { pickaxeMining, pickaxeMiningStatus, estimateGas, gemId } = usePickaxeMining(pickaxeId);
   const { getGemRank } = useGemRank();
@@ -18,7 +19,7 @@ export default function PickaxeMiningButton({ pickaxeId }: PickaxeMiningProps) {
     setGemRank(undefined);
     estimateGas().then(({ gas, gasPrice }) => {
       setMiningStatus('loading')
-      pickaxeMining({ gas, gasPrice })
+      pickaxeMining(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       setMiningStatus('idle')
       let message = (e as any).message;

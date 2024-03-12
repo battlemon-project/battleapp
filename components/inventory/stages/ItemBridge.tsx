@@ -35,7 +35,7 @@ export default function ItemBridge({ chainId, token, address }: ItemBridgeProps)
     setSelectedChain(token)
   }
 
-  const disabledTokens = bridgeChains.filter(x => x.image.includes('Sticker_SKALE') || x.image.includes('Sticker_BLAST'))
+  const disabledTokens = bridgeChains.filter(x => x.image.includes('Sticker_SKALE') || x.image.includes('Sticker_Blast'))
   
   return (<>
     <TabsLayout>

@@ -3,19 +3,20 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useItemLevelup } from 'hooks/useItemLevelup';
 
-interface LemonLevelupProps {
+interface ItemLevelupProps {
   address: `0x${string}`,
   itemId: number,
   gemId: number
+  chainId: number
 }
 
-export default function LemonLevelupButton({ address, itemId, gemId }: LemonLevelupProps) {
+export default function ItemLevelupButton({ address, itemId, gemId, chainId }: ItemLevelupProps) {
   const { itemLevelup, itemLevelupStatus, estimateGas } = useItemLevelup(address, itemId, gemId);
 
   const handleStickerMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       //setLevelUpStatus('loading')
-      itemLevelup({ gas, gasPrice })
+      itemLevelup(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       //setLevelUpStatus('idle')
       let message = (e as any).message;

@@ -70,9 +70,9 @@ const Home: NextPage = () => {
           <div className='container'>
             <div className="header__row">
               <div className="header__left">
-                <a href="index.html" className="logo">
+                <Link href="/" className="logo">
                   <img src="img/logo.svg" alt="#" />
-                </a>
+                </Link>
               </div>
               <div className="header__center">
                 <div className="menu js-menu">
@@ -749,7 +749,9 @@ const Home: NextPage = () => {
             <div className="footer__row">
               <div className="footer__left">
                 <div className="footer__logo">
-                  <img src="img/logo.svg" alt="#" />
+                  <Link href="/" className="logo">
+                    <img src="img/logo.svg" alt="#" />
+                  </Link>
                 </div>
               </div>
               <div className="footer__center">

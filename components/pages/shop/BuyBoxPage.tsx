@@ -90,16 +90,16 @@ export default function BuyBoxPage() {
       <div style={{height: '400px'}}>
         <BoxScene name='Basket_Chests_LP_oneReward' debug={false} />
       </div>
-      {isSignedIn && isSupportedChain ? <>
+      {isSignedIn && isSupportedChain && chain ? <>
         <div className='row'>
             <div className='col-md-4 col-12'>
-              <BuyBox boxType={BoxType.Cheap} />
+              <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />
             </div>
             <div className='col-md-4 col-12'>
-              <BuyBox boxType={BoxType.Good} />
+              <BuyBox boxType={BoxType.Good} chainId={chain.id} />
             </div>
             <div className='col-md-4 col-12'>
-              <BuyBox boxType={BoxType.Great} />
+              <BuyBox boxType={BoxType.Great} chainId={chain.id} />
             </div>
         </div>
       </> : <>

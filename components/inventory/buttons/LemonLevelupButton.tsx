@@ -7,15 +7,16 @@ interface LemonLevelupProps {
   address: `0x${string}`,
   lemonId: number,
   gemId: number
+  chainId: number
 }
 
-export default function LemonLevelupButton({ address, lemonId, gemId }: LemonLevelupProps) {
+export default function LemonLevelupButton({ address, lemonId, gemId, chainId }: LemonLevelupProps) {
   const { lemonLevelup, lemonLevelupStatus, estimateGas } = useLemonLevelup(address, lemonId, gemId);
 
   const handleStickerMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       //setLevelUpStatus('loading')
-      lemonLevelup({ gas, gasPrice })
+      lemonLevelup(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       //setLevelUpStatus('idle')
       let message = (e as any).message;

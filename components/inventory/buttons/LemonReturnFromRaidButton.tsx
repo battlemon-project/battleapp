@@ -4,14 +4,15 @@ import { useRaidReturnLemon } from 'hooks/useRaidReturnLemon';
 
 interface LemonReturnFromRaidProps {
   raidId: bigint
+  chainId: number
 }
 
-export default function LemonReturnFromRaidButton({ raidId }: LemonReturnFromRaidProps) {
+export default function LemonReturnFromRaidButton({ raidId, chainId }: LemonReturnFromRaidProps) {
   const { returnLemonRaid, returnLemonRaidStatus, estimateGas } = useRaidReturnLemon(raidId);
 
   const handleReturnLemon = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
-      returnLemonRaid({ gas, gasPrice })
+      returnLemonRaid(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       let message = (e as any).message;
       message = message.split('Raw Call Arguments')[0];

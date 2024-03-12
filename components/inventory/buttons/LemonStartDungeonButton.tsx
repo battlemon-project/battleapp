@@ -6,14 +6,15 @@ import { useLemonDungeon } from 'hooks/useLemonDungeon';
 interface LemonStartDungeonProps {
   lemonId: number
   level: number
+  chainId: number
 }
 
-export default function LemonStartDungeonButton({ lemonId, level }: LemonStartDungeonProps) {
+export default function LemonStartDungeonButton({ lemonId, level, chainId }: LemonStartDungeonProps) {
   const { lemonRaid, lemonRaidStatus, estimateGas } = useLemonDungeon(lemonId, level);
 
   const handleLemonDungeon = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
-      lemonRaid({ gas, gasPrice })
+      lemonRaid(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       let message = (e as any).message;
       message = message.split('Raw Call Arguments')[0];

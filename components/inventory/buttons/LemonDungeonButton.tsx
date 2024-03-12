@@ -7,9 +7,10 @@ import LemonReturnFromRaidButton from './LemonReturnFromRaidButton';
 
 interface LemonDungeonProps {
   lemonId: number
+  chainId: number
 }
 
-export default function LemonDungeonButton({ lemonId }: LemonDungeonProps) {
+export default function LemonDungeonButton({ lemonId, chainId }: LemonDungeonProps) {
   const { raid } = useRaidByLemonId(lemonId);
   const [ isAvailableReturn, setIsAvailableReturn ] = useState<boolean>(false)
 
@@ -29,7 +30,7 @@ export default function LemonDungeonButton({ lemonId }: LemonDungeonProps) {
     {raid && !isAvailableReturn && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
       <Timer deadline={Number(raid.finishTimestamp) * 1000} key={raid.finishTimestamp} onFinished={finishCountdown} />
     </button>}
-    {raid && isAvailableReturn && <LemonReturnFromRaidButton raidId={raid.raidId} />}
+    {raid && isAvailableReturn && <LemonReturnFromRaidButton raidId={raid.raidId} chainId={chainId} />}
   </>
   );
 };

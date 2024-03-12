@@ -7,16 +7,17 @@ import { usePickaxeRepair } from 'hooks/usePickaxeRepair';
 interface PickaxeRepairProps {
   pickaxeId: number
   pickaxeType: number
+  chainId: number
 }
 
-export default function PickaxeRepairButton({ pickaxeId, pickaxeType }: PickaxeRepairProps) {
+export default function PickaxeRepairButton({ pickaxeId, pickaxeType, chainId }: PickaxeRepairProps) {
   const { setRepairStatus } = usePickaxeStore()
   const { pickaxeRepair, pickaxeRepairStatus, estimateGas } = usePickaxeRepair(pickaxeId, pickaxeType);
 
   const handlePickaxeRepair = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       setRepairStatus('loading')
-      pickaxeRepair({ gas, gasPrice })
+      pickaxeRepair(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       setRepairStatus('idle')
       let message = (e as any).message;

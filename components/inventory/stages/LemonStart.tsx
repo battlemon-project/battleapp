@@ -51,10 +51,10 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
           {/* <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedLemons.length })} onClick={() => changeStage('Gems')}>Level up</button> */}
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          {/* {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId} level={0}/>}
-          {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId} level={1}/>}
-          {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId} level={2}/>}
-          {selectedLemons[0] && selectedLemons[0]?.dungeonSenderId && <LemonDungeonButton lemonId={selectedLemons[0].tokenId} key={selectedLemons[0].tokenId} />}
+          {/* {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId} level={0} chainId={chainId} />}
+          {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId} level={1} chainId={chainId} />}
+          {selectedLemons[0] && !selectedLemons[0]?.dungeonSenderId && <LemonStartDungeonButton lemonId={selectedLemons[0].tokenId} level={2} chainId={chainId} />}
+          {selectedLemons[0] && selectedLemons[0]?.dungeonSenderId && <LemonDungeonButton lemonId={selectedLemons[0].tokenId} key={selectedLemons[0].tokenId} chainId={chainId} />}
           {!selectedLemons[0] && <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>} */}
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>
         </div>

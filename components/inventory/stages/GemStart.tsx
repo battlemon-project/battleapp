@@ -73,7 +73,7 @@ export default function GemStart({ balance, chainId }: GemStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_GEMS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          {selectedGems.length >= 2 && <GemMergeButton selectedGems={selectedGems} />}
+          {selectedGems.length >= 2 && <GemMergeButton selectedGems={selectedGems} chainId={chainId} />}
           {selectedGems.length < 2 && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
             Merge
           </button>}

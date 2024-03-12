@@ -7,16 +7,17 @@ import { NftMetaData } from 'lemon';
 
 interface StickerRepairProps {
   selectedStickers: NftMetaData[]
+  chainId: number
 }
 
-export default function StickerMergeButton({ selectedStickers }: StickerRepairProps) {
+export default function StickerMergeButton({ selectedStickers, chainId }: StickerRepairProps) {
   const { setMergeStatus } = useStickerStore()
   const { stickerMerge, stickerMergeStatus, estimateGas } = useStickerMerge(selectedStickers[0].tokenId, selectedStickers[1].tokenId, selectedStickers[2].tokenId, selectedStickers[3].tokenId);
 
   const handleStickerMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       setMergeStatus('loading')
-      stickerMerge({ gas, gasPrice })
+      stickerMerge(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       setMergeStatus('idle')
       let message = (e as any).message;

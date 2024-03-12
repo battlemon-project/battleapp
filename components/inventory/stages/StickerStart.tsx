@@ -52,7 +52,7 @@ export default function StickerStart({ balance, chainId }: StickerStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_STICKERS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          {selectedStickers.length >= 4 && <StickerMergeButton selectedStickers={selectedStickers} />}
+          {selectedStickers.length >= 4 && <StickerMergeButton selectedStickers={selectedStickers} chainId={chainId} />}
           {selectedStickers.length < 4 && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
             Merge
           </button>}

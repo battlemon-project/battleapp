@@ -48,7 +48,7 @@ export default function LemonGems({ balance, contract, chainId }: LemonGemsProps
           {/* {(!address || !selectedLemons[0] || !selectedGems[0]) ? <>
             <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')} onClick={() => {}}>Level Up</button>
           </> : <>
-            <LemonLevelupButton address={address} lemonId={selectedLemons[0].tokenId} gemId={selectedGems[0].tokenId} />
+            <LemonLevelupButton address={address} lemonId={selectedLemons[0].tokenId} gemId={selectedGems[0].tokenId} chainId={chainId} />
           </>} */}
         </div>}
         {!balance && <div className="col-6 col-lg-7 mt-2 d-flex">

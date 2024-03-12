@@ -5,18 +5,19 @@ import { useGemStore } from '../store/gemStore';
 import { useGemMerge } from 'hooks/useGemMerge';
 import { NftMetaData } from 'lemon';
 
-interface GemRepairProps {
+interface GemMergeProps {
   selectedGems: NftMetaData[]
+  chainId: number
 }
 
-export default function GemRepairButton({ selectedGems }: GemRepairProps) {
+export default function GemMergeButton({ selectedGems, chainId }: GemMergeProps) {
   const { setMergeStatus } = useGemStore()
   const { gemMerge, gemMergeStatus, estimateGas } = useGemMerge(selectedGems[0].tokenId, selectedGems[1].tokenId);
 
   const handleGemMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       setMergeStatus('loading')
-      gemMerge({ gas, gasPrice })
+      gemMerge(chainId == 59144 ? { gas, gasPrice } : {})
     }).catch(e => {
       setMergeStatus('idle')
       let message = (e as any).message;

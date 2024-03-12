@@ -48,13 +48,13 @@ export default function PickaxeStart({ balance, chainId }: PickaxeStartProps) {
           <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_PICKAXES}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          {selectedPickaxe && <PickaxeRepairButton pickaxeId={selectedPickaxe.tokenId} pickaxeType={ Number(selectedPickaxe.image.split('/').pop()?.split('.')[0]) } />}
+          {selectedPickaxe && <PickaxeRepairButton pickaxeId={selectedPickaxe.tokenId} pickaxeType={ Number(selectedPickaxe.image.split('/').pop()?.split('.')[0]) } chainId={chainId} />}
           {!selectedPickaxe && <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')}>
             Repair
           </button>}
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <PickaxeMiningButton pickaxeId={selectedPickaxe ? selectedPickaxe.tokenId : -1} />
+          <PickaxeMiningButton pickaxeId={selectedPickaxe ? selectedPickaxe.tokenId : -1} chainId={chainId} />
         </div>
       </div>
     </div>}
