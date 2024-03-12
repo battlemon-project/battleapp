@@ -133,16 +133,33 @@ export const a1Traits: PropertiesList = {
 
 const b1Traits: PropertiesList = {
   head: [
-    'Head_Fresh_Lemon',
-    'Head_Zombie',
+    'Head_Charcoal',
     'Head_Clementine',
+    'Head_Crispy_Gold',
+    'Head_Crispy_Silver',
+    'Head_Disco',
+    'Head_Fresh_Lemon',
+    'Head_Lava',
     'Head_Lime',
+    'Head_Pink',
+    'Head_Paint_03',
+    'Head_Paint_04',
+    'Head_Paint_05',
+    'Head_Paint_08',
   ],
   eyes: [
-    'Eyes_Blue',
-    'Eyes_Green',
     'Eyes_Alien',
-    'Eyes_Zombie',
+    'Eyes_Amber',
+    'Eyes_Blue',
+    'Eyes_Brown',
+    'Eyes_BTC',
+    'Eyes_BTC_Etherium',
+    'Eyes_Code',
+    'Eyes_Etherium',
+    'Eyes_Green',
+    'Eyes_Laser',
+    'Eyes_Lila',
+    'Eyes_Matrix',
   ],
   exo_top: [
     'ExoTop_Steel'
@@ -155,6 +172,15 @@ const b1Traits: PropertiesList = {
   ],
   feet: [
     'Feet_Steel'
+  ],
+  teeth: [
+    'Teeth_Grga',
+    'Teeth_Grillz_Silver',
+    'Teeth_Hollywood',
+    'Teeth_MinusOne',
+    'Teeth_Oldstyle',
+    'Teeth_Sharp',
+    'Teeth_Vampire',
   ],
 }
 
@@ -397,7 +423,10 @@ const b1Places = [
   'exo_top',
   'hands',
   'exo_bot',
-  'feet'
+  'feet',
+  'hair',
+  'teeth',
+  'scar'
 ]
 
 const c1Places = [
@@ -623,7 +652,7 @@ export const dnaToLemonProperties = (dna: string) => {
   dnaArray.forEach((hex, idx) => {
     const type = traitsPlaces[idx]
     const num = parseInt(hex, 16)
-    if (traits[type]?.length) {
+    if (type && traits[type]?.length) {
       const traitIdx = num % traits[type]?.length;
       _traits[type] = traits[type][traitIdx];
     }

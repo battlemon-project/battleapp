@@ -5,7 +5,7 @@ import {
   PutObjectCommand
 } from "@aws-sdk/client-s3";
 import { Buffer } from "buffer";
-import { getRandomProperties, getRandomPropertiesWithItems } from "utils/properties";
+import { dnaToLemonProperties, getRandomProperties, getRandomPropertiesWithItems } from "utils/properties";
 import { PropertiesType } from "lemon";
 
 interface ModelReadyProps {
@@ -47,6 +47,14 @@ export function useModelLoader() {
     }
 
     (window as any).getRandomProperties = getRandomProperties;
+    (window as any).dnaToLemonProperties = (dna: string) => {
+      const random = getRandomProperties();
+      const fromDna = dnaToLemonProperties(dna)
+      return {
+        ...random,
+        ...fromDna
+      }
+    };
     (window as any).getRandomPropertiesWithItems = getRandomPropertiesWithItems;
     (window as any).generateLemon = async function (properties: PropertiesType | undefined) {
       if (!properties) {
