@@ -12,7 +12,7 @@ export default function Footer() {
           <text style={{fill: '#fff', fontFamily: 'Arial', fontSize: '24px', whiteSpace: 'pre'}} x="20.94" y="16.371" transform="matrix(0.9560460448265075, 0, 0, 0.9, 28, 23)">Scale</text>
           </g><defs><clipPath id="clip0_507_32708"><rect width="193" height="41" fill="white"></rect></clipPath></defs></svg>
         </a>
-        <a href="https://store.steampowered.com/app/2206160/Battlemon/" target="_blank" className="float-start d-block mx-3" style={{fill: '#fff', paddingTop: '12px'}}>
+        {/* <a href="https://layerzero.network/" target="_blank" className="float-start d-block mx-3" style={{fill: '#fff', paddingTop: '12px'}}>
 
           <svg height="35" viewBox="0 0 912 241" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M109.911 139.756C126.312 130.249 137.337 112.497 137.337 92.1629V68.8371C137.337 31.0998 106.752 0.5 69.0149 0.5C31.2776 0.5 0.677734 31.0998 0.677734 68.8371V93.8333H42.333V95.4582C37.2761 96.7187 32.4925 98.6777 28.1037 101.244C11.7028 110.751 0.677734 128.503 0.677734 148.837V172.163C0.677734 209.9 31.2624 240.5 68.9997 240.5C106.737 240.5 137.337 209.9 137.337 172.163V147.167H95.6815V145.542C100.738 144.281 105.522 142.322 109.911 139.756ZM82.3482 180.5C82.3482 187.865 76.3801 193.833 69.0149 193.833C61.6496 193.833 55.6815 187.865 55.6815 180.5V60.5C55.6815 53.1348 61.6496 47.1667 69.0149 47.1667C76.3801 47.1667 82.3482 53.1348 82.3482 60.5V180.5Z" fill="#F2F2F2"/>
@@ -31,7 +31,7 @@ export default function Footer() {
             <text style={{fill: '#fff', fontFamily: 'Arial', fontSize: '90px', whiteSpace: 'pre'}} x="193.94" y="80.371">powered by</text>
           </svg>
 
-        </a>
+        </a> */}
         <a href="https://store.steampowered.com/app/2206160/Battlemon/" target="_blank" className="float-start d-block mx-3" style={{fill: '#fff', paddingTop: '12px'}}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 295.457 90.473" width="120" height="42">
           	<path d="m45.084 1c-23.238 0-42.275 17.918-44.084 40.689l23.71 9.803c2.009-1.374 4.436-2.179 7.047-2.179.234 0 .467.01.698.021l10.544-15.283c0-.073 0-.144 0-.216 0-9.199 7.483-16.683 16.683-16.683 9.199 0 16.682 7.484 16.682 16.683s-7.483 16.684-16.682 16.684c-.127 0-.253 0-.379-.01l-15.038 10.73c.01.195.015.394.015.592 0 6.906-5.617 12.522-12.522 12.522-6.061 0-11.129-4.326-12.277-10.055l-16.957-7.006c5.25 18.568 22.309 32.181 42.56 32.181 24.432 0 44.237-19.806 44.237-44.235 0-24.433-19.806-44.238-44.237-44.238"/>
