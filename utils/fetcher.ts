@@ -24,9 +24,9 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
     providerUrl = `/api/graph/tokens?contract=${contract}`
   }
 
-  if (type == 'lemon') {
-    providerUrl = `/api/graph/lemons?contract=${contract}`
-  }
+  // if (type == 'lemon') {
+  //   providerUrl = `/api/graph/lemons?contract=${contract}`
+  // }
 
   return {
     storageUrl: `${storage}/v1/${type}s/`,

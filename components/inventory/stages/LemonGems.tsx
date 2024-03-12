@@ -44,11 +44,12 @@ export default function LemonGems({ balance, contract, chainId }: LemonGemsProps
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')} onClick={() => {changeStage('Start')}}>Back</button>
         </div>
         {!!balance && <div className="col-6 col-lg-7 mt-2 d-flex">
-          {(!address || !selectedLemons[0] || !selectedGems[0]) ? <>
+          <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')} onClick={() => {}}>Level Up</button>
+          {/* {(!address || !selectedLemons[0] || !selectedGems[0]) ? <>
             <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100 disabled')} onClick={() => {}}>Level Up</button>
           </> : <>
             <LemonLevelupButton address={address} lemonId={selectedLemons[0].tokenId} gemId={selectedGems[0].tokenId} />
-          </>}
+          </>} */}
         </div>}
         {!balance && <div className="col-6 col-lg-7 mt-2 d-flex">
           <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">

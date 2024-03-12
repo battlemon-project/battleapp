@@ -42,7 +42,8 @@ export default function ItemStart({ balance, contract, chainId }: ItemStartProps
     {!!data?.tokens?.length && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-6 mt-2 d-flex">
-          <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedItems.length })} onClick={() => changeStage('Gems')}>Level up</button>
+          <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100 disabled")} onClick={() => changeStage('Gems')}>Level up</button>
+          {/* <button className={cn("btn btn-lg btn-default fs-13 text-uppercase w-100", { disabled: !selectedItems.length })} onClick={() => changeStage('Gems')}>Level up</button> */}
         </div>
         <div className="col-6 mt-2 d-flex">
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})} onClick={() => changeStage('Bridge')}>Bridge</button>

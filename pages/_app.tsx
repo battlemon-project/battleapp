@@ -38,7 +38,10 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 
 const lineaIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAJFBMVEUSEhISEhIBAQH///+dnZ3i4uLX19dnZ2eFhYU4ODi0tLT+/v4sSrrFAAAAAXRSTlP9g+pWxwAAAGhJREFUKJHN0MESgCAIRVF5YKL9//9mpTWJtGnTXXqGYSQECk4VyO8nCMBFSBSM2AagzKx4IjSW/QmloowoHA/MzGt2kECJxp0XUqc52n9+xNYU01k256vYKxZ16ak9PO7Mzlk/xBcNG58yBE9ktPjgAAAAAElFTkSuQmCC';
-const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [{ ...lineaTestnet, iconUrl: lineaIcon }, polygonMumbai] : [{ ...linea, iconUrl: lineaIcon }, polygon]
+//const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [{ ...lineaTestnet, iconUrl: lineaIcon }, polygonMumbai] : [{ ...linea, iconUrl: lineaIcon }, polygon]
+const evmChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [polygonMumbai] : [polygon]
+
+
 //const roninChains = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [saigon] : [ronin]
 //const chainList = [...evmChains, ...roninChains];
 const chainList = [...evmChains];
