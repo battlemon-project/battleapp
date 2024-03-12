@@ -32,7 +32,7 @@ export default function LemonBridge({ chainId, token, address }: LemonBridgeProp
     setSelectedChain(token)
   }
 
-  const disabledTokens = bridgeChains.filter(x => x.image.includes('Sticker_SKALE'))
+  const disabledTokens = bridgeChains.filter(x => x.image.includes('Sticker_SKALE') || x.image.includes('Sticker_Blast'))
   
   return (<>
     <TabsLayout>
