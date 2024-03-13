@@ -56,17 +56,17 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
 
   useEffect(() => {
     let timeout: NodeJS.Timeout | undefined = undefined;
-    if (box == BoxType.Cheap && name !== 'Basket1') {
+    if (box == BoxType.Cheap && !name.includes('Basket1')) {
       openAnimation?.reset().stop();
       rollAnimation?.reset().stop();
       return
     };
-    if (box == BoxType.Good && name !== 'Basket2') {
+    if (box == BoxType.Good && !name.includes('Basket2')) {
       openAnimation?.reset().stop();
       rollAnimation?.reset().stop();
       return
     };
-    if (box == BoxType.Great && name !== 'Basket3') {
+    if (box == BoxType.Great && !name.includes('Basket3')) {
       openAnimation?.reset().stop();
       rollAnimation?.reset().stop();
       return

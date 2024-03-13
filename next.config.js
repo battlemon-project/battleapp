@@ -5,6 +5,16 @@ const nextConfig = {
     config.resolve.fallback = { fs: false, net: false, tls: false };
     return config;
   },
+  async redirects() {
+    return [
+      // Basic redirect
+      {
+        source: '/shop',
+        destination: '/game',
+        permanent: true,
+      }
+    ]
+  }
 };
 
 module.exports = nextConfig;

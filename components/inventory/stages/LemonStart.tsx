@@ -9,6 +9,7 @@ import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
 import LemonStartDungeonButton from "../buttons/LemonStartDungeonButton";
 import LemonDungeonButton from "../buttons/LemonDungeonButton";
+import { chainUniversalNames } from "utils/misc";
 
 
 interface LemonStartProps {
@@ -36,7 +37,7 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
     </TabsLayout>
     {!data?.tokens?.length && <>
       <div className="col-12 mt-2">
-        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+        <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy Box in the Shop
         </Link>
       </div>
@@ -59,10 +60,10 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <Link href="/shop" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy Box</Link>
+          <Link href="/game" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy Box</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${contract}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
+          <Link target="_blank" href={`https://element.market/assets/${chainUniversalNames[chainId]}/${contract}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})} onClick={() => changeStage('Bridge')}>Bridge</button>

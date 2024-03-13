@@ -52,7 +52,7 @@ export default function ItemGems({ balance, contract, chainId }: ItemGemsProps) 
           </>} */}
         </div>}
         {!balance && <div className="col-6 col-lg-7 mt-2 d-flex">
-          <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+          <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
             Buy Box
           </Link>
         </div>}

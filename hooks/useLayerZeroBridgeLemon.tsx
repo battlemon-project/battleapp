@@ -4,7 +4,8 @@ import { useWaitForTransaction } from 'wagmi';
 import { useContract } from 'hooks/useContract';
 import { useLemonLzSend } from './generated';
 import { StatusType } from './useBuyBox';
-import { useLayerZeroQuoteLemon, type BridgeLemonProps, chainToLayerZero } from './useLayerZeroQuoteLemon'
+import { useLayerZeroQuoteLemon, type BridgeLemonProps } from './useLayerZeroQuoteLemon'
+import { chainToLayerZero } from 'utils/misc';
 
 export function useLayerZeroBridgeLemon({ tokenId, dataArray, chainId }: BridgeLemonProps & { tokenId: number }) {
   const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')

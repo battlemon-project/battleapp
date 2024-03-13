@@ -25,8 +25,8 @@ export default function UnauthPickaxesTab({ children }: PropsWithChildren) {
         </div>
       </TabsLayout>
       <div className="col-12 mt-2">
-        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          Buy box in the Shop for getting Pickaxe
+        <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+          Buy box in the Shop
         </Link>
       </div>
     </div>

@@ -12,10 +12,11 @@ import useWindowSize from 'hooks/useWindowSize';
 
 interface ItemSceneProps {
   name: string,
+  chainId: number | undefined,
   debug?: boolean
 }
 
-export default function BoxScene({ name, debug }: ItemSceneProps) {
+export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
   const { box, status, prize } = useBoxStore()
   const { width } = useWindowSize()
   const mounted = useIsMounted()
@@ -96,9 +97,9 @@ export default function BoxScene({ name, debug }: ItemSceneProps) {
           />
           
           <Suspense>
-            <BoxModel name={'Basket1'} box={box} status={status} prize={prize} position={positions[0]} />
-            <BoxModel name={'Basket2'} box={box} status={status} prize={prize} position={positions[1]} />
-            <BoxModel name={'Basket3'} box={box} status={status} prize={prize} position={positions[2]} />
+            <BoxModel name={ chainId == 80001 ? 'Basket1_POL' : 'Basket1'} box={box} status={status} prize={prize} position={positions[0]} />
+            <BoxModel name={ chainId == 80001 ? 'Basket2_POL' : 'Basket2'} box={box} status={status} prize={prize} position={positions[1]} />
+            <BoxModel name={ chainId == 80001 ? 'Basket3_POL' : 'Basket3'} box={box} status={status} prize={prize} position={positions[2]} />
           </Suspense>
 
           {debug && <DebugLayer />}

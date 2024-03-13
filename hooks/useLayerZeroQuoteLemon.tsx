@@ -4,6 +4,7 @@ import { encodePacked } from 'viem';
 import { useLemonQuote } from './generated';
 import { Options } from "@layerzerolabs/lz-v2-utilities";
 import { NftMetaData } from 'lemon';
+import { chainToLayerZero } from 'utils/misc';
 
 export type BridgeLemonArray = [
   `0x${string}`,
@@ -19,17 +20,6 @@ export type BridgeLemonArray = [
 export type BridgeLemonProps = {
   chainId: number,
   dataArray: BridgeLemonArray
-}
-
-export const chainToLayerZero: {[key: number]: number} = {
-  80001: 40109, // mumbai
-  137: 30109, // polygon mainnet
-  59140: 40157, // linea goerli
-  59144: 30183, // linea mainnet
-  56: 40102, // bnb testnet
-  97: 30102, // bnb mainnet,
-  168587773: 40243, // blast testnet, 
-  81457: 30243, // blast mainnet, 
 }
 
 export const chainIds = process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? {

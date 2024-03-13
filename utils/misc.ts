@@ -12,3 +12,25 @@ export function parsePrice(string: string) {
     return parseEther(string)
   }
 }
+
+export const chainToLayerZero: {[key: number]: number} = {
+  80001: 40109, // mumbai
+  137: 30109, // polygon mainnet
+  59140: 40157, // linea goerli
+  59144: 30183, // linea mainnet
+  56: 40102, // bnb testnet
+  97: 30102, // bnb mainnet,
+  168587773: 40243, // blast testnet, 
+  81457: 30243, // blast mainnet, 
+}
+
+export const chainUniversalNames: {[key: number]: string} = {
+  80001: 'polygon', // mumbai
+  137: 'polygon', // polygon mainnet
+  59140: 'linea', // linea goerli
+  59144: 'linea', // linea mainnet
+  56: 'bnb', // bnb testnet
+  97: 'bnb', // bnb mainnet,
+  168587773: 'blast', // blast testnet, 
+  81457: 'blast', // blast mainnet, 
+}

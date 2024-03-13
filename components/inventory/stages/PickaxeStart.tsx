@@ -10,6 +10,7 @@ import { simpleFetcher } from "utils/fetcher";
 import PickaxeMiningButton from "../buttons/PickaxeMiningButton";
 import PickaxeRepairButton from "../buttons/PickaxeRepairButton";
 import { useContract } from "hooks/useContract";
+import { chainUniversalNames } from "utils/misc";
 
 interface PickaxeStartProps {
   balance: number,
@@ -37,7 +38,7 @@ export default function PickaxeStart({ balance, chainId }: PickaxeStartProps) {
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
-        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+        <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy Box in the Shop
         </Link>
       </div>
@@ -45,7 +46,7 @@ export default function PickaxeStart({ balance, chainId }: PickaxeStartProps) {
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_PICKAXES}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
+          <Link target="_blank" href={`https://element.market/assets/${chainUniversalNames[chainId]}/${NEXT_PUBLIC_CONTRACT_PICKAXES}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
           {selectedPickaxe && <PickaxeRepairButton pickaxeId={selectedPickaxe.tokenId} pickaxeType={ Number(selectedPickaxe.image.split('/').pop()?.split('.')[0]) } chainId={chainId} />}

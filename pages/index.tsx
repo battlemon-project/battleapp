@@ -90,7 +90,7 @@ const Home: NextPage = () => {
                           <Link href="/hub/lemons" className="menu__link">NFT Hub</Link>
                         </li>
                         <li className="menu__item">
-                          <Link href="/shop" className="menu__link">Game Hub</Link>
+                          <Link href="/game" className="menu__link">Game Hub</Link>
                         </li>
                         <li className="menu__item">
                           <Link href="/referral" className="menu__link">Referral</Link>
@@ -196,7 +196,7 @@ const Home: NextPage = () => {
                       To the last drop of juice
                     </div>
                     <div className="offer__buttons">
-                      <Link href="/shop" className="btn btn-yellow">
+                      <Link href="/game" className="btn btn-yellow">
                         Buy Box
                         <svg>
                           <use xlinkHref="#basket"></use>
@@ -540,24 +540,24 @@ const Home: NextPage = () => {
                           Element
                         </div>
                         <div className="item-marketplaces__links">
-                          <a href="#" className="item-marketplaces__link">
+                          <Link href={`https://element.market/assets/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS}`} className="item-marketplaces__link" target='_blank'>
                             Lemons
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://element.market/assets/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS}`} className="item-marketplaces__link" target='_blank'>
                             Items
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://element.market/assets/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS}`} className="item-marketplaces__link" target='_blank'>
                             Stickers
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://element.market/assets/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS}`} className="item-marketplaces__link" target='_blank'>
                             Gems
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://element.market/assets/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES}`} className="item-marketplaces__link" target='_blank'>
                             Pickaxes
-                          </a>
-                          <a href="#" className="item-marketplaces__link disabled">
+                          </Link>
+                          <Link href="#" className="item-marketplaces__link disabled" target='_blank'>
                             Keys
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -572,24 +572,24 @@ const Home: NextPage = () => {
                           Dew.gg
                         </div>
                         <div className="item-marketplaces__links">
-                          <a href="#" className="item-marketplaces__link">
+                          <Link href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS}`} className="item-marketplaces__link" target='_blank'>
                             Lemons
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS}`} className="item-marketplaces__link" target='_blank'>
                             Items
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS}`} className="item-marketplaces__link" target='_blank'>
                             Stickers
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS}`} className="item-marketplaces__link" target='_blank'>
                             Gems
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://dew.gg/sell?contract=${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES}`} className="item-marketplaces__link" target='_blank'>
                             Pickaxes
-                          </a>
-                          <a href="#" className="item-marketplaces__link disabled">
+                          </Link>
+                          <Link href="#" className="item-marketplaces__link disabled" target='_blank'>
                             Keys
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -601,27 +601,27 @@ const Home: NextPage = () => {
                           </div>
                         </div>
                         <div className="item-marketplaces__title">
-                          TOFU
+                          OpenSea
                         </div>
                         <div className="item-marketplaces__links">
-                          <a href="#" className="item-marketplaces__link">
+                          <Link href={`https://opensea.io/assets/matic/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS}`} className="item-marketplaces__link" target='_blank'>
                             Lemons
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://opensea.io/assets/matic/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS}`} className="item-marketplaces__link" target='_blank'>
                             Items
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://opensea.io/assets/matic/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS}`} className="item-marketplaces__link" target='_blank'>
                             Stickers
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://opensea.io/assets/matic/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS}`} className="item-marketplaces__link" target='_blank'>
                             Gems
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://opensea.io/assets/matic/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES}`} className="item-marketplaces__link" target='_blank'>
                             Pickaxes
-                          </a>
-                          <a href="#" className="item-marketplaces__link disabled">
+                          </Link>
+                          <Link href="#" className="item-marketplaces__link disabled" target='_blank'>
                             Keys
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -636,24 +636,24 @@ const Home: NextPage = () => {
                           OKX
                         </div>
                         <div className="item-marketplaces__links">
-                          <a href="#" className="item-marketplaces__link">
+                          <Link href={`https://www.okx.com/web3/marketplace/nft/collection/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS}`} className="item-marketplaces__link" target='_blank'>
                             Lemons
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://www.okx.com/web3/marketplace/nft/collection/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS}`} className="item-marketplaces__link" target='_blank'>
                             Items
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://www.okx.com/web3/marketplace/nft/collection/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS}`} className="item-marketplaces__link" target='_blank'>
                             Stickers
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://www.okx.com/web3/marketplace/nft/collection/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS}`} className="item-marketplaces__link" target='_blank'>
                             Gems
-                          </a>
-                          <a href="#" className="item-marketplaces__link">
+                          </Link>
+                          <Link href={`https://www.okx.com/web3/marketplace/nft/collection/polygon/${process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES}`} className="item-marketplaces__link" target='_blank'>
                             Pickaxes
-                          </a>
-                          <a href="#" className="item-marketplaces__link disabled">
+                          </Link>
+                          <Link href="#" className="item-marketplaces__link disabled" target='_blank'>
                             Keys
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -731,7 +731,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="mystery-box__btn">
-                    <Link href="/shop" className="btn btn-yellow btn-large">
+                    <Link href="/game" className="btn btn-yellow btn-large">
                       Buy Now
                     </Link>
                   </div>
@@ -760,7 +760,7 @@ const Home: NextPage = () => {
                     <Link href="/hub/lemons" className="menu__link">NFT Hub</Link>
                   </li>
                   <li>
-                    <Link href="/shop" className="menu__link">Game Hub</Link>
+                    <Link href="/game" className="menu__link">Game Hub</Link>
                   </li>
                   <li>
                     <Link href="/referral" className="menu__link">Referral</Link>

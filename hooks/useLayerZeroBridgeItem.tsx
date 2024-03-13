@@ -5,7 +5,7 @@ import { useContract } from 'hooks/useContract';
 import { useItemLzSend } from './generated';
 import { StatusType } from './useBuyBox';
 import { useLayerZeroQuoteItem, type BridgeItemProps } from './useLayerZeroQuoteItem';
-import { chainToLayerZero } from './useLayerZeroQuoteLemon';
+import { chainToLayerZero } from 'utils/misc';
 
 export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeItemProps & { tokenId: number }) {
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')

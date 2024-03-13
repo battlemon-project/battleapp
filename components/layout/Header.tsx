@@ -26,7 +26,7 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
               <Link href="/hub/lemons" className={`nav-link ${router.pathname.startsWith("/hub") ? "active" : ""}`}>NFT Hub</Link>
             </li>
             <li className="nav-item px-1">
-              <Link href="/shop" className={`nav-link ${router.pathname.startsWith("/shop") ? "active" : ""}`}>Game Hub</Link>
+              <Link href="/game" className={`nav-link ${router.pathname.startsWith("/game") ? "active" : ""}`}>Game Hub</Link>
             </li>
             <li className="nav-item px-1">
               <Link href="/referral" className={`nav-link ${router.pathname.startsWith("/referral") ? "active" : ""}`}>Referral</Link>

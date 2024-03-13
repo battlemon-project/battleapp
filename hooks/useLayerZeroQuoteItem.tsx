@@ -3,7 +3,7 @@ import { useContract } from 'hooks/useContract';
 import { encodePacked } from 'viem';
 import { useItemQuote } from './generated';
 import { Options } from "@layerzerolabs/lz-v2-utilities";
-import { chainToLayerZero } from './useLayerZeroQuoteLemon';
+import { chainToLayerZero } from 'utils/misc';
 
 export type BridgeItemArray = [
   `0x${string}`,

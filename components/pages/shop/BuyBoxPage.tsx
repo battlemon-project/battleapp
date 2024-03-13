@@ -87,8 +87,8 @@ export default function BuyBoxPage() {
         <br /><br /><br />
       </>}
 
-      <div style={{height: '400px'}}>
-        <BoxScene name='Basket_Chests_LP_oneReward' debug={false} />
+      <div style={{height: '400px'}} key={chain?.id}>
+        <BoxScene name='Basket_Chests_LP_oneReward' debug={false} chainId={chain?.id} />
       </div>
       {isSignedIn && isSupportedChain && chain ? <>
         <div className='row'>

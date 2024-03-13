@@ -11,6 +11,7 @@ import GemMergeButton from "../buttons/GemMergeButton";
 import { NftMetaData } from "lemon";
 import { useGemRank } from "hooks/useGemRank";
 import { useContract } from "hooks/useContract";
+import { chainUniversalNames } from "utils/misc";
 
 interface GemStartProps {
   balance: number
@@ -62,7 +63,7 @@ export default function GemStart({ balance, chainId }: GemStartProps) {
     </TabsLayout>
     {!balance && <>
       <div className="col-12 mt-2">
-        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+        <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy Box in the Shop
         </Link>
       </div>
@@ -70,7 +71,7 @@ export default function GemStart({ balance, chainId }: GemStartProps) {
     {!!balance && <div className={styles.inventoryButtonsRow}>
       <div className='row gx-2'>
         <div className="col-4 col-lg-4 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${NEXT_PUBLIC_CONTRACT_GEMS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
+          <Link target="_blank" href={`https://element.market/assets/${chainUniversalNames[chainId]}/${NEXT_PUBLIC_CONTRACT_GEMS}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100')}>Buy & Sell</Link>
         </div>
         <div className="col-4 col-lg-4 mt-2 d-flex">
           {selectedGems.length >= 2 && <GemMergeButton selectedGems={selectedGems} chainId={chainId} />}

@@ -7,6 +7,7 @@ import { useItemStore } from "../store/itemStore";
 import { useEffect } from "react";
 import useSWR from "swr";
 import { fetcher } from "utils/fetcher";
+import { chainUniversalNames } from "utils/misc";
 
 interface ItemStartProps {
   balance: number
@@ -34,7 +35,7 @@ export default function ItemStart({ balance, contract, chainId }: ItemStartProps
     </TabsLayout>
     {!data?.tokens?.length && <>
       <div className="col-12 mt-2">
-        <Link href="/shop" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+        <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
           Buy Box in the Shop
         </Link>
       </div>
@@ -49,10 +50,10 @@ export default function ItemStart({ balance, contract, chainId }: ItemStartProps
           <button className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})} onClick={() => changeStage('Bridge')}>Bridge</button>
         </div>
         <div className="col-6 mt-2 d-flex">
-          <Link href="/shop" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy Box</Link>
+          <Link href="/game" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy Box</Link>
         </div>
         <div className="col-6 mt-2 d-flex">
-          <Link target="_blank" href={`https://dew.gg/sell?contract=${contract}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})}>Sell</Link>
+          <Link target="_blank" href={`https://element.market/assets/${chainUniversalNames[chainId]}/${contract}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedItems[0]})}>Sell</Link>
         </div>
       </div>
     </div>}

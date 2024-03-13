@@ -61,7 +61,7 @@ export default function BabylonScene() {
       },
       shop: {
         stroke: ['shop_stroke', 'windmill_stroke_01', 'windmill_stroke_02'],
-        page: '/shop',
+        page: '/game',
       },
       arena: {
         stroke: ['arena_stroke', 'arena_rotator_a_stroke'],
