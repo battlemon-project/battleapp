@@ -13,23 +13,24 @@ interface ItemBridgeProps {
 
 export default function ItemBridgeButton({ tokenId, dataArray, chainId }: ItemBridgeProps) {
   const { updateStore } = useItemStore();
-  const { estimateGas, itemBridge, itemBridgeStatus } = useLayerZeroBridgeItem({
+  const { itemBridge, itemBridgeStatus } = useLayerZeroBridgeItem({
     tokenId,
     dataArray,
     chainId
   });
 
   const handleItemBridge = async () => {
-    estimateGas().then(({ gas }) => {
-      itemBridge({ gas });
-    }).catch(e => {
-      console.log(e);
-      let message = (e as any).message;
-      message = message.split('Raw Call Arguments')[0];
-      message = message.split('Request Arguments')[0];
-      message = message.split('Contract Call')[0];
-      toast.error(message);
-    })
+    itemBridge();
+    // estimateGas().then(({ gas }) => {
+    //   itemBridge({ gas });
+    // }).catch(e => {
+    //   console.log(e);
+    //   let message = (e as any).message;
+    //   message = message.split('Raw Call Arguments')[0];
+    //   message = message.split('Request Arguments')[0];
+    //   message = message.split('Contract Call')[0];
+    //   toast.error(message);
+    // })
   }
 
   useEffect(() => {

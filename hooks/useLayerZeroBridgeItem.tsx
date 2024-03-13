@@ -14,23 +14,23 @@ export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeIt
   const args: [number, bigint, `0x${string}`] = [chainToLayerZero[chainId], BigInt(tokenId), options];
   const value = quote ? quote?.nativeFee : BigInt(0);
   const publicClient = usePublicClient()
-  //const fee = useFeeData()
 
-  const estimateGas = async () => {
-    const gas = await publicClient.estimateContractGas({
-      address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
-      abi: itemABI,
-      functionName: 'lzSend',
-      account: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
-      args,
-      value
-    })
-    //const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(1.1) : undefined
-    return {
-      gas: gas + BigInt(50000),
-      //gasPrice
-    }
-  }
+  // const fee = useFeeData()
+  // const estimateGas = async () => {
+  //   const gas = await publicClient.estimateContractGas({
+  //     address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
+  //     abi: itemABI,
+  //     functionName: 'lzSend',
+  //     account: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
+  //     args,
+  //     value
+  //   })
+  //   const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(1.1) : undefined
+  //   return {
+  //     gas: gas + BigInt(50000),
+  //     gasPrice
+  //   }
+  // }
 
   const itemBridge = useItemLzSend({
     address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
@@ -79,6 +79,6 @@ export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeIt
   return {
     itemBridge: itemBridge?.write || (() => {}),
     itemBridgeStatus: status,
-    estimateGas
+    //estimateGas
   };
 }

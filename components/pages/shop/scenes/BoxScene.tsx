@@ -97,9 +97,9 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
           />
           
           <Suspense>
-            <BoxModel name={ chainId == 80001 ? 'Basket1_POL' : 'Basket1'} box={box} status={status} prize={prize} position={positions[0]} />
-            <BoxModel name={ chainId == 80001 ? 'Basket2_POL' : 'Basket2'} box={box} status={status} prize={prize} position={positions[1]} />
-            <BoxModel name={ chainId == 80001 ? 'Basket3_POL' : 'Basket3'} box={box} status={status} prize={prize} position={positions[2]} />
+            <BoxModel name={ chainId == 137 ? 'Basket1_POL' : 'Basket1'} box={box} status={status} prize={prize} position={positions[0]} />
+            <BoxModel name={ chainId == 137 ? 'Basket2_POL' : 'Basket2'} box={box} status={status} prize={prize} position={positions[1]} />
+            <BoxModel name={ chainId == 137 ? 'Basket3_POL' : 'Basket3'} box={box} status={status} prize={prize} position={positions[2]} />
           </Suspense>
 
           {debug && <DebugLayer />}
