@@ -13,7 +13,7 @@ interface LemonBridgeProps {
 
 export default function LemonBridgeButton({ tokenId, dataArray, chainId }: LemonBridgeProps) {
   const { updateStore } = useLemonStore();
-  const { estimateGas, lemonBridge, lemonBridgeStatus } = useLayerZeroBridgeLemon({
+  const { lemonBridge, lemonBridgeStatus } = useLayerZeroBridgeLemon({
     tokenId,
     dataArray,
     chainId
