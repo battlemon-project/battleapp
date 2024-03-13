@@ -20,8 +20,8 @@ export default function ItemBridgeButton({ tokenId, dataArray, chainId }: ItemBr
   });
 
   const handleItemBridge = async () => {
-    estimateGas().then(({ gas, gasPrice }) => {
-      itemBridge({ gas, gasPrice });
+    estimateGas().then(({ gas }) => {
+      itemBridge({ gas });
     }).catch(e => {
       console.log(e);
       let message = (e as any).message;

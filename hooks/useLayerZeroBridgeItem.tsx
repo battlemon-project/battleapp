@@ -14,7 +14,7 @@ export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeIt
   const args: [number, bigint, `0x${string}`] = [chainToLayerZero[chainId], BigInt(tokenId), options];
   const value = quote ? quote?.nativeFee : BigInt(0);
   const publicClient = usePublicClient()
-  const fee = useFeeData()
+  //const fee = useFeeData()
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
@@ -25,10 +25,10 @@ export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeIt
       args,
       value
     })
-    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(1.1) : undefined
+    //const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(1.1) : undefined
     return {
       gas: gas + BigInt(50000),
-      gasPrice
+      //gasPrice
     }
   }
 

@@ -20,8 +20,8 @@ export default function LemonBridgeButton({ tokenId, dataArray, chainId }: Lemon
   });
 
   const handleLemonBridge = async () => {
-    estimateGas().then(({ gas, gasPrice }) => {
-      lemonBridge({ gas, gasPrice });
+    estimateGas().then(({ gas }) => {
+      lemonBridge({ gas });
     }).catch(e => {
       console.log(e)
       let message = (e as any).message;

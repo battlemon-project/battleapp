@@ -32,7 +32,7 @@ export type BridgeItemProps = {
 
 export function useLayerZeroQuoteItem({ chainId, dataArray }: BridgeItemProps) {
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
-  const options = Options.newOptions().addExecutorLzReceiveOption(500000, 0).toHex().toString() as any;
+  const options = Options.newOptions().addExecutorLzReceiveOption(300000, 0).toHex().toString() as any;
   const data = encodePacked(
     ["address", "uint256", "uint8", "uint8", "uint", "uint", "uint", "bytes"],
     dataArray
