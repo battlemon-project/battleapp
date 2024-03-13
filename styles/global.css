@@ -298,3 +298,12 @@ canvas {
   opacity: 0.3;
   pointer-events: none;
 }
+
+.progress-bar {
+  width: 0%;
+}
+
+.progress-bar.startProgress {
+  width: 100%;
+  transition: 100s width;
+}

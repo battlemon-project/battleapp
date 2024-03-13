@@ -17,6 +17,7 @@ export default function BuyBoxPage() {
   const { address }  = useAccount();
   const { chain } = useNetwork();
   const [ warning, setWarning ] = useState<boolean>(false)
+  const [ startProgress, setStartProgress ] = useState<boolean>(false)
   const { setPrize, status, prize } = useBoxStore()
   const { isSignedIn, isSupportedChain } = useAuth();
 
@@ -24,8 +25,12 @@ export default function BuyBoxPage() {
   useEffect(() => {
     if (['process', 'success'].includes(status) && !prize) {
       setWarning(true)
+      setTimeout(() => {
+        setStartProgress(true)
+      }, 2000)
     } else {
       setWarning(false)
+      setStartProgress(false)
     }
   }, [status, prize])
 
@@ -77,15 +82,18 @@ export default function BuyBoxPage() {
 
   return (<>
     <div className="container py-3 mb-auto">
-      <h3 className='text-center'>Get your Prize</h3>
-      
-      {warning ? <>
-        <div className="alert alert-primary text-center py-2" style={{fontSize: '18px', margin: '17px 0'}} role="alert">
-          Please wait, API3 Oracle is running.
+      <div className="row">
+        <div className="col-xl-5 col-lg-7 col-md-9 col-sm-11 mx-auto">
+          {warning ? <div className="position-relative text-center" style={{color: '#052c65', fontSize: '18px', margin: '3px 0 4px', textShadow: '0px 1px rgba(255,255,255,0.3)'}}>
+            <div className="progress position-absolute" style={{background: '#cfe2ff', width: '100%', height: '100%' }}>
+              <div className={cn("progress-bar progress-bar-striped", {startProgress: startProgress})}role="progressbar"></div>
+            </div>
+            <div className="position-relative py-1">Please wait, API3 is rolling the quantum dice</div>
+          </div> : <>
+            {prize ? <h3 className='text-center'>Congratulations!</h3> : <h3 className='text-center'>Get your Prize</h3>}
+          </>}
         </div>
-      </> : <>
-        <br /><br /><br />
-      </>}
+      </div>
 
       <div style={{height: '400px'}} key={chain?.id}>
         <BoxScene name='Basket_Chests_LP_oneReward' debug={false} chainId={chain?.id} />
