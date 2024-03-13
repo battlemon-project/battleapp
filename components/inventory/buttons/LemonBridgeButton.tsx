@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useLayerZeroBridgeLemon } from 'hooks/useLayerZeroBridgeLemon';
 import type { BridgeLemonArray } from 'hooks/useLayerZeroQuoteLemon';
 import { useLemonStore } from '../store/lemonStore';
@@ -12,14 +13,23 @@ interface LemonBridgeProps {
 
 export default function LemonBridgeButton({ tokenId, dataArray, chainId }: LemonBridgeProps) {
   const { updateStore } = useLemonStore();
-  const { lemonBridge, lemonBridgeStatus } = useLayerZeroBridgeLemon({
+  const { estimateGas, lemonBridge, lemonBridgeStatus } = useLayerZeroBridgeLemon({
     tokenId,
     dataArray,
     chainId
   });
 
   const handleLemonBridge = async () => {
-    lemonBridge()
+    estimateGas().then(({ gas, gasPrice }) => {
+      lemonBridge({ gas, gasPrice });
+    }).catch(e => {
+      console.log(e)
+      let message = (e as any).message;
+      message = message.split('Raw Call Arguments')[0];
+      message = message.split('Request Arguments')[0];
+      message = message.split('Contract Call')[0];
+      toast.error(message)
+    })
   }
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useWaitForTransaction } from 'wagmi';
+import { useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { useContract } from 'hooks/useContract';
-import { useItemLzSend } from './generated';
+import { useItemLzSend, itemABI } from './generated';
 import { StatusType } from './useBuyBox';
 import { useLayerZeroQuoteItem, type BridgeItemProps } from './useLayerZeroQuoteItem';
 import { chainToLayerZero } from 'utils/misc';
@@ -11,11 +11,31 @@ export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeIt
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { quote, options } = useLayerZeroQuoteItem({ chainId, dataArray });
+  const args: [number, bigint, `0x${string}`] = [chainToLayerZero[chainId], BigInt(tokenId), options];
+  const value = quote ? quote?.nativeFee : BigInt(0);
+  const publicClient = usePublicClient()
+  const fee = useFeeData()
+
+  const estimateGas = async () => {
+    const gas = await publicClient.estimateContractGas({
+      address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
+      abi: itemABI,
+      functionName: 'lzSend',
+      account: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
+      args,
+      value
+    })
+    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(1.1) : undefined
+    return {
+      gas: gas + BigInt(50000),
+      gasPrice
+    }
+  }
 
   const itemBridge = useItemLzSend({
     address: NEXT_PUBLIC_CONTRACT_ITEMS as '0x',
-    args: [chainToLayerZero[chainId], BigInt(tokenId), options],
-    value: quote ? quote?.nativeFee : BigInt(0),
+    args,
+    value,
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];
@@ -58,6 +78,7 @@ export function useLayerZeroBridgeItem({ tokenId, dataArray, chainId }: BridgeIt
 
   return {
     itemBridge: itemBridge?.write || (() => {}),
-    itemBridgeStatus: status
+    itemBridgeStatus: status,
+    estimateGas
   };
 }
