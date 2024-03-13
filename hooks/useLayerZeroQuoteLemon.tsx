@@ -64,7 +64,7 @@ export const bridgeChains: NftMetaData[] = [
 
 export function useLayerZeroQuoteLemon({ chainId, dataArray }: BridgeLemonProps) {
   const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
-  const options = Options.newOptions().addExecutorLzReceiveOption(300000, 0).toHex().toString() as any;
+  const options = Options.newOptions().addExecutorLzReceiveOption(500000, 0).toHex().toString() as any;
   const data = encodePacked(
     ["address", "uint256", "uint8", "uint8", "bytes", "uint", "uint", "uint"],
     dataArray
