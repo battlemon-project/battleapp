@@ -99,7 +99,7 @@ export default function BuyBoxPage() {
         <BoxScene name='Basket_Chests_LP_oneReward' debug={false} chainId={chain?.id} />
       </div>
       {isSignedIn && isSupportedChain && chain ? <>
-        <div className='row'>
+        <div className='row' style={{margin: '-30px 0 0 0'}}>
             <div className='col-md-4 col-12'>
               <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />
             </div>
@@ -117,6 +117,171 @@ export default function BuyBoxPage() {
           </div>
         </div>
       </>}
+
+
+      <div>
+        <div className="row px-3">
+          <div className="col-sm-4">
+            <div className="w-100 px-2 py-2" style={{background: 'rgba(0,0,0,0.3)'}}>
+              <div className="px-2 py-2"><strong>Possible rewards:</strong></div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_small.png' : '/images/rewards/Reward_ETH_small.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  {chain?.name.includes('lygon') ? <>30 Matic</> : <>0.008 Eth</>}
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Pts_small.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  25 BP
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Sticker
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_IcePick_1.png" alt="Reward_IcePick_1" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Pickaxe 1 Lvl
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-4">
+            <div className="w-100 px-2 py-2" style={{background: 'rgba(0,0,0,0.3)'}}>
+              <div className="px-2 py-2"><strong>Possible rewards:</strong></div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_small.png' : '/images/rewards/Reward_ETH_small.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  {chain?.name.includes('lygon') ? <>30 Matic</> : <>0.008 Eth</>}
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_med.png' : '/images/rewards/Reward_ETH_med.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  {chain?.name.includes('lygon') ? <>90 Matic</> : <>0.025 Eth</>}
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Pts_small.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  25 BP
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Pts_med.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  50 BP
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Sticker
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Item.png" alt="Reward_Item" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Item
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_IcePick_2.png" alt="Reward_IcePick_1" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Pickaxe 2 Lvl
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-4">
+            <div className="w-100 px-2 py-2" style={{background: 'rgba(0,0,0,0.3)'}}>
+              <div className="px-2 py-2"><strong>Possible rewards:</strong></div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_med.png' : '/images/rewards/Reward_ETH_med.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  {chain?.name.includes('lygon') ? <>90 Matic</> : <>0.025 Eth</>}
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Pts_med.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  50 BP
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Pts_big.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  100 BP
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Sticker
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Item.png" alt="Reward_Item" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Item
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_Lemon.png" alt="Reward_Lemon" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Lemon
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="col col-auto">
+                  <img className="img-fluid" src="/images/rewards/Reward_IcePick_3.png" alt="Reward_IcePick_3" style={{height: '40px', width: '40px'}} />
+                </div>
+                <div className="col pt-2">
+                  Pickaxe 3 Lvl
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </>);
