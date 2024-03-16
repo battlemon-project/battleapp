@@ -15,7 +15,7 @@ interface BuyBoxProps {
 
 export default function BuyBox({ boxType, chainId }: BuyBoxProps) {
   const { chain } = useNetwork();
-  const boxPrices = useBoxPrices()
+  const { prices: boxPrices } = useBoxPrices()
   const { buyBox, buyBoxStatus, estimateGas, prize } = useBuyBox(boxType);
   const { setStatus, setBox, setPrize } = useBoxStore()
 

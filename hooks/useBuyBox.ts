@@ -59,7 +59,7 @@ export function useBuyBox(type: BoxType) {
   console.log('render useBuyBox')
   const publicClient = usePublicClient()
   const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES')
-  const boxPrices = useBoxPrices();
+  const { prices: boxPrices } = useBoxPrices();
   const [ status, setStatus ] = useState<StatusType>('idle')
   const [ prize, setPrize ] = useState<PrizeType>()
   const { address }  = useAccount();

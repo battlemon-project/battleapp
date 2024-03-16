@@ -16,6 +16,7 @@ export function useBoxPrices() {
     Good: process.env.NEXT_PUBLIC_PRICE_POLYGON_GOOD_BOX!,
     Great: process.env.NEXT_PUBLIC_PRICE_POLYGON_GREAT_BOX!
   })
+  const [ symbol, setSymbol ] = useState<string>('Matic')
   
   useEffect(() => {
     if (!chain?.name) return;
@@ -26,6 +27,7 @@ export function useBoxPrices() {
         Good: process.env.NEXT_PUBLIC_PRICE_POLYGON_GOOD_BOX!,
         Great: process.env.NEXT_PUBLIC_PRICE_POLYGON_GREAT_BOX!
       })
+      setSymbol('Matic')
     }
     
     if (chain.name.includes('Linea')) {
@@ -34,9 +36,10 @@ export function useBoxPrices() {
         Good: process.env.NEXT_PUBLIC_PRICE_LINEA_GOOD_BOX!,
         Great: process.env.NEXT_PUBLIC_PRICE_LINEA_GREAT_BOX!
       })
+      setSymbol('Eth')
     }
 
   }, [chain?.name])
 
-  return prices;
+  return { prices, symbol };
 }

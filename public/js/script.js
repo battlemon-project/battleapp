@@ -322,7 +322,9 @@ $(document).ready(function () {
 
 		function resize() {
 			const canvasHeight = document.getElementById('block-home');
-			[canvas.width, canvas.height] = [innerWidth, canvasHeight.clientHeight];
+			if (canvasHeight) {
+				[canvas.width, canvas.height] = [innerWidth, canvasHeight.clientHeight];
+			}
 
 			entities = [];
 		}

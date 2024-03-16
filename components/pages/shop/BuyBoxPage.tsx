@@ -12,11 +12,13 @@ import { useEffect, useState } from 'react';
 import { useAccount, useNetwork } from 'wagmi';
 import { decodeEventLog, parseAbi } from 'viem';
 import { useBoxStore } from './store/boxStore';
+import { useBoxPrices } from 'hooks/useBoxPrices';
 
 export default function BuyBoxPage() {
   const { address }  = useAccount();
   const { chain } = useNetwork();
   const [ warning, setWarning ] = useState<boolean>(false)
+  const { prices: { Cheap, Good, Great }, symbol } = useBoxPrices()
   const [ startProgress, setStartProgress ] = useState<boolean>(false)
   const { setPrize, status, prize } = useBoxStore()
   const { isSignedIn, isSupportedChain } = useAuth();
@@ -112,18 +114,21 @@ export default function BuyBoxPage() {
         </div>
       </> : <>
         <div className='row justify-content-center'>
-          <div className='col-4'>
+          <div className='col-md-4 col-sm-6 mb-3'>
             <SignInButton />
           </div>
         </div>
       </>}
 
+      {symbol !== 'Matic' && <p className="mx-3 rounded-3 mb-4" style={{borderLeft: '5px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.1)', padding: '8px 15px', fontSize: '15px'}}>
+      Please note that an additional fee is applied as part of the game mechanics. This fee contributes to the Reward pool, covers payments for additional services, such as API3 and transaction fee on the Linea network for distributing rewards.
+      </p>}
 
       <div>
         <div className="row px-3">
           <div className="col-sm-4">
-            <div className="w-100 px-2 py-2" style={{background: 'rgba(0,0,0,0.3)'}}>
-              <div className="px-2 py-2"><strong>Possible rewards:</strong></div>
+            <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
+              <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Cheap} {symbol}</span>:</strong></div>
               <div className="d-flex">
                 <div className="col col-auto">
                   <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_small.png' : '/images/rewards/Reward_ETH_small.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
@@ -159,8 +164,8 @@ export default function BuyBoxPage() {
             </div>
           </div>
           <div className="col-sm-4">
-            <div className="w-100 px-2 py-2" style={{background: 'rgba(0,0,0,0.3)'}}>
-              <div className="px-2 py-2"><strong>Possible rewards:</strong></div>
+            <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
+              <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Good} {symbol}</span>:</strong></div>
               <div className="d-flex">
                 <div className="col col-auto">
                   <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_small.png' : '/images/rewards/Reward_ETH_small.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
@@ -220,8 +225,8 @@ export default function BuyBoxPage() {
             </div>
           </div>
           <div className="col-sm-4">
-            <div className="w-100 px-2 py-2" style={{background: 'rgba(0,0,0,0.3)'}}>
-              <div className="px-2 py-2"><strong>Possible rewards:</strong></div>
+            <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
+              <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Great} {symbol}</span>:</strong></div>
               <div className="d-flex">
                 <div className="col col-auto">
                   <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_med.png' : '/images/rewards/Reward_ETH_med.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
