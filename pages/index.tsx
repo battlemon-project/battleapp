@@ -93,6 +93,9 @@ const Home: NextPage = () => {
                           <Link href="/game" className="menu__link">Game Hub</Link>
                         </li>
                         <li className="menu__item">
+                          <Link href="/claim" className="menu__link">Claim</Link>
+                        </li>
+                        <li className="menu__item">
                           <Link href="/referral" className="menu__link">Referral</Link>
                         </li>
                       </ul>
@@ -761,6 +764,9 @@ const Home: NextPage = () => {
                   </li>
                   <li>
                     <Link href="/game" className="menu__link">Game Hub</Link>
+                  </li>
+                  <li>
+                    <Link href="/claim" className="menu__link">Claim</Link>
                   </li>
                   <li>
                     <Link href="/referral" className="menu__link">Referral</Link>

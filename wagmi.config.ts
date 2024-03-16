@@ -12,6 +12,9 @@ import Cap from '../evm-contracts/artifacts/contracts/merch/Cap.sol/BattlemonCap
 import Shirt from '../evm-contracts/artifacts/contracts/merch/Shirt.sol/BattlemonShirt.json'
 import Hoodie from '../evm-contracts/artifacts/contracts/merch/Hoodie.sol/BattlemonHoodie.json'
 import Raids from '../evm-contracts/artifacts/contracts/BattlemonRaids.sol/BattlemonRaids.json'
+import LineaPark from '../evm-contracts/artifacts/contracts/BattlemonLineaPark.sol/BattlemonLineaPark.json'
+
+
 import { Abi } from 'viem'
 
 export default defineConfig({
@@ -64,6 +67,10 @@ export default defineConfig({
     {
       name: 'Raids',
       abi: Raids.abi as Abi,
+    },
+    {
+      name: 'LineaPark',
+      abi: LineaPark.abi as Abi,
     }
   ],
   plugins: [
