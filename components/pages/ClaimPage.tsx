@@ -60,34 +60,36 @@ export default function ClaimPage() {
       
       <h3 className='text-center mx-auto mb-5'>Claim your NFT</h3>
       <div className="row">
-        <div className="col-12 col-md-5 col-sm-6">
-          <img src="/images/lineapark.jpg" className='img-fluid rounded-4' />
-          {cookies.check_mint ? (
-            <>
-              <div
-                className={`${styles.bg_card_description} mt-4 text-center h6 py-3`}
-              >
-                You got your NFT. Congratulations!
-              </div>
-            </>
-          ) : (
-            <>
-              <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
+        <div className="col-12 col-md-5 order-1 d-flex flex-column">
+          <img src="/images/lineapark.jpg" className='img-fluid rounded-4 order-1' />
+          <div className='order-md-2 mb-3'>
+            {cookies.check_mint ? (
+              <>
+                <div
+                  className={`${styles.bg_card_description} mt-4 text-center h6 py-3`}
+                >
+                  You got your NFT. Congratulations!
+                </div>
+              </>
+            ) : (
+              <>
+                <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
 
-                {isConnected ? <>
-                  {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
-                    <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
-                      Switch to Linea Network
-                    </button>
+                  {isConnected ? <>
+                    {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
+                      <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
+                        Switch to Linea Network
+                      </button>
+                    </>}
+                  </> : <>
+                      <SignInButton />
                   </>}
-                </> : <>
-                    <SignInButton />
-                </>}
-              </div>
-            </>
-          )}
+                </div>
+              </>
+            )}
+          </div>
         </div>
-        <div className="col-12 col-md-7 col-sm-6">
+        <div className="col-12 col-md-7 order-md-2">
           
           <div className={cn('p-3 py-4 rounded-4 mb-4', shopStyles.lightBg)}>
             <p className="mb-3">Step into the "Voyage Linea Park" GameFi event with our special edition NFT, crafted to enrich your experience subtly. This commemorative token, powered by zkRollup technology on Layer 2 (L2), not only stands as a testament to your journey within the game but also gently boosts your ability to earn Battlemon Points (BP)</p>
@@ -153,7 +155,7 @@ export default function ClaimPage() {
               </div>
               <div className="col px-2 d-flex flex-row align-items-center">
                 <p className="mb-1">
-                  <b>Join Battlemon Telegram Group</b>
+                  <b>Join Telegram</b>
                 </p>
               </div>
               <div className="col-auto text-end">
