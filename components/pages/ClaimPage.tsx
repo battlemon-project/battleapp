@@ -6,13 +6,15 @@ import cn from 'classnames';
 import styles from './Claim.module.css';
 import shopStyles from './shop/shop.module.css'
 import { truncate } from 'utils/misc';
-import { useLineaParkMint } from 'hooks/useLineaParkMint';
-import { toast } from 'react-toastify';
+import { SignInButton } from './shop/buttons/SignInButton';
+import ClaimParkButton from './ClaimParkButton';
+import { useChainModal } from '@rainbow-me/rainbowkit';
+
 
 export default function ClaimPage() {
   const { chain } = useNetwork();
+  const { openChainModal } = useChainModal();
   const { isConnected } = useAccount();
-  const { parkMint, parkMintStatus, estimateGas } = useLineaParkMint();
   const [checkFollow, setCheckFollow] = useState(false);
   const [checkJoin, setCheckJoin] = useState(false);
   const [checkMint, setCheckMint] = useState(false);
@@ -21,18 +23,6 @@ export default function ClaimPage() {
     'check_telegram',
     'check_mint'
   ]);
-
-  const handleParkMint = async () => {
-    estimateGas().then(({ gas, gasPrice }) => {
-      parkMint(chain?.id == 59144 ? {} : { gas, gasPrice })
-    }).catch(e => {
-      let message = (e as any).message;
-      message = message.split('Raw Call Arguments')[0];
-      message = message.split('Request Arguments')[0];
-      message = message.split('Contract Call')[0];
-      toast.error(message)
-    })
-  }
 
   const checkTwitterFollow = () => {
     setTimeout(() => {
@@ -64,12 +54,6 @@ export default function ClaimPage() {
     }
   }, [cookies, isConnected]);
 
-  
-  useEffect(() => {
-    if (parkMintStatus == 'success') {
-      setCookie('check_mint', 'true');
-    }
-  }, [parkMintStatus])
 
   return (<>
     <div className="container mt-1" style={{minHeight: 'calc(100vh - 250px)'}}>
@@ -89,14 +73,16 @@ export default function ClaimPage() {
           ) : (
             <>
               <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
-                <button
-                  onClick={handleParkMint}
-                  className={`btn btn-success btn-lg px-4 py-3 w-100 ${styles.mint_btn}`}>
-                    { parkMintStatus == 'loading' || parkMintStatus == 'process' ? 
-                      <span className="spinner-border spinner-border-sm" role="status"></span> :
-                      <>MINT</>
-                    }
-                </button>
+
+                {isConnected ? <>
+                  {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
+                    <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
+                      Switch to Linea Network
+                    </button>
+                  </>}
+                </> : <>
+                    <SignInButton />
+                </>}
               </div>
             </>
           )}
@@ -104,7 +90,7 @@ export default function ClaimPage() {
         <div className="col-12 col-md-7 col-sm-6">
           
           <div className={cn('p-3 py-4 rounded-4 mb-4', shopStyles.lightBg)}>
-            <p className="mb-3">The items are boost for the character. Each item has luck, agility, and speed, which affect the results of the raid. The more items you wear into the raid, the better your results will be.</p>
+            <p className="mb-3">Step into the "Voyage Linea Park" GameFi event with our special edition NFT, crafted to enrich your experience subtly. This commemorative token, powered by zkRollup technology on Layer 2 (L2), not only stands as a testament to your journey within the game but also gently boosts your ability to earn Battlemon Points (BP)</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
               <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</div>
