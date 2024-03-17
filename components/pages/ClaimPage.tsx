@@ -83,7 +83,7 @@ export default function ClaimPage() {
               <div
                 className={`${styles.bg_card_description} mt-4 text-center h6 py-3`}
               >
-                Congratulations!
+                You got your NFT. Congratulations!
               </div>
             </>
           ) : (
@@ -92,7 +92,10 @@ export default function ClaimPage() {
                 <button
                   onClick={handleParkMint}
                   className={`btn btn-success btn-lg px-4 py-3 w-100 ${styles.mint_btn}`}>
-                  MINT
+                    { parkMintStatus == 'loading' || parkMintStatus == 'process' ? 
+                      <span className="spinner-border spinner-border-sm" role="status"></span> :
+                      <>MINT</>
+                    }
                 </button>
               </div>
             </>
