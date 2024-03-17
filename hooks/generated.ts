@@ -342,6 +342,13 @@ export const boxABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'prices', internalType: 'uint256[]', type: 'uint256[]' }],
+    name: 'setConfig',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [
       { name: '_airnode', internalType: 'address', type: 'address' },
       { name: '_endpointIdUint256', internalType: 'bytes32', type: 'bytes32' },
@@ -3135,6 +3142,194 @@ export const lemonABI = [
 ] as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LineaPark
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const lineaParkABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'safeMint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // PickAxe
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -5896,6 +6091,31 @@ export function useBoxSetAddresses<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setConfig"`.
+ */
+export function useBoxSetConfig<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'setConfig'
+        >['request']['abi'],
+        'setConfig',
+        TMode
+      > & { functionName?: 'setConfig' }
+    : UseContractWriteConfig<typeof boxABI, 'setConfig', TMode> & {
+        abi?: never
+        functionName?: 'setConfig'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'setConfig', TMode>({
+    abi: boxABI,
+    functionName: 'setConfig',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setRequestParameters"`.
  */
 export function useBoxSetRequestParameters<
@@ -6128,6 +6348,22 @@ export function usePrepareBoxSetAddresses(
     functionName: 'setAddresses',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, 'setAddresses'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setConfig"`.
+ */
+export function usePrepareBoxSetConfig(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'setConfig'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'setConfig',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'setConfig'>)
 }
 
 /**
@@ -12494,6 +12730,499 @@ export function useLemonTransferEvent(
     eventName: 'Transfer',
     ...config,
   } as UseContractEventConfig<typeof lemonABI, 'Transfer'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__.
+ */
+export function useLineaParkRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useLineaParkBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useLineaParkGetApproved<
+  TFunctionName extends 'getApproved',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useLineaParkIsApprovedForAll<
+  TFunctionName extends 'isApprovedForAll',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"name"`.
+ */
+export function useLineaParkName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useLineaParkOwnerOf<
+  TFunctionName extends 'ownerOf',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useLineaParkSupportsInterface<
+  TFunctionName extends 'supportsInterface',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'supportsInterface',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useLineaParkSymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useLineaParkTokenUri<
+  TFunctionName extends 'tokenURI',
+  TSelectData = ReadContractResult<typeof lineaParkABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: lineaParkABI,
+    functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof lineaParkABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lineaParkABI}__.
+ */
+export function useLineaParkWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lineaParkABI,
+          string
+        >['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof lineaParkABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof lineaParkABI, TFunctionName, TMode>({
+    abi: lineaParkABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"approve"`.
+ */
+export function useLineaParkApprove<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lineaParkABI,
+          'approve'
+        >['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof lineaParkABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lineaParkABI, 'approve', TMode>({
+    abi: lineaParkABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"safeMint"`.
+ */
+export function useLineaParkSafeMint<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lineaParkABI,
+          'safeMint'
+        >['request']['abi'],
+        'safeMint',
+        TMode
+      > & { functionName?: 'safeMint' }
+    : UseContractWriteConfig<typeof lineaParkABI, 'safeMint', TMode> & {
+        abi?: never
+        functionName?: 'safeMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lineaParkABI, 'safeMint', TMode>({
+    abi: lineaParkABI,
+    functionName: 'safeMint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useLineaParkSafeTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lineaParkABI,
+          'safeTransferFrom'
+        >['request']['abi'],
+        'safeTransferFrom',
+        TMode
+      > & { functionName?: 'safeTransferFrom' }
+    : UseContractWriteConfig<typeof lineaParkABI, 'safeTransferFrom', TMode> & {
+        abi?: never
+        functionName?: 'safeTransferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lineaParkABI, 'safeTransferFrom', TMode>({
+    abi: lineaParkABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useLineaParkSetApprovalForAll<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lineaParkABI,
+          'setApprovalForAll'
+        >['request']['abi'],
+        'setApprovalForAll',
+        TMode
+      > & { functionName?: 'setApprovalForAll' }
+    : UseContractWriteConfig<
+        typeof lineaParkABI,
+        'setApprovalForAll',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'setApprovalForAll'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lineaParkABI, 'setApprovalForAll', TMode>({
+    abi: lineaParkABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useLineaParkTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof lineaParkABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof lineaParkABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof lineaParkABI, 'transferFrom', TMode>({
+    abi: lineaParkABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lineaParkABI}__.
+ */
+export function usePrepareLineaParkWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lineaParkABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lineaParkABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lineaParkABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareLineaParkApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lineaParkABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lineaParkABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lineaParkABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"safeMint"`.
+ */
+export function usePrepareLineaParkSafeMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lineaParkABI, 'safeMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lineaParkABI,
+    functionName: 'safeMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lineaParkABI, 'safeMint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareLineaParkSafeTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lineaParkABI, 'safeTransferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lineaParkABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lineaParkABI, 'safeTransferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareLineaParkSetApprovalForAll(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lineaParkABI, 'setApprovalForAll'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lineaParkABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lineaParkABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link lineaParkABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareLineaParkTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof lineaParkABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: lineaParkABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof lineaParkABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lineaParkABI}__.
+ */
+export function useLineaParkEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof lineaParkABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lineaParkABI,
+    ...config,
+  } as UseContractEventConfig<typeof lineaParkABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lineaParkABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useLineaParkApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lineaParkABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lineaParkABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof lineaParkABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lineaParkABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useLineaParkApprovalForAllEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lineaParkABI, 'ApprovalForAll'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lineaParkABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  } as UseContractEventConfig<typeof lineaParkABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link lineaParkABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useLineaParkTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof lineaParkABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: lineaParkABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof lineaParkABI, 'Transfer'>)
 }
 
 /**

@@ -29,6 +29,9 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
               <Link href="/game" className={`nav-link ${router.pathname.startsWith("/game") ? "active" : ""}`}>Game Hub</Link>
             </li>
             <li className="nav-item px-1">
+              <Link href="/claim" className={`nav-link ${router.pathname.startsWith("/claim") ? "active" : ""}`}>Claim</Link>
+            </li>
+            <li className="nav-item px-1">
               <Link href="/referral" className={`nav-link ${router.pathname.startsWith("/referral") ? "active" : ""}`}>Referral</Link>
             </li>
           </ul>
