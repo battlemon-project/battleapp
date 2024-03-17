@@ -1,38 +1,120 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
+import PolSymbol from 'components/layout/PolSymbol';
+import cn from 'classnames';
 import styles from './Claim.module.css';
+import shopStyles from './shop/shop.module.css'
+import { truncate } from 'utils/misc';
+import { useLineaParkMint } from 'hooks/useLineaParkMint';
+import { toast } from 'react-toastify';
 
 export default function ClaimPage() {
+  const { chain } = useNetwork();
+  const { isConnected } = useAccount();
+  const { parkMint, parkMintStatus, estimateGas } = useLineaParkMint();
   const [checkFollow, setCheckFollow] = useState(false);
-  const [checkRetwit, setCheckRetwit] = useState(false);
-  const [telegramCode, setTelegramCode] = useState<string | boolean>(false);
+  const [checkJoin, setCheckJoin] = useState(false);
+  const [checkMint, setCheckMint] = useState(false);
   const [cookies, setCookie] = useCookies([
     'check_twitter',
     'check_telegram',
-    'check_mint',
+    'check_mint'
   ]);
 
-  const checkTwitterFollow = (e: React.MouseEvent) => {
-    e.preventDefault()
+  const handleParkMint = async () => {
+    estimateGas().then(({ gas, gasPrice }) => {
+      parkMint(chain?.id == 59144 ? {} : { gas, gasPrice })
+    }).catch(e => {
+      let message = (e as any).message;
+      message = message.split('Raw Call Arguments')[0];
+      message = message.split('Request Arguments')[0];
+      message = message.split('Contract Call')[0];
+      toast.error(message)
+    })
+  }
+
+  const checkTwitterFollow = () => {
     setTimeout(() => {
       setCookie('check_twitter', 'true');
     }, 3000);
   };
 
-  const checkTelegramJoin = (e: React.MouseEvent) => {
-    e.preventDefault()
+  const checkTelegramJoin = () => {
     setTimeout(() => {
       setCookie('check_telegram', 'true');
     }, 3000);
   };
 
+  useEffect(() => {
+    if (isConnected) {
+      if (cookies.check_twitter) {
+        setCheckFollow(true);
+      }
+      if (cookies.check_telegram) {
+        setCheckJoin(true);
+      }
+      if (cookies.check_twitter && cookies.check_telegram) {
+        setCheckMint(true);
+      }
+    } else {
+      setCheckFollow(false);
+      setCheckJoin(false);
+      setCheckMint(false);
+    }
+  }, [cookies, isConnected]);
+
+  
+  useEffect(() => {
+    if (parkMintStatus == 'success') {
+      setCookie('check_mint', 'true');
+    }
+  }, [parkMintStatus])
 
   return (<>
-    <div className="container mt-1">
+    <div className="container mt-1" style={{minHeight: 'calc(100vh - 250px)'}}>
+      
+      <h3 className='text-center mx-auto mb-5'>Claim your NFT</h3>
       <div className="row">
-        <div className="col-xs-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
-          <img src="/images/lineapark.jpg" className='img-fluid rounded-4 mb-3' />
+        <div className="col-12 col-md-5 col-sm-6">
+          <img src="/images/lineapark.jpg" className='img-fluid rounded-4' />
+          {cookies.check_mint ? (
+            <>
+              <div
+                className={`${styles.bg_card_description} mt-4 text-center h6 py-3`}
+              >
+                Congratulations!
+              </div>
+            </>
+          ) : (
+            <>
+              <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
+                <button
+                  onClick={handleParkMint}
+                  className={`btn btn-success btn-lg px-4 py-3 w-100 ${styles.mint_btn}`}>
+                  MINT
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="col-12 col-md-7 col-sm-6">
+          
+          <div className={cn('p-3 py-4 rounded-4 mb-4', shopStyles.lightBg)}>
+            <p className="mb-3">The items are boost for the character. Each item has luck, agility, and speed, which affect the results of the raid. The more items you wear into the raid, the better your results will be.</p>
+            <div className="d-flex justify-content-between mb-2">
+              <b>Contract Address</b>
+              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</div>
+            </div>
+            <div className="d-flex justify-content-between mb-2">
+              <b>Token Standard</b>
+              <div>ERC721</div>
+            </div>
+            {chain && <div className="d-flex justify-content-between ">
+              <b>Network</b>
+              <div className='fs-16'><PolSymbol>{chain.name}</PolSymbol></div>
+            </div>}
+          </div>
           <div
             className={`shadow p-2 mb-3 rounded d-flex ${styles.bg_card} ${
               checkFollow ? styles.bg_card_done : ''
@@ -73,8 +155,8 @@ export default function ClaimPage() {
           </div>
           <div
             className={`shadow p-2 mb-3 rounded ${styles.bg_card} ${
-              !checkRetwit ? styles.bg_card_disabled : ''
-            } ${telegramCode === true ? styles.bg_card_done : ''}`}
+              !checkFollow ? styles.bg_card_disabled : ''
+            } ${checkJoin === true ? styles.bg_card_done : ''}`}
           >
             <div className="d-flex">
               <div className="col col-auto d-flex justify-content-center px-2">
@@ -93,31 +175,12 @@ export default function ClaimPage() {
                   className={`btn btn-lg ${styles.bg_card_btn}`}
                   onClick={checkTelegramJoin}
                 >
-                  {telegramCode === true ? 'Done' : 'Join'}
+                  {checkJoin === true ? 'Done' : 'Join'}
                 </a>
               </div>
             </div>
           </div>
           
-          {cookies.check_mint ? (
-            <>
-              <div
-                className={`${styles.bg_card_description} mt-3 text-center h6`}
-              >
-                You already mint
-              </div>
-            </>
-          ) : (
-            <>
-              <div className={`mt-3 ${styles.mint_container}`}>
-                <button
-                  onClick={() => {}}
-                  className={`btn btn-success btn-lg px-4 py-3 w-100 styles.mint_btn`}>
-                  MINT
-                </button>
-              </div>
-            </>
-          )}
           {/* <div className={styles.bg_card_description}>
             <p>
               Unique Key-card that gives access to the incredible game world of

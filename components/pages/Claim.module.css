@@ -90,6 +90,11 @@
   border-radius: 16px !important;
 }
 
+.mint_disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .mint_btn {
   background: radial-gradient(65.09% 50% at 51.67% 50%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.0625) 100%);
   backdrop-filter: blur(25px);
