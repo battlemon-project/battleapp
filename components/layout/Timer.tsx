@@ -4,7 +4,7 @@ function pad(num: number, totalLength: number) {
   return String(num).padStart(totalLength, '0');
 }
 
-const Timer = ({ deadline, onFinished }: PropsWithChildren<{ deadline: string | number, onFinished: () => any }>) => {
+const Timer = ({ deadline, onFinished, isDays }: PropsWithChildren<{ deadline: string | number, isDays?: boolean, onFinished: () => any }>) => {
   const countdown = typeof deadline == 'number' ? deadline - Date.now() : Date.parse(deadline) - Date.now();
   const [finished, setFinished] = useState(false);
   const [days, setDays] = useState(Math.floor(countdown / (1000 * 60 * 60 * 24)));
@@ -37,9 +37,11 @@ const Timer = ({ deadline, onFinished }: PropsWithChildren<{ deadline: string | 
   }, [finished]);
 
   return (
-    <>
+    <>{isDays ? <>
+      {days} days {pad(hours, 2)}h {pad(minutes, 2)}m {pad(seconds, 2)}s
+     </> : <>
       {pad((days*24)+hours, 2)}:{pad(minutes, 2)}:{pad(seconds, 2)}
-    </>
+    </>}</>
   );
 };
 

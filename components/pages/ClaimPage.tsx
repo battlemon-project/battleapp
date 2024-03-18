@@ -9,6 +9,7 @@ import { truncate } from 'utils/misc';
 import { SignInButton } from './shop/buttons/SignInButton';
 import ClaimParkButton from './ClaimParkButton';
 import { useChainModal } from '@rainbow-me/rainbowkit';
+import Timer from 'components/layout/Timer';
 
 
 export default function ClaimPage() {
@@ -92,7 +93,11 @@ export default function ClaimPage() {
         <div className="col-12 col-md-7 order-md-2">
           
           <div className={cn('p-3 py-4 rounded-4 mb-4', shopStyles.lightBg)}>
-            <p className="mb-3">Step into the "Voyage Linea Park" GameFi event with our special edition NFT, crafted to enrich your experience subtly. This commemorative token, powered by zkRollup technology on Layer 2 (L2), not only stands as a testament to your journey within the game but also gently boosts your ability to earn Battlemon Points (BP)</p>
+            <p className="mb-3">Step into the "Voyage Linea Park" GameFi event with our special edition NFT, crafted to enrich your gaming experience. This token stands as a testament to your journey within the game and also slightly boosts your ability to earn Battlemon Points (BP)</p>
+            <div className="d-flex justify-content-between mb-2">
+              <b>Event end in</b>
+              <div><Timer deadline={1712264400000} onFinished={() => {}} isDays={true} /></div>
+            </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
               <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</div>
