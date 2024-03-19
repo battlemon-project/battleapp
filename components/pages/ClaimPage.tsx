@@ -86,6 +86,10 @@ export default function ClaimPage() {
                       <SignInButton />
                   </>}
                 </div>
+                <a href="https://element.market/collections/battlemon-linea-park" className="d-flex rounded-2 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
+                  <img src="https://element.market/resource/images/favicon-32.png" />
+                  <span>&nbsp; Battlemon Linea Park on Element &nbsp; </span>
+                </a>
               </>
             )}
           </div>
@@ -93,7 +97,7 @@ export default function ClaimPage() {
         <div className="col-12 col-md-7 order-md-2">
           
           <div className={cn('p-3 py-4 rounded-4 mb-4', shopStyles.lightBg)}>
-            <p className="mb-3">Step into the "Voyage Linea Park" GameFi event with our special edition NFT, crafted to enrich your gaming experience. This token stands as a testament to your journey within the game and also slightly boosts your ability to earn Battlemon Points (BP)</p>
+            <p className="mb-3">Step into the "Voyage Linea Park" GameFi event with our special edition NFT, crafted to enrich your gaming experience. This token, powered by zkRollup technology on Layer 2 (L2), not only stands as a testament to your journey within the game, but also boosts your ability to earn Battlemon Points (BP)</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Event end in</b>
               <div><Timer deadline={1712264400000} onFinished={() => {}} isDays={true} /></div>
