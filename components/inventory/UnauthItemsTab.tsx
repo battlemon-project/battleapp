@@ -6,7 +6,7 @@ import { PropsWithChildren } from 'react';
 
 export default function UnauthItemsTab({ children }: PropsWithChildren) {
   return (<div className="row">
-    <div className="col-5">
+    <div className="col-5 d-none d-lg-block">
       <img className={cn('img-fluid rounded-4', styles.lightBg)} src="/images/shop/items-gallery.gif" />
     </div>
     <div className={cn('col-lg-7 col-12 position-relative', styles.inventoryContainer)}>

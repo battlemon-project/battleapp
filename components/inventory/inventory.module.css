@@ -49,6 +49,13 @@
   }
 }
 
+@media (max-width: 992px) { 
+  .inventoryTabLink {
+    padding: 10px 6px;
+    font-size: 13px;
+  }
+}
+
 .inventoryScollable {
   overflow-y: auto;
 }
