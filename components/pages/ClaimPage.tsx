@@ -86,12 +86,12 @@ export default function ClaimPage() {
                       <SignInButton />
                   </>}
                 </div>
-                <a href="https://element.market/collections/battlemon-linea-park" className="d-flex rounded-2 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
-                  <img src="https://element.market/resource/images/favicon-32.png" />
-                  <span>&nbsp; Battlemon Linea Park on Element &nbsp; </span>
-                </a>
               </>
             )}
+            <a href="https://element.market/collections/battlemon-linea-park" className="d-flex rounded-3 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
+              <img src="https://element.market/resource/images/favicon-32.png" />
+              <span>&nbsp; Battlemon Linea Park on Element &nbsp; </span>
+            </a>
           </div>
         </div>
         <div className="col-12 col-md-7 order-md-2">
