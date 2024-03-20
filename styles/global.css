@@ -307,3 +307,15 @@ canvas {
   width: 100%;
   transition: 100s width;
 }
+
+.Toastify__toast-container--top-right {
+  top: 70px;
+}
+
+.Toastify__toast-theme--dark {
+  background: rgba(0,0,0,0.9);
+  padding: 0;
+}
+.Toastify__close-button--dark {
+  padding: 6px 8px;
+}

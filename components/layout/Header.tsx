@@ -2,8 +2,11 @@ import cn from 'classnames'
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { RainbowConnectButton } from './RainbowConnectButton';
+import BuyEvents from './BuyEvents';
+//import { useNetwork } from 'wagmi';
 
 export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boolean, hideDesktopMenu?: boolean }) {
+  //const { chain } = useNetwork()
   const router = useRouter();
 
   return (
@@ -37,6 +40,7 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
           </ul>
         </div>
       </div>
+      <BuyEvents />
     </nav>
   );
 }
