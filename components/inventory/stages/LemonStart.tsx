@@ -37,8 +37,8 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
     </TabsLayout>
     {!data?.tokens?.length && <>
       <div className="col-12 mt-2">
-        <Link href="/game" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          Buy Box in the Shop
+        <Link href={  chainUniversalNames[chainId] == 'linea' ? 'https://element.market/collections/battlemon-linea' : 'https://element.market/collections/battlemon' } target="_blank" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
+          Buy
         </Link>
       </div>
     </>}
@@ -60,7 +60,7 @@ export default function LemonStart({ balance, contract, chainId }: LemonStartPro
           <button className="btn btn-lg btn-default fs-13 text-uppercase w-100 disabled">Dungeon</button>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
-          <Link href="/game" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy Box</Link>
+          <Link href={  chainUniversalNames[chainId] == 'linea' ? 'https://element.market/collections/battlemon-linea' : 'https://element.market/collections/battlemon' } target="_blank" className="btn btn-lg btn-default fs-13 text-uppercase w-100">Buy</Link>
         </div>
         <div className="col-6 col-lg-4 mt-2 d-flex">
           <Link target="_blank" href={`https://element.market/assets/${chainUniversalNames[chainId]}/${contract}`} className={cn('btn btn-lg btn-default fs-13 text-uppercase w-100', { disabled: !selectedLemons[0]})}>Sell</Link>
