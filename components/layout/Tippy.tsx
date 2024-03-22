@@ -1,11 +1,10 @@
 import React, { PropsWithChildren } from "react";
-import { Tooltip } from "react-tippy";
-import "react-tippy/dist/tippy.css";
-
-export default function Tippy({ children, html }: PropsWithChildren & { html: React.ReactElement<any> }) {
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+export default function T({ children, html }: PropsWithChildren & { html: React.ReactElement<any> }) {
   return (
-    <Tooltip trigger="mouseenter" position="right" size="small" html={html}>
+    <Tippy content={html}>
       <u style={{cursor: 'pointer'}}>{children}</u>
-    </Tooltip>
+    </Tippy>
   );
 }
