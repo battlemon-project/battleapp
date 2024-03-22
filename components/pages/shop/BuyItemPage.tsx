@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import styles from './shop.module.css'
 import Link from 'next/link';
-import { truncate } from 'utils/misc';
 import PolSymbol from 'components/layout/PolSymbol';
 import MintItem from './buttons/MintItem';
 import useAuth from 'context/AuthContext';
 import { SignInButton } from './buttons/SignInButton';
 import { useContract } from 'hooks/useContract';
 import { useNetwork } from 'wagmi';
+import BlokExplorerLink from 'components/layout/BlokExplorerLink';
 
 export default function BuyItemPage() {
   const NEXT_PUBLIC_CONTRACT_ITEMS = useContract('ITEMS')
@@ -41,7 +41,7 @@ export default function BuyItemPage() {
             <p className="mb-3">The items are boost for the character. Each item has luck, agility, and speed, which affect the results of the raid. The more items you wear into the raid, the better your results will be.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(NEXT_PUBLIC_CONTRACT_ITEMS, 8)}</div>
+              <div><BlokExplorerLink address={NEXT_PUBLIC_CONTRACT_ITEMS} num={8} chain_id={chain?.id} /></div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>

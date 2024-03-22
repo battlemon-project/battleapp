@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import styles from './shop.module.css';
 import Link from 'next/link';
-import { truncate } from 'utils/misc';
 import PolSymbol from 'components/layout/PolSymbol';
 import MintLemon from './buttons/MintLemon';
 import { SignInButton } from './buttons/SignInButton';
 import useAuth from 'context/AuthContext';
 import { useNetwork } from 'wagmi';
 import { useContract } from "hooks/useContract";
+import BlokExplorerLink from 'components/layout/BlokExplorerLink';
 
 export default function BuyLemonPage() {
   const NEXT_PUBLIC_CONTRACT_LEMONS = useContract('LEMONS')
@@ -41,7 +41,7 @@ export default function BuyLemonPage() {
             <p className="mb-3">Dynamic NFT with a unique 3D view, where you can build your own setup, level up on smart contracts in the blockchain, unlocking increasingly unique content, as well as sending your hero on an exciting adventure for valuable prizes, where commissions from mechanics and royalties will be distributed.</p>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(NEXT_PUBLIC_CONTRACT_LEMONS!, 8)}</div>
+              <div><BlokExplorerLink address={NEXT_PUBLIC_CONTRACT_LEMONS} num={8} chain_id={chain?.id} /></div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>

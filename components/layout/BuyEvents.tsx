@@ -5,8 +5,10 @@ import { toast } from 'react-toastify';
 import { PrizeType, prizes } from 'hooks/useBuyBox';
 import EventIcon from './EventIcon';
 import { useTaskQueue, Task } from 'hooks/useTaskQueue'
+import { useAccount } from 'wagmi';
 
 export default function BuyEvents() {
+  const { address } = useAccount()
   const { addTask } = useTaskQueue({ shouldProcess: true })
   useEffect(() => {
     const query = `
@@ -31,8 +33,7 @@ export default function BuyEvents() {
     webSocket.onmessage = event => {
       const data = JSON.parse(event.data as string)
       if (data.type !== 'data') return
-      const { data: logData, topics, transaction_hash } = data.payload.data.eventUsers._entity
-
+      const { data: logData, topics, transaction_hash, chain_id } = data.payload.data.eventUsers._entity
       const decoded = decodeEventLog({
         abi: parseAbi(['event Prize(uint, bytes32, address, uint)']),
         data: logData,
@@ -45,7 +46,8 @@ export default function BuyEvents() {
 
       addTask(
         () => new Promise((resolve, reject) => {
-          toast.info(<EventIcon prize={prize} hash={transaction_hash} />, {
+          const youWin = address && address == decoded.args[2];
+          toast.info(<EventIcon prize={prize} hash={transaction_hash} text={youWin ? 'You Win!' : 'New Winner!'} chain_id={chain_id} />, {
             position: "top-right",
             autoClose: 3500,
             closeOnClick: false,
@@ -54,6 +56,7 @@ export default function BuyEvents() {
             draggable: true,
             progress: undefined,
             theme: "dark",
+            className: youWin ? 'youwin' : '',
             icon: false,
           })
           setTimeout(() => {

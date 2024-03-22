@@ -518,9 +518,6 @@ const Home: NextPage = () => {
                     </div>
                     <div className="mechanics-slider__pagination"></div>
                   </div>
-                  <div className="mechanics__btn">
-                    <a href="#" className="btn btn-outline-white btn-small">Загрузить ещё</a>
-                  </div>
                 </div>
               </div>
 

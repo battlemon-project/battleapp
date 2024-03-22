@@ -13,6 +13,13 @@ export function parsePrice(string: string) {
   }
 }
 
+export const blockExplorer: Record<number,string> = {
+  80001: 'https://mumbai.polygonscan.com', // mumbai
+  137: 'https://polygonscan.com', // polygon mainnet
+  59140: 'https://goerli.lineascan.build', // linea goerli
+  59144: 'https://lineascan.build', // linea mainnet
+}
+
 export const chainToLayerZero: {[key: number]: number} = {
   80001: 40109, // mumbai
   137: 30109, // polygon mainnet

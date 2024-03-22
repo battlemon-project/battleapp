@@ -5,17 +5,17 @@ import PolSymbol from 'components/layout/PolSymbol';
 import cn from 'classnames';
 import styles from './Claim.module.css';
 import shopStyles from './shop/shop.module.css'
-import { truncate } from 'utils/misc';
 import { SignInButton } from './shop/buttons/SignInButton';
 import ClaimParkButton from './ClaimParkButton';
 import { useChainModal } from '@rainbow-me/rainbowkit';
 import Timer from 'components/layout/Timer';
+import BlokExplorerLink from 'components/layout/BlokExplorerLink';
 
 
 export default function ClaimPage() {
   const { chain } = useNetwork();
   const { openChainModal } = useChainModal();
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const [checkFollow, setCheckFollow] = useState(false);
   const [checkJoin, setCheckJoin] = useState(false);
   const [checkMint, setCheckMint] = useState(false);
@@ -64,7 +64,7 @@ export default function ClaimPage() {
         <div className="col-12 col-md-5 order-1 d-flex flex-column">
           <img src="/images/lineapark.jpg" className='img-fluid rounded-4 order-1' />
           <div className='order-md-2 mb-3'>
-            {cookies.check_mint ? (
+            {cookies.check_mint && address && `${cookies.check_mint}`.includes(address) ? (
               <>
                 <div
                   className={`${styles.bg_card_description} mt-4 text-center h6 py-3`}
@@ -76,8 +76,8 @@ export default function ClaimPage() {
               <>
                 <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
 
-                  {isConnected ? <>
-                    {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
+                  {address ? <>
+                    {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} address={address} /> : <>
                       <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
                         Switch to Linea Network
                       </button>
@@ -104,7 +104,7 @@ export default function ClaimPage() {
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</div>
+              <div><BlokExplorerLink address={process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK} num={8} chain_id={chain?.id} /></div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>

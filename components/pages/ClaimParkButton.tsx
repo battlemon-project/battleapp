@@ -6,10 +6,11 @@ import { useLineaParkMint } from 'hooks/useLineaParkMint';
 import { useCookies } from 'react-cookie';
 
 interface ClaimParkProps {
-  chainId: number
+  chainId: number,
+  address: string
 }
 
-export default function ClaimParkButton({ chainId }: ClaimParkProps) {
+export default function ClaimParkButton({ chainId, address }: ClaimParkProps) {
   const [cookies, setCookie] = useCookies(['check_mint']);
   const { parkMint, parkMintStatus, estimateGas } = useLineaParkMint();
 
@@ -28,7 +29,7 @@ export default function ClaimParkButton({ chainId }: ClaimParkProps) {
 
   useEffect(() => {
     if (parkMintStatus == 'success') {
-      setCookie('check_mint', 'true');
+      setCookie('check_mint', `${cookies.check_mint}${address}`);
     }
   }, [parkMintStatus])
   
