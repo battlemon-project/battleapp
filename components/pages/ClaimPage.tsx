@@ -5,17 +5,17 @@ import PolSymbol from 'components/layout/PolSymbol';
 import cn from 'classnames';
 import styles from './Claim.module.css';
 import shopStyles from './shop/shop.module.css'
+import { truncate, blockExplorer } from 'utils/misc';
 import { SignInButton } from './shop/buttons/SignInButton';
 import ClaimParkButton from './ClaimParkButton';
 import { useChainModal } from '@rainbow-me/rainbowkit';
 import Timer from 'components/layout/Timer';
-import BlokExplorerLink from 'components/layout/BlokExplorerLink';
-
+import { useParkBalance } from 'hooks/useParkBalance';
 
 export default function ClaimPage() {
   const { chain } = useNetwork();
   const { openChainModal } = useChainModal();
-  const { isConnected, address } = useAccount();
+  const { isConnected } = useAccount();
   const [checkFollow, setCheckFollow] = useState(false);
   const [checkJoin, setCheckJoin] = useState(false);
   const [checkMint, setCheckMint] = useState(false);
@@ -64,30 +64,18 @@ export default function ClaimPage() {
         <div className="col-12 col-md-5 order-1 d-flex flex-column">
           <img src="/images/lineapark.jpg" className='img-fluid rounded-4 order-1' />
           <div className='order-md-2 mb-3'>
-            {cookies.check_mint && address && `${cookies.check_mint}`.includes(address) ? (
-              <>
-                <div
-                  className={`${styles.bg_card_description} mt-4 text-center h6 py-3`}
-                >
-                  You got your NFT. Congratulations!
-                </div>
-              </>
-            ) : (
-              <>
-                <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
+            <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
 
-                  {address ? <>
-                    {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} address={address} /> : <>
-                      <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
-                        Switch to Linea Network
-                      </button>
-                    </>}
-                  </> : <>
-                      <SignInButton />
-                  </>}
-                </div>
-              </>
-            )}
+              {isConnected ? <>
+                {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
+                  <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
+                    Switch to Linea Network
+                  </button>
+                </>}
+              </> : <>
+                  <SignInButton />
+              </>}
+            </div>
             <a href="https://element.market/collections/battlemon-linea-park" className="d-flex rounded-3 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
               <img src="https://element.market/resource/images/favicon-32.png" />
               <span>&nbsp; Battlemon Linea Park on Element &nbsp; </span>
@@ -104,7 +92,11 @@ export default function ClaimPage() {
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div><BlokExplorerLink address={process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK} num={8} chain_id={chain?.id} /></div>
+              <div>
+                {chain?.id ? <a href={`${blockExplorer[chain?.id]}/address/${process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK}`} target='_blank' style={{color: '#fff', textDecoration: 'underline'}}>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</a> : <>
+                  {truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}
+                </>}
+              </div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>
@@ -170,31 +162,6 @@ export default function ClaimPage() {
               </div>
             </div>
           </div>
-          
-          {/* <div className={styles.bg_card_description}>
-            <p>
-              Unique Key-card that gives access to the incredible game world of
-              Lemoland, full of adventures and NFT treasures.{' '}
-            </p>
-
-            <p>
-              Unique NFT key-pass will be available in Testnet and also
-              transferred to Mainnet.
-            </p>
-
-            <div className="d-flex justify-content-between">
-              <b>Contract Address</b>
-              <div>0x60efdg33a...434iq357c6</div>
-            </div>
-            <div className="d-flex justify-content-between">
-              <b>Token Standard</b>
-              <div>ERC721</div>
-            </div>
-            <div className="d-flex justify-content-between">
-              <b>Total minted</b>
-              <div>25 Keys</div>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
