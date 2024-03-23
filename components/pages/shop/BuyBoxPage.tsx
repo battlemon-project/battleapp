@@ -1,10 +1,7 @@
 import cn from 'classnames';
-import styles from './shop.module.css'
-import Link from 'next/link';
 import BuyBox from './buttons/BuyBox';
 import useAuth from 'context/AuthContext';
 import ReconnectingWebSocket from 'reconnecting-websocket';
-import { truncate } from 'utils/misc';
 import { BoxType, PrizeType, prizes } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
 import BoxScene from './scenes/BoxScene';
@@ -13,6 +10,7 @@ import { useAccount, useNetwork } from 'wagmi';
 import { decodeEventLog, parseAbi } from 'viem';
 import { useBoxStore } from './store/boxStore';
 import { useBoxPrices } from 'hooks/useBoxPrices';
+import Tippy from 'components/inventory/layout/Tippy';
 
 export default function BuyBoxPage() {
   const { address }  = useAccount();
@@ -142,7 +140,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Pts_small.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  25 BP
+                  <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                    25 BP
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -150,7 +150,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Sticker
+                  <Tippy html={<div>Collect 4 stickers and<br />exchange it for an Item</div>}>
+                    Sticker
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -158,7 +160,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_IcePick_1.png" alt="Reward_IcePick_1" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Pickaxe 1 Lvl
+                  <Tippy html={<div>Visit NFT Hub for mining<br />Gem using Pickaxe</div>}>
+                    Pickaxe 1 Lvl
+                  </Tippy>
                 </div>
               </div>
             </div>
@@ -187,7 +191,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Pts_small.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  25 BP
+                  <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                    25 BP
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -195,7 +201,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Pts_med.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  50 BP
+                  <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                    50 BP
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -203,7 +211,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Sticker
+                  <Tippy html={<div>Collect 4 stickers and<br />exchange it for an Item</div>}>
+                    Sticker
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -211,7 +221,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Item.png" alt="Reward_Item" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Item
+                  <Tippy html={<div>Visit NFT Hub for equip<br />an Item on Lemon NFT</div>}>
+                    Item
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -219,7 +231,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_IcePick_2.png" alt="Reward_IcePick_1" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Pickaxe 2 Lvl
+                  <Tippy html={<div>Visit NFT Hub for mining<br />Gem using Pickaxe</div>}>
+                    Pickaxe 2 Lvl
+                  </Tippy>
                 </div>
               </div>
             </div>
@@ -240,7 +254,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Pts_med.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  50 BP
+                  <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                    50 BP
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -248,7 +264,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Pts_big.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  100 BP
+                  <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                    100 BP
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -256,7 +274,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Sticker
+                  <Tippy html={<div>Collect 4 stickers and<br />exchange it for an Item</div>}>
+                    Sticker
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -264,7 +284,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Item.png" alt="Reward_Item" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Item
+                  <Tippy html={<div>Visit NFT Hub for equip<br />an Item on Lemon NFT</div>}>
+                    Item
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -272,7 +294,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_Lemon.png" alt="Reward_Lemon" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Lemon
+                  <Tippy html={<div>Total supply 3333 Alfa NFTs</div>}>
+                    Lemon
+                  </Tippy>
                 </div>
               </div>
               <div className="d-flex">
@@ -280,7 +304,9 @@ export default function BuyBoxPage() {
                   <img className="img-fluid" src="/images/rewards/Reward_IcePick_3.png" alt="Reward_IcePick_3" style={{height: '40px', width: '40px'}} />
                 </div>
                 <div className="col pt-2">
-                  Pickaxe 3 Lvl
+                  <Tippy html={<div>Visit NFT Hub for mining<br />Gem using Pickaxe</div>}>
+                    Pickaxe 3 Lvl
+                  </Tippy>
                 </div>
               </div>
             </div>

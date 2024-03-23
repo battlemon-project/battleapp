@@ -1,16 +1,17 @@
-import cn from 'classnames';
 import styles from './Claim.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useLineaParkMint } from 'hooks/useLineaParkMint';
-import { useCookies } from 'react-cookie';
+import { useParkBalance } from 'hooks/useParkBalance';
+import { useAccount } from 'wagmi';
 
 interface ClaimParkProps {
   chainId: number
 }
 
 export default function ClaimParkButton({ chainId }: ClaimParkProps) {
-  const [cookies, setCookie] = useCookies(['check_mint']);
+  const { address } = useAccount()
+  const { balance, refreshBalance } = useParkBalance()
   const { parkMint, parkMintStatus, estimateGas } = useLineaParkMint();
 
 
@@ -28,19 +29,30 @@ export default function ClaimParkButton({ chainId }: ClaimParkProps) {
 
   useEffect(() => {
     if (parkMintStatus == 'success') {
-      setCookie('check_mint', 'true');
+      refreshBalance?.();
     }
   }, [parkMintStatus])
   
+  useEffect(() => {
+    if (!address) return
+    refreshBalance?.();
+  }, [address])
+  
   return (<>
-    <button
-      onClick={handleParkMint}
-      className={`btn btn-success btn-lg px-4 py-3 w-100 ${styles.mint_btn}`}>
-        { parkMintStatus == 'loading' || parkMintStatus == 'process' ? 
-          <span className="spinner-border spinner-border-sm" role="status"></span> :
-          <>MINT</>
-        }
-    </button>
+    { balance ? <>
+      <div className={`${styles.bg_card_description} mt-4 text-center h6 py-3`} style={{background: 'rgba(0,0,0,0.4)'}}>
+        You got your NFT. Congratulations!
+      </div>
+    </> : <>
+      <button
+        onClick={handleParkMint}
+        className={`btn btn-success btn-lg px-4 py-3 w-100 ${styles.mint_btn}`}>
+          { parkMintStatus == 'loading' || parkMintStatus == 'process' ? 
+            <span className="spinner-border spinner-border-sm" role="status"></span> :
+            <>MINT</>
+          }
+      </button>
+    </>}
   </>
   );
 };
