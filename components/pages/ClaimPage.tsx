@@ -10,12 +10,12 @@ import { SignInButton } from './shop/buttons/SignInButton';
 import ClaimParkButton from './ClaimParkButton';
 import { useChainModal } from '@rainbow-me/rainbowkit';
 import Timer from 'components/layout/Timer';
-import { useParkBalance } from 'hooks/useParkBalance';
+import useAuth from 'context/AuthContext';
 
 export default function ClaimPage() {
   const { chain } = useNetwork();
   const { openChainModal } = useChainModal();
-  const { isConnected } = useAccount();
+  const { isSignedIn } = useAuth();
   const [checkFollow, setCheckFollow] = useState(false);
   const [checkJoin, setCheckJoin] = useState(false);
   const [checkMint, setCheckMint] = useState(false);
@@ -38,7 +38,7 @@ export default function ClaimPage() {
   };
 
   useEffect(() => {
-    if (isConnected) {
+    if (isSignedIn) {
       if (cookies.check_twitter) {
         setCheckFollow(true);
       }
@@ -53,7 +53,7 @@ export default function ClaimPage() {
       setCheckJoin(false);
       setCheckMint(false);
     }
-  }, [cookies, isConnected]);
+  }, [cookies, isSignedIn]);
 
 
   return (<>
@@ -66,7 +66,7 @@ export default function ClaimPage() {
           <div className='order-md-2 mb-3'>
             <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
 
-              {isConnected ? <>
+              {isSignedIn ? <>
                 {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
                   <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
                     Switch to Linea Network
