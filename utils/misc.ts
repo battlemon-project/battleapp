@@ -5,6 +5,13 @@ export function truncate(str: string | undefined, num: number) {
   return `${str.substring(0,num)}...${str.slice(-1 * num)}`
 }
 
+export const blockExplorer: Record<number,string> = {
+  80001: 'https://mumbai.polygonscan.com', // mumbai
+  137: 'https://polygonscan.com', // polygon mainnet
+  59140: 'https://goerli.lineascan.build', // linea goerli
+  59144: 'https://lineascan.build', // linea mainnet
+}
+
 export function parsePrice(string: string) {
   if (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true') {
     return parseEther(string, "gwei")

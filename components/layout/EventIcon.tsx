@@ -1,5 +1,5 @@
 import { PrizeType } from 'hooks/useBuyBox';
-import { truncate } from 'utils/misc';
+import { blockExplorer, truncate } from 'utils/misc';
 
 const images: Record<PrizeType, string> = {
   [PrizeType.Sticker]: '/images/rewards/Reward_Sticker.png',
@@ -21,13 +21,13 @@ const images: Record<PrizeType, string> = {
   [PrizeType.Lemon]: '/images/rewards/Reward_Lemon.png'
 }
 
-export default function EventIcon({ prize, hash }: { prize: PrizeType, hash: string }) {
+export default function EventIcon({ prize, hash, text, chain_id }: { prize: PrizeType, hash: string, text: string, chain_id: number }) {
   return (
     <div className="d-flex align-items-center">
       <img src={images[prize]} width="40" />
       <div className="px-2">
-        New Winner! Transaction:<br />
-        <a href={`https://lineascan.build/tx/${hash}`} style={{color: '#fff', textDecoration: 'underline'}} target="_blank">{truncate(hash, 10)}</a>
+        {text} Transaction:<br />
+        <a href={`${blockExplorer[chain_id]}/tx/${hash}`} style={{color: '#fff', textDecoration: 'underline'}} target="_blank">{truncate(hash, 10)}</a>
       </div>
     </div>
   );

@@ -319,3 +319,7 @@ canvas {
 .Toastify__close-button--dark {
   padding: 6px 8px;
 }
+.Toastify__toast-theme--dark.youwin {
+  background: rgba(5, 111, 13, 0.9);
+  padding: 0;
+}
