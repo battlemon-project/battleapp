@@ -305,7 +305,7 @@ canvas {
 
 .progress-bar.startProgress {
   width: 100%;
-  transition: 100s width;
+  transition: 140s width;
 }
 
 .Toastify__toast-container--top-right {

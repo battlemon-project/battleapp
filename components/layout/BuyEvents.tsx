@@ -45,7 +45,7 @@ export default function BuyEvents() {
 
       addTask(
         () => new Promise((resolve, reject) => {
-          const youWin = address && address == decoded.args[2];
+          const youWin = address && decoded.args[2] && address.toLowerCase() == decoded.args[2].toLowerCase();
           toast.info(<EventIcon prize={prize} hash={transaction_hash} text={youWin ? 'You Win!' : 'New Winner!'} chain_id={chain_id} />, {
             position: "top-right",
             autoClose: 3500,
