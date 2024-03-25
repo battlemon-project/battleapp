@@ -40,10 +40,8 @@ export default function BuyEvents() {
         data: logData,
         topics: topics
       })
-      console.log(decoded);
+      //console.log(decoded);
       const prize = prizes[Number(decoded.args[3])];
-      if (prize == PrizeType.SmallPoints) return;
-
 
       addTask(
         () => new Promise((resolve, reject) => {
