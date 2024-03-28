@@ -1,15 +1,16 @@
-import Link from 'next/link';
 import styles from './inventory.module.css'
 import cn from "classnames";
 import TabsLayout from './layout/TabsLayout';
 import { PropsWithChildren } from 'react';
+import { SignInButton } from 'components/pages/shop/buttons/SignInButton';
 
-export default function UnauthGemsTab({ children }: PropsWithChildren) {
+export default function UnauthMemoryTab({ children }: PropsWithChildren) {
   
   return (<div className="row">
-    <div className="col-5  d-none d-lg-block">
+    <div className="col-5 d-none d-lg-block">
       <div className="position-relative">
-        <img src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' width='1000' height='1000' className='img-fluid' />
+        <img src="/images/lineapark.jpg" className="img-fluid rounded-4 order-1 mb-4" />
+        <SignInButton />
       </div>
     </div>
     <div className={cn('col-lg-7 col-12 position-relative mx-0', styles.inventoryContainer)}>
@@ -18,11 +19,6 @@ export default function UnauthGemsTab({ children }: PropsWithChildren) {
           <p className='fs-14 text-center'>{children}</p>
         </div>
       </TabsLayout>
-      <div className="col-12 mt-2">
-        <Link href="/hub/pickaxes" className="btn btn-lg btn-default fs-14 text-uppercase w-100">
-          You can get Gem using Pickaxe
-        </Link>
-      </div>
     </div>
   </div>)
 }

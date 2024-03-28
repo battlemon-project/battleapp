@@ -28,6 +28,10 @@ export default function TabsLayout({ children, disableMenu }: PropsWithChildren<
       <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/stickers")})} href="/hub/stickers">
         Stickers
       </Link>
+      <Link className={cn(styles.inventoryTabLink, { [styles.linkActive]: router.pathname.startsWith("/hub/memory")})} href="/hub/memory">
+        <span className="d-md-none">Memo</span>
+        <span className="d-none d-md-block">Memory</span>
+      </Link>
     </div>}
     {children}
   </div>
