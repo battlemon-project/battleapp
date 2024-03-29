@@ -67,7 +67,7 @@ export default function ReferralPage({ address }: { address: string }) {
           <br />
           <h6>Your Referral Link:</h6>
           <div className="my-3">
-            <textarea className="form-control form-control-lg" rows={size.width > 992 ? 2 : 3} style={{background: 'rgba(0,0,0,0.9)', color: '#fff', border: '3px solid rgba(200,200,200,0.14)', fontSize: '18px'}} readOnly={true} defaultValue={`https://battlemon.com/invite/${address}`}></textarea>
+            <textarea className="form-control form-control-lg" rows={size.width > 992 ? 2 : 3} style={{background: 'rgba(0,0,0,0.9)', color: '#fff', border: '3px solid rgba(200,200,200,0.14)', fontSize: '18px'}} readOnly={true} defaultValue={`https://battlemon.com/referral?${address}`}></textarea>
           </div>
           You can create short url using <Link href="https://t.ly/" style={{ textDecoration: 'underline' }} target="_blank">https://t.ly/</Link> or another service.
         </div>
