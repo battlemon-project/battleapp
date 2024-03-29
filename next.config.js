@@ -12,6 +12,11 @@ const nextConfig = {
         source: '/shop',
         destination: '/game',
         permanent: true,
+      },
+      {
+        source: '/hub',
+        destination: '/hub/lemons',
+        permanent: true,
       }
     ]
   }

@@ -12,6 +12,7 @@ const dictionary = {
     GEMS: process.env['NEXT_PUBLIC_CONTRACT_POLYGON_GEMS'] as '0x',
     STICKERS: process.env['NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS'] as '0x',
     RAIDS: process.env['NEXT_PUBLIC_CONTRACT_POLYGON_RAIDS'] as '0x',
+    REFERRAL: process.env['NEXT_PUBLIC_CONTRACT_POLYGON_REFERRAL'] as '0x',
   },
   LINEA: {
     BOXES: process.env['NEXT_PUBLIC_CONTRACT_LINEA_BOXES'] as '0x',
@@ -22,10 +23,11 @@ const dictionary = {
     GEMS: process.env['NEXT_PUBLIC_CONTRACT_LINEA_GEMS'] as '0x',
     STICKERS: process.env['NEXT_PUBLIC_CONTRACT_LINEA_STICKERS'] as '0x',
     RAIDS: process.env['NEXT_PUBLIC_CONTRACT_LINEA_RAIDS'] as '0x',
+    REFERRAL: process.env['NEXT_PUBLIC_CONTRACT_LINEA_REFERRAL'] as '0x',
   }
 }
 
-export function useContract(name: 'BOXES' | 'POINTS' | 'ITEMS' | 'LEMONS' | 'PICKAXES' | 'GEMS' | 'STICKERS' | 'RAIDS') {
+export function useContract(name: 'BOXES' | 'POINTS' | 'ITEMS' | 'LEMONS' | 'PICKAXES' | 'GEMS' | 'STICKERS' | 'RAIDS' | 'REFERRAL') {
   console.log('render useContract')
   const { chain } = useNetwork()
   const [ contract, setContract ] = useState<`0x${string}`>()
