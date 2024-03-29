@@ -30,6 +30,7 @@ import {
   lineaTestnet
 } from 'wagmi/chains';
 //import { RoninConnector, ronin, saigon } from 'ronin-connector'
+import { infuraProvider } from 'wagmi/providers/infura';
 import { publicProvider } from 'wagmi/providers/public';
 import { SiweMessage } from 'siwe';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -45,7 +46,7 @@ const chainList = [...evmChains];
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [...evmChains],
-  [publicProvider()]
+  [infuraProvider({ apiKey: '3f06c41144164309b9eda9847c018eed' }), publicProvider()]
 );
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!;
