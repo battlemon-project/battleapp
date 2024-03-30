@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { StatusType } from "hooks/useBuyBox";
 import { useNetwork } from "wagmi";
 import SetReferralButton from "./SetReferralButton";
+import ClipboardCopy from "components/inventory/layout/ClipboardCopy";
 
 export default function ReferralPage({ address }: { address: `0x${string}` }) {
   const { chain } = useNetwork()
@@ -66,7 +67,7 @@ export default function ReferralPage({ address }: { address: `0x${string}` }) {
           <br />
           <h6>Your Referral Link:</h6>
           <div className="my-3">
-            <textarea className="form-control form-control-lg" rows={size.width > 992 ? 2 : 3} style={{background: 'rgba(0,0,0,0.9)', color: '#fff', border: '3px solid rgba(200,200,200,0.14)', fontSize: '18px'}} readOnly={true} defaultValue={`https://battlemon.com/referral?${address}`}></textarea>
+            <ClipboardCopy copyText={`https://battlemon.com/referral?${address}`} />
           </div>
           You can create short url using <Link href="https://t.ly/" style={{ textDecoration: 'underline' }} target="_blank">https://t.ly/</Link> or another service.
         </div>
