@@ -17,10 +17,11 @@ export default function Referral() {
   ]);
   
   useEffect(() => {
+    if (cookies.referral_program) return
     if (router?.query && Object.keys(router?.query).length) {
-      setCookie('referral_program', Object.keys(router.query)[0])
-      if (typeof window !== "undefined") {
-        window.location.search = ''
+      const addr = Object.keys(router.query)[0];
+      if (addr.length == 42) {
+        setCookie('referral_program', Object.keys(router.query)[0])
       }
     }
   }, [router?.query])

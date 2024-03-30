@@ -3,11 +3,33 @@ import Link from "next/link";
 import { useRouter } from 'next/router';
 import { RainbowConnectButton } from './RainbowConnectButton';
 import BuyEvents from './BuyEvents';
-//import { useNetwork } from 'wagmi';
+import useAuth from "context/AuthContext";
+import { useCookies } from 'react-cookie';
+import { useEffect, useState } from 'react';
 
 export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boolean, hideDesktopMenu?: boolean }) {
-  //const { chain } = useNetwork()
+  const [ needApproveReferral, setNeedApproveReferral ] = useState<boolean>(false)
+  const { refProgram, address, chain } = useAuth();
+  const [cookies] = useCookies([
+    'referral_program'
+  ]);
   const router = useRouter();
+
+  useEffect(() => {
+    let needApprove = false;
+    if (!chain?.name) return;
+    if (address && cookies.referral_program) {
+      needApprove = true
+    }
+    if (refProgram.myReferral) {
+      needApprove = false
+    }
+    setNeedApproveReferral(needApprove);
+  }, [
+    chain?.name, 
+    cookies.referral_program,
+    refProgram.myReferral
+  ])
 
   return (
     <nav className={cn('navbar navbar-expand-lg py-3', { 'fixed-top': fixedTop })}>
@@ -35,7 +57,15 @@ export default function Header({ fixedTop, hideDesktopMenu }: { fixedTop?: boole
               <Link href="/claim" className={`nav-link ${router.pathname.startsWith("/claim") ? "active" : ""}`}>Claim</Link>
             </li>
             <li className="nav-item px-1">
-              <Link href="/referral" className={`nav-link ${router.pathname.startsWith("/referral") ? "active" : ""}`}>Referral</Link>
+              <Link href="/referral" className={`nav-link ${router.pathname.startsWith("/referral") ? "active" : ""}`}>
+                <span className='position-relative'>
+                  Referral
+                  {needApproveReferral && 
+                    <span className="position-absolute top-0 translate-middle p-2 bg-danger border border-light rounded-circle" style={{ left: '116%'}}>
+                    <span className="visually-hidden">New alerts</span>
+                  </span>}
+                </span>
+              </Link>
             </li>
           </ul>
         </div>

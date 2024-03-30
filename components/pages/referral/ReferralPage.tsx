@@ -3,32 +3,31 @@ import useWindowSize from "hooks/useWindowSize";
 import Link from "next/link";
 import { truncate } from "utils/misc";
 import { useCookies } from 'react-cookie';
-import { useReferralGetUser } from "hooks/useReferralGetUser";
-import { useRouter } from 'next/router'
+import useAuth from "context/AuthContext";
 import { useEffect, useState } from "react";
 import { StatusType } from "hooks/useBuyBox";
 import { useNetwork } from "wagmi";
 import SetReferralButton from "./SetReferralButton";
 
-export default function ReferralPage({ address }: { address: string }) {
+export default function ReferralPage({ address }: { address: `0x${string}` }) {
   const { chain } = useNetwork()
   const [ referralStatus, setReferralStatus ] = useState<StatusType>('idle')
-  const { myReferral, refreshReferral } = useReferralGetUser();
-  const [cookies, setCookie, removeCookie] = useCookies([
+  const { refProgram } = useAuth();
+  const [cookies] = useCookies([
     'referral_program'
   ]);
   const size = useWindowSize()
 
   useEffect(() => {
     if (referralStatus !== 'success') return;
-    removeCookie('referral_program');
-    refreshReferral?.()
+    setTimeout(() => {
+      refProgram.refreshReferral?.()
+    }, 1000)
   }, [referralStatus])
 
-  useEffect(() => {
-    if (!myReferral) return;
-    removeCookie('referral_program');
-  }, [myReferral])
+  // useEffect(() => {
+  //   if (!myReferral) return;
+  // }, [myReferral])
 
   return (<>
     <div className="container mt-1" style={{minHeight: 'calc(100vh - 250px)'}}>
@@ -40,8 +39,8 @@ export default function ReferralPage({ address }: { address: string }) {
           </div>
         </div>
         <div className={cn('col-lg-7 col-12 position-relative mx-0')}>
-          {myReferral ? <>
-            <h5>Your Invited By: {truncate(myReferral, 8)}</h5>
+          {refProgram.myReferral ? <>
+            <h5>Your Invited By: {truncate(refProgram.myReferral, 8)}</h5>
             <div className="mt-3" style={{background: 'rgba(0,0,0,0.9)', color: '#fff', border: '3px solid rgba(200,200,200,0.14)', borderRadius: '10px', padding: '10px 15px'}}>
               Congratulations!<br />
               You have a 5% discount for all purchases.<br />

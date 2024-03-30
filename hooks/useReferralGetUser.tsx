@@ -3,14 +3,13 @@ import { useAccount } from 'wagmi';
 import { useContract } from 'hooks/useContract';
 import { useEffect } from 'react';
 
-export function useReferralGetUser() {
+export function useReferralGetUser(address: `0x${string}` | undefined) {
   const NEXT_PUBLIC_CONTRACT_REFERRAL = useContract('REFERRAL')
-  const { address }  = useAccount();
 
-  const referral = address && useReferralGetUserRef({
+  const referral = useReferralGetUserRef(address ? {
     address: NEXT_PUBLIC_CONTRACT_REFERRAL as '0x',
     args: [address]
-  })
+  } : undefined)
 
   const onFocus = () => {
     referral?.refetch()
