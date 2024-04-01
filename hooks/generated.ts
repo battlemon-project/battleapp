@@ -121,6 +121,13 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'BATTLE_BOX_PRICE',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'CHEAP_BOX_PRICE',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
@@ -151,6 +158,16 @@ export const boxABI = [
     inputs: [],
     name: 'MAX_LEMONS_AMOUNT',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: '_buyBattleBoxCallback',
+    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -197,6 +214,16 @@ export const boxABI = [
     outputs: [
       { name: '', internalType: 'contract IAirnodeRrpV0', type: 'address' },
     ],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'buyWithKey', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'buyBattleBox',
+    outputs: [],
   },
   {
     stateMutability: 'payable',
@@ -256,6 +283,13 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'keys',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'largeAmount',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
@@ -272,6 +306,13 @@ export const boxABI = [
     inputs: [],
     name: 'lemonsMinted',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'lineaPark',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
@@ -344,6 +385,15 @@ export const boxABI = [
     type: 'function',
     inputs: [{ name: 'prices', internalType: 'uint256[]', type: 'uint256[]' }],
     name: 'setConfig',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'addresses', internalType: 'address[]', type: 'address[]' },
+    ],
+    name: 'setKeysLineaParkAddresses',
     outputs: [],
   },
   {
@@ -5398,6 +5448,25 @@ export function useBoxRead<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"BATTLE_BOX_PRICE"`.
+ */
+export function useBoxBattleBoxPrice<
+  TFunctionName extends 'BATTLE_BOX_PRICE',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'BATTLE_BOX_PRICE',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"CHEAP_BOX_PRICE"`.
  */
 export function useBoxCheapBoxPrice<
@@ -5588,6 +5657,25 @@ export function useBoxItemsMinted<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"keys"`.
+ */
+export function useBoxKeys<
+  TFunctionName extends 'keys',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'keys',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"largeAmount"`.
  */
 export function useBoxLargeAmount<
@@ -5640,6 +5728,25 @@ export function useBoxLemonsMinted<
   return useContractRead({
     abi: boxABI,
     functionName: 'lemonsMinted',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"lineaPark"`.
+ */
+export function useBoxLineaPark<
+  TFunctionName extends 'lineaPark',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'lineaPark',
     ...config,
   } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
 }
@@ -5858,6 +5965,33 @@ export function useBoxWrite<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyBattleBoxCallback"`.
+ */
+export function useBoxBuyBattleBoxCallback<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          '_buyBattleBoxCallback'
+        >['request']['abi'],
+        '_buyBattleBoxCallback',
+        TMode
+      > & { functionName?: '_buyBattleBoxCallback' }
+    : UseContractWriteConfig<typeof boxABI, '_buyBattleBoxCallback', TMode> & {
+        abi?: never
+        functionName?: '_buyBattleBoxCallback'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, '_buyBattleBoxCallback', TMode>({
+    abi: boxABI,
+    functionName: '_buyBattleBoxCallback',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBoxCallback"`.
  */
 export function useBoxBuyCheapBoxCallback<
@@ -5934,6 +6068,31 @@ export function useBoxBuyGreatBoxCallback<
   return useContractWrite<typeof boxABI, '_buyGreatBoxCallback', TMode>({
     abi: boxABI,
     functionName: '_buyGreatBoxCallback',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"buyBattleBox"`.
+ */
+export function useBoxBuyBattleBox<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'buyBattleBox'
+        >['request']['abi'],
+        'buyBattleBox',
+        TMode
+      > & { functionName?: 'buyBattleBox' }
+    : UseContractWriteConfig<typeof boxABI, 'buyBattleBox', TMode> & {
+        abi?: never
+        functionName?: 'buyBattleBox'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'buyBattleBox', TMode>({
+    abi: boxABI,
+    functionName: 'buyBattleBox',
     ...config,
   } as any)
 }
@@ -6116,6 +6275,37 @@ export function useBoxSetConfig<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setKeysLineaParkAddresses"`.
+ */
+export function useBoxSetKeysLineaParkAddresses<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'setKeysLineaParkAddresses'
+        >['request']['abi'],
+        'setKeysLineaParkAddresses',
+        TMode
+      > & { functionName?: 'setKeysLineaParkAddresses' }
+    : UseContractWriteConfig<
+        typeof boxABI,
+        'setKeysLineaParkAddresses',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'setKeysLineaParkAddresses'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'setKeysLineaParkAddresses', TMode>({
+    abi: boxABI,
+    functionName: 'setKeysLineaParkAddresses',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setRequestParameters"`.
  */
 export function useBoxSetRequestParameters<
@@ -6207,6 +6397,22 @@ export function usePrepareBoxWrite<TFunctionName extends string>(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyBattleBoxCallback"`.
+ */
+export function usePrepareBoxBuyBattleBoxCallback(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyBattleBoxCallback'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: '_buyBattleBoxCallback',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyBattleBoxCallback'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBoxCallback"`.
  */
 export function usePrepareBoxBuyCheapBoxCallback(
@@ -6252,6 +6458,22 @@ export function usePrepareBoxBuyGreatBoxCallback(
     functionName: '_buyGreatBoxCallback',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBoxCallback'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"buyBattleBox"`.
+ */
+export function usePrepareBoxBuyBattleBox(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'buyBattleBox'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'buyBattleBox',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'buyBattleBox'>)
 }
 
 /**
@@ -6364,6 +6586,25 @@ export function usePrepareBoxSetConfig(
     functionName: 'setConfig',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, 'setConfig'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setKeysLineaParkAddresses"`.
+ */
+export function usePrepareBoxSetKeysLineaParkAddresses(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'setKeysLineaParkAddresses'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'setKeysLineaParkAddresses',
+    ...config,
+  } as UsePrepareContractWriteConfig<
+    typeof boxABI,
+    'setKeysLineaParkAddresses'
+  >)
 }
 
 /**

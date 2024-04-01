@@ -100,15 +100,31 @@ export default function BuyBoxPage() {
       </div>
       {isSignedIn && isSupportedChain && chain ? <>
         <div className='row' style={{margin: '-30px 0 0 0'}}>
-            <div className='col-md-4 col-12'>
-              <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />
-            </div>
-            <div className='col-md-4 col-12'>
-              <BuyBox boxType={BoxType.Good} chainId={chain.id} />
-            </div>
-            <div className='col-md-4 col-12'>
-              <BuyBox boxType={BoxType.Great} chainId={chain.id} />
-            </div>
+            {chain.id == 137 && <>
+              <div className='col-md-4 col-12'>
+                <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />
+              </div>
+              <div className='col-md-4 col-12'>
+                <BuyBox boxType={BoxType.Good} chainId={chain.id} />
+              </div>
+              <div className='col-md-4 col-12'>
+                <BuyBox boxType={BoxType.Great} chainId={chain.id} />
+              </div>
+            </>}
+            {chain.id !== 137 && <>
+              <div className='col-md-3 col-6'>
+                <BuyBox boxType={BoxType.Digital} chainId={chain.id} />
+              </div>
+              <div className='col-md-3 col-6'>
+                <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />
+              </div>
+              <div className='col-md-3 col-6'>
+                <BuyBox boxType={BoxType.Good} chainId={chain.id} />
+              </div>
+              <div className='col-md-3 col-6'>
+                <BuyBox boxType={BoxType.Great} chainId={chain.id} />
+              </div>
+            </>}
         </div>
       </> : <>
         <div className='row justify-content-center'>
