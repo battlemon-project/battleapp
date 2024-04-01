@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useReferralSetUser } from 'hooks/useReferralSetUser';
 import { StatusType } from 'hooks/useBuyBox';
+import { useCookies } from 'react-cookie';
 
 interface PickaxeRepairProps {
   address: `0x${string}`
@@ -13,8 +14,16 @@ interface PickaxeRepairProps {
 
 export default function SetReferralButton({ address, referral, setReferralStatus, chainId }: PickaxeRepairProps) {
   const { referralSetUser, referralSetUserStatus, estimateGas } = useReferralSetUser(address, referral);
+  const removeCookie = useCookies([
+    'referral_program'
+  ])[2];
 
   const handleSetReferral = async () => {
+    if (address?.toLocaleLowerCase() == referral?.toLocaleLowerCase()) {
+      toast.error("Sender can't be referee");
+      removeCookie('referral_program');
+      return;
+    }
     estimateGas().then(({ gas, gasPrice }) => {
       setReferralStatus('loading')
       referralSetUser(chainId == 59144 ? {} : { gas, gasPrice })
