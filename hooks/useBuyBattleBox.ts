@@ -6,12 +6,13 @@ import { useContract } from './useContract';
 import { parsePrice } from 'utils/misc';
 import type { StatusType } from './useBuyBox';
 import useAuth from 'context/AuthContext';
+import { useBattleBoxPrice } from './useBattleBoxPrice';
 
 export function useBuyBattleBox(tokenId: number, isKey: boolean) {
-  console.log('render usebuyBattleBox')
-  const publicClient = usePublicClient()
-  const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES')
-  const [ status, setStatus ] = useState<StatusType>('idle')
+  const publicClient = usePublicClient();
+  const price = useBattleBoxPrice();
+  const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES');
+  const [ status, setStatus ] = useState<StatusType>('idle');
   const { address }  = useAuth();
   const fee = useFeeData();
 
@@ -20,7 +21,7 @@ export function useBuyBattleBox(tokenId: number, isKey: boolean) {
       address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
       abi: boxABI,
       functionName: 'buyBattleBox',
-      value: parsePrice(process.env.NEXT_PUBLIC_PRICE_LINEA_BATTLE_BOX!),
+      value: parsePrice(price),
       account: address as '0x',
       args: [BigInt(tokenId), isKey],
     })
@@ -33,7 +34,7 @@ export function useBuyBattleBox(tokenId: number, isKey: boolean) {
 
   const buyBattleBox = address && useBoxBuyBattleBox({
     address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
-    value: parsePrice(process.env.NEXT_PUBLIC_PRICE_LINEA_BATTLE_BOX!),
+    value: parsePrice(price),
     args: [BigInt(tokenId), isKey],
     onError: (error) => {
       let message = error.message;

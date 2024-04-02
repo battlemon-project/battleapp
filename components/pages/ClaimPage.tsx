@@ -10,9 +10,11 @@ import { SignInButton } from './shop/buttons/SignInButton';
 import ClaimParkButton from './ClaimParkButton';
 import { useChainModal } from '@rainbow-me/rainbowkit';
 import Timer from 'components/layout/Timer';
+import { useContract } from 'hooks/useContract';
 
 
 export default function ClaimPage() {
+  const NEXT_PUBLIC_CONTRACT_PARK = useContract('PARK')
   const { chain } = useNetwork();
   const { openChainModal } = useChainModal();
   const { isConnected } = useAccount();
@@ -67,7 +69,7 @@ export default function ClaimPage() {
             <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
 
               {isConnected ? <>
-                {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
+                {chain && chain?.id !== 137 ? <ClaimParkButton chainId={chain.id} /> : <>
                   <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
                     Switch to Linea Network
                   </button>
@@ -92,7 +94,7 @@ export default function ClaimPage() {
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</div>
+              <div>{truncate(NEXT_PUBLIC_CONTRACT_PARK, 8)}</div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>

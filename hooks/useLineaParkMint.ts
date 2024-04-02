@@ -6,8 +6,10 @@ import { useEffect, useState } from 'react';
 import { useAccount, useFeeData, useWaitForTransaction, usePublicClient } from 'wagmi';
 import { StatusType } from './useBuyBox';
 import { toast } from 'react-toastify';
+import { useContract } from './useContract';
 
 export function useLineaParkMint() {
+  const NEXT_PUBLIC_CONTRACT_PARK = useContract('PARK')
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const { address }  = useAccount();
@@ -15,7 +17,7 @@ export function useLineaParkMint() {
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK as '0x',
+      address: NEXT_PUBLIC_CONTRACT_PARK as '0x',
       abi: lineaParkABI,
       functionName: 'safeMint',
       account: address as '0x',
@@ -28,7 +30,7 @@ export function useLineaParkMint() {
   }
 
   const parkMint = address && useLineaParkSafeMint({
-    address: process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK as '0x',
+    address: NEXT_PUBLIC_CONTRACT_PARK as '0x',
     onError: (error) => {
       let message = error.message;
       message = message.split('Raw Call Arguments')[0];

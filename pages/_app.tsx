@@ -46,7 +46,7 @@ const chainList = [...evmChains];
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [...evmChains],
-  [infuraProvider({ apiKey: '30f4d3eecd3b49e49d10630bef75e8da' }), publicProvider()]
+  [publicProvider()]
 );
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!;

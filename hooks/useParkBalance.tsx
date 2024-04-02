@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { useLineaParkBalanceOf } from './generated';
 import { useAccount } from 'wagmi';
+import { useContract } from './useContract';
 
 export function useParkBalance() {
   console.log('render useParkBalance')
+  const NEXT_PUBLIC_CONTRACT_PARK = useContract('PARK')
   const { address }  = useAccount();
 
   const balance = address && useLineaParkBalanceOf({
-    address: process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK as '0x',
+    address: NEXT_PUBLIC_CONTRACT_PARK as '0x',
     args: [address]
   })
 
