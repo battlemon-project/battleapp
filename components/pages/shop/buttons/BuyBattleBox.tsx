@@ -43,14 +43,26 @@ export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.process]: buyBattleBoxStatus == 'loading' })} onClick={handleBuyBattleBox}>
-        { buyBattleBoxStatus == 'loading' ? 
-          <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
-          <div className='d-flex'>
-            <span className='fs-15'><PolSymbol>{process.env.NEXT_PUBLIC_PRICE_LINEA_BATTLE_BOX} {chain?.nativeCurrency.symbol}</PolSymbol></span>
-          </div>
-        }
-      </button>
+      <div className="btn-group w-100" role="group">
+        <button type="button" className={cn('d-flex justify-content-center btn btn-default', styles.buyBtn, { [styles.process]: buyBattleBoxStatus == 'loading' })} onClick={handleBuyBattleBox}>
+          { buyBattleBoxStatus == 'loading' ? 
+            <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
+            <div className='d-flex'>
+              <span className='fs-15'>SELECT KEY</span>
+            </div>
+          }
+        </button>
+
+        <div className="btn-group" role="group">
+          <button id="btnGroupDrop1" type="button" className="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          </button>
+          <ul className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <li><a className="dropdown-item" href="#">Dropdown link</a></li>
+            <li><a className="dropdown-item" href="#">Dropdown link</a></li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </>
   );
