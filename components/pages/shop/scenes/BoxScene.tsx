@@ -57,11 +57,23 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
         new Vector3(0, 0, 0),
         new Vector3(1.5, 0, 1.9)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0.1, -2.5),
+        new Vector3(-1.2, -0.1, -0.3),
+        new Vector3(0.2, 0, 0.9),
+        new Vector3(1.5, 0, 2.1)
+      ])
     } else if (width > 1200) {
       setPositions3([
         new Vector3(-1.0, 0, -1.8),
         new Vector3(0, 0, 0),
         new Vector3(1.1, 0, 1.7)
+      ])
+      setPositions4([
+        new Vector3(-0.9, 0.1, -2.1),
+        new Vector3(-1.2, -0.1, -0.2),
+        new Vector3(0.2, 0, 0.7),
+        new Vector3(1.5, 0, 1.7)
       ])
     } else if (width > 992) {
       setPositions3([
@@ -69,17 +81,35 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
         new Vector3(0, 0, 0),
         new Vector3(1, 0, 1.5)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0.1, -1.7),
+        new Vector3(-1.2, -0.1, 0),
+        new Vector3(0.2, 0, 0.6),
+        new Vector3(1.5, 0.1, 1.15)
+      ])
     } else if (width > 768) {
       setPositions3([
         new Vector3(-0.8, 0, -1.1),
         new Vector3(0, 0, 0),
         new Vector3(1, 0, 0.8)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0, -1.1),
+        new Vector3(-1.2, -0.15, 0.24),
+        new Vector3(0.2, 0, 0.4),
+        new Vector3(1.5, 0.1, 0.55)
+      ])
     } else {
       setPositions3([
         new Vector3(-1.6, 0, 0.5),
         new Vector3(0, -0.3, 0),
         new Vector3(-0.6, 0, 1.2)
+      ])
+      setPositions4([
+        new Vector3(-0.9, -0.35, -0.4),
+        new Vector3(-1.6, 0, 0.7),
+        new Vector3(0, -0.3, 0.2),
+        new Vector3(-0.6, 0, 1.4)
       ])
     }
   }, [width])

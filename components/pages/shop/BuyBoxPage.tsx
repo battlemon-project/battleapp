@@ -11,6 +11,7 @@ import { decodeEventLog, parseAbi } from 'viem';
 import { useBoxStore } from './store/boxStore';
 import { useBoxPrices } from 'hooks/useBoxPrices';
 import Tippy from 'components/inventory/layout/Tippy';
+import BuyBattleBox from './buttons/BuyBattleBox';
 
 export default function BuyBoxPage() {
   const { address }  = useAccount();
@@ -113,7 +114,7 @@ export default function BuyBoxPage() {
             </>}
             {chain.id !== 137 && <>
               <div className='col-md-3 col-6'>
-                <BuyBox boxType={BoxType.Digital} chainId={chain.id} />
+                <BuyBattleBox chainId={chain.id} />
               </div>
               <div className='col-md-3 col-6'>
                 <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />
@@ -140,7 +141,72 @@ export default function BuyBoxPage() {
 
       <div>
         <div className="row px-3">
-          <div className="col-sm-4">
+          {chain?.id !== 137 && <>
+            <div className="col-sm-3">
+              <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
+                <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Cheap} {symbol}</span>:</strong></div>
+                <div className="d-flex">
+                  <div className="col col-auto">
+                    <img className="img-fluid" src={chain?.name.includes('lygon') ? '/images/rewards/Reward_MTK_small.png' : '/images/rewards/Reward_ETH_small.png'}alt="Reward_ETH_big" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    {chain?.name.includes('lygon') ? <>30 Matic</> : <>0.008 Eth</>}
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="col col-auto">
+                    <img className="img-fluid" src="/images/rewards/Reward_Pts_small.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                      25 BP
+                    </Tippy>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="col col-auto">
+                    <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    <Tippy html={<div>Collect 4 stickers and<br />exchange it for an Item</div>}>
+                      Sticker
+                    </Tippy>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="col col-auto">
+                    <img className="img-fluid" src="/images/rewards/Reward_IcePick_1.png" alt="Reward_IcePick_1" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    <Tippy html={<div>Visit NFT Hub for mining<br />Gem using Pickaxe</div>}>
+                      Pickaxe 1 Lvl
+                    </Tippy>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="col col-auto">
+                    <img className="img-fluid" src="/images/rewards/Reward_Item.png" alt="Reward_Item" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    <Tippy html={<div>Visit NFT Hub for equip<br />an Item on Lemon NFT</div>}>
+                      Item
+                    </Tippy>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="col col-auto">
+                    <img className="img-fluid" src="/images/rewards/Reward_Lemon.png" alt="Reward_Lemon" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    <Tippy html={<div>Total supply 3333 Alfa NFTs</div>}>
+                      Lemon
+                    </Tippy>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>}
+          <div className={chain?.id !== 137 ? `col-sm-3` : `col-sm-4`}>
             <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
               <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Cheap} {symbol}</span>:</strong></div>
               <div className="d-flex">
@@ -183,7 +249,7 @@ export default function BuyBoxPage() {
               </div>
             </div>
           </div>
-          <div className="col-sm-4">
+          <div className={chain?.id !== 137 ? `col-sm-3` : `col-sm-4`}>
             <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
               <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Good} {symbol}</span>:</strong></div>
               <div className="d-flex">
@@ -254,7 +320,7 @@ export default function BuyBoxPage() {
               </div>
             </div>
           </div>
-          <div className="col-sm-4">
+          <div className={chain?.id !== 137 ? `col-sm-3` : `col-sm-4`}>
             <div className="w-100 px-2 py-2 rounded-3 mb-3" style={{background: 'rgba(0,0,0,0.3)'}}>
               <div className="px-2 py-2"><strong>Possible rewards <span className='d-md-none'>for {Great} {symbol}</span>:</strong></div>
               <div className="d-flex">

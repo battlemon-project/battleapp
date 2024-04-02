@@ -47,7 +47,7 @@ export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
         { buyBattleBoxStatus == 'loading' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
-            <span className='fs-15'><PolSymbol>{buyBattleBoxStatus} {chain?.nativeCurrency.symbol}</PolSymbol></span>
+            <span className='fs-15'><PolSymbol>{process.env.NEXT_PUBLIC_PRICE_LINEA_BATTLE_BOX} {chain?.nativeCurrency.symbol}</PolSymbol></span>
           </div>
         }
       </button>
