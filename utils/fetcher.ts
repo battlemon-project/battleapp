@@ -1,6 +1,6 @@
 import { NftMetaData } from 'lemon';
 
-export type FetcherTypes = 'lemon' | 'item' | 'gem' | 'pickaxe' | 'sticker'
+export type FetcherTypes = 'lemon' | 'item' | 'gem' | 'pickaxe' | 'sticker' | 'park' | 'key'
 
 function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string, providerUrl: string, dummyImage: string }) {
   let providerUrl: string | undefined = '';
@@ -10,7 +10,8 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES,
-    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PARK
   ].includes(contract)) {
     providerUrl = `/api/provider/tokens?contract=${contract}`
     storage = process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL;

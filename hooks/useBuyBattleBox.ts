@@ -8,17 +8,16 @@ import type { StatusType } from './useBuyBox';
 import useAuth from 'context/AuthContext';
 import { useBattleBoxPrice } from './useBattleBoxPrice';
 
-export function useBuyBattleBox(tokenId: number, isKey: boolean) {
+export function useBuyBattleBox(contract: `0x${string}`, tokenId: number, isKey: boolean) {
   const publicClient = usePublicClient();
   const price = useBattleBoxPrice();
-  const NEXT_PUBLIC_CONTRACT_BOXES = useContract('BOXES');
   const [ status, setStatus ] = useState<StatusType>('idle');
   const { address }  = useAuth();
   const fee = useFeeData();
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
-      address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
+      address: contract,
       abi: boxABI,
       functionName: 'buyBattleBox',
       value: parsePrice(price),
@@ -33,7 +32,7 @@ export function useBuyBattleBox(tokenId: number, isKey: boolean) {
   }
 
   const buyBattleBox = address && useBoxBuyBattleBox({
-    address: NEXT_PUBLIC_CONTRACT_BOXES as '0x',
+    address: contract,
     value: parsePrice(price),
     args: [BigInt(tokenId), isKey],
     onError: (error) => {
