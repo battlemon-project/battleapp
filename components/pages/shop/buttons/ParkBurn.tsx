@@ -2,8 +2,7 @@ import cn from 'classnames';
 import styles from '../shop.module.css'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { StatusType } from 'hooks/useBuyBox';
-import { useWaitForTransaction } from 'wagmi';
+import { BoxType } from 'hooks/useBuyBox';
 import { useBuyBattleBox } from 'hooks/useBuyBattleBox';
 import { useBoxStore } from '../store/boxStore';
 import { NftMetaData } from 'lemon';
@@ -36,6 +35,7 @@ export default function ParkBurn({ contract, tokenId, chainId, setLineaParkKey }
 
   useEffect(() => {
     setStatus(buyBattleBoxStatus)
+    setBox(BoxType.Battle)
     if (buyBattleBoxStatus == 'success') {
       setLineaParkKey(undefined);
     }

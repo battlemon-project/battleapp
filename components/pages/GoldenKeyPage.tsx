@@ -58,6 +58,11 @@ export default function KeyPage() {
                 <SignInButton />
             </>}
           </div>
+          <a href={`https://element.market/assets/linea/${process.env.NEXT_PUBLIC_CONTRACT_LINEA_KEY}`} className="d-flex rounded-3 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
+            <img src="https://element.market/resource/images/favicon-32.png" />
+            <span>&nbsp; Battlemon Golden Key on Element &nbsp; </span>
+          </a>
+          
         </div>
       </div>
     </div>

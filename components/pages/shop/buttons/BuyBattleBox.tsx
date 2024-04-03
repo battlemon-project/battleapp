@@ -9,6 +9,7 @@ import { useLineaParkIsApprovedForAll } from 'hooks/generated';
 import useAuth from 'context/AuthContext';
 import ParkApprove from './ParkApprove';
 import ParkBurn from './ParkBurn';
+import { useGoldenKeyGetAll } from 'hooks/useGoldenKeyGetAll';
 
 interface BuyBattleBoxProps {
   chainId: number
@@ -19,6 +20,8 @@ export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
   const boxesContract = useContract('BOXES')
   const { address } = useAuth()
   const { balance: parkBalance, refreshBalance } = useParkBalance()
+  const { allKeys, refreshAllKeys } = useGoldenKeyGetAll()
+  console.log(allKeys)
   const lineaParkIsApproved = useLineaParkIsApprovedForAll({
     address: contract!,
     args: [address!, boxesContract!]
@@ -63,8 +66,11 @@ export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
           </button>
           <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="btnGroupDrop1">
             {!!parkBalance && <ParkKey balance={parkBalance} chainId={chainId} contract={contract!} setLineaParkKey={setLineaParkKey} />}
-            <li><a className="dropdown-item" href="#">Dropdown link</a></li>
-            <li><a className="dropdown-item" href="#">Dropdown link</a></li>
+            {allKeys ? allKeys[0].map((id, index) => {
+              return Number(allKeys[1][index].nextBoxTimestamp) < 1 ? <li>
+                <a className="dropdown-item" href="#" onClick={() => {}}>Golden Key #{Number(id) % 10000000}</a>
+              </li> : <></>
+            }) : <></>}
           </ul>
         </div>
       </div>

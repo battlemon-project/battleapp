@@ -58,7 +58,7 @@ export default function BuyGoldenKey({ chain, address, contract}: BuyGoldenKeyPr
       </button>
     </div>
     
-    {!!balance && <Link href="/game">
+    {false && !!balance && <Link href="/game">
       <button className='btn btn-lg btn-outline-light w-100'>
         <span className='ps-2'>Open BOX (you have {balance} Key{balance !== 1 ? 's' : ''})</span>
       </button>
