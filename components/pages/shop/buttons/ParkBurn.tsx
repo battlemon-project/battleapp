@@ -6,16 +6,18 @@ import { StatusType } from 'hooks/useBuyBox';
 import { useWaitForTransaction } from 'wagmi';
 import { useBuyBattleBox } from 'hooks/useBuyBattleBox';
 import { useBoxStore } from '../store/boxStore';
+import { NftMetaData } from 'lemon';
 
 interface ParkBurnProps {
   tokenId: number
   chainId: number
   contract: `0x${string}`
+  setLineaParkKey: Dispatch<SetStateAction<NftMetaData | undefined>>
 }
 
-export default function ParkBurn({ contract, tokenId, chainId }: ParkBurnProps) {
+export default function ParkBurn({ contract, tokenId, chainId, setLineaParkKey }: ParkBurnProps) {
   const { buyBattleBox, buyBattleBoxStatus, estimateGas } = useBuyBattleBox(contract, tokenId, false);
-  const { setStatus, setBox, setPrize } = useBoxStore()
+  const { setStatus, setBox, setPrize } = useBoxStore();
 
   const handleBuyBattleBox = async () => {
     setPrize(undefined)
@@ -34,12 +36,14 @@ export default function ParkBurn({ contract, tokenId, chainId }: ParkBurnProps) 
 
   useEffect(() => {
     setStatus(buyBattleBoxStatus)
-    //setBox(boxType)
+    if (buyBattleBoxStatus == 'success') {
+      setLineaParkKey(undefined);
+    }
   }, [buyBattleBoxStatus])
 
   return (<>
     <button type="button" className={cn('d-flex justify-content-center btn btn-default', styles.buyBtn, { [styles.process]: buyBattleBoxStatus == 'loading' })} onClick={handleBuyBattleBox}>
-      { buyBattleBoxStatus == 'loading' ? 
+      { buyBattleBoxStatus == 'loading' || buyBattleBoxStatus == 'process' ? 
         <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
         <div className='d-flex'>
           <span className='fs-15'>BURN</span>

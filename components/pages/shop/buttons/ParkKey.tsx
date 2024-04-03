@@ -7,10 +7,10 @@ interface ParkKeyProps {
   chainId: number
   contract: `0x${string}`
   balance: number
-  select: Dispatch<SetStateAction<NftMetaData | undefined>>
+  setLineaParkKey: Dispatch<SetStateAction<NftMetaData | undefined>>
 }
 
-export default function ParkKey({ contract, chainId, balance, select }: ParkKeyProps) {
+export default function ParkKey({ contract, chainId, balance, setLineaParkKey }: ParkKeyProps) {
   const { data, mutate } = useSWR(
     contract,
     simpleFetcher({ type: 'park', pageSize: 100, chainId }), 
@@ -20,7 +20,7 @@ export default function ParkKey({ contract, chainId, balance, select }: ParkKeyP
   const handleSelect = (e: React.MouseEvent) => {
     if (!data?.tokens.length) return
     e.preventDefault();
-    select(data.tokens[0])
+    setLineaParkKey(data.tokens[0])
   }
 
   useEffect(() => {
