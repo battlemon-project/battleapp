@@ -165,6 +165,16 @@ export default function BuyBoxPage() {
                 </div>
                 <div className="d-flex">
                   <div className="col col-auto">
+                    <img className="img-fluid" src="/images/rewards/Reward_Pts_med.png" alt="Reward_Pts_small" style={{height: '40px', width: '40px'}} />
+                  </div>
+                  <div className="col pt-2">
+                    <Tippy html={<div>Battlemon Points (BP)<br />TBA exchange for BTLN token</div>}>
+                      50 BP
+                    </Tippy>
+                  </div>
+                </div>
+                <div className="d-flex">
+                  <div className="col col-auto">
                     <img className="img-fluid" src="/images/rewards/Reward_Sticker.png" alt="Reward_Sticker" style={{height: '40px', width: '40px'}} />
                   </div>
                   <div className="col pt-2">
@@ -180,16 +190,6 @@ export default function BuyBoxPage() {
                   <div className="col pt-2">
                     <Tippy html={<div>Visit NFT Hub for mining<br />Gem using Pickaxe</div>}>
                       Pickaxe 1 Lvl
-                    </Tippy>
-                  </div>
-                </div>
-                <div className="d-flex">
-                  <div className="col col-auto">
-                    <img className="img-fluid" src="/images/rewards/Reward_Item.png" alt="Reward_Item" style={{height: '40px', width: '40px'}} />
-                  </div>
-                  <div className="col pt-2">
-                    <Tippy html={<div>Visit NFT Hub for equip<br />an Item on Lemon NFT</div>}>
-                      Item
                     </Tippy>
                   </div>
                 </div>

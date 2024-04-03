@@ -13,7 +13,6 @@ interface BuyBattleBoxProps {
 }
 
 export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
-  const { chain } = useNetwork();
   const { buyBattleBox, buyBattleBoxStatus, estimateGas } = useBuyBattleBox(5, false);
   const { setStatus, setBox, setPrize } = useBoxStore()
 
