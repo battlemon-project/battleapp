@@ -247,6 +247,13 @@ export const boxABI = [
     outputs: [],
   },
   {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'changeMaxLemonsAmount',
+    outputs: [],
+  },
+  {
     stateMutability: 'view',
     type: 'function',
     inputs: [],
@@ -1345,6 +1352,20 @@ export const goldenKeyABI = [
     type: 'event',
     anonymous: false,
     inputs: [
+      { name: 'to', internalType: 'address', type: 'address', indexed: false },
+      {
+        name: 'value',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'CallFailed',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
       {
         name: 'sender',
         internalType: 'address',
@@ -1565,6 +1586,7 @@ export const goldenKeyABI = [
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [
+      { name: '_referrals', internalType: 'address', type: 'address' },
       { name: '_points', internalType: 'address', type: 'address' },
       { name: '_box', internalType: 'address', type: 'address' },
       { name: '_tresuary', internalType: 'address', type: 'address' },
@@ -1756,6 +1778,13 @@ export const goldenKeyABI = [
     ],
   },
   {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'referrals',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
     stateMutability: 'nonpayable',
     type: 'function',
     inputs: [],
@@ -1805,6 +1834,13 @@ export const goldenKeyABI = [
   {
     stateMutability: 'nonpayable',
     type: 'function',
+    inputs: [{ name: 'newURI', internalType: 'string', type: 'string' }],
+    name: 'setBaseURI',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
     inputs: [
       { name: '_maxAmountPerWallet', internalType: 'uint256', type: 'uint256' },
       { name: '_pointsAmount', internalType: 'uint256', type: 'uint256' },
@@ -1844,7 +1880,7 @@ export const goldenKeyABI = [
     outputs: [{ name: '', internalType: 'string', type: 'string' }],
   },
   {
-    stateMutability: 'pure',
+    stateMutability: 'view',
     type: 'function',
     inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
     name: 'tokenURI',
@@ -6800,6 +6836,33 @@ export function useBoxBuyGreatBox<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"changeMaxLemonsAmount"`.
+ */
+export function useBoxChangeMaxLemonsAmount<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'changeMaxLemonsAmount'
+        >['request']['abi'],
+        'changeMaxLemonsAmount',
+        TMode
+      > & { functionName?: 'changeMaxLemonsAmount' }
+    : UseContractWriteConfig<typeof boxABI, 'changeMaxLemonsAmount', TMode> & {
+        abi?: never
+        functionName?: 'changeMaxLemonsAmount'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'changeMaxLemonsAmount', TMode>({
+    abi: boxABI,
+    functionName: 'changeMaxLemonsAmount',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"initialize"`.
  */
 export function useBoxInitialize<TMode extends WriteContractMode = undefined>(
@@ -7149,6 +7212,22 @@ export function usePrepareBoxBuyGreatBox(
     functionName: 'buyGreatBox',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, 'buyGreatBox'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"changeMaxLemonsAmount"`.
+ */
+export function usePrepareBoxChangeMaxLemonsAmount(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'changeMaxLemonsAmount'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'changeMaxLemonsAmount',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'changeMaxLemonsAmount'>)
 }
 
 /**
@@ -9883,6 +9962,25 @@ export function useGoldenKeyQuote<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"referrals"`.
+ */
+export function useGoldenKeyReferrals<
+  TFunctionName extends 'referrals',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'referrals',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"supportsInterface"`.
  */
 export function useGoldenKeySupportsInterface<
@@ -10280,6 +10378,33 @@ export function useGoldenKeySetApprovalForAll<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function useGoldenKeySetBaseUri<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'setBaseURI'
+        >['request']['abi'],
+        'setBaseURI',
+        TMode
+      > & { functionName?: 'setBaseURI' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'setBaseURI', TMode> & {
+        abi?: never
+        functionName?: 'setBaseURI'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'setBaseURI', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setConfig"`.
  */
 export function useGoldenKeySetConfig<
@@ -10621,6 +10746,22 @@ export function usePrepareGoldenKeySetApprovalForAll(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setBaseURI"`.
+ */
+export function usePrepareGoldenKeySetBaseUri(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setBaseURI'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'setBaseURI',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setBaseURI'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setConfig"`.
  */
 export function usePrepareGoldenKeySetConfig(
@@ -10761,6 +10902,22 @@ export function useGoldenKeyApprovalForAllEvent(
     eventName: 'ApprovalForAll',
     ...config,
   } as UseContractEventConfig<typeof goldenKeyABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"CallFailed"`.
+ */
+export function useGoldenKeyCallFailedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'CallFailed'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'CallFailed',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'CallFailed'>)
 }
 
 /**
