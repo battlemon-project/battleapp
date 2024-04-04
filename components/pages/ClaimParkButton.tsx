@@ -3,15 +3,14 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useLineaParkMint } from 'hooks/useLineaParkMint';
 import { useParkBalance } from 'hooks/useParkBalance';
-import { useAccount } from 'wagmi';
 
 interface ClaimParkProps {
-  chainId: number
+  chainId: number,
+  address: `0x${string}`
 }
 
-export default function ClaimParkButton({ chainId }: ClaimParkProps) {
-  const { address } = useAccount()
-  const { balance, refreshBalance } = useParkBalance()
+export default function ClaimParkButton({ chainId, address }: ClaimParkProps) {
+  const { balance, refreshBalance } = useParkBalance(address);
   const { parkMint, parkMintStatus, estimateGas } = useLineaParkMint();
 
 

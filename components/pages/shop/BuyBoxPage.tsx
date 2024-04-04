@@ -6,7 +6,6 @@ import { BoxType, PrizeType, prizes } from 'hooks/useBuyBox';
 import { SignInButton } from './buttons/SignInButton';
 import BoxScene from './scenes/BoxScene';
 import { useEffect, useState } from 'react';
-import { useAccount, useNetwork } from 'wagmi';
 import { decodeEventLog, parseAbi } from 'viem';
 import { useBoxStore } from './store/boxStore';
 import { useBoxPrices } from 'hooks/useBoxPrices';
@@ -14,8 +13,7 @@ import Tippy from 'components/inventory/layout/Tippy';
 import BuyBattleBox from './buttons/BuyBattleBox';
 
 export default function BuyBoxPage() {
-  const { address }  = useAccount();
-  const { chain } = useNetwork();
+  const { address, chain }  = useAuth();
   const [ warning, setWarning ] = useState<boolean>(false)
   const { prices: { Cheap, Good, Great }, symbol } = useBoxPrices()
   const [ startProgress, setStartProgress ] = useState<boolean>(false)
@@ -114,7 +112,7 @@ export default function BuyBoxPage() {
             </>}
             {chain.id !== 137 && <>
               <div className='col-md-3 col-6'>
-                <BuyBattleBox chainId={chain.id} />
+                {address && <BuyBattleBox chainId={chain.id} address={address} />}
               </div>
               <div className='col-md-3 col-6'>
                 <BuyBox boxType={BoxType.Cheap} chainId={chain.id} />

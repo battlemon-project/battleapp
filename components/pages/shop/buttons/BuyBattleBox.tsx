@@ -6,28 +6,30 @@ import { useParkBalance } from 'hooks/useParkBalance';
 import ParkKey from './ParkKey';
 import { NftMetaData } from 'lemon';
 import { useLineaParkIsApprovedForAll } from 'hooks/generated';
-import useAuth from 'context/AuthContext';
 import ParkApprove from './ParkApprove';
 import ParkBurn from './ParkBurn';
 import { useGoldenKeyGetAll } from 'hooks/useGoldenKeyGetAll';
+import Timer from 'components/layout/Timer';
+import GoldenKeysList from './GoldenKeysList';
+import ParkOpenWithGoldenKey from './ParkOpenWithGoldenKey';
 
 interface BuyBattleBoxProps {
   chainId: number
+  address: `0x${string}`
 }
 
-export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
+export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
   const contract = useContract('PARK')
   const boxesContract = useContract('BOXES')
-  const { address } = useAuth()
-  const { balance: parkBalance, refreshBalance } = useParkBalance()
-  const { allKeys, refreshAllKeys } = useGoldenKeyGetAll()
-  console.log(allKeys)
+  const { balance: parkBalance, refreshBalance } = useParkBalance(address)
+  const { allKeys, refreshAllKeys } = useGoldenKeyGetAll(address)
   const lineaParkIsApproved = useLineaParkIsApprovedForAll({
     address: contract!,
-    args: [address!, boxesContract!]
+    args: [address, boxesContract!]
   })
   const [ isApproved, setIsApproved ] = useState<boolean>(false)
   const [ lineaParkKey, setLineaParkKey ] = useState<NftMetaData | undefined>()
+  const [ goldenKey, setGoldenKey ] = useState<number | undefined>()
 
   useEffect(() => {
     if (lineaParkIsApproved?.data) {
@@ -52,8 +54,12 @@ export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
         {lineaParkKey?.tokenId && isApproved && <>
           <ParkBurn contract={boxesContract!} chainId={chainId} tokenId={lineaParkKey?.tokenId } setLineaParkKey={setLineaParkKey} />
         </>}
+                
+        {goldenKey && isApproved && <>
+          <ParkOpenWithGoldenKey contract={boxesContract!} chainId={chainId} tokenId={goldenKey} setGoldenKey={setGoldenKey} refreshAllKeys={refreshAllKeys}  />
+        </>}
 
-        {!lineaParkKey?.tokenId && <>
+        {(!lineaParkKey?.tokenId && !goldenKey) && <>
           <button type="button" className={cn('d-flex justify-content-center btn btn-default disabled', styles.buyBtn)}>
             <div className='d-flex'>
               <span className='fs-15'>SELECT KEY</span>
@@ -66,11 +72,7 @@ export default function BuyBattleBox({ chainId }: BuyBattleBoxProps) {
           </button>
           <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="btnGroupDrop1">
             {!!parkBalance && <ParkKey balance={parkBalance} chainId={chainId} contract={contract!} setLineaParkKey={setLineaParkKey} />}
-            {allKeys ? allKeys[0].map((id, index) => {
-              return Number(allKeys[1][index].nextBoxTimestamp) < 1 ? <li>
-                <a className="dropdown-item" href="#" onClick={() => {}}>Golden Key #{Number(id) % 10000000}</a>
-              </li> : <></>
-            }) : <></>}
+            {allKeys && Object.values(allKeys).length && <GoldenKeysList allKeys={allKeys} chainId={chainId} contract={contract!} setGoldenKey={setGoldenKey} />}
           </ul>
         </div>
       </div>

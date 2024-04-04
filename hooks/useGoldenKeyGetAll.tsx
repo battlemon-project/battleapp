@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import { useGoldenKeyGetAllKeys } from './generated';
-import { useAccount } from 'wagmi';
 import { useContract } from './useContract';
 
-export function useGoldenKeyGetAll() {
+export function useGoldenKeyGetAll(address: `0x${string}`) {
   const contract = useContract('KEY')
-  const { address }  = useAccount();
   
-  const allKeys = useGoldenKeyGetAllKeys( address && contract ? {
+  const allKeys = useGoldenKeyGetAllKeys(contract ? {
     address: contract,
     args: [address],
     onError: (error) => {
@@ -16,7 +14,7 @@ export function useGoldenKeyGetAll() {
   } : undefined)
 
   const refreshAllKeys = () => {
-    if (address && contract) {
+    if (contract) {
       allKeys?.refetch()
     }
   }
@@ -29,7 +27,14 @@ export function useGoldenKeyGetAll() {
   }, []);
   
   return {
-    allKeys: allKeys?.data,
+    allKeys: (allKeys?.data ? allKeys.data[1].map(({ nextPointsTimestamp, nextBoxTimestamp }, index) => {
+      const id = allKeys.data ? Number(allKeys.data[0][index]) : -1;
+      return ({ id, nextPointsTimestamp: Number(nextPointsTimestamp), nextBoxTimestamp: Number(nextBoxTimestamp) })
+    }) : []) as {
+      id: number;
+      nextPointsTimestamp: number;
+      nextBoxTimestamp: number;
+    }[],
     refreshAllKeys
   };
 }
