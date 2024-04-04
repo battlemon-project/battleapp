@@ -1,5 +1,5 @@
 import Layout from 'components/layout/Web3Layout';
-import ClaimPage from 'components/pages/ClaimPage';
+import GoldenKeyPage from 'components/pages/GoldenKeyPage';
 import Head from 'next/head';
 
 export default function Labs() {
@@ -9,7 +9,7 @@ export default function Labs() {
       <title>Battlemon Claim</title>
     </Head>
     <Layout>
-      <ClaimPage />
+      <GoldenKeyPage />
     </Layout>
   </>);
 };

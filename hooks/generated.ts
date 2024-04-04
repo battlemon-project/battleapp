@@ -121,6 +121,13 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'BATTLE_BOX_PRICE',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'CHEAP_BOX_PRICE',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
@@ -151,6 +158,16 @@ export const boxABI = [
     inputs: [],
     name: 'MAX_LEMONS_AMOUNT',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'requestId', internalType: 'bytes32', type: 'bytes32' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: '_buyBattleBoxCallback',
+    outputs: [],
   },
   {
     stateMutability: 'nonpayable',
@@ -197,6 +214,16 @@ export const boxABI = [
     outputs: [
       { name: '', internalType: 'contract IAirnodeRrpV0', type: 'address' },
     ],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'buyWithKey', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'buyBattleBox',
+    outputs: [],
   },
   {
     stateMutability: 'payable',
@@ -256,6 +283,13 @@ export const boxABI = [
     stateMutability: 'view',
     type: 'function',
     inputs: [],
+    name: 'keys',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
     name: 'largeAmount',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
   },
@@ -272,6 +306,13 @@ export const boxABI = [
     inputs: [],
     name: 'lemonsMinted',
     outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'lineaPark',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'view',
@@ -344,6 +385,15 @@ export const boxABI = [
     type: 'function',
     inputs: [{ name: 'prices', internalType: 'uint256[]', type: 'uint256[]' }],
     name: 'setConfig',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'addresses', internalType: 'address[]', type: 'address[]' },
+    ],
+    name: 'setKeysLineaParkAddresses',
     outputs: [],
   },
   {
@@ -1210,6 +1260,633 @@ export const gemABI = [
     type: 'function',
     inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
     name: 'transferOwnership',
+    outputs: [],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// GoldenKey
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const goldenKeyABI = [
+  { stateMutability: 'nonpayable', type: 'constructor', inputs: [] },
+  { type: 'error', inputs: [], name: 'InvalidDelegate' },
+  { type: 'error', inputs: [], name: 'InvalidEndpointCall' },
+  { type: 'error', inputs: [], name: 'LzTokenUnavailable' },
+  {
+    type: 'error',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'NoPeer',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'msgValue', internalType: 'uint256', type: 'uint256' }],
+    name: 'NotEnoughNative',
+  },
+  {
+    type: 'error',
+    inputs: [{ name: 'addr', internalType: 'address', type: 'address' }],
+    name: 'OnlyEndpoint',
+  },
+  {
+    type: 'error',
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32' },
+      { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'OnlyPeer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'approved',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Approval',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'owner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'operator',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      { name: 'approved', internalType: 'bool', type: 'bool', indexed: false },
+    ],
+    name: 'ApprovalForAll',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'sender',
+        internalType: 'address',
+        type: 'address',
+        indexed: false,
+      },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'nextBoxTimestamp',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+      {
+        name: 'nextPointsTimestamp',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: false,
+      },
+    ],
+    name: 'CrosschainTransfer',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'version', internalType: 'uint8', type: 'uint8', indexed: false },
+    ],
+    name: 'Initialized',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      {
+        name: 'previousOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+      {
+        name: 'newOwner',
+        internalType: 'address',
+        type: 'address',
+        indexed: true,
+      },
+    ],
+    name: 'OwnershipTransferred',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'eid', internalType: 'uint32', type: 'uint32', indexed: false },
+      {
+        name: 'peer',
+        internalType: 'bytes32',
+        type: 'bytes32',
+        indexed: false,
+      },
+    ],
+    name: 'PeerSet',
+  },
+  {
+    type: 'event',
+    anonymous: false,
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address', indexed: true },
+      { name: 'to', internalType: 'address', type: 'address', indexed: true },
+      {
+        name: 'tokenId',
+        internalType: 'uint256',
+        type: 'uint256',
+        indexed: true,
+      },
+    ],
+    name: 'Transfer',
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'MAX_TOKEN_SUPPLY',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'address', type: 'address' },
+      { name: '', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'addressToKeys',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'address', type: 'address' }],
+    name: 'addressToMintedAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      {
+        name: 'origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+    ],
+    name: 'allowInitializePath',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'approve',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'owner', internalType: 'address', type: 'address' }],
+    name: 'balanceOf',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'box',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'claimPoints',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'composeMsgSender',
+    outputs: [{ name: 'sender', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endTimestamp',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'endpoint',
+    outputs: [
+      {
+        name: '',
+        internalType: 'contract ILayerZeroEndpointV2',
+        type: 'address',
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
+    name: 'getAllKeys',
+    outputs: [
+      { name: '', internalType: 'uint256[]', type: 'uint256[]' },
+      {
+        name: '',
+        internalType: 'struct BattlemonGoldenKey.Metadata[]',
+        type: 'tuple[]',
+        components: [
+          {
+            name: 'nextBoxTimestamp',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+          {
+            name: 'nextPointsTimestamp',
+            internalType: 'uint256',
+            type: 'uint256',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_points', internalType: 'address', type: 'address' },
+      { name: '_box', internalType: 'address', type: 'address' },
+      { name: '_tresuary', internalType: 'address', type: 'address' },
+      { name: '_price', internalType: 'uint256', type: 'uint256' },
+      { name: '_endpoint', internalType: 'address', type: 'address' },
+      { name: 'startTokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'initialize',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: 'owner', internalType: 'address', type: 'address' },
+      { name: 'operator', internalType: 'address', type: 'address' },
+    ],
+    name: 'isApprovedForAll',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      {
+        name: '_origin',
+        internalType: 'struct Origin',
+        type: 'tuple',
+        components: [
+          { name: 'srcEid', internalType: 'uint32', type: 'uint32' },
+          { name: 'sender', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+        ],
+      },
+      { name: '_guid', internalType: 'bytes32', type: 'bytes32' },
+      { name: '_message', internalType: 'bytes', type: 'bytes' },
+      { name: '_executor', internalType: 'address', type: 'address' },
+      { name: '_extraData', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzReceive',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [
+      { name: 'dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'lzSend',
+    outputs: [
+      {
+        name: '',
+        internalType: 'struct MessagingReceipt',
+        type: 'tuple',
+        components: [
+          { name: 'guid', internalType: 'bytes32', type: 'bytes32' },
+          { name: 'nonce', internalType: 'uint64', type: 'uint64' },
+          {
+            name: 'fee',
+            internalType: 'struct MessagingFee',
+            type: 'tuple',
+            components: [
+              { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+              { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'maxAmountPerWallet',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'metadata',
+    outputs: [
+      { name: 'nextBoxTimestamp', internalType: 'uint256', type: 'uint256' },
+      { name: 'nextPointsTimestamp', internalType: 'uint256', type: 'uint256' },
+    ],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'name',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '', internalType: 'uint32', type: 'uint32' },
+      { name: '', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'nextNonce',
+    outputs: [{ name: 'nonce', internalType: 'uint64', type: 'uint64' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [],
+    name: 'oAppVersion',
+    outputs: [
+      { name: 'senderVersion', internalType: 'uint64', type: 'uint64' },
+      { name: 'receiverVersion', internalType: 'uint64', type: 'uint64' },
+    ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'sender', internalType: 'address', type: 'address' },
+    ],
+    name: 'openBattleBox',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'owner',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'ownerOf',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'eid', internalType: 'uint32', type: 'uint32' }],
+    name: 'peers',
+    outputs: [{ name: 'peer', internalType: 'bytes32', type: 'bytes32' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'points',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'pointsAmount',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'price',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [
+      { name: '_dstEid', internalType: 'uint32', type: 'uint32' },
+      { name: '_message', internalType: 'string', type: 'string' },
+      { name: '_options', internalType: 'bytes', type: 'bytes' },
+      { name: '_payInLzToken', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'quote',
+    outputs: [
+      {
+        name: 'fee',
+        internalType: 'struct MessagingFee',
+        type: 'tuple',
+        components: [
+          { name: 'nativeFee', internalType: 'uint256', type: 'uint256' },
+          { name: 'lzTokenFee', internalType: 'uint256', type: 'uint256' },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'payable',
+    type: 'function',
+    inputs: [{ name: 'amount', internalType: 'uint256', type: 'uint256' }],
+    name: 'safeMint',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+      { name: 'data', internalType: 'bytes', type: 'bytes' },
+    ],
+    name: 'safeTransferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'operator', internalType: 'address', type: 'address' },
+      { name: 'approved', internalType: 'bool', type: 'bool' },
+    ],
+    name: 'setApprovalForAll',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_maxAmountPerWallet', internalType: 'uint256', type: 'uint256' },
+      { name: '_pointsAmount', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'setConfig',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: '_delegate', internalType: 'address', type: 'address' }],
+    name: 'setDelegate',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: '_eid', internalType: 'uint32', type: 'uint32' },
+      { name: '_peer', internalType: 'bytes32', type: 'bytes32' },
+    ],
+    name: 'setPeer',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'interfaceId', internalType: 'bytes4', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ name: '', internalType: 'bool', type: 'bool' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'symbol',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'pure',
+    type: 'function',
+    inputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+    name: 'tokenURI',
+    outputs: [{ name: '', internalType: 'string', type: 'string' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'totalSupply',
+    outputs: [{ name: '', internalType: 'uint256', type: 'uint256' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [
+      { name: 'from', internalType: 'address', type: 'address' },
+      { name: 'to', internalType: 'address', type: 'address' },
+      { name: 'tokenId', internalType: 'uint256', type: 'uint256' },
+    ],
+    name: 'transferFrom',
+    outputs: [],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'newOwner', internalType: 'address', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [],
+    name: 'tresuary',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'nonpayable',
+    type: 'function',
+    inputs: [{ name: 'value', internalType: 'uint256', type: 'uint256' }],
+    name: 'withdraw',
     outputs: [],
   },
 ] as const
@@ -5398,6 +6075,25 @@ export function useBoxRead<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"BATTLE_BOX_PRICE"`.
+ */
+export function useBoxBattleBoxPrice<
+  TFunctionName extends 'BATTLE_BOX_PRICE',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'BATTLE_BOX_PRICE',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"CHEAP_BOX_PRICE"`.
  */
 export function useBoxCheapBoxPrice<
@@ -5588,6 +6284,25 @@ export function useBoxItemsMinted<
 }
 
 /**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"keys"`.
+ */
+export function useBoxKeys<
+  TFunctionName extends 'keys',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'keys',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"largeAmount"`.
  */
 export function useBoxLargeAmount<
@@ -5640,6 +6355,25 @@ export function useBoxLemonsMinted<
   return useContractRead({
     abi: boxABI,
     functionName: 'lemonsMinted',
+    ...config,
+  } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"lineaPark"`.
+ */
+export function useBoxLineaPark<
+  TFunctionName extends 'lineaPark',
+  TSelectData = ReadContractResult<typeof boxABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: boxABI,
+    functionName: 'lineaPark',
     ...config,
   } as UseContractReadConfig<typeof boxABI, TFunctionName, TSelectData>)
 }
@@ -5858,6 +6592,33 @@ export function useBoxWrite<
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyBattleBoxCallback"`.
+ */
+export function useBoxBuyBattleBoxCallback<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          '_buyBattleBoxCallback'
+        >['request']['abi'],
+        '_buyBattleBoxCallback',
+        TMode
+      > & { functionName?: '_buyBattleBoxCallback' }
+    : UseContractWriteConfig<typeof boxABI, '_buyBattleBoxCallback', TMode> & {
+        abi?: never
+        functionName?: '_buyBattleBoxCallback'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, '_buyBattleBoxCallback', TMode>({
+    abi: boxABI,
+    functionName: '_buyBattleBoxCallback',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBoxCallback"`.
  */
 export function useBoxBuyCheapBoxCallback<
@@ -5934,6 +6695,31 @@ export function useBoxBuyGreatBoxCallback<
   return useContractWrite<typeof boxABI, '_buyGreatBoxCallback', TMode>({
     abi: boxABI,
     functionName: '_buyGreatBoxCallback',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"buyBattleBox"`.
+ */
+export function useBoxBuyBattleBox<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'buyBattleBox'
+        >['request']['abi'],
+        'buyBattleBox',
+        TMode
+      > & { functionName?: 'buyBattleBox' }
+    : UseContractWriteConfig<typeof boxABI, 'buyBattleBox', TMode> & {
+        abi?: never
+        functionName?: 'buyBattleBox'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'buyBattleBox', TMode>({
+    abi: boxABI,
+    functionName: 'buyBattleBox',
     ...config,
   } as any)
 }
@@ -6116,6 +6902,37 @@ export function useBoxSetConfig<TMode extends WriteContractMode = undefined>(
 }
 
 /**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setKeysLineaParkAddresses"`.
+ */
+export function useBoxSetKeysLineaParkAddresses<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof boxABI,
+          'setKeysLineaParkAddresses'
+        >['request']['abi'],
+        'setKeysLineaParkAddresses',
+        TMode
+      > & { functionName?: 'setKeysLineaParkAddresses' }
+    : UseContractWriteConfig<
+        typeof boxABI,
+        'setKeysLineaParkAddresses',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'setKeysLineaParkAddresses'
+      } = {} as any,
+) {
+  return useContractWrite<typeof boxABI, 'setKeysLineaParkAddresses', TMode>({
+    abi: boxABI,
+    functionName: 'setKeysLineaParkAddresses',
+    ...config,
+  } as any)
+}
+
+/**
  * Wraps __{@link useContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setRequestParameters"`.
  */
 export function useBoxSetRequestParameters<
@@ -6207,6 +7024,22 @@ export function usePrepareBoxWrite<TFunctionName extends string>(
 }
 
 /**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyBattleBoxCallback"`.
+ */
+export function usePrepareBoxBuyBattleBoxCallback(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, '_buyBattleBoxCallback'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: '_buyBattleBoxCallback',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, '_buyBattleBoxCallback'>)
+}
+
+/**
  * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"_buyCheapBoxCallback"`.
  */
 export function usePrepareBoxBuyCheapBoxCallback(
@@ -6252,6 +7085,22 @@ export function usePrepareBoxBuyGreatBoxCallback(
     functionName: '_buyGreatBoxCallback',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, '_buyGreatBoxCallback'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"buyBattleBox"`.
+ */
+export function usePrepareBoxBuyBattleBox(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'buyBattleBox'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'buyBattleBox',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof boxABI, 'buyBattleBox'>)
 }
 
 /**
@@ -6364,6 +7213,25 @@ export function usePrepareBoxSetConfig(
     functionName: 'setConfig',
     ...config,
   } as UsePrepareContractWriteConfig<typeof boxABI, 'setConfig'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link boxABI}__ and `functionName` set to `"setKeysLineaParkAddresses"`.
+ */
+export function usePrepareBoxSetKeysLineaParkAddresses(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof boxABI, 'setKeysLineaParkAddresses'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: boxABI,
+    functionName: 'setKeysLineaParkAddresses',
+    ...config,
+  } as UsePrepareContractWriteConfig<
+    typeof boxABI,
+    'setKeysLineaParkAddresses'
+  >)
 }
 
 /**
@@ -8538,6 +9406,1441 @@ export function useGemTransferEvent(
     eventName: 'Transfer',
     ...config,
   } as UseContractEventConfig<typeof gemABI, 'Transfer'>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__.
+ */
+export function useGoldenKeyRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"MAX_TOKEN_SUPPLY"`.
+ */
+export function useGoldenKeyMaxTokenSupply<
+  TFunctionName extends 'MAX_TOKEN_SUPPLY',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'MAX_TOKEN_SUPPLY',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"addressToKeys"`.
+ */
+export function useGoldenKeyAddressToKeys<
+  TFunctionName extends 'addressToKeys',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'addressToKeys',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"addressToMintedAmount"`.
+ */
+export function useGoldenKeyAddressToMintedAmount<
+  TFunctionName extends 'addressToMintedAmount',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'addressToMintedAmount',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"allowInitializePath"`.
+ */
+export function useGoldenKeyAllowInitializePath<
+  TFunctionName extends 'allowInitializePath',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'allowInitializePath',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"balanceOf"`.
+ */
+export function useGoldenKeyBalanceOf<
+  TFunctionName extends 'balanceOf',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'balanceOf',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"box"`.
+ */
+export function useGoldenKeyBox<
+  TFunctionName extends 'box',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'box',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"composeMsgSender"`.
+ */
+export function useGoldenKeyComposeMsgSender<
+  TFunctionName extends 'composeMsgSender',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'composeMsgSender',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"endTimestamp"`.
+ */
+export function useGoldenKeyEndTimestamp<
+  TFunctionName extends 'endTimestamp',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'endTimestamp',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"endpoint"`.
+ */
+export function useGoldenKeyEndpoint<
+  TFunctionName extends 'endpoint',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'endpoint',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"getAllKeys"`.
+ */
+export function useGoldenKeyGetAllKeys<
+  TFunctionName extends 'getAllKeys',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'getAllKeys',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"getApproved"`.
+ */
+export function useGoldenKeyGetApproved<
+  TFunctionName extends 'getApproved',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"isApprovedForAll"`.
+ */
+export function useGoldenKeyIsApprovedForAll<
+  TFunctionName extends 'isApprovedForAll',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'isApprovedForAll',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"maxAmountPerWallet"`.
+ */
+export function useGoldenKeyMaxAmountPerWallet<
+  TFunctionName extends 'maxAmountPerWallet',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'maxAmountPerWallet',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"metadata"`.
+ */
+export function useGoldenKeyMetadata<
+  TFunctionName extends 'metadata',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'metadata',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"name"`.
+ */
+export function useGoldenKeyName<
+  TFunctionName extends 'name',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'name',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"nextNonce"`.
+ */
+export function useGoldenKeyNextNonce<
+  TFunctionName extends 'nextNonce',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'nextNonce',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"oAppVersion"`.
+ */
+export function useGoldenKeyOAppVersion<
+  TFunctionName extends 'oAppVersion',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'oAppVersion',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"owner"`.
+ */
+export function useGoldenKeyOwner<
+  TFunctionName extends 'owner',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'owner',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"ownerOf"`.
+ */
+export function useGoldenKeyOwnerOf<
+  TFunctionName extends 'ownerOf',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'ownerOf',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"peers"`.
+ */
+export function useGoldenKeyPeers<
+  TFunctionName extends 'peers',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'peers',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"points"`.
+ */
+export function useGoldenKeyPoints<
+  TFunctionName extends 'points',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'points',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"pointsAmount"`.
+ */
+export function useGoldenKeyPointsAmount<
+  TFunctionName extends 'pointsAmount',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'pointsAmount',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"price"`.
+ */
+export function useGoldenKeyPrice<
+  TFunctionName extends 'price',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'price',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"quote"`.
+ */
+export function useGoldenKeyQuote<
+  TFunctionName extends 'quote',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'quote',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"supportsInterface"`.
+ */
+export function useGoldenKeySupportsInterface<
+  TFunctionName extends 'supportsInterface',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'supportsInterface',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"symbol"`.
+ */
+export function useGoldenKeySymbol<
+  TFunctionName extends 'symbol',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'symbol',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"tokenURI"`.
+ */
+export function useGoldenKeyTokenUri<
+  TFunctionName extends 'tokenURI',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'tokenURI',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"totalSupply"`.
+ */
+export function useGoldenKeyTotalSupply<
+  TFunctionName extends 'totalSupply',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'totalSupply',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"tresuary"`.
+ */
+export function useGoldenKeyTresuary<
+  TFunctionName extends 'tresuary',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'tresuary',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__.
+ */
+export function useGoldenKeyWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          string
+        >['request']['abi'],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<typeof goldenKeyABI, TFunctionName, TMode> & {
+        abi?: never
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, TFunctionName, TMode>({
+    abi: goldenKeyABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"approve"`.
+ */
+export function useGoldenKeyApprove<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'approve'
+        >['request']['abi'],
+        'approve',
+        TMode
+      > & { functionName?: 'approve' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'approve', TMode> & {
+        abi?: never
+        functionName?: 'approve'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'approve', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'approve',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"claimPoints"`.
+ */
+export function useGoldenKeyClaimPoints<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'claimPoints'
+        >['request']['abi'],
+        'claimPoints',
+        TMode
+      > & { functionName?: 'claimPoints' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'claimPoints', TMode> & {
+        abi?: never
+        functionName?: 'claimPoints'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'claimPoints', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'claimPoints',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"initialize"`.
+ */
+export function useGoldenKeyInitialize<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'initialize'
+        >['request']['abi'],
+        'initialize',
+        TMode
+      > & { functionName?: 'initialize' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'initialize', TMode> & {
+        abi?: never
+        functionName?: 'initialize'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'initialize', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'initialize',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function useGoldenKeyLzReceive<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'lzReceive'
+        >['request']['abi'],
+        'lzReceive',
+        TMode
+      > & { functionName?: 'lzReceive' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'lzReceive', TMode> & {
+        abi?: never
+        functionName?: 'lzReceive'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'lzReceive', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function useGoldenKeyLzSend<TMode extends WriteContractMode = undefined>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'lzSend'
+        >['request']['abi'],
+        'lzSend',
+        TMode
+      > & { functionName?: 'lzSend' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'lzSend', TMode> & {
+        abi?: never
+        functionName?: 'lzSend'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'lzSend', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'lzSend',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"openBattleBox"`.
+ */
+export function useGoldenKeyOpenBattleBox<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'openBattleBox'
+        >['request']['abi'],
+        'openBattleBox',
+        TMode
+      > & { functionName?: 'openBattleBox' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'openBattleBox', TMode> & {
+        abi?: never
+        functionName?: 'openBattleBox'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'openBattleBox', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'openBattleBox',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"renounceOwnership"`.
+ */
+export function useGoldenKeyRenounceOwnership<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'renounceOwnership'
+        >['request']['abi'],
+        'renounceOwnership',
+        TMode
+      > & { functionName?: 'renounceOwnership' }
+    : UseContractWriteConfig<
+        typeof goldenKeyABI,
+        'renounceOwnership',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'renounceOwnership'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'renounceOwnership', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'renounceOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"safeMint"`.
+ */
+export function useGoldenKeySafeMint<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'safeMint'
+        >['request']['abi'],
+        'safeMint',
+        TMode
+      > & { functionName?: 'safeMint' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'safeMint', TMode> & {
+        abi?: never
+        functionName?: 'safeMint'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'safeMint', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'safeMint',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function useGoldenKeySafeTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'safeTransferFrom'
+        >['request']['abi'],
+        'safeTransferFrom',
+        TMode
+      > & { functionName?: 'safeTransferFrom' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'safeTransferFrom', TMode> & {
+        abi?: never
+        functionName?: 'safeTransferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'safeTransferFrom', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function useGoldenKeySetApprovalForAll<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'setApprovalForAll'
+        >['request']['abi'],
+        'setApprovalForAll',
+        TMode
+      > & { functionName?: 'setApprovalForAll' }
+    : UseContractWriteConfig<
+        typeof goldenKeyABI,
+        'setApprovalForAll',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'setApprovalForAll'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'setApprovalForAll', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setConfig"`.
+ */
+export function useGoldenKeySetConfig<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'setConfig'
+        >['request']['abi'],
+        'setConfig',
+        TMode
+      > & { functionName?: 'setConfig' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'setConfig', TMode> & {
+        abi?: never
+        functionName?: 'setConfig'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'setConfig', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'setConfig',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function useGoldenKeySetDelegate<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'setDelegate'
+        >['request']['abi'],
+        'setDelegate',
+        TMode
+      > & { functionName?: 'setDelegate' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'setDelegate', TMode> & {
+        abi?: never
+        functionName?: 'setDelegate'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'setDelegate', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function useGoldenKeySetPeer<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'setPeer'
+        >['request']['abi'],
+        'setPeer',
+        TMode
+      > & { functionName?: 'setPeer' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'setPeer', TMode> & {
+        abi?: never
+        functionName?: 'setPeer'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'setPeer', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'setPeer',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function useGoldenKeyTransferFrom<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'transferFrom'
+        >['request']['abi'],
+        'transferFrom',
+        TMode
+      > & { functionName?: 'transferFrom' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'transferFrom', TMode> & {
+        abi?: never
+        functionName?: 'transferFrom'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'transferFrom', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"transferOwnership"`.
+ */
+export function useGoldenKeyTransferOwnership<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'transferOwnership'
+        >['request']['abi'],
+        'transferOwnership',
+        TMode
+      > & { functionName?: 'transferOwnership' }
+    : UseContractWriteConfig<
+        typeof goldenKeyABI,
+        'transferOwnership',
+        TMode
+      > & {
+        abi?: never
+        functionName?: 'transferOwnership'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'transferOwnership', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'transferOwnership',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"withdraw"`.
+ */
+export function useGoldenKeyWithdraw<
+  TMode extends WriteContractMode = undefined,
+>(
+  config: TMode extends 'prepared'
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof goldenKeyABI,
+          'withdraw'
+        >['request']['abi'],
+        'withdraw',
+        TMode
+      > & { functionName?: 'withdraw' }
+    : UseContractWriteConfig<typeof goldenKeyABI, 'withdraw', TMode> & {
+        abi?: never
+        functionName?: 'withdraw'
+      } = {} as any,
+) {
+  return useContractWrite<typeof goldenKeyABI, 'withdraw', TMode>({
+    abi: goldenKeyABI,
+    functionName: 'withdraw',
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__.
+ */
+export function usePrepareGoldenKeyWrite<TFunctionName extends string>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, TFunctionName>,
+    'abi'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, TFunctionName>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"approve"`.
+ */
+export function usePrepareGoldenKeyApprove(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'approve'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'approve',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'approve'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"claimPoints"`.
+ */
+export function usePrepareGoldenKeyClaimPoints(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'claimPoints'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'claimPoints',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'claimPoints'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"initialize"`.
+ */
+export function usePrepareGoldenKeyInitialize(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'initialize'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'initialize',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'initialize'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"lzReceive"`.
+ */
+export function usePrepareGoldenKeyLzReceive(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'lzReceive'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'lzReceive',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'lzReceive'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"lzSend"`.
+ */
+export function usePrepareGoldenKeyLzSend(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'lzSend'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'lzSend',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'lzSend'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"openBattleBox"`.
+ */
+export function usePrepareGoldenKeyOpenBattleBox(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'openBattleBox'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'openBattleBox',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'openBattleBox'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"renounceOwnership"`.
+ */
+export function usePrepareGoldenKeyRenounceOwnership(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'renounceOwnership'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'renounceOwnership',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'renounceOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"safeMint"`.
+ */
+export function usePrepareGoldenKeySafeMint(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'safeMint'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'safeMint',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'safeMint'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"safeTransferFrom"`.
+ */
+export function usePrepareGoldenKeySafeTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'safeTransferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'safeTransferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'safeTransferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setApprovalForAll"`.
+ */
+export function usePrepareGoldenKeySetApprovalForAll(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setApprovalForAll'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'setApprovalForAll',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setConfig"`.
+ */
+export function usePrepareGoldenKeySetConfig(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setConfig'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'setConfig',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setConfig'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setDelegate"`.
+ */
+export function usePrepareGoldenKeySetDelegate(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setDelegate'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'setDelegate',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setDelegate'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"setPeer"`.
+ */
+export function usePrepareGoldenKeySetPeer(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setPeer'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'setPeer',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'setPeer'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"transferFrom"`.
+ */
+export function usePrepareGoldenKeyTransferFrom(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'transferFrom'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'transferFrom',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'transferFrom'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"transferOwnership"`.
+ */
+export function usePrepareGoldenKeyTransferOwnership(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'transferOwnership'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'transferOwnership',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'transferOwnership'>)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"withdraw"`.
+ */
+export function usePrepareGoldenKeyWithdraw(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof goldenKeyABI, 'withdraw'>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return usePrepareContractWrite({
+    abi: goldenKeyABI,
+    functionName: 'withdraw',
+    ...config,
+  } as UsePrepareContractWriteConfig<typeof goldenKeyABI, 'withdraw'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__.
+ */
+export function useGoldenKeyEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, TEventName>,
+    'abi'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"Approval"`.
+ */
+export function useGoldenKeyApprovalEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'Approval'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'Approval',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'Approval'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"ApprovalForAll"`.
+ */
+export function useGoldenKeyApprovalForAllEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'ApprovalForAll'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'ApprovalForAll',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'ApprovalForAll'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"CrosschainTransfer"`.
+ */
+export function useGoldenKeyCrosschainTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'CrosschainTransfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'CrosschainTransfer',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'CrosschainTransfer'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"Initialized"`.
+ */
+export function useGoldenKeyInitializedEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'Initialized'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'Initialized',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'Initialized'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"OwnershipTransferred"`.
+ */
+export function useGoldenKeyOwnershipTransferredEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'OwnershipTransferred'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'OwnershipTransferred',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'OwnershipTransferred'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"PeerSet"`.
+ */
+export function useGoldenKeyPeerSetEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'PeerSet'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'PeerSet',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'PeerSet'>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link goldenKeyABI}__ and `eventName` set to `"Transfer"`.
+ */
+export function useGoldenKeyTransferEvent(
+  config: Omit<
+    UseContractEventConfig<typeof goldenKeyABI, 'Transfer'>,
+    'abi' | 'eventName'
+  > = {} as any,
+) {
+  return useContractEvent({
+    abi: goldenKeyABI,
+    eventName: 'Transfer',
+    ...config,
+  } as UseContractEventConfig<typeof goldenKeyABI, 'Transfer'>)
 }
 
 /**

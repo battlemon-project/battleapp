@@ -1,7 +1,7 @@
 import { AnimationGroup, Nullable, Vector3 } from '@babylonjs/core';
 import { BoxType, PrizeType, StatusType } from 'hooks/useBuyBox';
 import { useEffect, useState } from 'react';
-import { ILoadedModel, Model, useScene } from 'react-babylonjs'
+import { Box, ILoadedModel, Model, useScene } from 'react-babylonjs'
 
 interface BoxModelProps { 
   name: string,
@@ -35,6 +35,14 @@ export const framesByPrize: {[key in BoxType]: {[key in PrizeType]?: number}} = 
     [PrizeType.GreatPickaxe]: 285,
     [PrizeType.Item]: 310,
     [PrizeType.Lemon]: 372,
+  },
+  [BoxType.Battle]: {
+    [PrizeType.SmallEthers]: 10,
+    [PrizeType.Lemon]: 72,
+    [PrizeType.SmallPoints]: 170,
+    [PrizeType.MediumPoints]: 191,
+    [PrizeType.Sticker]: 285,
+    [PrizeType.CheapPickaxe]: 310
   }
 }
 
@@ -44,6 +52,7 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
   const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/boxes/';
   const [ openAnimation, setOpenAnimation ] = useState<Nullable<AnimationGroup>>()
   const [ rollAnimation, setRollAnimation ] = useState<Nullable<AnimationGroup>>()
+  const [ bpAnimation, setBpAnimation ] = useState<Nullable<AnimationGroup>>()
   const scene = useScene();
 
   const onBoxLoaded = (model: ILoadedModel): void => {
@@ -52,6 +61,8 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
     setOpenAnimation(_openAnimation)
     const _rollAnimation = model.animationGroups!.find(x => x.name === 'roll');
     setRollAnimation(_rollAnimation)
+    const _bpAnimation = model.animationGroups!.find(x => x.name === 'bonus');
+    setBpAnimation(_bpAnimation)
   }
 
   useEffect(() => {
@@ -59,6 +70,7 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
     if (box == BoxType.Cheap && !name.includes('Basket1')) {
       openAnimation?.reset().stop();
       rollAnimation?.reset().stop();
+      bpAnimation?.reset().stop();
       return
     };
     if (box == BoxType.Good && !name.includes('Basket2')) {
@@ -71,34 +83,45 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
       rollAnimation?.reset().stop();
       return
     };
+    if (box == BoxType.Battle && !name.includes('Basket_4')) {
+      openAnimation?.reset().stop();
+      rollAnimation?.reset().stop();
+      return
+    };
 
     if (status == 'loading') {
       openAnimation?.reset();
       rollAnimation?.reset();
+      bpAnimation?.reset();
     }
   
     const time = {
       [BoxType.Cheap]: 12300,
       [BoxType.Good]: 14800,
       [BoxType.Great]: 14800,
+      [BoxType.Battle]: 14200,
     }
 
     if (status == 'process') {
       rollAnimation?.reset();
       openAnimation?.start(false, 1.2);
+      if (name.includes('Basket_4')) {
+        bpAnimation?.start(false, 1.2);
+      }
       timeout = setTimeout(() => {
         rollAnimation?.start(true, 1.2);
         console.log(rollAnimation)
       }, box ? time[box] : undefined)
-    }
+    }    
   }, [status])
 
   useEffect(() => {
     if (!prize) return
     console.log(prize, box, name)
-    if (box == BoxType.Cheap && !name.includes('Basket1')) return
-    if (box == BoxType.Good && !name.includes('Basket2')) return
-    if (box == BoxType.Great && !name.includes('Basket3')) return
+    if (box == BoxType.Cheap && !name.includes('Basket1')) return;
+    if (box == BoxType.Good && !name.includes('Basket2')) return;
+    if (box == BoxType.Great && !name.includes('Basket3')) return;
+    if (box == BoxType.Battle && !name.includes('Basket_4')) return;
 
     rollAnimation?.stop()
     rollAnimation?.start(false, 1, framesByPrize[box!][prize], framesByPrize[box!][prize])

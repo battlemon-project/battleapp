@@ -10,7 +10,8 @@ import { parsePrice } from 'utils/misc';
 export enum BoxType {
   Cheap = 'Cheap',
   Good = 'Good',
-  Great = 'Great'
+  Great = 'Great',
+  Battle = 'Battle'
 }
 
 export type StatusType = 'error' | 'success' | 'loading' | 'idle' | 'process'
@@ -88,7 +89,8 @@ export function useBuyBox(type: BoxType) {
   const methodsNames = {
     Cheap: useBoxBuyCheapBox,
     Good: useBoxBuyGoodBox,
-    Great: useBoxBuyGreatBox
+    Great: useBoxBuyGreatBox,
+    Battle: useBoxBuyCheapBox
   }
 
   const buyBox = address && methodsNames[type]({

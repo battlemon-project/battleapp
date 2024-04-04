@@ -10,12 +10,14 @@ import { SignInButton } from './shop/buttons/SignInButton';
 import ClaimParkButton from './ClaimParkButton';
 import { useChainModal } from '@rainbow-me/rainbowkit';
 import Timer from 'components/layout/Timer';
+import { useContract } from 'hooks/useContract';
+import useAuth from 'context/AuthContext';
 
 
 export default function ClaimPage() {
-  const { chain } = useNetwork();
+  const NEXT_PUBLIC_CONTRACT_PARK = useContract('PARK')
+  const { address, chain } = useAuth();
   const { openChainModal } = useChainModal();
-  const { isConnected } = useAccount();
   const [checkFollow, setCheckFollow] = useState(false);
   const [checkJoin, setCheckJoin] = useState(false);
   const [checkMint, setCheckMint] = useState(false);
@@ -38,7 +40,7 @@ export default function ClaimPage() {
   };
 
   useEffect(() => {
-    if (isConnected) {
+    if (address) {
       if (cookies.check_twitter) {
         setCheckFollow(true);
       }
@@ -53,7 +55,7 @@ export default function ClaimPage() {
       setCheckJoin(false);
       setCheckMint(false);
     }
-  }, [cookies, isConnected]);
+  }, [cookies, address]);
 
 
   return (<>
@@ -66,8 +68,8 @@ export default function ClaimPage() {
           <div className='order-md-2 mb-3'>
             <div className={`mt-4 ${styles.mint_container} ${checkMint ? '' : styles.mint_disabled}`}>
 
-              {isConnected ? <>
-                {chain?.name.includes('inea') ? <ClaimParkButton chainId={chain.id} /> : <>
+              {address ? <>
+                {chain && chain?.id !== 137 ? <ClaimParkButton chainId={chain.id} address={address} /> : <>
                   <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
                     Switch to Linea Network
                   </button>
@@ -92,7 +94,7 @@ export default function ClaimPage() {
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>
-              <div>{truncate(process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK, 8)}</div>
+              <div>{truncate(NEXT_PUBLIC_CONTRACT_PARK, 8)}</div>
             </div>
             <div className="d-flex justify-content-between mb-2">
               <b>Token Standard</b>

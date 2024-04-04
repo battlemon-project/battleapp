@@ -7,11 +7,16 @@ import { useChainModal } from '@rainbow-me/rainbowkit';
 import { SignInButton } from 'components/pages/shop/buttons/SignInButton';
 import Link from 'next/link';
 
-export default function MemoryTab() {
+
+interface MemoryTabProps {
+  address: `0x${string}`
+}
+
+export default function MemoryTab({ address }: MemoryTabProps) {
   const { chain } = useNetwork()
   const { isConnected } = useAccount();
   const { openChainModal } = useChainModal();
-  const { balance } = useParkBalance()
+  const { balance } = useParkBalance(address)
 
   return (
     <div className="row">

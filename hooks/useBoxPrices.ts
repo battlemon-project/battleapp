@@ -5,7 +5,8 @@ import { useNetwork } from 'wagmi';
 interface PricesType {
   Cheap: string,
   Good: string,
-  Great: string
+  Great: string,
+  Battle: string
 }
 
 export function useBoxPrices() {
@@ -14,7 +15,8 @@ export function useBoxPrices() {
   const [ prices, setPrices ] = useState<PricesType>({
     Cheap: process.env.NEXT_PUBLIC_PRICE_POLYGON_CHEAP_BOX!,
     Good: process.env.NEXT_PUBLIC_PRICE_POLYGON_GOOD_BOX!,
-    Great: process.env.NEXT_PUBLIC_PRICE_POLYGON_GREAT_BOX!
+    Great: process.env.NEXT_PUBLIC_PRICE_POLYGON_GREAT_BOX!,
+    Battle: process.env.NEXT_PUBLIC_PRICE_POLYGON_BATTLE_BOX!
   })
   const [ symbol, setSymbol ] = useState<string>('Matic')
   
@@ -25,7 +27,8 @@ export function useBoxPrices() {
       setPrices({
         Cheap: process.env.NEXT_PUBLIC_PRICE_POLYGON_CHEAP_BOX!,
         Good: process.env.NEXT_PUBLIC_PRICE_POLYGON_GOOD_BOX!,
-        Great: process.env.NEXT_PUBLIC_PRICE_POLYGON_GREAT_BOX!
+        Great: process.env.NEXT_PUBLIC_PRICE_POLYGON_GREAT_BOX!,
+        Battle: process.env.NEXT_PUBLIC_PRICE_POLYGON_BATTLE_BOX!
       })
       setSymbol('Matic')
     }
@@ -34,7 +37,8 @@ export function useBoxPrices() {
       setPrices({
         Cheap: process.env.NEXT_PUBLIC_PRICE_LINEA_CHEAP_BOX!,
         Good: process.env.NEXT_PUBLIC_PRICE_LINEA_GOOD_BOX!,
-        Great: process.env.NEXT_PUBLIC_PRICE_LINEA_GREAT_BOX!
+        Great: process.env.NEXT_PUBLIC_PRICE_LINEA_GREAT_BOX!,
+        Battle: process.env.NEXT_PUBLIC_PRICE_LINEA_BATTLE_BOX!
       })
       setSymbol('Eth')
     }

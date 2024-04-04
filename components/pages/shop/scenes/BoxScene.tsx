@@ -20,9 +20,15 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
   const { box, status, prize } = useBoxStore()
   const { width } = useWindowSize()
   const mounted = useIsMounted()
-  const [ positions, setPositions ] = useState<Vector3[]>([
+  const [ positions3, setPositions3 ] = useState<Vector3[]>([
     new Vector3(0, 0, -3),
-    new Vector3(0, 0, 0),
+    new Vector3(0, 0, 1),
+    new Vector3(0, 0, 3)
+  ])
+  const [ positions4, setPositions4 ] = useState<Vector3[]>([
+    new Vector3(0, 0, -3),
+    new Vector3(0, 0, -1),
+    new Vector3(0, 0, 1),
     new Vector3(0, 0, 3)
   ])
 
@@ -46,33 +52,63 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
     if (!width) return;
 
     if (width > 1400) {
-      setPositions([
+      setPositions3([
         new Vector3(-0.5, 0.1, -2.5),
         new Vector3(0, 0, 0),
         new Vector3(1.5, 0, 1.9)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0.1, -2.5),
+        new Vector3(-1.2, -0.1, -0.3),
+        new Vector3(0.2, 0, 0.9),
+        new Vector3(1.5, 0, 2.1)
+      ])
     } else if (width > 1200) {
-      setPositions([
+      setPositions3([
         new Vector3(-1.0, 0, -1.8),
         new Vector3(0, 0, 0),
         new Vector3(1.1, 0, 1.7)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0.1, -2.1),
+        new Vector3(-1.2, -0.1, -0.2),
+        new Vector3(0.2, 0, 0.7),
+        new Vector3(1.5, 0, 1.7)
+      ])
     } else if (width > 992) {
-      setPositions([
+      setPositions3([
         new Vector3(-1, 0, -1.5),
         new Vector3(0, 0, 0),
         new Vector3(1, 0, 1.5)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0.1, -1.7),
+        new Vector3(-1.2, -0.1, 0),
+        new Vector3(0.2, 0, 0.6),
+        new Vector3(1.5, 0.1, 1.15)
+      ])
     } else if (width > 768) {
-      setPositions([
+      setPositions3([
         new Vector3(-0.8, 0, -1.1),
         new Vector3(0, 0, 0),
         new Vector3(1, 0, 0.8)
       ])
+      setPositions4([
+        new Vector3(-0.9, 0, -1.1),
+        new Vector3(-1.2, -0.15, 0.24),
+        new Vector3(0.2, 0, 0.4),
+        new Vector3(1.5, 0.1, 0.55)
+      ])
     } else {
-      setPositions([
+      setPositions3([
         new Vector3(-1.6, 0, 0.5),
         new Vector3(0, -0.3, 0),
+        new Vector3(-0.6, 0, 1.2)
+      ])
+      setPositions4([
+        new Vector3(-0.9, -0.35, -0.03),
+        new Vector3(-1.6, 0, 0.8),
+        new Vector3(0, -0.3, 0.4),
         new Vector3(-0.6, 0, 1.2)
       ])
     }
@@ -97,9 +133,10 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
           />
           
           <Suspense>
-            <BoxModel name={ chainId == 137 ? 'Basket1_POL' : 'Basket1'} box={box} status={status} prize={prize} position={positions[0]} />
-            <BoxModel name={ chainId == 137 ? 'Basket2_POL' : 'Basket2'} box={box} status={status} prize={prize} position={positions[1]} />
-            <BoxModel name={ chainId == 137 ? 'Basket3_POL' : 'Basket3'} box={box} status={status} prize={prize} position={positions[2]} />
+            {chainId !== 137 && <BoxModel name={'Basket_4'} box={box} status={status} prize={prize} position={positions4[0]} />}
+            <BoxModel name={ chainId == 137 ? 'Basket1_POL' : 'Basket1'} box={box} status={status} prize={prize} position={chainId == 137 ? positions3[0] : positions4[1]} />
+            <BoxModel name={ chainId == 137 ? 'Basket2_POL' : 'Basket2'} box={box} status={status} prize={prize} position={chainId == 137 ? positions3[1] : positions4[2]} />
+            <BoxModel name={ chainId == 137 ? 'Basket3_POL' : 'Basket3'} box={box} status={status} prize={prize} position={chainId == 137 ? positions3[2] : positions4[3]} />
           </Suspense>
 
           {debug && <DebugLayer />}

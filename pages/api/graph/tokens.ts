@@ -19,6 +19,8 @@ export default async function handler (req: NextRequest) {
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES!,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_REFERRAL!,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_RAIDS!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PARK!,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_KEY!,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_GEMS!,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_STICKERS!,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS!,
@@ -26,7 +28,9 @@ export default async function handler (req: NextRequest) {
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_POINTS!,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_PICKAXES!,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_REFERRAL!,
-    process.env.NEXT_PUBLIC_CONTRACT_LINEA_RAIDS!
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_RAIDS!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK!,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_KEY!,
   ]
   const siwe = req.cookies.get('siwe')?.value
   const { address }  = await unsealData(siwe || '', ironOptions)

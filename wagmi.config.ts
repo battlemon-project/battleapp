@@ -13,6 +13,7 @@ import Shirt from '../evm-contracts/artifacts/contracts/merch/Shirt.sol/Battlemo
 import Hoodie from '../evm-contracts/artifacts/contracts/merch/Hoodie.sol/BattlemonHoodie.json'
 import Raids from '../evm-contracts/artifacts/contracts/BattlemonRaids.sol/BattlemonRaids.json'
 import LineaPark from '../evm-contracts/artifacts/contracts/BattlemonLineaPark.sol/BattlemonLineaPark.json'
+import GoldenKey from '../evm-contracts/artifacts/contracts/BattlemonGoldenKey.sol/BattlemonGoldenKey.json'
 
 
 import { Abi } from 'viem'
@@ -71,6 +72,10 @@ export default defineConfig({
     {
       name: 'LineaPark',
       abi: LineaPark.abi as Abi,
+    },
+    {
+      name: 'GoldenKey',
+      abi: GoldenKey.abi as Abi,
     }
   ],
   plugins: [

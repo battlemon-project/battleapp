@@ -3,16 +3,16 @@ import UnauthMemoryTab from "components/inventory/UnauthMemoryTab";
 import useAuth from "context/AuthContext";
 
 export default function HubMemoryPage() {
-  const { isSignedIn, isSupportedChain } = useAuth();
+  const { isSupportedChain, address } = useAuth();
 
   return (<div className="container">
     {(() => {
-      if (!isSignedIn) {
+      if (!address) {
         return <UnauthMemoryTab>PLEASE SIGN IN</UnauthMemoryTab>
       } else if (!isSupportedChain) {
         return <UnauthMemoryTab>PLEASE CHANGE NETWORK</UnauthMemoryTab>
       } else {
-        return <MemoryTab />
+        return <MemoryTab address={address} />
       }
     })()}
   </div>);
