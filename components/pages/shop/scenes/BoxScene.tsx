@@ -106,10 +106,10 @@ export default function BoxScene({ name, debug, chainId }: ItemSceneProps) {
         new Vector3(-0.6, 0, 1.2)
       ])
       setPositions4([
-        new Vector3(-0.9, -0.35, -0.4),
-        new Vector3(-1.6, 0, 0.7),
-        new Vector3(0, -0.3, 0.2),
-        new Vector3(-0.6, 0, 1.4)
+        new Vector3(-0.9, -0.35, -0.03),
+        new Vector3(-1.6, 0, 0.8),
+        new Vector3(0, -0.3, 0.4),
+        new Vector3(-0.6, 0, 1.2)
       ])
     }
   }, [width])

@@ -71,8 +71,10 @@ export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
           <button id="btnGroupDrop1" type="button" className="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           </button>
           <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="btnGroupDrop1">
-            {!!parkBalance && <ParkKey balance={parkBalance} chainId={chainId} contract={contract!} setLineaParkKey={setLineaParkKey} />}
-            {allKeys && Object.values(allKeys).length && <GoldenKeysList allKeys={allKeys} chainId={chainId} contract={contract!} setGoldenKey={setGoldenKey} />}
+            {/* {!!parkBalance && <ParkKey balance={parkBalance} chainId={chainId} contract={contract!} setLineaParkKey={setLineaParkKey} />} */}
+            {allKeys && Object.values(allKeys).length ? <GoldenKeysList allKeys={allKeys} chainId={chainId} contract={contract!} setGoldenKey={setGoldenKey} /> : <></>}
+            {/* {!parkBalance && (!allKeys || !Object.values(allKeys).length) ? <li><a className={`dropdown-item disabled`}>You have not KEY</a></li> : <></>} */}
+            {(!allKeys || !Object.values(allKeys).length) ? <li><a className={`dropdown-item disabled`}>You have not KEY</a></li> : <></>}
           </ul>
         </div>
       </div>

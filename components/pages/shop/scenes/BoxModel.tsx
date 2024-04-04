@@ -52,6 +52,7 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
   const baseUrl = (false && process.env.NEXT_PUBLIC_ASSETS || '') + '/models/boxes/';
   const [ openAnimation, setOpenAnimation ] = useState<Nullable<AnimationGroup>>()
   const [ rollAnimation, setRollAnimation ] = useState<Nullable<AnimationGroup>>()
+  const [ bpAnimation, setBpAnimation ] = useState<Nullable<AnimationGroup>>()
   const scene = useScene();
 
   const onBoxLoaded = (model: ILoadedModel): void => {
@@ -60,6 +61,8 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
     setOpenAnimation(_openAnimation)
     const _rollAnimation = model.animationGroups!.find(x => x.name === 'roll');
     setRollAnimation(_rollAnimation)
+    const _bpAnimation = model.animationGroups!.find(x => x.name === 'bonus');
+    setBpAnimation(_bpAnimation)
   }
 
   useEffect(() => {
@@ -67,6 +70,7 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
     if (box == BoxType.Cheap && !name.includes('Basket1')) {
       openAnimation?.reset().stop();
       rollAnimation?.reset().stop();
+      bpAnimation?.reset().stop();
       return
     };
     if (box == BoxType.Good && !name.includes('Basket2')) {
@@ -88,6 +92,7 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
     if (status == 'loading') {
       openAnimation?.reset();
       rollAnimation?.reset();
+      bpAnimation?.reset();
     }
   
     const time = {
@@ -100,6 +105,9 @@ export default function BoxModel({ name, box, status, prize, position }: BoxMode
     if (status == 'process') {
       rollAnimation?.reset();
       openAnimation?.start(false, 1.2);
+      if (name.includes('Basket_4')) {
+        bpAnimation?.start(false, 1.2);
+      }
       timeout = setTimeout(() => {
         rollAnimation?.start(true, 1.2);
         console.log(rollAnimation)

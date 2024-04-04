@@ -24,6 +24,10 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
   } else {
     providerUrl = `/api/graph/tokens?contract=${contract}`
   }
+  
+  if (type == 'park' && process.env.NEXT_PUBLIC_CONTRACT_LINEA_PARK?.toLocaleLowerCase() == contract.toLocaleLowerCase()) {
+    providerUrl = `/api/provider/park?contract=${contract}`
+  }
 
   // if (type == 'lemon') {
   //   providerUrl = `/api/graph/lemons?contract=${contract}`

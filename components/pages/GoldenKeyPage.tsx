@@ -12,7 +12,7 @@ import useAuth from 'context/AuthContext';
 import BuyGoldenKey from './shop/buttons/BuyGoldenKey';
 
 
-export default function KeyPage() {
+export default function GoldenKeyPage() {
   const NEXT_PUBLIC_CONTRACT_KEY = useContract('KEY')
   const { chain, address } = useAuth();
   const { openChainModal } = useChainModal();
@@ -58,7 +58,7 @@ export default function KeyPage() {
                 <SignInButton />
             </>}
           </div>
-          <a href={`https://element.market/assets/linea/${process.env.NEXT_PUBLIC_CONTRACT_LINEA_KEY}`} className="d-flex rounded-3 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
+          <a href={`https://element.market/assets/linea/0x534F9515875B0FA3103ea78031217632Cac8c3D0`} className="d-flex rounded-3 btn btn-primary w-100 mt-3 py-2 align-items-center justify-content-center fs-15" target='_blank'>
             <img src="https://element.market/resource/images/favicon-32.png" />
             <span>&nbsp; Battlemon Golden Key on Element &nbsp; </span>
           </a>

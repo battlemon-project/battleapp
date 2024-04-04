@@ -94,7 +94,7 @@ export default function BuyBoxPage() {
         </div>
       </div>
 
-      <div style={{height: '400px'}} key={chain?.id}>
+      <div style={{height: '400px', pointerEvents: 'none'}} key={chain?.id}>
         <BoxScene name='Basket_Chests_LP_oneReward' debug={false} chainId={chain?.id} />
       </div>
       {isSignedIn && isSupportedChain && chain ? <>
@@ -134,7 +134,7 @@ export default function BuyBoxPage() {
       </>}
 
       {symbol !== 'Matic' && <p className="mx-3 rounded-3 mb-4" style={{borderLeft: '5px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.1)', padding: '8px 15px', fontSize: '15px'}}>
-      Please note that an additional fee is applied as part of the game mechanics. This fee contributes to the Reward pool, covers payments for additional services, such as API3 and transaction fee on the Linea network for distributing rewards.
+      70% of the funds collected from the sale of “golden keys” will go to the LXP-Learning pool, most of which will be distributed among BP holders
       </p>}
 
       <div>

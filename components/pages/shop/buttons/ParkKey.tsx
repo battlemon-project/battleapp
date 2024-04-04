@@ -14,7 +14,7 @@ export default function ParkKey({ contract, chainId, balance, setLineaParkKey }:
   const { data, mutate } = useSWR(
     contract,
     simpleFetcher({ type: 'park', pageSize: 100, chainId }), 
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false, revalidateOnMount: false }
   )
 
   const handleSelect = (e: React.MouseEvent) => {
@@ -29,7 +29,7 @@ export default function ParkKey({ contract, chainId, balance, setLineaParkKey }:
   }, [balance])
 
   return (<>
-    {balance && data?.tokens && <li><a className="dropdown-item" href="#" onClick={handleSelect}>Linea Park NFT ({data?.tokens.length})</a></li>}
+    {balance && data?.tokens && <li><a className="dropdown-item" href="#" onClick={handleSelect}>Linea Park NFT</a></li>}
   </>
   );
 };
