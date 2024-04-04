@@ -49,7 +49,7 @@ export default async function handler (req: NextRequest) {
         pageKey: undefined, 
         totalCount: _result.data.total
       }
-      
+      result.ownedNfts = result.ownedNfts.filter(nft => nft.tokenId > 0);
       return NextResponse.json(result)
     } catch(e) {
       const message = e instanceof Error ? e.message + e.stack : String(e);
