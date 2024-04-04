@@ -31,7 +31,7 @@ export default function GoldenKeyPage() {
           
           <div className={cn('p-3 py-4 rounded-4 mb-4', shopStyles.lightBg)}>
             <p className="mb-1">Omnichain NFT with built-in Battlemon Points miner and the ability to open a special box once a day</p>
-            <p className="mb-3">70% of the funds collected from the sale of “golden keys” will go to the LXP-Learning pool, most of which will be distributed among BP holders</p>
+            <p className="mb-3">70% of the funds collected from the sale of “golden keys” will go to the LXP-L earning pool, most of which will be distributed among BP holders</p>
             
             <div className="d-flex justify-content-between mb-2">
               <b>Contract Address</b>

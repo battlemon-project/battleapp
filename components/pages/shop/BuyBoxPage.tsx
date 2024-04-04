@@ -134,7 +134,7 @@ export default function BuyBoxPage() {
       </>}
 
       {symbol !== 'Matic' && <p className="mx-3 rounded-3 mb-4" style={{borderLeft: '5px solid rgba(255,255,255,0.4)', background: 'rgba(255,255,255,0.1)', padding: '8px 15px', fontSize: '15px'}}>
-      70% of the funds collected from the sale of “golden keys” will go to the LXP-Learning pool, most of which will be distributed among BP holders
+      70% of the funds collected from the sale of “golden keys” will go to the LXP-L earning pool, most of which will be distributed among BP holders
       </p>}
 
       <div>
