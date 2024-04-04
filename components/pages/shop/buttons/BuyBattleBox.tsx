@@ -55,9 +55,9 @@ export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
           <ParkBurn contract={boxesContract!} chainId={chainId} tokenId={lineaParkKey?.tokenId } setLineaParkKey={setLineaParkKey} />
         </>}
                 
-        {goldenKey && isApproved && <>
+        {goldenKey !== undefined ? <>
           <ParkOpenWithGoldenKey contract={boxesContract!} chainId={chainId} tokenId={goldenKey} setGoldenKey={setGoldenKey} refreshAllKeys={refreshAllKeys}  />
-        </>}
+        </> : <></>}
 
         {(!lineaParkKey?.tokenId && !goldenKey) && <>
           <button type="button" className={cn('d-flex justify-content-center btn btn-default disabled', styles.buyBtn)}>
