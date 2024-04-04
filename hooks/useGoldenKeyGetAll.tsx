@@ -30,7 +30,7 @@ export function useGoldenKeyGetAll(address: `0x${string}`) {
     allKeys: (allKeys?.data ? allKeys.data[1].map(({ nextPointsTimestamp, nextBoxTimestamp }, index) => {
       const id = allKeys.data ? Number(allKeys.data[0][index]) : -1;
       return ({ id, nextPointsTimestamp: Number(nextPointsTimestamp), nextBoxTimestamp: Number(nextBoxTimestamp) })
-    }) : []) as {
+    }) : []).filter(key => key.id > 0) as {
       id: number;
       nextPointsTimestamp: number;
       nextBoxTimestamp: number;
