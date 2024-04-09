@@ -15,7 +15,7 @@ import Timer from 'components/layout/Timer';
 
 export default function GoldenKeyPage() {
   const NEXT_PUBLIC_CONTRACT_KEY = useContract('KEY')
-  const { chain, address } = useAuth();
+  const { chain, address, isSupportedChain } = useAuth();
   const { openChainModal } = useChainModal();
 
   return (<>
@@ -58,7 +58,7 @@ export default function GoldenKeyPage() {
           </div>
           <div className='order-md-2 mb-3'>
             {address ? <>
-              {chain && chain?.id !== 137 ? <BuyGoldenKey chain={chain} contract={NEXT_PUBLIC_CONTRACT_KEY!} address={address} /> : <>
+              {isSupportedChain && chain && chain?.id !== 137 ? <BuyGoldenKey chain={chain} contract={NEXT_PUBLIC_CONTRACT_KEY!} address={address} /> : <>
                 <button className='btn btn-lg btn-outline-light w-100' onClick={openChainModal} type="button">
                   Switch to Linea Network
                 </button>
