@@ -10,14 +10,14 @@ export function useGoldenKeyMint(address: `0x${string}`, contract: `0x${string}`
   const publicClient = usePublicClient()
   const [ status, setStatus ] = useState<StatusType>('idle')
   const fee = useFeeData()
-  const batchPrice = (Number(price) * (count || 1)).toString();
+  const batchPrice = parsePrice(price) * BigInt(count || 1);
 
   const estimateGas = async () => {
     const gas = await publicClient.estimateContractGas({
       address: contract,
       abi: goldenKeyABI,
       functionName: 'safeMint',
-      value: parsePrice(batchPrice),
+      value: batchPrice,
       account: address,
       args: [BigInt(count || 1)],
     })
@@ -30,7 +30,7 @@ export function useGoldenKeyMint(address: `0x${string}`, contract: `0x${string}`
 
   const goldenKeyMint = useGoldenKeySafeMint({
     address: contract,
-    value: parsePrice(batchPrice),
+    value: batchPrice,
     args: [BigInt(count || 1)],
     onError: (error) => {
       let message = error.message;
