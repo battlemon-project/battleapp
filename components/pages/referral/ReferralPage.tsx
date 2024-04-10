@@ -41,7 +41,7 @@ export default function ReferralPage({ address }: { address: `0x${string}` }) {
         </div>
         <div className={cn('col-lg-7 col-12 position-relative mx-0')}>
           {refProgram.myReferral ? <>
-            <h5>Your Invited By: {truncate(refProgram.myReferral, 8)}</h5>
+            <h5>You are invited By: {truncate(refProgram.myReferral, 8)}</h5>
             <div className="mt-3" style={{background: 'rgba(0,0,0,0.9)', color: '#fff', border: '3px solid rgba(200,200,200,0.14)', borderRadius: '10px', padding: '10px 15px'}}>
               Congratulations!<br />
               You have a 5% discount for all purchases.<br />

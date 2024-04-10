@@ -17,7 +17,13 @@ export default function GemMergeButton({ selectedGems, chainId }: GemMergeProps)
   const handleGemMerge = async () => {
     estimateGas().then(({ gas, gasPrice }) => {
       setMergeStatus('loading')
-      gemMerge(chainId == 59144 ? {} : { gas, gasPrice })
+      gemMerge(chainId == 59144 ? {
+        gas: gas * BigInt(3),
+        gasPrice: gasPrice ? gasPrice * BigInt(1.1) : undefined 
+      } : { 
+        gas: gas * BigInt(3), 
+        gasPrice: gasPrice ? gasPrice * BigInt(2) : undefined 
+      })
     }).catch(e => {
       setMergeStatus('idle')
       let message = (e as any).message;

@@ -25,9 +25,9 @@ export function useGemMerge(gem0: number | undefined, gem1: number | undefined) 
       account: address as '0x',
       args: [BigInt(gem0 || 0), BigInt(gem1 || 0)],
     })
-    const gasPrice = fee?.data?.gasPrice ? fee?.data?.gasPrice * BigInt(2) : undefined
+    const gasPrice = fee?.data?.gasPrice || undefined
     return {
-      gas: gas * BigInt(3),
+      gas,
       gasPrice
     }
   }
