@@ -328,3 +328,7 @@ canvas {
 .token-link-list img[src^="/images/lineapark.jpg"] {
   padding: 10px;
 }
+
+.dropdown-menu[data-popper-placement="top-start"] div {
+  flex-direction: column-reverse !important;
+}

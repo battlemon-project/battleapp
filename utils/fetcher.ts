@@ -11,7 +11,8 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS,
-    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PARK
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PARK,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_KEY
   ].includes(contract)) {
     providerUrl = `/api/provider/tokens?contract=${contract}`
     storage = process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL;

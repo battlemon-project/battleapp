@@ -1,40 +1,37 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from 'react';
 import { NftMetaData } from 'lemon';
 import Timer from 'components/layout/Timer';
+import useSWR from 'swr';
+import { simpleFetcher } from 'utils/fetcher';
+import GoldenKey from './GoldenKey';
 
 interface GoldenKeysListProps {
-  allKeys: {
-    id: number;
-    nextPointsTimestamp: number;
-    nextBoxTimestamp: number;
-  }[]
+  balance: number
   chainId: number
   contract: `0x${string}`
   setGoldenKey: Dispatch<SetStateAction<number | undefined>>
+  readyKeys: Record<number, boolean | undefined>
+  setReadyKeys: Dispatch<SetStateAction<Record<number, boolean | undefined>>>
 }
 
-export default function GoldenKeysList({ contract, chainId, allKeys, setGoldenKey }: GoldenKeysListProps) {
-  const [ready, setReady] = useState<Record<number, boolean | undefined>>({})
+export default function GoldenKeysList({ balance, contract, chainId, setGoldenKey, readyKeys, setReadyKeys }: GoldenKeysListProps) {
+  const { data, mutate } = useSWR(
+    contract,
+    simpleFetcher({ type: 'key', pageSize: 20, chainId }), 
+    { revalidateOnFocus: false, revalidateOnMount: false }
+  )
 
-  const handleSelect = (id: number) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    setGoldenKey(id)
-  }
-
-  // useEffect(() => {
-  //   if (!allKeys) return;
-  //   setReady(allKeys[1].map(key => (Number(key.nextBoxTimestamp) * 1000 - Number(new Date())) < 0));
-  // }, [allKeys])
+  useEffect(() => {
+    if (!balance) return;
+    mutate()
+  }, [balance])
   
   return (<>
-    {allKeys ? allKeys.toSorted((a,b) => a.nextBoxTimestamp - b.nextBoxTimestamp).slice(0, 3).map(({ id, nextBoxTimestamp }) => {
-      return <li key={id}>
-        <a className={`dropdown-item ${!ready[id] && (Number(nextBoxTimestamp) * 1000 - Number(new Date())) >= 0 ? 'disabled' : '' }`} onClick={handleSelect(id)} href="#">Key #{id % 10000000} {!ready[id] && (Number(nextBoxTimestamp) * 1000 - Number(new Date())) >= 0 && <>(<Timer deadline={Number(nextBoxTimestamp) * 1000} key={id} onFinished={() => {
-          setReady({ ...ready, [id]: true});
-        }} />)</>}</a>
-      </li>
-    }) : <></>}
-    {allKeys.length > 5 ? <li><a className={`dropdown-item disabled`}>{allKeys.length - 5} {(allKeys.length - 5) > 1 ? 'keys are' : 'key is'} hidden</a></li> : <></> }
+    {data?.tokens.map(nft => {
+      return <Fragment key={`${nft.tokenId}-${readyKeys[nft.tokenId]}`}>
+        <GoldenKey id={nft.tokenId} contract={contract} setGoldenKey={setGoldenKey} readyKeys={readyKeys} setReadyKeys={setReadyKeys} />
+      </Fragment>
+    })}
   </>
   );
 };

@@ -11,10 +11,11 @@ interface ParkOpenWithGoldenKeyProps {
   chainId: number
   contract: `0x${string}`
   setGoldenKey: Dispatch<SetStateAction<number | undefined>>
-  refreshAllKeys: () => void
+  readyKeys: Record<number, boolean | undefined>
+  setReadyKeys: Dispatch<SetStateAction<Record<number, boolean | undefined>>>
 }
 
-export default function ParkOpenWithGoldenKey({ contract, tokenId, chainId, setGoldenKey, refreshAllKeys }: ParkOpenWithGoldenKeyProps) {
+export default function ParkOpenWithGoldenKey({ contract, tokenId, chainId, setGoldenKey, readyKeys, setReadyKeys }: ParkOpenWithGoldenKeyProps) {
   const { buyBattleBox, buyBattleBoxStatus, estimateGas } = useBuyBattleBox(contract, tokenId, true);
   const { setStatus, setBox, setPrize } = useBoxStore();
 
@@ -36,8 +37,11 @@ export default function ParkOpenWithGoldenKey({ contract, tokenId, chainId, setG
   useEffect(() => {
     setStatus(buyBattleBoxStatus)
     setBox(BoxType.Battle)
-    refreshAllKeys();
     if (buyBattleBoxStatus == 'success') {
+      setReadyKeys({
+        ...readyKeys,
+        [tokenId]: false
+      })
       setGoldenKey(undefined);
     }
   }, [buyBattleBoxStatus])

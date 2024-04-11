@@ -8,10 +8,9 @@ import { NftMetaData } from 'lemon';
 import { useLineaParkIsApprovedForAll } from 'hooks/generated';
 import ParkApprove from './ParkApprove';
 import ParkBurn from './ParkBurn';
-import { useGoldenKeyGetAll } from 'hooks/useGoldenKeyGetAll';
-import Timer from 'components/layout/Timer';
 import GoldenKeysList from './GoldenKeysList';
 import ParkOpenWithGoldenKey from './ParkOpenWithGoldenKey';
+import { useGoldenKeyBalance } from 'hooks/useGoldenKeyBalance';
 
 interface BuyBattleBoxProps {
   chainId: number
@@ -19,36 +18,38 @@ interface BuyBattleBoxProps {
 }
 
 export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
-  const contract = useContract('PARK')
+  const contractPark = useContract('PARK')
+  const contractKey = useContract('KEY')
   const boxesContract = useContract('BOXES')
-  const { balance: parkBalance, refreshBalance } = useParkBalance(address)
-  const { allKeys, refreshAllKeys } = useGoldenKeyGetAll(address)
+  const { balance: parkBalance, refreshBalance: refreshParkBalance } = useParkBalance(address)
+  const { balance: keyBalance } = useGoldenKeyBalance();
   const lineaParkIsApproved = useLineaParkIsApprovedForAll({
-    address: contract!,
+    address: contractPark!,
     args: [address, boxesContract!]
   })
   const [ isApproved, setIsApproved ] = useState<boolean>(false)
   const [ lineaParkKey, setLineaParkKey ] = useState<NftMetaData | undefined>()
   const [ goldenKey, setGoldenKey ] = useState<number | undefined>()
+  const [readyKeys, setReadyKeys] = useState<Record<number, boolean | undefined>>({})
 
   useEffect(() => {
     if (lineaParkIsApproved?.data) {
       setIsApproved(true);
     }
   }, [lineaParkIsApproved?.data])
-
+  
   useEffect(() => {
-    if (!lineaParkKey) {
-      refreshBalance?.()
+    if (!goldenKey) {
+      refreshParkBalance?.()
     }
-  }, [lineaParkKey])
+  }, [goldenKey])
 
   return (<>
     <div className="d-flex mb-4">
       <div className="btn-group w-100" role="group">
         
         {lineaParkKey?.tokenId && !isApproved && <>
-          <ParkApprove contract={contract!} chainId={chainId} setIsApproved={setIsApproved} boxesContract={boxesContract!} />
+          <ParkApprove contract={contractPark!} chainId={chainId} setIsApproved={setIsApproved} boxesContract={boxesContract!} />
         </>}
                 
         {lineaParkKey?.tokenId && isApproved && <>
@@ -56,7 +57,7 @@ export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
         </>}
                 
         {goldenKey !== undefined ? <>
-          <ParkOpenWithGoldenKey contract={boxesContract!} chainId={chainId} tokenId={goldenKey} setGoldenKey={setGoldenKey} refreshAllKeys={refreshAllKeys}  />
+          <ParkOpenWithGoldenKey contract={boxesContract!} chainId={chainId} tokenId={goldenKey} setGoldenKey={setGoldenKey} readyKeys={readyKeys} setReadyKeys={setReadyKeys}  />
         </> : <></>}
 
         {(!lineaParkKey?.tokenId && !goldenKey) && <>
@@ -70,11 +71,13 @@ export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
         <div className="btn-group" role="group">
           <button id="btnGroupDrop1" type="button" className="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           </button>
-          <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="btnGroupDrop1">
-            {/* {!!parkBalance && <ParkKey balance={parkBalance} chainId={chainId} contract={contract!} setLineaParkKey={setLineaParkKey} />} */}
-            {allKeys && Object.values(allKeys).length ? <GoldenKeysList allKeys={allKeys} chainId={chainId} contract={contract!} setGoldenKey={setGoldenKey} /> : <></>}
-            {/* {!parkBalance && (!allKeys || !Object.values(allKeys).length) ? <li><a className={`dropdown-item disabled`}>You have not KEY</a></li> : <></>} */}
-            {(!allKeys || !Object.values(allKeys).length) ? <li><a className={`dropdown-item disabled`}>You have not KEY</a></li> : <></>}
+          <ul className="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+            <div className="d-flex flex-column" style={{width: '200px'}}>
+              {/* {!!parkBalance && <ParkKey balance={parkBalance} chainId={chainId} contract={contractPark!} setLineaParkKey={setLineaParkKey} />} */}
+              {keyBalance ? <GoldenKeysList balance={keyBalance} chainId={chainId} contract={contractKey!} setGoldenKey={setGoldenKey} readyKeys={readyKeys} setReadyKeys={setReadyKeys} /> : <></>}
+              {/* {!parkBalance && !keyBalance ? <li><a className={`dropdown-item disabled`}>You have not KEY</a></li> : <></>} */}
+              {!keyBalance ? <li><a className={`dropdown-item disabled`}>You have not KEY</a></li> : <></>}
+            </div>
           </ul>
         </div>
       </div>
