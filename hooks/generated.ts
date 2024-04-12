@@ -1552,10 +1552,16 @@ export const goldenKeyABI = [
   {
     stateMutability: 'view',
     type: 'function',
-    inputs: [{ name: 'user', internalType: 'address', type: 'address' }],
-    name: 'getAllKeys',
+    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
+    name: 'getApproved',
+    outputs: [{ name: '', internalType: 'address', type: 'address' }],
+  },
+  {
+    stateMutability: 'view',
+    type: 'function',
+    inputs: [{ name: 'keys', internalType: 'uint256[]', type: 'uint256[]' }],
+    name: 'getMetadataBatch',
     outputs: [
-      { name: '', internalType: 'uint256[]', type: 'uint256[]' },
       {
         name: '',
         internalType: 'struct BattlemonGoldenKey.Metadata[]',
@@ -1574,13 +1580,6 @@ export const goldenKeyABI = [
         ],
       },
     ],
-  },
-  {
-    stateMutability: 'view',
-    type: 'function',
-    inputs: [{ name: 'tokenId', internalType: 'uint256', type: 'uint256' }],
-    name: 'getApproved',
-    outputs: [{ name: '', internalType: 'address', type: 'address' }],
   },
   {
     stateMutability: 'nonpayable',
@@ -9677,25 +9676,6 @@ export function useGoldenKeyEndpoint<
 }
 
 /**
- * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"getAllKeys"`.
- */
-export function useGoldenKeyGetAllKeys<
-  TFunctionName extends 'getAllKeys',
-  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
->(
-  config: Omit<
-    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
-    'abi' | 'functionName'
-  > = {} as any,
-) {
-  return useContractRead({
-    abi: goldenKeyABI,
-    functionName: 'getAllKeys',
-    ...config,
-  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
-}
-
-/**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"getApproved"`.
  */
 export function useGoldenKeyGetApproved<
@@ -9710,6 +9690,25 @@ export function useGoldenKeyGetApproved<
   return useContractRead({
     abi: goldenKeyABI,
     functionName: 'getApproved',
+    ...config,
+  } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link goldenKeyABI}__ and `functionName` set to `"getMetadataBatch"`.
+ */
+export function useGoldenKeyGetMetadataBatch<
+  TFunctionName extends 'getMetadataBatch',
+  TSelectData = ReadContractResult<typeof goldenKeyABI, TFunctionName>,
+>(
+  config: Omit<
+    UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>,
+    'abi' | 'functionName'
+  > = {} as any,
+) {
+  return useContractRead({
+    abi: goldenKeyABI,
+    functionName: 'getMetadataBatch',
     ...config,
   } as UseContractReadConfig<typeof goldenKeyABI, TFunctionName, TSelectData>)
 }
