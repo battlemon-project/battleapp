@@ -19,7 +19,7 @@ export default function GemMergeButton({ selectedGems, chainId }: GemMergeProps)
       setMergeStatus('loading')
       gemMerge(chainId == 59144 ? {
         gas: gas * BigInt(3),
-        gasPrice: gasPrice ? gasPrice * BigInt(1.1) : undefined 
+        gasPrice: gasPrice ? gasPrice : undefined 
       } : { 
         gas: gas * BigInt(3), 
         gasPrice: gasPrice ? gasPrice * BigInt(2) : undefined 
