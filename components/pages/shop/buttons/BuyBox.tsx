@@ -47,7 +47,7 @@ export default function BuyBox({ boxType, chainId }: BuyBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      { false ? <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.process]: buyBoxStatus == 'loading' })} onClick={handleBuyBox}>
+      { true ? <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.process]: buyBoxStatus == 'loading' })} onClick={handleBuyBox}>
         { buyBoxStatus == 'loading' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>

@@ -137,9 +137,9 @@ export default function BuyBoxPage() {
       70% of the funds collected from the sale of “golden keys” will go to the LXP-L earning pool, most of which will be distributed among BP holders
       </p>} */}
 
-      <p className="mx-3 rounded-3 mb-4 text-center" style={{borderLeft: '5px solid rgba(0,0,0,0.8)', background: 'rgba(0,0,0,0.4)', padding: '15px 25px', fontSize: '18px', color: '#f56464'}}>
+      {/* <p className="mx-3 rounded-3 mb-4 text-center" style={{borderLeft: '5px solid rgba(0,0,0,0.8)', background: 'rgba(0,0,0,0.4)', padding: '15px 25px', fontSize: '18px', color: '#f56464'}}>
         Attention, there are problems on the API3 side, we are waiting for the problem to be resolved.<br />Thank you for your patience.
-      </p>
+      </p> */}
 
       <div>
         <div className="row px-3">

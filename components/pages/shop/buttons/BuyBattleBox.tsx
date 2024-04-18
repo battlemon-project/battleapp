@@ -60,21 +60,21 @@ export default function BuyBattleBox({ chainId, address }: BuyBattleBoxProps) {
           <ParkOpenWithGoldenKey contract={boxesContract!} chainId={chainId} tokenId={goldenKey} setGoldenKey={setGoldenKey} readyKeys={readyKeys} setReadyKeys={setReadyKeys}  />
         </> : <></>}
 
-        {false && (!lineaParkKey?.tokenId && !goldenKey) ? <>
+        {true && (!lineaParkKey?.tokenId && !goldenKey) ? <>
           <button type="button" className={cn('d-flex justify-content-center btn btn-default disabled', styles.buyBtn)}>
             <div className='d-flex'>
               <span className='fs-15'>SELECT KEY</span>
             </div>
           </button>
         </> : <>
-          <button type="button" className={cn('d-flex justify-content-center btn btn-default disabled', styles.buyBtn)}>
+          {/* <button type="button" className={cn('d-flex justify-content-center btn btn-default disabled', styles.buyBtn)}>
             <div className='d-flex'>
               <span className='fs-15'>API3 IS DOWN, WAIT PLS</span>
             </div>
-          </button> 
+          </button>  */}
         </>}
 
-        {false ? <div className="btn-group" role="group">
+        {true ? <div className="btn-group" role="group">
           <button id="btnGroupDrop1" type="button" className="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
           </button>
           <ul className="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="btnGroupDrop1">
