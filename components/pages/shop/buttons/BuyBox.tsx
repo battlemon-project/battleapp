@@ -47,14 +47,20 @@ export default function BuyBox({ boxType, chainId }: BuyBoxProps) {
 
   return (<>
     <div className="d-flex mb-4">
-      <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.process]: buyBoxStatus == 'loading' })} onClick={handleBuyBox}>
+      { false ? <button className={cn('d-flex justify-content-center', styles.buyBtn, { [styles.process]: buyBoxStatus == 'loading' })} onClick={handleBuyBox}>
         { buyBoxStatus == 'loading' ? 
           <div className="spinner-border spinner-border-sm my-1" role="status"></div> :
           <div className='d-flex'>
             <span className='fs-15'><PolSymbol>{boxPrices[boxType]} {chain?.nativeCurrency.symbol}</PolSymbol></span>
           </div>
         }
-      </button>
+      </button> : <>
+      <button type="button" className={cn('d-flex justify-content-center btn btn-default disabled', styles.buyBtn)}>
+        <div className='d-flex'>
+          <span className='fs-15'>API3 IS DOWN, WAIT PLS</span>
+        </div>
+      </button> 
+      </>}
     </div>
   </>
   );
