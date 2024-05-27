@@ -33,7 +33,7 @@ export default async function handler (req: NextRequest) {
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_KEY!,
   ]
   const siwe = req.cookies.get('siwe')?.value
-  const { address }  = await unsealData(siwe || '', ironOptions)
+  const { address }: { address: string }  = await unsealData(siwe || '', ironOptions) 
 
   if (method == 'GET') {
     if (!contract || !contracts.includes(contract)) {
@@ -48,8 +48,8 @@ export default async function handler (req: NextRequest) {
       query GetNfts {
         nfts(filter: {
           chainId: {equalTo: "${chainId}"}
-          contract: {equalTo: "${contract}"},
-          owner: {id: {equalTo: "${address}"}}
+          contract: {equalTo: "${contract.toLocaleLowerCase()}"},
+          owner: {id: {equalTo: "${address.toLocaleLowerCase()}"}}
         }) {
           nodes {
             tokenId
