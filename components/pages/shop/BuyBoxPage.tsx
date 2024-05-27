@@ -40,7 +40,7 @@ export default function BuyBoxPage() {
     const query = `
       subscription {
         eventUsers(
-          id:"${address}_${chain.id}_box",
+          id:"${address.toLowerCase()}_${chain.id}_box",
         ) {
           id,
           _entity

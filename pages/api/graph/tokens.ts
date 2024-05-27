@@ -48,8 +48,8 @@ export default async function handler (req: NextRequest) {
       query GetNfts {
         nfts(filter: {
           chainId: {equalTo: "${chainId}"}
-          contract: {equalTo: "${contract.toLocaleLowerCase()}"},
-          owner: {id: {equalTo: "${address.toLocaleLowerCase()}"}}
+          contract: {equalTo: "${contract.toLowerCase()}"},
+          owner: {id: {equalTo: "${address.toLowerCase()}"}}
         }) {
           nodes {
             tokenId
