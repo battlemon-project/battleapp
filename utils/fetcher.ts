@@ -28,7 +28,7 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS
   ].includes(contract)) {
     return {
-      storageUrl: `https://files.battlemon.com/battlemonItem/`,
+      storageUrl: `https://files.battlemon.com/battlemonItems/`,
       providerUrl: `/api/graph/tokens?contract=${contract}`,
       dummyImage: `/images/hub/empty-${type}.png`
     }
