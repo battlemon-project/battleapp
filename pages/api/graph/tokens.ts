@@ -86,6 +86,9 @@ export default async function handler (req: NextRequest) {
       console.log(query)
       console.log(result.data.nfts.nodes)
       const ownedNfts = result.data.nfts.nodes.map(({ tokenId, tokenUri }: { tokenId: number, tokenUri: string }) => {
+        if (tokenUri.includes('v1/items')) {
+          tokenUri = `https://files.battlemon.com/battlemonItems/${tokenId}`
+        }
         return { tokenId, tokenUri }
       })
       

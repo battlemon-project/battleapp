@@ -6,8 +6,6 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
   let providerUrl: string | undefined = '';
   let storage: string | undefined;
   if ([
-    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS,
-    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_GEMS,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_PICKAXES,
     process.env.NEXT_PUBLIC_CONTRACT_POLYGON_STICKERS,
@@ -17,11 +15,23 @@ function tokenTypes(type: FetcherTypes, contract: string): ({ storageUrl: string
     providerUrl = `/api/provider/tokens?contract=${contract}`
     storage = process.env.NEXT_PUBLIC_STORAGE_POLYGON_URL;
   } else if ([
-    process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS,
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_LEMONS,
     process.env.NEXT_PUBLIC_CONTRACT_LINEA_LEMONS
   ].includes(contract)) {
-    providerUrl = `/api/graph/tokens?contract=${contract}`
-    storage = process.env.NEXT_PUBLIC_STORAGE_LINEA_URL;
+    return {
+      storageUrl: `https://files.battlemon.com/battlemon/`,
+      providerUrl: `/api/graph/tokens?contract=${contract}`,
+      dummyImage: `/images/hub/empty-${type}.png`
+    }
+  } else if ([
+    process.env.NEXT_PUBLIC_CONTRACT_POLYGON_ITEMS,
+    process.env.NEXT_PUBLIC_CONTRACT_LINEA_ITEMS
+  ].includes(contract)) {
+    return {
+      storageUrl: `https://files.battlemon.com/battlemonItem/`,
+      providerUrl: `/api/graph/tokens?contract=${contract}`,
+      dummyImage: `/images/hub/empty-${type}.png`
+    }
   } else {
     providerUrl = `/api/graph/tokens?contract=${contract}`
   }
