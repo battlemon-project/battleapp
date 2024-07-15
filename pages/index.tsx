@@ -196,7 +196,7 @@ const Home: NextPage = () => {
                       </h1>
                     </div>
                     <div className="offer__text">
-                      To the last drop of juice
+                      To the last drop of juice.
                     </div>
                     <div className="offer__buttons">
                       <Link href="/game" className="btn btn-yellow">
